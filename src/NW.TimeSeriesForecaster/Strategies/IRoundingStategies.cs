@@ -10,7 +10,7 @@ namespace NW.TimeSeriesForecaster
 
 /*
 
-    Author: rua@sitecore.net
+    Author: numbworks@gmail.com
     Last Update: 01.05.2018
 
 */

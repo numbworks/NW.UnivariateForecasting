@@ -199,7 +199,7 @@ namespace NW.TimeSeriesForecaster
 
 /*
 
-    Author: rua@sitecore.net
+    Author: numbworks@gmail.com
     Last Update: 25.04.2018
 
 */

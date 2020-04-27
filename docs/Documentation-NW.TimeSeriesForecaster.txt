@@ -1,0 +1,68 @@
+
+
+
+
+
+
+
+
+
+================================================================
+
+/*
+ *  Success:
+ *  
+ *  {
+ *      "ObservationDescription": "Managed Cloud, ExtendedCost",
+ *      "StepsAhead": 1,
+ *      "Duration": 6,
+ *      "IsSuccess": true,
+ *      "ErrorMessage": null,
+ *      "SlidingWindowId": "SWID<datetime>",
+ *      "TimeSeriesCollection": [
+ *                                    {
+ *                                         "ObservationName": "mc-7ab447dc-cbb5-4c27-a993-032e4291d199",
+ *                                         "TimeSeriesId": 1, 
+ *                                         "X_Actual": 635.69, 
+ *                                         "Y1_Forecasted": 612.27 
+ *                                         "TagCollection": "[ \"SubscriptionName=Sitecore Cloud - Western and Southern Financial Group - c1aafed5\", \"Currency=EUR\" ]"
+ *                                         },
+ *                                    {
+ *                                         "ObservationName": "mc-7ab447dc-cbb5-4c27-a993-032e4291d199",
+ *                                         "TimeSeriesId": 2, 
+ *                                         "X_Actual": 612.27, 
+ *                                         "Y1_Forecasted": 632.94
+ *                                         "TagCollection": "[ \"SubscriptionName=Sitecore Cloud - Western and Southern Financial Group - c1aafed5\", \"Currency=EUR\" ]"
+ *                                     },
+ *                                     ...
+ *                                     {
+ *                                         "ObservationName": "mc-7ab447dc-cbb5-4c27-a993-032e4291d199",
+ *                                         "TimeSeriesId": 7, 
+ *                                         "X_Actual": 568.34, 
+ *                                         "Y1_Forecasted": null
+ *                                         "TagCollection": "[ \"SubscriptionName=Sitecore Cloud - Western and Southern Financial Group - c1aafed5\", \"Currency=EUR\" ]"
+ *                                     }
+ *                               ],
+ *      "StartDate": "2017-09-01",
+ *      "EndDate": "2018-02-28",
+ *      "TargetDate": "2018-03-01",
+ *      "DurationUnit": "months"
+ * }
+ *
+ * Error:
+ *
+ * {
+ *      "ObservationDescription": "Managed Cloud, ExtendedCost",
+ *      "StepsAhead": 1,
+ *      "Duration": 6,
+ *      "IsSuccess": false,
+ *      "ErrorMessage": "<explanation of what happened>",
+ *      "SlidingWindowId": "SWID<datetime>",
+ *      "TimeSeriesCollection": null,
+ *      "StartDate": null,
+ *      "EndDate": null,
+ *      "TargetDate": null,
+ *      "DurationUnit": "months"
+ * }
+ * 
+ */
