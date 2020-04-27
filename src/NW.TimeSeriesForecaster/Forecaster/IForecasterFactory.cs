@@ -3,7 +3,7 @@
     public interface IForecasterFactory
     {
 
-        IForecaster Create(ushort uintStepsAhead);
+        IForecaster Create(ForecasterTypes forecasterType);
 
     }
 }
