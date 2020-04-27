@@ -9,11 +9,21 @@ namespace NW.TimeSeriesForecaster
     {
 
         // Fields
+        private double _defaultDenominator = 0.001;
+
         // Properties
-        public double AlternativeDenominator { get; } = 0.001;
+        public double AlternativeDenominator { get; private set; }
 
         // Constructors
-        public UnivariateValuesCalculator() { }
+        public UnivariateValuesCalculator(double alternativeDenominator = 0.001)
+        {
+            
+            if (alternativeDenominator < _defaultDenominator)
+                throw new ArgumentException($"{nameof(alternativeDenominator)} can't be less than {_defaultDenominator.ToString()}.");
+
+            AlternativeDenominator = alternativeDenominator;
+
+        }
 
         // Methods (public)
         public void CalculateValues
@@ -28,8 +38,8 @@ namespace NW.TimeSeriesForecaster
             forecastedObservation.C = CalculateC(listExceptTarget);
             forecastedObservation.E = CalculateE(listExceptTarget, forecastedObservation.C);
 
-            double dblCX = CalculateCX(forecastedObservation.C, forecastedObservation.X_Actual);
-            forecastedObservation.Y1_Forecasted = CalculateY1(dblCX, forecastedObservation.E);
+            double CX = CalculateCX(forecastedObservation.C, forecastedObservation.X_Actual);
+            forecastedObservation.Y1_Forecasted = CalculateY1(CX, forecastedObservation.E);
 
             if (rounderFunction != null)
             {
@@ -120,15 +130,15 @@ namespace NW.TimeSeriesForecaster
              * 
              */
 
-            double dblSum = 0;
+            double sum = 0;
             for (int i = 0; i < timeSeriesList.Count; i++)
-                dblSum += DivideXByY1(
+                sum += DivideXByY1(
                     timeSeriesList[i]);
 
-            return dblSum / timeSeriesList.Count;
+            return sum / timeSeriesList.Count;
 
         }
-        private double CalculateE(List<SlidingWindowTimeSeries> timeSeriesList, double c)
+        private double CalculateE(List<SlidingWindowTimeSeries> timeSeriesList, double C)
         {
 
             /*
@@ -165,7 +175,7 @@ namespace NW.TimeSeriesForecaster
             List<double> values = new List<double>();
             for (int i = 0; i < timeSeriesList.Count; i++)
                 values.Add(
-                    DivideXByY1(timeSeriesList[i]) - c);
+                    DivideXByY1(timeSeriesList[i]) - C);
 
             return CalculateMODE(values);
 
