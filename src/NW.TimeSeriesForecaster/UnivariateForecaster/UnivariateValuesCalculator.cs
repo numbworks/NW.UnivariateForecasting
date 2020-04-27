@@ -5,7 +5,7 @@ using System.Linq;
 namespace NW.TimeSeriesForecaster
 {
 
-    public class UnivariateForecastingCalculator : IUnivariateForecastingCalculator
+    public class UnivariateValuesCalculator : IUnivariateValuesCalculator
     {
 
         // Fields
@@ -13,7 +13,7 @@ namespace NW.TimeSeriesForecaster
         public double AlternativeDenominator { get; } = 0.001;
 
         // Constructors
-        public UnivariateForecastingCalculator() { }
+        public UnivariateValuesCalculator() { }
 
         // Methods (public)
         public void CalculateValues

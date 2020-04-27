@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NW.TimeSeriesForecaster
 {
-    public interface IUnivariateForecastingCalculator
+    public interface IUnivariateValuesCalculator
     {
 
         /// <summary>

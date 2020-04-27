@@ -8,34 +8,34 @@ namespace NW.TimeSeriesForecaster
     {
 
         // Fields
-        private IUnivariateForecastingCalculator _forecastingStrategies;
+        private IUnivariateValuesCalculator _forecastingStrategies;
         private IRoundingStategies _roundingStrategies;
         private ISlidingWindowManager _slidingWindowManager;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
-            IUnivariateForecastingCalculator forecastingStrategies,
+            IUnivariateValuesCalculator valuesCalculator,
             IRoundingStategies roundingStrategies,
             ISlidingWindowManager slidingWindowManager
             )
         {
 
-            if (forecastingStrategies == null)
-                throw new ArgumentNullException(nameof(forecastingStrategies));
+            if (valuesCalculator == null)
+                throw new ArgumentNullException(nameof(valuesCalculator));
             if (roundingStrategies == null)
                 throw new ArgumentNullException(nameof(roundingStrategies));
             if (slidingWindowManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowManager));
 
-            _forecastingStrategies = forecastingStrategies;
+            _forecastingStrategies = valuesCalculator;
             _roundingStrategies = roundingStrategies;
             _slidingWindowManager = slidingWindowManager;
 
         }
         public UnivariateForecaster() 
             : this(
-                  new UnivariateForecastingCalculator(), 
+                  new UnivariateValuesCalculator(), 
                   new RoundingStategies(),
                   new SlidingWindowManager()) { }
  
