@@ -1,4 +1,4 @@
-**Title:** NumbWorks.TimeSeriesForecaster<br>
+**Title:** NW.TimeSeriesForecaster<br>
 **Author:** numbworks@gmail.com<br>
 **Last Update:** 27.04.2020<br>
 **Description:**
