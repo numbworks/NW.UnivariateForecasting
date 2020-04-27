@@ -3,7 +3,11 @@
     public interface IForecasterFactory
     {
 
-        IUnivariateForecaster Create(ForecasterTypes forecasterType);
+        IUnivariateForecaster CreateUnivariateForecaster();
+        IUnivariateForecaster CreateUnivariateForecaster(
+                IUnivariateValuesCalculator valuesCalculator,
+                IRoundingStategies roundingStrategies,
+                ISlidingWindowManager slidingWindowManager);
 
     }
 }

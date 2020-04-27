@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NW.TimeSeriesForecaster
+﻿namespace NW.TimeSeriesForecaster
 {
     public class ForecasterFactory : IForecasterFactory
     {
@@ -11,15 +9,13 @@ namespace NW.TimeSeriesForecaster
         public ForecasterFactory() { }
 
         // Methods (public)
-        public IUnivariateForecaster Create(ForecasterTypes forecasterType)
-        {
-
-            if (forecasterType == ForecasterTypes.Univariate)
-                return new UnivariateForecaster();
-
-            throw new NotImplementedException($"The '{ForecasterTypes.Multivariate.ToString()}' forecaster hasn't been implemented yet.");
-
-        }
+        public IUnivariateForecaster CreateUnivariateForecaster()
+            => new UnivariateForecaster();
+        public IUnivariateForecaster CreateUnivariateForecaster(
+                IUnivariateValuesCalculator valuesCalculator,
+                IRoundingStategies roundingStrategies,
+                ISlidingWindowManager slidingWindowManager)
+            => new UnivariateForecaster(valuesCalculator, roundingStrategies, slidingWindowManager);
 
         // Methods (private)
 

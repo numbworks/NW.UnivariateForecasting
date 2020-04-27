@@ -17,8 +17,7 @@ namespace NW.TimeSeriesForecaster
         public UnivariateForecaster(
             IUnivariateValuesCalculator valuesCalculator,
             IRoundingStategies roundingStrategies,
-            ISlidingWindowManager slidingWindowManager
-            )
+            ISlidingWindowManager slidingWindowManager)
         {
 
             if (valuesCalculator == null)
