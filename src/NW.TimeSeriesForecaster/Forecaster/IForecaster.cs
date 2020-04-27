@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace NW.TimeSeriesForecaster
 {
@@ -8,7 +8,7 @@ namespace NW.TimeSeriesForecaster
         /// <summary>
         /// It obtains a List<ForecastedObservation*> out of the provided SlidingWindow object.
         /// </summary>
-        ArrayList GetForecastedObservations(SlidingWindow objSlidingWindow);
+        List<ForecastedObservationUnivariate> Do(SlidingWindow objSlidingWindow);
 
     }
 }
