@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace NW.TimeSeriesForecaster
 {
-    public class ForecasterUnivariate : IForecaster
+    public class UnivariateForecaster : IUnivariateForecaster
     {
 
         // Fields
-        private IForecastingStrategiesUnivariate _forecastingStrategies;
+        private IUnivariateForecastingCalculator _forecastingStrategies;
         private IRoundingStategies _roundingStrategies;
         private ISlidingWindowManager _slidingWindowManager;
 
         // Properties
         // Constructors
-        public ForecasterUnivariate(
-            IForecastingStrategiesUnivariate forecastingStrategies,
+        public UnivariateForecaster(
+            IUnivariateForecastingCalculator forecastingStrategies,
             IRoundingStategies roundingStrategies,
             ISlidingWindowManager slidingWindowManager
             )
@@ -33,14 +33,14 @@ namespace NW.TimeSeriesForecaster
             _slidingWindowManager = slidingWindowManager;
 
         }
-        public ForecasterUnivariate() 
+        public UnivariateForecaster() 
             : this(
-                  new ForecastingStrategiesUnivariate(), 
+                  new UnivariateForecastingCalculator(), 
                   new RoundingStategies(),
                   new SlidingWindowManager()) { }
  
         // Methods (public)
-        public List<ForecastedObservationUnivariate> Do(SlidingWindow slidingWindow)
+        public List<UnivariateForecastedObservation> Do(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
@@ -50,26 +50,26 @@ namespace NW.TimeSeriesForecaster
                 slidingWindow.TimeSeriesCollection.Select(Item => Item.ObservationName))
                 .ToList();
 
-            List<ForecastedObservationUnivariate> forecastedObservations = new List<ForecastedObservationUnivariate>();
+            List<UnivariateForecastedObservation> forecastedObservations = new List<UnivariateForecastedObservation>();
             for (int i = 0; i < observationNames.Count; i++)
             {
 
-                List<SlidingWindowTimeSeries> timeSeries = new List<SlidingWindowTimeSeries>();
-                timeSeries.AddRange(slidingWindow.TimeSeriesCollection);
-                timeSeries.RemoveAll(Item => Item.ObservationName != observationNames[i]);
+                List<SlidingWindowTimeSeries> timeSeriesList = new List<SlidingWindowTimeSeries>();
+                timeSeriesList.AddRange(slidingWindow.TimeSeriesCollection);
+                timeSeriesList.RemoveAll(Item => Item.ObservationName != observationNames[i]);
 
                 // The TagCollection is the same for a List<*TimeSeries> belonging to the same observation
-                string strTagCollection =
-                    (timeSeries
+                string tagCollection =
+                    (timeSeriesList
                     .Where(Item => Item.ObservationName == observationNames[i])
                     .First()).TagCollection;
 
-                ForecastedObservationUnivariate forecastedObservation 
+                UnivariateForecastedObservation forecastedObservation 
                     = Do(
                         observationNames[i],
                         slidingWindow.SlidingWindowId,
-                        timeSeries,
-                        strTagCollection);
+                        timeSeriesList,
+                        tagCollection);
 
                 forecastedObservations.Add(forecastedObservation);
 
@@ -80,14 +80,14 @@ namespace NW.TimeSeriesForecaster
         }
 
         // Methods (private)
-        private ForecastedObservationUnivariate Do
+        private UnivariateForecastedObservation Do
             (string observationName,
              string slidingWindowId,
              List<SlidingWindowTimeSeries> timeSeries,
              string tagCollection)
         {
 
-            ForecastedObservationUnivariate forecastedObservation = new ForecastedObservationUnivariate();
+            UnivariateForecastedObservation forecastedObservation = new UnivariateForecastedObservation();
             forecastedObservation.ObservationName = observationName;
             forecastedObservation.SlidingWindowId = slidingWindowId;
             forecastedObservation.TagCollection = tagCollection;

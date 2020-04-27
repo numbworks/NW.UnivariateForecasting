@@ -11,11 +11,11 @@ namespace NW.TimeSeriesForecaster
         public ForecasterFactory() { }
 
         // Methods (public)
-        public IForecaster Create(ForecasterTypes forecasterType)
+        public IUnivariateForecaster Create(ForecasterTypes forecasterType)
         {
 
             if (forecasterType == ForecasterTypes.Univariate)
-                return new ForecasterUnivariate();
+                return new UnivariateForecaster();
 
             throw new NotImplementedException($"The '{ForecasterTypes.Multivariate.ToString()}' forecaster hasn't been implemented yet.");
 

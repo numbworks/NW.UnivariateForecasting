@@ -1,6 +1,6 @@
 ﻿namespace NW.TimeSeriesForecaster
 {
-    public class ForecastedObservationUnivariate
+    public class UnivariateForecastedObservation
     {
 
         // Fields
@@ -14,7 +14,7 @@
         public string TagCollection { get; set; }
 
         // Constructors
-        public ForecastedObservationUnivariate() { }
+        public UnivariateForecastedObservation() { }
 
         // Methods (public)
         // Methods (private)

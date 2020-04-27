@@ -5,7 +5,7 @@ using System.Linq;
 namespace NW.TimeSeriesForecaster
 {
 
-    public class ForecastingStrategiesUnivariate : IForecastingStrategiesUnivariate
+    public class UnivariateForecastingCalculator : IUnivariateForecastingCalculator
     {
 
         // Fields
@@ -13,37 +13,37 @@ namespace NW.TimeSeriesForecaster
         public double AlternativeDenominator { get; } = 0.001;
 
         // Constructors
-        public ForecastingStrategiesUnivariate() { }
+        public UnivariateForecastingCalculator() { }
 
         // Methods (public)
         public void CalculateValues
-            (List<SlidingWindowTimeSeries> listTimeSeries,
-            ref ForecastedObservationUnivariate objForecasted,
-            Func<double, double> fRound = null)
+            (List<SlidingWindowTimeSeries> timeSeriesList,
+            ref UnivariateForecastedObservation forecastedObservation,
+            Func<double, double> rounderFunction = null)
         {
 
-            objForecasted.X_Actual = GetTargetXActual(listTimeSeries);
+            forecastedObservation.X_Actual = GetTargetXActual(timeSeriesList);
 
-            List<SlidingWindowTimeSeries> listExceptTarget = RemoveTargetXActual(listTimeSeries);
-            objForecasted.C = CalculateC(listExceptTarget);
-            objForecasted.E = CalculateE(listExceptTarget, objForecasted.C);
+            List<SlidingWindowTimeSeries> listExceptTarget = RemoveTargetXActual(timeSeriesList);
+            forecastedObservation.C = CalculateC(listExceptTarget);
+            forecastedObservation.E = CalculateE(listExceptTarget, forecastedObservation.C);
 
-            double dblCX = CalculateCX(objForecasted.C, objForecasted.X_Actual);
-            objForecasted.Y1_Forecasted = CalculateY1(dblCX, objForecasted.E);
+            double dblCX = CalculateCX(forecastedObservation.C, forecastedObservation.X_Actual);
+            forecastedObservation.Y1_Forecasted = CalculateY1(dblCX, forecastedObservation.E);
 
-            if (fRound != null)
+            if (rounderFunction != null)
             {
 
-                objForecasted.C = fRound(objForecasted.C);
-                objForecasted.E = fRound(objForecasted.E);
-                objForecasted.Y1_Forecasted = fRound(objForecasted.Y1_Forecasted);
+                forecastedObservation.C = rounderFunction(forecastedObservation.C);
+                forecastedObservation.E = rounderFunction(forecastedObservation.E);
+                forecastedObservation.Y1_Forecasted = rounderFunction(forecastedObservation.Y1_Forecasted);
 
             }
 
         }
 
         // Methods (private)
-        private double GetTargetXActual(List<SlidingWindowTimeSeries> listTimeSeries)
+        private double GetTargetXActual(List<SlidingWindowTimeSeries> timeSeriesList)
         {
 
             /*
@@ -61,13 +61,13 @@ namespace NW.TimeSeriesForecaster
              *      
              */
 
-            return listTimeSeries
+            return timeSeriesList
                     .Where(Item => Item.Y1_Forecasted == null)
                     .Select(Item => Item.X_Actual)
                     .Last();
 
         }
-        private List<SlidingWindowTimeSeries> RemoveTargetXActual(List<SlidingWindowTimeSeries> listTimeSeries)
+        private List<SlidingWindowTimeSeries> RemoveTargetXActual(List<SlidingWindowTimeSeries> timeSeriesList)
         {
 
             /*
@@ -85,14 +85,10 @@ namespace NW.TimeSeriesForecaster
              *      
              */
 
-            List<SlidingWindowTimeSeries> listExceptTarget = new List<SlidingWindowTimeSeries>();
-            listExceptTarget.AddRange(
-                listTimeSeries.Where(Item => Item.Y1_Forecasted != null));
-
-            return listExceptTarget;
+            return timeSeriesList.Where(Item => Item.Y1_Forecasted != null).ToList();
 
         }
-        private double CalculateC(List<SlidingWindowTimeSeries> listTimeSeries)
+        private double CalculateC(List<SlidingWindowTimeSeries> timeSeriesList)
         {
 
             /*
@@ -125,14 +121,14 @@ namespace NW.TimeSeriesForecaster
              */
 
             double dblSum = 0;
-            for (int i = 0; i < listTimeSeries.Count; i++)
+            for (int i = 0; i < timeSeriesList.Count; i++)
                 dblSum += DivideXByY1(
-                    listTimeSeries[i]);
+                    timeSeriesList[i]);
 
-            return dblSum / listTimeSeries.Count;
+            return dblSum / timeSeriesList.Count;
 
         }
-        private double CalculateE(List<SlidingWindowTimeSeries> listTimeSeries, double dblC)
+        private double CalculateE(List<SlidingWindowTimeSeries> timeSeriesList, double c)
         {
 
             /*
@@ -166,34 +162,36 @@ namespace NW.TimeSeriesForecaster
              * 
              */
 
-            List<double> listDivideXByY1MinusC = new List<double>();
-            for (int i = 0; i < listTimeSeries.Count; i++)
-                listDivideXByY1MinusC.Add(
-                    DivideXByY1(listTimeSeries[i]) - dblC);
+            List<double> values = new List<double>();
+            for (int i = 0; i < timeSeriesList.Count; i++)
+                values.Add(
+                    DivideXByY1(timeSeriesList[i]) - c);
 
-            return CalculateMODE(listDivideXByY1MinusC);
+            return CalculateMODE(values);
 
         }
-        private double CalculateCX(double dblC, double dblX) => dblC * dblX;
-        private double CalculateY1(double dblCX, double dblE) => dblCX + dblE;
-        private double DivideXByY1(SlidingWindowTimeSeries objTimeSeries)
+        private double CalculateCX(double C, double X) 
+            => C * X;
+        private double CalculateY1(double CX, double E) 
+            => CX + E;
+        private double DivideXByY1(SlidingWindowTimeSeries timeSeries)
         {
 
-            double dblX = objTimeSeries.X_Actual;
-            double dblY1 = (double)objTimeSeries.Y1_Forecasted;
+            double X = timeSeries.X_Actual;
+            double Y1 = (double)timeSeries.Y1_Forecasted;
 
-            if (dblY1 == 0)
-                dblY1 = AlternativeDenominator;
+            if (Y1 == 0)
+                Y1 = AlternativeDenominator;
 
-            return dblX / dblY1;
+            return X / Y1;
 
         }
-        private double CalculateMODE(List<double> listValues)
+        private double CalculateMODE(List<double> values)
         {
 
             /* "The MODE of a set of values is the value that appears most often." */
 
-            return listValues.GroupBy(value => value)
+            return values.GroupBy(value => value)
                              .OrderByDescending(group => group.Count())
                              .First()
                              .Key;

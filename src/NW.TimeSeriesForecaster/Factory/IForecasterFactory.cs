@@ -3,7 +3,7 @@
     public interface IForecasterFactory
     {
 
-        IForecaster Create(ForecasterTypes forecasterType);
+        IUnivariateForecaster Create(ForecasterTypes forecasterType);
 
     }
 }
