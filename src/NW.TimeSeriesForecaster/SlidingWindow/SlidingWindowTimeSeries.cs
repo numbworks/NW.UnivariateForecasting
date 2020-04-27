@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NW.TimeSeriesForecaster
+﻿namespace NW.TimeSeriesForecaster
 {
     public class SlidingWindowTimeSeries
     {
@@ -27,6 +25,6 @@ namespace NW.TimeSeriesForecaster
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 24.04.2018
+    Last Update: 28.04.2020
 
 */

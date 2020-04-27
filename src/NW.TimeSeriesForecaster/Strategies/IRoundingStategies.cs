@@ -11,6 +11,6 @@ namespace NW.TimeSeriesForecaster
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 01.05.2018
+    Last Update: 28.04.2020
 
 */

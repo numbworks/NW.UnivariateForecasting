@@ -5,9 +5,6 @@ namespace NW.TimeSeriesForecaster
     public interface IUnivariateForecaster
     {
 
-        /// <summary>
-        /// It obtains a List<ForecastedObservation*> out of the provided SlidingWindow object.
-        /// </summary>
         List<UnivariateForecastedObservation> Do(SlidingWindow objSlidingWindow);
 
     }
@@ -16,6 +13,6 @@ namespace NW.TimeSeriesForecaster
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2018
+    Last Update: 28.04.2020
 
 */
