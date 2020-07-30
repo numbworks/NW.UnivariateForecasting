@@ -15,6 +15,8 @@ namespace NW.UnivariateForecasting
 
         public static Func<string, string> NoStrategyToCalculateDateDifferenceUnit { get; }
             = (unitName) => $"There is no strategy to calculate the date difference for the provided {typeof(SlidingWindowIntervalUnits).Name} item: '{unitName}'.";
+        public static Func<string, string> NoStrategyToCalculateNextDateUnit { get; }
+            = (unitName) => $"There is no strategy to calculate the next date for the provided {typeof(SlidingWindowIntervalUnits).Name} item: '{unitName}'.";
 
     }
 }

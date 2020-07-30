@@ -1,8 +1,11 @@
-﻿namespace NW.UnivariateForecasting
+﻿using System;
+
+namespace NW.UnivariateForecasting
 {
     public interface ISlidingWindowManager
     {
         bool IsValid(SlidingWindow slidingWindow);
+        DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit);
     }
 }
 
