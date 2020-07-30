@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
     public interface ISlidingWindowManager
     {
         bool IsValid(SlidingWindow slidingWindow);
-        DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit);
+        DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit, int steps);
+        string CreateId(string prefix, DateTime date);
+        SlidingWindow CreateSlidingWindow
+            (string id, DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName);
     }
 }
 

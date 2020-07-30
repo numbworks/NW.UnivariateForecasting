@@ -8,6 +8,8 @@ namespace NW.UnivariateForecasting
 
         // Fields
         // Properties
+        public const string DefaultPrefix = "SW";
+
         // Constructors
         public SlidingWindowManager() { }
 
@@ -41,8 +43,11 @@ namespace NW.UnivariateForecasting
             return true;
 
         }
-        public DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit)
+        public DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit, int steps = 1)
         {
+
+            if (steps < 1)
+                throw new Exception(MessageCollection.StepsCantBeLessThanOne);
 
             if (intervalUnit == SlidingWindowIntervalUnits.Months)
                 return date.AddMonths(1);
@@ -50,8 +55,44 @@ namespace NW.UnivariateForecasting
             throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(intervalUnit.ToString()));
 
         }
+        public string CreateId(string prefix = DefaultPrefix, DateTime date = default(DateTime))
+        {
 
+            if (string.IsNullOrWhiteSpace(prefix))
+                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(prefix)));
+            if (date == default(DateTime))
+                date = DateTime.Now;
 
+            return $"{prefix}{date.ToString("yyyyMMddhhmmsss")}";
+
+        }
+        public SlidingWindow CreateSlidingWindow
+            (string id, DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
+        {
+
+            if (string.IsNullOrWhiteSpace(id))
+                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(id)));
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+            if (values.Count == 0)
+                throw new ArgumentNullException(nameof(values));
+            if (string.IsNullOrWhiteSpace(observationName))
+                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(observationName)));
+
+            SlidingWindow slidingWindow = new SlidingWindow();
+
+            slidingWindow.Id = id;
+            slidingWindow.StartDate = startDate;
+            slidingWindow.EndDate = CalculateNext(startDate, intervalUnit, values.Count);
+            slidingWindow.TargetDate = CalculateNext(slidingWindow.EndDate, intervalUnit);
+            slidingWindow.Interval = values.Count;
+            slidingWindow.IntervalUnit = intervalUnit;
+            slidingWindow.Items = CreateItems(startDate, values, intervalUnit);
+            slidingWindow.ObservatioName = observationName;
+
+            return slidingWindow;
+
+        }
 
         // Methods (private)
         private int CalculateDifference(DateTime date1, DateTime date2, SlidingWindowIntervalUnits intervalUnit)
@@ -76,6 +117,15 @@ namespace NW.UnivariateForecasting
             item.Y_Forecasted = nextValue;
 
             return item;
+
+        }
+        private List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit)
+        {
+
+            if (intervalUnit == SlidingWindowIntervalUnits.Months)
+                return CreateItemsIfMonths(startDate, values);
+
+            throw new Exception(MessageCollection.NoStrategyToCreateItemsUnit.Invoke(intervalUnit.ToString()));
 
         }
         private List<SlidingWindowItem> CreateItemsIfMonths(DateTime startDate, List<double> values)
@@ -161,7 +211,6 @@ namespace NW.UnivariateForecasting
             return items;
 
         }
-
 
     }
 }

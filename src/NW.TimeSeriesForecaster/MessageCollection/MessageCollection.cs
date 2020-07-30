@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
@@ -17,6 +18,12 @@ namespace NW.UnivariateForecasting
             = (unitName) => $"There is no strategy to calculate the date difference for the provided {typeof(SlidingWindowIntervalUnits).Name} item: '{unitName}'.";
         public static Func<string, string> NoStrategyToCalculateNextDateUnit { get; }
             = (unitName) => $"There is no strategy to calculate the next date for the provided {typeof(SlidingWindowIntervalUnits).Name} item: '{unitName}'.";
+        public static Func<string, string> NoStrategyToCreateItemsUnit { get; }
+            = (unitName) => $"There is no strategy to create a {typeof(List<SlidingWindowItem>).Name} object out of the provided {typeof(SlidingWindowIntervalUnits).Name} item: '{unitName}'.";
+        public static Func<string, string> StringCantBeEmptyOrNull { get; }
+            = (variableName) => $"'{variableName}' can't be empty or null.";
+        public static string StepsCantBeLessThanOne { get; }
+            = "Steps can't be less than one.";
 
     }
 }
