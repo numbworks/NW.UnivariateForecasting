@@ -7,9 +7,11 @@ namespace NW.UnivariateForecasting
 
         // Fields
         // Properties
-        public static string ProvidedSlidingWindowNotValid 
+        public static string ProvidedSlidingWindowNotValid { get; } 
             = "The provided SlidingWindow object is not valid.";
-
+        
+        public static Func<string, double, string> DenominatorCantBeLessThan { get; } 
+            = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
 
     }
 }

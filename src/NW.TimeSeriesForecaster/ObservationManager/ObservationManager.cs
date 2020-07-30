@@ -26,7 +26,7 @@ namespace NW.UnivariateForecasting
             if (slidingWindowManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowManager));
             if (denominator < DefaultDenominator)
-                throw new ArgumentException($"{nameof(denominator)} can't be less than {DefaultDenominator.ToString()}.");
+                throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(denominator), DefaultDenominator));
 
             _slidingWindowManager = slidingWindowManager;
             _denominator = denominator;

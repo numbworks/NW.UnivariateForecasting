@@ -6,12 +6,9 @@ namespace NW.UnivariateForecasting
     {
 
         /// <summary>
-        /// It calculate the unknown values in the following equation: Y1=F(X)+E => Y1=CX+E.
-        /// It assigns them to a given ForecastedObservationUnivariate object.
-        /// If fRound is defined, it gets used to round C, E and Y1_Forecasted.
-        /// <para>Explaination: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...]
-        /// which consists of observations on only a single characteristic or attribute.".</para>        
+        /// <para>It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.</para>
         /// </summary>
+        /// <param name="roundingFunction">If provided, the values get rounded accordingly.</param>
         Observation Create(
             SlidingWindow slidingWindow,
             Func<double, double> roundingFunction = null);
