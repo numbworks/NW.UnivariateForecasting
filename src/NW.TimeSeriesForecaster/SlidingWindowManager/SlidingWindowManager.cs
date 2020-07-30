@@ -93,6 +93,14 @@ namespace NW.UnivariateForecasting
             return slidingWindow;
 
         }
+        public SlidingWindow CreateSlidingWindow
+            (DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
+                => CreateSlidingWindow(
+                        CreateId(date: startDate),
+                        startDate,
+                        values,
+                        intervalUnit,
+                        observationName);
 
         // Methods (private)
         private int CalculateDifference(DateTime date1, DateTime date2, SlidingWindowIntervalUnits intervalUnit)
