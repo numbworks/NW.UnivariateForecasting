@@ -1,4 +1,5 @@
 ﻿using System;
+using NW.TimeSeriesForecaster;
 
 namespace NW.TimeSeriesForecasterClient
 {
@@ -6,7 +7,12 @@ namespace NW.TimeSeriesForecasterClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            UnivariateForecaster forecaster = new UnivariateForecaster();
+            
+
+            Console.ReadKey();
+
         }
     }
 }

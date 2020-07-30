@@ -1,0 +1,51 @@
+{
+	"ObservationDescription": "Cost",
+	"StepsAhead": 1,
+	"Duration": 6,
+	"IsSuccess": true,
+	"ErrorMessage": null,
+	"SlidingWindowId": "SWID20180508190158617",
+	"TimeSeriesCollection": [
+					{
+						"ObservationName": some_identifier",
+						"TimeSeriesId": 1, 
+						"X_Actual": 562.40, 
+						"Y1_Forecasted": 541.98
+					},
+					{
+						"ObservationName": some_identifier",
+						"TimeSeriesId": 2, 
+						"X_Actual": 541.98, 
+						"Y1_Forecasted": 559.47
+					},
+					{
+						"ObservationName": some_identifier",
+						"TimeSeriesId": 3, 
+						"X_Actual": 559.47, 
+						"Y1_Forecasted": 561.85
+					},
+					{
+						"ObservationName": some_identifier",
+						"TimeSeriesId": 4, 
+						"X_Actual": 561.85, 
+						"Y1_Forecasted": 507.13
+					},
+					{
+						"ObservationName": some_identifier",
+						"TimeSeriesId": 5, 
+						"X_Actual": 507.13, 
+						"Y1_Forecasted": 35.66
+					},
+					{
+						"ObservationName": some_identifier",
+						"TimeSeriesId": 6, 
+						"X_Actual": 35.66, 
+						"Y1_Forecasted": null
+					}
+				],
+	"StartDate": "2017-09-01",
+	"EndDate": "2018-03-01",
+	"TargetDate": "2018-04-01",
+	"DurationUnit": "months"
+
+}
