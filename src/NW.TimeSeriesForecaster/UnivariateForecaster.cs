@@ -8,42 +8,43 @@ namespace NW.UnivariateForecasting
     {
 
         // Fields
-        private IObservationManager _forecastingStrategies;
-        private IRoundingStategies _roundingStrategies;
+        private IObservationManager _observationManager;
+        private IStategyProvider _strategyProvider;
         private ISlidingWindowManager _slidingWindowManager;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
-            IObservationManager valuesCalculator,
-            IRoundingStategies roundingStrategies,
-            ISlidingWindowManager slidingWindowManager)
+            ISlidingWindowManager slidingWindowManager,
+            IObservationManager observationManager,
+            IStategyProvider strategyProvider)
         {
 
-            if (valuesCalculator == null)
-                throw new ArgumentNullException(nameof(valuesCalculator));
-            if (roundingStrategies == null)
-                throw new ArgumentNullException(nameof(roundingStrategies));
             if (slidingWindowManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowManager));
+            if (observationManager == null)
+                throw new ArgumentNullException(nameof(observationManager));
+            if (strategyProvider == null)
+                throw new ArgumentNullException(nameof(strategyProvider));
 
-            _forecastingStrategies = valuesCalculator;
-            _roundingStrategies = roundingStrategies;
             _slidingWindowManager = slidingWindowManager;
+            _observationManager = observationManager;
+            _strategyProvider = strategyProvider;
 
         }
         public UnivariateForecaster() 
             : this(
-                  new ObservationManager(), 
-                  new RoundingStategies(),
-                  new SlidingWindowManager()) { }
+                  new SlidingWindowManager(),
+                  new ObservationManager(new SlidingWindowManager()), 
+                  new StategyProvider()
+                  ) { }
  
         // Methods (public)
         public List<Observation> Do(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new Exception("The provided SlidingWindow object is not valid.");
+                throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
 
             List<string> observationNames = new HashSet<string>(
                 slidingWindow.Items.Select(Item => Item.ObservationName))
@@ -82,19 +83,17 @@ namespace NW.UnivariateForecasting
         private Observation Do
             (string observationName,
              string slidingWindowId,
-             List<SlidingWindowItem> timeSeries,
-             string tagCollection)
+             List<SlidingWindowItem> items)
         {
 
-            Observation forecastedObservation = new Observation();
-            forecastedObservation.Name = observationName;
-            forecastedObservation.SlidingWindowId = slidingWindowId;
-            forecastedObservation.TagCollection = tagCollection;
+            Observation observation = new Observation();
+            observation.Name = observationName;
+            observation.SlidingWindowId = slidingWindowId;
 
-            _forecastingStrategies.CalculateValues
-                (timeSeries, ref forecastedObservation, _roundingStrategies.GetTwoDecimalDigitStrategy());
+            _observationManager.CalculateValues
+                (items, ref observation, _strategyProvider.TwoDecimalDigitsRounding);
 
-            return forecastedObservation;
+            return observation;
 
         }
 
