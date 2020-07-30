@@ -1,14 +1,14 @@
 ﻿using System;
-using NW.TimeSeriesForecaster;
+using NW.UnivariateForecasting;
 
-namespace NW.TimeSeriesForecasterClient
+namespace NW.UnivariateForecastingClient
 {
     class Program
     {
         static void Main(string[] args)
         {
 
-            UnivariateForecaster forecaster = new UnivariateForecaster();
+            IUnivariateForecaster forecaster = new UnivariateForecaster();
             
 
             Console.ReadKey();

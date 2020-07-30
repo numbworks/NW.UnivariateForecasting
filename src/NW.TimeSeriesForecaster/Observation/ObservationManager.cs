@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NW.TimeSeriesForecaster
+namespace NW.UnivariateForecasting
 {
 
     public class ObservationManager : IObservationManager

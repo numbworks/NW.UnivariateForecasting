@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NW.TimeSeriesForecaster
+namespace NW.UnivariateForecasting
 {
     public class SlidingWindowItem
     {

@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Tests
+namespace NW.UnivariateForecasting.UnitTests
 {
     public class Tests
     {

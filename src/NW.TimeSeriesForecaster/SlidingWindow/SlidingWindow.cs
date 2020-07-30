@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NW.TimeSeriesForecaster
+namespace NW.UnivariateForecasting
 {
     public class SlidingWindow
     {

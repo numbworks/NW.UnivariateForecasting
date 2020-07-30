@@ -1,4 +1,4 @@
-﻿namespace NW.TimeSeriesForecaster
+﻿namespace NW.UnivariateForecasting
 {
     public interface ISlidingWindowManager
     {

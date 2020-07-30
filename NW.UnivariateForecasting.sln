@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecaster", "src\NW.TimeSeriesForecaster\NW.UnivariateForecaster.csproj", "{E0AC429E-7BB1-4B47-840F-A06136C83BDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting", "src\NW.TimeSeriesForecaster\NW.UnivariateForecasting.csproj", "{E0AC429E-7BB1-4B47-840F-A06136C83BDE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecaster.UnitTests", "tests\NW.TimeSeriesForecaster.UnitTests\NW.UnivariateForecaster.UnitTests.csproj", "{0413A358-91AE-4351-A792-96B7B2353075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting.UnitTests", "tests\NW.TimeSeriesForecaster.UnitTests\NW.UnivariateForecasting.UnitTests.csproj", "{0413A358-91AE-4351-A792-96B7B2353075}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasterClient", "src\NW.TimeSeriesForecasterClient\NW.UnivariateForecasterClient.csproj", "{8A08834A-C974-4377-85F9-E007724464D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecastingClient", "src\NW.TimeSeriesForecasterClient\NW.UnivariateForecastingClient.csproj", "{8A08834A-C974-4377-85F9-E007724464D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

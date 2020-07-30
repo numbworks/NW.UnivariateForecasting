@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NW.TimeSeriesForecaster
+namespace NW.UnivariateForecasting
 {
     public interface IUnivariateForecaster
     {

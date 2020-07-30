@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NW.TimeSeriesForecaster\NW.UnivariateForecaster.csproj" />
+    <ProjectReference Include="..\NW.TimeSeriesForecaster\NW.UnivariateForecasting.csproj" />
   </ItemGroup>
 
 </Project>
