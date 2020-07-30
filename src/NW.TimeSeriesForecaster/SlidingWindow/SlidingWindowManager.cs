@@ -15,17 +15,17 @@
             if (slidingWindow == null)
                 return false;
 
-            if (slidingWindow.ObservationDescription == null
+            if (slidingWindow.ObservatioName == null
                 && slidingWindow.StepsAhead == 0
-                && slidingWindow.Duration == 0
+                && slidingWindow.Interval == 0
                 && slidingWindow.IsSuccess == false
                 && slidingWindow.ErrorMessage == null
-                && slidingWindow.SlidingWindowId == null
-                && slidingWindow.TimeSeriesCollection == null
+                && slidingWindow.Id == null
+                && slidingWindow.Items == null
                 && slidingWindow.StartDate == null
                 && slidingWindow.EndDate == null
                 && slidingWindow.TargetDate == null
-                && slidingWindow.DurationUnit == null)
+                && slidingWindow.IntervalUnit == null)
                 return false;
 
             return true;

@@ -5,7 +5,7 @@ using System.Linq;
 namespace NW.TimeSeriesForecaster
 {
 
-    public class UnivariateValuesCalculator : IUnivariateValuesCalculator
+    public class ObservationManager : IObservationManager
     {
 
         // Fields
@@ -15,7 +15,7 @@ namespace NW.TimeSeriesForecaster
         public double AlternativeDenominator { get; private set; }
 
         // Constructors
-        public UnivariateValuesCalculator(double alternativeDenominator = 0.001)
+        public ObservationManager(double alternativeDenominator = 0.001)
         {
             
             if (alternativeDenominator < _defaultDenominator)
@@ -27,33 +27,33 @@ namespace NW.TimeSeriesForecaster
 
         // Methods (public)
         public void CalculateValues
-            (List<SlidingWindowTimeSeries> timeSeriesList,
-            ref UnivariateForecastedObservation forecastedObservation,
+            (List<SlidingWindowItem> timeSeriesList,
+            ref Observation forecastedObservation,
             Func<double, double> rounderFunction = null)
         {
 
             forecastedObservation.X_Actual = GetTargetXActual(timeSeriesList);
 
-            List<SlidingWindowTimeSeries> listExceptTarget = RemoveTargetXActual(timeSeriesList);
+            List<SlidingWindowItem> listExceptTarget = RemoveTargetXActual(timeSeriesList);
             forecastedObservation.C = CalculateC(listExceptTarget);
             forecastedObservation.E = CalculateE(listExceptTarget, forecastedObservation.C);
 
             double CX = CalculateCX(forecastedObservation.C, forecastedObservation.X_Actual);
-            forecastedObservation.Y1_Forecasted = CalculateY1(CX, forecastedObservation.E);
+            forecastedObservation.Y_Forecasted = CalculateY1(CX, forecastedObservation.E);
 
             if (rounderFunction != null)
             {
 
                 forecastedObservation.C = rounderFunction(forecastedObservation.C);
                 forecastedObservation.E = rounderFunction(forecastedObservation.E);
-                forecastedObservation.Y1_Forecasted = rounderFunction(forecastedObservation.Y1_Forecasted);
+                forecastedObservation.Y_Forecasted = rounderFunction(forecastedObservation.Y_Forecasted);
 
             }
 
         }
 
         // Methods (private)
-        private double GetTargetXActual(List<SlidingWindowTimeSeries> timeSeriesList)
+        private double GetTargetXActual(List<SlidingWindowItem> timeSeriesList)
         {
 
             /*
@@ -72,12 +72,12 @@ namespace NW.TimeSeriesForecaster
              */
 
             return timeSeriesList
-                    .Where(Item => Item.Y1_Forecasted == null)
+                    .Where(Item => Item.Y_Forecasted == null)
                     .Select(Item => Item.X_Actual)
                     .Last();
 
         }
-        private List<SlidingWindowTimeSeries> RemoveTargetXActual(List<SlidingWindowTimeSeries> timeSeriesList)
+        private List<SlidingWindowItem> RemoveTargetXActual(List<SlidingWindowItem> timeSeriesList)
         {
 
             /*
@@ -95,10 +95,10 @@ namespace NW.TimeSeriesForecaster
              *      
              */
 
-            return timeSeriesList.Where(Item => Item.Y1_Forecasted != null).ToList();
+            return timeSeriesList.Where(Item => Item.Y_Forecasted != null).ToList();
 
         }
-        private double CalculateC(List<SlidingWindowTimeSeries> timeSeriesList)
+        private double CalculateC(List<SlidingWindowItem> timeSeriesList)
         {
 
             /*
@@ -138,7 +138,7 @@ namespace NW.TimeSeriesForecaster
             return sum / timeSeriesList.Count;
 
         }
-        private double CalculateE(List<SlidingWindowTimeSeries> timeSeriesList, double C)
+        private double CalculateE(List<SlidingWindowItem> timeSeriesList, double C)
         {
 
             /*
@@ -184,11 +184,11 @@ namespace NW.TimeSeriesForecaster
             => C * X;
         private double CalculateY1(double CX, double E) 
             => CX + E;
-        private double DivideXByY1(SlidingWindowTimeSeries timeSeries)
+        private double DivideXByY1(SlidingWindowItem timeSeries)
         {
 
             double X = timeSeries.X_Actual;
-            double Y1 = (double)timeSeries.Y1_Forecasted;
+            double Y1 = (double)timeSeries.Y_Forecasted;
 
             if (Y1 == 0)
                 Y1 = AlternativeDenominator;

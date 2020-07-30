@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NW.TimeSeriesForecaster
 {
-    public interface IUnivariateValuesCalculator
+    public interface IObservationManager
     {
 
         /// <summary>
@@ -20,8 +20,8 @@ namespace NW.TimeSeriesForecaster
         /// which consists of observations on only a single characteristic or attribute.".</para>        
         /// </summary>
         void CalculateValues(
-            List<SlidingWindowTimeSeries> timeSeriesList,
-            ref UnivariateForecastedObservation forecastedObservation,
+            List<SlidingWindowItem> timeSeriesList,
+            ref Observation forecastedObservation,
             Func<double, double> roundingFunction = null);
 
     }

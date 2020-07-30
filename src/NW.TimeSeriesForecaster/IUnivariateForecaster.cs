@@ -5,7 +5,7 @@ namespace NW.TimeSeriesForecaster
     public interface IUnivariateForecaster
     {
 
-        List<UnivariateForecastedObservation> Do(SlidingWindow objSlidingWindow);
+        List<Observation> Do(SlidingWindow objSlidingWindow);
 
     }
 }

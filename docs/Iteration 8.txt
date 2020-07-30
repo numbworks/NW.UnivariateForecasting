@@ -1,0 +1,74 @@
+SlidingWindow
+	- Id			SWS001
+	- StartDate		2019-01-31	
+	- EndDate		2019-06-30
+	- TargetDate		2019-07-31
+	- Interval		6
+	- IntervalUnit		Months
+	- Items			6
+	- ObservationName	Some_Identifier
+
+
+List<SlidingWindowItem>
+
+	- SlidingWindowItem
+		- Id		1
+		- StartDate	2019-01-31	
+		- EndDate	2019-02-28
+		- TargetDate	2019-03-31
+		- X_Actual	58,50
+		- Y_Forecasted	615,26
+
+	- SlidingWindowItem
+		- Id		2
+		- StartDate	2019-02-28	
+		- EndDate	2019-03-31
+		- TargetDate	2019-04-30
+		- X_Actual	615,26
+		- Y_Forecasted	659,84
+
+	- SlidingWindowItem
+		- Id		3
+		- StartDate	2019-02-28	
+		- EndDate	2019-03-31
+		- TargetDate	2019-04-30
+		- X_Actual	659,84
+		- Y_Forecasted	635,69
+
+	- SlidingWindowItem
+		- Id		4
+		- StartDate	2019-03-31	
+		- EndDate	2019-04-30
+		- TargetDate	2019-05-31
+		- X_Actual	635,69
+		- Y_Forecasted	612,27
+
+	- SlidingWindowItem
+		- Id		5
+		- StartDate	2019-04-30	
+		- EndDate	2019-05-31
+		- TargetDate	2019-06-30
+		- X_Actual	612,27
+		- Y_Forecasted	632,94
+
+	- SlidingWindowItem
+		- Id		6
+		- StartDate	2019-05-31	
+		- EndDate	2019-06-30
+		- TargetDate	2019-07-31
+		- X_Actual	632,94
+		- Y_Forecasted	null
+
+
+Observation
+	- Name 			Some_Identifier
+	- StartDate		2019-06-30	
+	- EndDate		2019-07-31
+	- X_Actual		632,94
+	- C			...
+	- E			...
+	- Y_Forecasted		602,21
+	- SlidingWindowId	SWS001
+
+
+	

@@ -8,14 +8,14 @@ namespace NW.TimeSeriesForecaster
     {
 
         // Fields
-        private IUnivariateValuesCalculator _forecastingStrategies;
+        private IObservationManager _forecastingStrategies;
         private IRoundingStategies _roundingStrategies;
         private ISlidingWindowManager _slidingWindowManager;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
-            IUnivariateValuesCalculator valuesCalculator,
+            IObservationManager valuesCalculator,
             IRoundingStategies roundingStrategies,
             ISlidingWindowManager slidingWindowManager)
         {
@@ -34,27 +34,27 @@ namespace NW.TimeSeriesForecaster
         }
         public UnivariateForecaster() 
             : this(
-                  new UnivariateValuesCalculator(), 
+                  new ObservationManager(), 
                   new RoundingStategies(),
                   new SlidingWindowManager()) { }
  
         // Methods (public)
-        public List<UnivariateForecastedObservation> Do(SlidingWindow slidingWindow)
+        public List<Observation> Do(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception("The provided SlidingWindow object is not valid.");
 
             List<string> observationNames = new HashSet<string>(
-                slidingWindow.TimeSeriesCollection.Select(Item => Item.ObservationName))
+                slidingWindow.Items.Select(Item => Item.ObservationName))
                 .ToList();
 
-            List<UnivariateForecastedObservation> forecastedObservations = new List<UnivariateForecastedObservation>();
+            List<Observation> forecastedObservations = new List<Observation>();
             for (int i = 0; i < observationNames.Count; i++)
             {
 
-                List<SlidingWindowTimeSeries> timeSeriesList = new List<SlidingWindowTimeSeries>();
-                timeSeriesList.AddRange(slidingWindow.TimeSeriesCollection);
+                List<SlidingWindowItem> timeSeriesList = new List<SlidingWindowItem>();
+                timeSeriesList.AddRange(slidingWindow.Items);
                 timeSeriesList.RemoveAll(Item => Item.ObservationName != observationNames[i]);
 
                 // The TagCollection is the same for a List<*TimeSeries> belonging to the same observation
@@ -63,10 +63,10 @@ namespace NW.TimeSeriesForecaster
                     .Where(Item => Item.ObservationName == observationNames[i])
                     .First()).TagCollection;
 
-                UnivariateForecastedObservation forecastedObservation 
+                Observation forecastedObservation 
                     = Do(
                         observationNames[i],
-                        slidingWindow.SlidingWindowId,
+                        slidingWindow.Id,
                         timeSeriesList,
                         tagCollection);
 
@@ -79,15 +79,15 @@ namespace NW.TimeSeriesForecaster
         }
 
         // Methods (private)
-        private UnivariateForecastedObservation Do
+        private Observation Do
             (string observationName,
              string slidingWindowId,
-             List<SlidingWindowTimeSeries> timeSeries,
+             List<SlidingWindowItem> timeSeries,
              string tagCollection)
         {
 
-            UnivariateForecastedObservation forecastedObservation = new UnivariateForecastedObservation();
-            forecastedObservation.ObservationName = observationName;
+            Observation forecastedObservation = new Observation();
+            forecastedObservation.Name = observationName;
             forecastedObservation.SlidingWindowId = slidingWindowId;
             forecastedObservation.TagCollection = tagCollection;
 
