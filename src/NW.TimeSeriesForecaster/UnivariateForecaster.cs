@@ -72,6 +72,19 @@ namespace NW.UnivariateForecasting
             return _slidingWindowCreator.Combine(slidingWindow, observation);
 
         }
+        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
+        {
+
+            if (steps < 1)
+                throw new Exception(MessageCollection.StepsCantBeLessThanOne);
+
+            SlidingWindow newSlidingWindow = slidingWindow;
+            for (int i = 1; i <= steps; i++)
+                newSlidingWindow = ForecastAndCombine(newSlidingWindow);
+
+            return newSlidingWindow;
+
+        }
 
         // Methods (private)
 

@@ -11,6 +11,7 @@
         Observation Forecast(SlidingWindow objSlidingWindow);
 
         SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow);
+        SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps);
 
     }
 }

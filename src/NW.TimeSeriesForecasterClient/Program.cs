@@ -24,7 +24,10 @@ namespace NW.UnivariateForecastingClient
             Observation observation = forecaster.Forecast(slidingWindow);
             Console.WriteLine(observation.ToString());
 
-            SlidingWindow newSlidingWindow = forecaster.ForecastAndCombine(slidingWindow);
+            //SlidingWindow newSlidingWindow = forecaster.ForecastAndCombine(slidingWindow);
+            //Console.WriteLine(newSlidingWindow.ToString(true));
+
+            SlidingWindow newSlidingWindow = forecaster.ForecastAndCombine(slidingWindow, 3);
             Console.WriteLine(newSlidingWindow.ToString(true));
 
             /*
@@ -34,6 +37,7 @@ namespace NW.UnivariateForecastingClient
              * 3. Add buildscript
              * 4. Add documentation
              * 5. CLI in the client?
+             * 6. Shallow copy-like bug if ForecastAndCombine() sequences
              * 
              */
 
