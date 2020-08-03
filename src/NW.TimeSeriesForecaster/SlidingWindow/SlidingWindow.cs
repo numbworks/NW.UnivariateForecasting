@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting
         public DateTime EndDate { get; set; }
         public DateTime TargetDate { get; set; }
         public int Interval { get; set; }
-        public SlidingWindowIntervalUnits IntervalUnit { get; set; }
+        public IntervalUnits IntervalUnit { get; set; }
         public List<SlidingWindowItem> Items { get; set; }
         public string ObservationName { get; set; }
 

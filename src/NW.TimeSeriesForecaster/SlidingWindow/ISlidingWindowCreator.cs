@@ -7,11 +7,11 @@ namespace NW.UnivariateForecasting
     {
 
         SlidingWindow CreateSlidingWindow
-            (string id, DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName);
+            (string id, DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName);
         SlidingWindow CreateSlidingWindow
-            (DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName);
+            (DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName);
 
-        DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit, int steps);
+        DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps);
         string CreateId(string prefix, DateTime date);
 
     }

@@ -42,10 +42,10 @@ namespace NW.UnivariateForecasting
         }
 
         // Methods (private)
-        private int CalculateDifference(DateTime date1, DateTime date2, SlidingWindowIntervalUnits intervalUnit)
+        private int CalculateDifference(DateTime date1, DateTime date2, IntervalUnits intervalUnit)
         {
 
-            if (intervalUnit == SlidingWindowIntervalUnits.Months)
+            if (intervalUnit == IntervalUnits.Months)
                 return Math.Abs(((date1.Year - date2.Year) * 12) + date1.Month - date2.Month);
 
             throw new Exception(MessageCollection.NoStrategyToCalculateDateDifferenceUnit.Invoke(intervalUnit.ToString()));

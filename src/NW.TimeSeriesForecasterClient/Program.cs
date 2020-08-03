@@ -14,7 +14,7 @@ namespace NW.UnivariateForecastingClient
             ISlidingWindowCreator slidingWindowCreator = new SlidingWindowCreator(strategyProvider);
 
             DateTime startDate = new DateTime(2019, 01, 31, 00, 00, 00);
-            SlidingWindowIntervalUnits intervalUnit = SlidingWindowIntervalUnits.Months;
+            IntervalUnits intervalUnit = IntervalUnits.Months;
             List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
             string observationName = "Some_Identifier";
             SlidingWindow slidingWindow = slidingWindowCreator.CreateSlidingWindow(startDate, values, intervalUnit, observationName);

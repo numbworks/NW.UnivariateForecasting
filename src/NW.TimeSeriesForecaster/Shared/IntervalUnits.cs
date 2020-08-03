@@ -1,6 +1,6 @@
 ﻿namespace NW.UnivariateForecasting
 {
-    public enum SlidingWindowIntervalUnits
+    public enum IntervalUnits
     {
         Months
     }

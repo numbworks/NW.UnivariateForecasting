@@ -10,6 +10,8 @@ namespace NW.UnivariateForecasting
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public int Interval { get; set; }
+        public IntervalUnits IntervalUnit { get; set; }
         public double X_Actual { get; set; }
         public double C { get; set; }
         public double E { get; set; }
@@ -29,6 +31,8 @@ namespace NW.UnivariateForecasting
                     $"{nameof(Name)}: '{Name}'",
                     $"{nameof(StartDate)}: '{StartDate.ToString("yyyy-MM-dd")}'",
                     $"{nameof(EndDate)}: '{EndDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(Interval)}: '{Interval.ToString()}'",
+                    $"{nameof(IntervalUnit)}: '{IntervalUnit}'",
                     $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
                     $"{nameof(C)}: '{C.ToString()}'",
                     $"{nameof(E)}: '{E.ToString()}'",

@@ -28,7 +28,7 @@ namespace NW.UnivariateForecasting
 
         // Methods (public)
         public SlidingWindow CreateSlidingWindow
-            (string id, DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
+            (string id, DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName)
         {
 
             if (string.IsNullOrWhiteSpace(id))
@@ -55,20 +55,20 @@ namespace NW.UnivariateForecasting
 
         }
         public SlidingWindow CreateSlidingWindow
-            (DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
+            (DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName)
                 => CreateSlidingWindow(
                         CreateId(date: startDate),
                         startDate,
                         values,
                         intervalUnit,
                         observationName);
-        public DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit, int steps = 1)
+        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps = 1)
         {
 
             if (steps < 1)
                 throw new Exception(MessageCollection.StepsCantBeLessThanOne);
 
-            if (intervalUnit == SlidingWindowIntervalUnits.Months)
+            if (intervalUnit == IntervalUnits.Months)
                 return date.AddMonths(steps);
 
             throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(intervalUnit.ToString()));
@@ -88,7 +88,7 @@ namespace NW.UnivariateForecasting
 
         // Methods (private)
         private SlidingWindowItem CreateItem(
-            int id, DateTime startDate, SlidingWindowIntervalUnits intervalUnit, double firstValue, double? nextValue)
+            int id, DateTime startDate, IntervalUnits intervalUnit, double firstValue, double? nextValue)
         {
 
             SlidingWindowItem item = new SlidingWindowItem();
@@ -102,10 +102,10 @@ namespace NW.UnivariateForecasting
             return item;
 
         }
-        private List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit)
+        private List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, IntervalUnits intervalUnit)
         {
 
-            if (intervalUnit == SlidingWindowIntervalUnits.Months)
+            if (intervalUnit == IntervalUnits.Months)
                 return CreateItemsIfMonths(startDate, values);
 
             throw new Exception(MessageCollection.NoStrategyToCreateItemsUnit.Invoke(intervalUnit.ToString()));
@@ -173,7 +173,7 @@ namespace NW.UnivariateForecasting
 
              */
 
-            SlidingWindowIntervalUnits intervalUnit = SlidingWindowIntervalUnits.Months;
+            IntervalUnits intervalUnit = IntervalUnits.Months;
             DateTime current = startDate;
             List<SlidingWindowItem> items = new List<SlidingWindowItem>();
 
