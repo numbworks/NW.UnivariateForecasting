@@ -69,7 +69,7 @@ namespace NW.UnivariateForecasting
                 throw new Exception(MessageCollection.StepsCantBeLessThanOne);
 
             if (intervalUnit == IntervalUnits.Months)
-                return date.AddMonths(steps);
+                return AddMonths(date, steps);
 
             throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(intervalUnit.ToString()));
 
@@ -207,6 +207,27 @@ namespace NW.UnivariateForecasting
                 return values.Select(item => _roundingStrategy.Invoke(item)).ToList();
 
             return values;
+
+        }
+        private bool IsEndOfTheMonth(DateTime dt)
+            => dt.Day == DateTime.DaysInMonth(dt.Year, dt.Month);
+        private DateTime MoveToEndOfTheMonth(DateTime date)
+            => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+        private DateTime AddMonths(DateTime date, int months)
+        {
+
+            /*
+                2019-01-31
+                2019-02-28
+                2019-03-28 < Error, this should be 2019-03-31
+             */
+
+            DateTime nextDate = date.AddMonths(months);
+
+            if (!IsEndOfTheMonth(date))
+                return nextDate;
+
+            return MoveToEndOfTheMonth(nextDate);
 
         }
 
