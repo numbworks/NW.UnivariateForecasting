@@ -49,7 +49,7 @@ namespace NW.UnivariateForecasting
             slidingWindow.Interval = values.Count;
             slidingWindow.IntervalUnit = intervalUnit;
             slidingWindow.Items = CreateItems(startDate, Round(values), intervalUnit);
-            slidingWindow.ObservatioName = observationName;
+            slidingWindow.ObservationName = observationName;
 
             return slidingWindow;
 
@@ -85,7 +85,7 @@ namespace NW.UnivariateForecasting
                 return false;
             if (slidingWindow.Items.Count < 1)
                 return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.ObservatioName))
+            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
                 return false;
 
             return true;

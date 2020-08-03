@@ -17,6 +17,9 @@ namespace NW.UnivariateForecastingClient
 
             Func<double, double> roundingStrategy = new StategyProvider().TwoDecimalDigitsRounding;
             SlidingWindow slidingWindow = new SlidingWindowManager(roundingStrategy).CreateSlidingWindow(startDate, values, intervalUnit, observationName);
+
+            Console.WriteLine(slidingWindow.ToString());
+
             Observation observation = new UnivariateForecaster(roundingStrategy).Do(slidingWindow);
 
             Console.WriteLine(observation.Y_Forecasted);

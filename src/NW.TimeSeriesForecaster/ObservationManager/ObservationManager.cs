@@ -68,7 +68,7 @@ namespace NW.UnivariateForecasting
             Observation observation = new Observation();
 
             observation.SlidingWindowId = slidingWindow.Id;
-            observation.Name = slidingWindow.ObservatioName;
+            observation.Name = slidingWindow.ObservationName;
             observation.StartDate = GetObservationStartDate(slidingWindow);
             observation.EndDate = slidingWindow.TargetDate;
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
