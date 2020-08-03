@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace NW.UnivariateForecasting
+﻿namespace NW.UnivariateForecasting
 {
     public interface IUnivariateForecaster
     {
 
-        List<Observation> Do(SlidingWindow objSlidingWindow);
+        Observation Do(SlidingWindow objSlidingWindow);
 
     }
 }
@@ -13,6 +11,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 28.04.2020
+    Last Update: 03.08.2021
 
 */

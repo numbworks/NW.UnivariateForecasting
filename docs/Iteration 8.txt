@@ -1,5 +1,10 @@
+
+Last Update: 03.08.2021
+
+-----------------------------------------------------------------------
+
 SlidingWindow
-	- Id			SWS001
+	- Id			SW20190131000000
 	- StartDate		2019-01-31	
 	- EndDate		2019-06-30
 	- TargetDate		2019-07-31
@@ -68,7 +73,7 @@ Observation
 	- C			...
 	- E			...
 	- Y_Forecasted		602,21
-	- SlidingWindowId	SWS001
+	- SlidingWindowId	SW20190131000000
 
 
 ---------------------------------------------------------------------------
@@ -76,6 +81,5 @@ Observation
         /// <para>Explaination: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...]
         /// which consists of observations on only a single characteristic or attribute.".</para>     
 
-        public static Func<string, string> StringCantBeEmptyOrNull { get; }
-            = (variableName) => $"'{variableName}' can't be empty or null.";
+
 	
