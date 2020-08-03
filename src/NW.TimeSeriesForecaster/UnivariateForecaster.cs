@@ -6,66 +6,60 @@ namespace NW.UnivariateForecasting
     {
 
         // Fields
-        private ISlidingWindowManager _slidingWindowManager;
-        private IObservationManager _observationManager;
-        private Func<double, double> _roundingStrategy;
+        private ISlidingWindowValidator _slidingWindowValidator;
+        private IObservationForecaster _observationForecaster;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
-            Func<double, double> roundingStrategy,
-            ISlidingWindowManager slidingWindowManager,
-            IObservationManager observationManager)
+            ISlidingWindowValidator slidingWindowValidator,
+            IObservationForecaster observationForecaster)
         {
 
-            if (roundingStrategy == null)
-                throw new ArgumentNullException(nameof(roundingStrategy));
-            if (slidingWindowManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowManager));
-            if (observationManager == null)
-                throw new ArgumentNullException(nameof(observationManager));
+            if (slidingWindowValidator == null)
+                throw new ArgumentNullException(nameof(slidingWindowValidator));
+            if (observationForecaster == null)
+                throw new ArgumentNullException(nameof(observationForecaster));
 
-            _roundingStrategy = roundingStrategy;
-            _slidingWindowManager = slidingWindowManager;
-            _observationManager = observationManager;
+            _slidingWindowValidator = slidingWindowValidator;
+            _observationForecaster = observationForecaster;
 
         }
-        public UnivariateForecaster(
-            Func<double, double> roundingStrategy)
-            : this(
-                  roundingStrategy,
-                  new SlidingWindowManager(roundingStrategy),
-                  new ObservationManager(
-                      new SlidingWindowManager(roundingStrategy), 
-                      roundingStrategy)) { }
-        public UnivariateForecaster(
-            IStategyProvider strategyProvider)
+        public UnivariateForecaster(IStategyProvider strategyProvider)
         {
 
             if (strategyProvider == null)
                 throw new ArgumentNullException(nameof(strategyProvider));
 
-            _slidingWindowManager = new SlidingWindowManager(strategyProvider.TwoDecimalDigitsRounding);
-            _observationManager = new ObservationManager(_slidingWindowManager, strategyProvider.TwoDecimalDigitsRounding);
-            _roundingStrategy = strategyProvider.TwoDecimalDigitsRounding;
+            _slidingWindowValidator = new SlidingWindowValidator();
+            _observationForecaster = new ObservationForecaster(_slidingWindowValidator, strategyProvider);
 
         }
-        public UnivariateForecaster() 
-            : this(
-                  null,
-                  new SlidingWindowManager(null),
-                  new ObservationManager(
-                      new SlidingWindowManager(null), 
-                      null)) { }
- 
+        public UnivariateForecaster(Func<double, double> roundingStrategy = null)
+        {
+
+            _slidingWindowValidator = new SlidingWindowValidator();
+            _observationForecaster = new ObservationForecaster(_slidingWindowValidator, roundingStrategy);
+
+        }
+
         // Methods (public)
         public Observation Do(SlidingWindow slidingWindow)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (!_slidingWindowValidator.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
 
-            return _observationManager.Create(slidingWindow);
+            return _observationForecaster.Create(slidingWindow);
+
+        }
+        public Observation Do(SlidingWindow slidingWindow, double denominator)
+        {
+
+            if (!_slidingWindowValidator.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
+
+            return _observationForecaster.Create(slidingWindow, denominator);
 
         }
 

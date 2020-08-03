@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
-    public class SlidingWindowManager : ISlidingWindowManager
+    public class SlidingWindowCreator : ISlidingWindowCreator
     {
 
         // Fields
@@ -14,17 +14,17 @@ namespace NW.UnivariateForecasting
         public const string DefaultPrefix = "SW";
 
         // Constructors
-        public SlidingWindowManager(Func<double, double> roundingStrategy)
+        public SlidingWindowCreator(IStategyProvider strategyProvider)
         {
 
-            if (roundingStrategy == null)
-                throw new ArgumentNullException(nameof(roundingStrategy));
+            if (strategyProvider == null)
+                throw new ArgumentNullException(nameof(strategyProvider));
 
-            _roundingStrategy = roundingStrategy;
+            _roundingStrategy = strategyProvider.TwoDecimalDigitsRounding;
 
         }
-        public SlidingWindowManager()
-            : this(null) { }
+        public SlidingWindowCreator(Func<double, double> roundingStrategy = null)
+            => _roundingStrategy = roundingStrategy;
 
         // Methods (public)
         public SlidingWindow CreateSlidingWindow
@@ -62,35 +62,6 @@ namespace NW.UnivariateForecasting
                         values,
                         intervalUnit,
                         observationName);
-        public bool IsValid(SlidingWindow slidingWindow)
-        {
-
-            if (slidingWindow == null)
-                return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.Id))
-                return false;
-            if (slidingWindow.StartDate >= slidingWindow.EndDate)
-                return false;
-            if (slidingWindow.StartDate >= slidingWindow.TargetDate)
-                return false;
-            if (slidingWindow.TargetDate <= slidingWindow.EndDate)
-                return false;
-            if (slidingWindow.Interval < 1)
-                return false;
-            if (slidingWindow.Interval != CalculateDifference(slidingWindow.StartDate, slidingWindow.EndDate, slidingWindow.IntervalUnit))
-                return false;
-            if (1 != CalculateDifference(slidingWindow.EndDate, slidingWindow.TargetDate, slidingWindow.IntervalUnit))
-                return false;
-            if (slidingWindow.Items == null)
-                return false;
-            if (slidingWindow.Items.Count < 1)
-                return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
-                return false;
-
-            return true;
-
-        }
         public DateTime CalculateNext(DateTime date, SlidingWindowIntervalUnits intervalUnit, int steps = 1)
         {
 
@@ -116,15 +87,6 @@ namespace NW.UnivariateForecasting
         }
 
         // Methods (private)
-        private int CalculateDifference(DateTime date1, DateTime date2, SlidingWindowIntervalUnits intervalUnit)
-        {
-
-            if (intervalUnit == SlidingWindowIntervalUnits.Months)
-                return Math.Abs(((date1.Year - date2.Year) * 12) + date1.Month - date2.Month);
-
-            throw new Exception(MessageCollection.NoStrategyToCalculateDateDifferenceUnit.Invoke(intervalUnit.ToString()));
-
-        }
         private SlidingWindowItem CreateItem(
             int id, DateTime startDate, SlidingWindowIntervalUnits intervalUnit, double firstValue, double? nextValue)
         {

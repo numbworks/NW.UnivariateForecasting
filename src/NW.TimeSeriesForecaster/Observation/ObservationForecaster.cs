@@ -5,13 +5,12 @@ using System.Linq;
 namespace NW.UnivariateForecasting
 {
 
-    public class ObservationManager : IObservationManager
+    public class ObservationForecaster : IObservationForecaster
     {
 
         // Fields
+        private ISlidingWindowValidator _slidingWindowValidator;
         private Func<double, double> _roundingStrategy;
-        private ISlidingWindowManager _slidingWindowManager;
-        private double _denominator;
 
         // Properties
         /// <summary>
@@ -21,49 +20,45 @@ namespace NW.UnivariateForecasting
         public const double DefaultDenominator = 0.001;
 
         // Constructors
-        public ObservationManager(
-            ISlidingWindowManager slidingWindowManager,
-            Func<double, double> roundingStrategy,
-            double denominator)
+        public ObservationForecaster(
+            ISlidingWindowValidator slidingWindowValidator,
+            Func<double, double> roundingStrategy = null)
         {
 
-            if (slidingWindowManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowManager));
-            if (roundingStrategy == null)
-                throw new ArgumentNullException(nameof(roundingStrategy));
-            if (denominator < DefaultDenominator)
-                throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(denominator), DefaultDenominator));
+            if (slidingWindowValidator == null)
+                throw new ArgumentNullException(nameof(slidingWindowValidator));
 
-            _slidingWindowManager = slidingWindowManager;
+            _slidingWindowValidator = slidingWindowValidator;
             _roundingStrategy = roundingStrategy;
-            _denominator = denominator;
 
         }
-        public ObservationManager(
-            ISlidingWindowManager slidingWindowManager,
-            Func<double, double> roundingStrategy)
-            : this(
-                  slidingWindowManager, 
-                  roundingStrategy, 
-                  DefaultDenominator) { }
-        public ObservationManager(
-            ISlidingWindowManager slidingWindowManager)
-            : this(
-                  slidingWindowManager, 
-                  null, 
-                  DefaultDenominator) { }
-        public ObservationManager()
-            : this(
-                  new SlidingWindowManager(null), 
-                  null, 
-                  DefaultDenominator) { }
-
-        // Methods (public)
-        public Observation Create(SlidingWindow slidingWindow)
+        public ObservationForecaster(
+            ISlidingWindowValidator slidingWindowValidator, 
+            IStategyProvider strategyProvider)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (slidingWindowValidator == null)
+                throw new ArgumentNullException(nameof(slidingWindowValidator));
+            if (strategyProvider == null)
+                throw new ArgumentNullException(nameof(strategyProvider));
+
+            _slidingWindowValidator = slidingWindowValidator;
+            _roundingStrategy = strategyProvider.TwoDecimalDigitsRounding;
+
+        }
+
+        // Methods (public)
+
+        /// <summary>
+        /// It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
+        /// </summary>
+        public Observation Create(SlidingWindow slidingWindow, double denominator)
+        {
+
+            if (!_slidingWindowValidator.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
+            if (denominator < DefaultDenominator)
+                throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(denominator), DefaultDenominator));
 
             Observation observation = new Observation();
 
@@ -74,8 +69,8 @@ namespace NW.UnivariateForecasting
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);
-            observation.C = CalculateC(itemsExceptTarget);
-            observation.E = CalculateE(itemsExceptTarget, observation.C);
+            observation.C = CalculateC(itemsExceptTarget, denominator);
+            observation.E = CalculateE(itemsExceptTarget, observation.C, denominator);
 
             double CX = CalculateCX(observation.C, observation.X_Actual);
             observation.Y_Forecasted = CalculateY(CX, observation.E);
@@ -92,6 +87,13 @@ namespace NW.UnivariateForecasting
             return observation;
 
         }
+
+        /// <summary>
+        /// It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
+        /// <para>Uses <see cref="DefaultDenominator"/>.</para>
+        /// </summary>
+        public Observation Create(SlidingWindow slidingWindow)
+            => Create(slidingWindow, DefaultDenominator);
 
         // Methods (private)
         private DateTime GetObservationStartDate(SlidingWindow slidingWindow)
@@ -141,7 +143,7 @@ namespace NW.UnivariateForecasting
             return items.Where(Item => Item.Y_Forecasted != null).ToList();
 
         }
-        private double CalculateC(List<SlidingWindowItem> items)
+        private double CalculateC(List<SlidingWindowItem> items, double denominator)
         {
 
             /*
@@ -175,13 +177,12 @@ namespace NW.UnivariateForecasting
 
             double sum = 0;
             for (int i = 0; i < items.Count; i++)
-                sum += DivideXByY(
-                    items[i]);
+                sum += DivideXByY(items[i], denominator);
 
             return sum / items.Count;
 
         }
-        private double CalculateE(List<SlidingWindowItem> items, double C)
+        private double CalculateE(List<SlidingWindowItem> items, double C, double denominator)
         {
 
             /*
@@ -218,7 +219,7 @@ namespace NW.UnivariateForecasting
             List<double> values = new List<double>();
             for (int i = 0; i < items.Count; i++)
                 values.Add(
-                    DivideXByY(items[i]) - C);
+                        DivideXByY(items[i], denominator) - C);
 
             return CalculateMODE(values);
 
@@ -227,14 +228,14 @@ namespace NW.UnivariateForecasting
             => C * X;
         private double CalculateY(double CX, double E) 
             => CX + E;
-        private double DivideXByY(SlidingWindowItem item)
+        private double DivideXByY(SlidingWindowItem item, double denominator)
         {
 
             double X = item.X_Actual;
             double Y = (double)item.Y_Forecasted;
 
             if (Y == 0)
-                Y = _denominator;
+                Y = denominator;
 
             return X / Y;
 
