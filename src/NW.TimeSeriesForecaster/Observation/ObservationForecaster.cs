@@ -9,56 +9,38 @@ namespace NW.UnivariateForecasting
     {
 
         // Fields
+        private UnivariateForecastingSettings _settings;
         private ISlidingWindowValidator _slidingWindowValidator;
-        private Func<double, double> _roundingStrategy;
-
-        // Properties
-        /// <summary>
-        /// Since Y_Forecasted = 0 is a totally legit value, when it happens we replace it with a comparably 
-        /// small amount to avoid errors when dividing by zero.
-        /// </summary>
-        public const double DefaultDenominator = 0.001;
 
         // Constructors
         public ObservationForecaster(
-            ISlidingWindowValidator slidingWindowValidator,
-            Func<double, double> roundingStrategy = null)
+            UnivariateForecastingSettings settings,
+            ISlidingWindowValidator slidingWindowValidator)
         {
 
+            if (settings == null)
+                throw new ArgumentNullException(nameof(settings));
             if (slidingWindowValidator == null)
                 throw new ArgumentNullException(nameof(slidingWindowValidator));
 
+            _settings = settings;
             _slidingWindowValidator = slidingWindowValidator;
-            _roundingStrategy = roundingStrategy;
 
         }
         public ObservationForecaster(
-            ISlidingWindowValidator slidingWindowValidator, 
-            IStategyProvider strategyProvider)
-        {
-
-            if (slidingWindowValidator == null)
-                throw new ArgumentNullException(nameof(slidingWindowValidator));
-            if (strategyProvider == null)
-                throw new ArgumentNullException(nameof(strategyProvider));
-
-            _slidingWindowValidator = slidingWindowValidator;
-            _roundingStrategy = strategyProvider.TwoDecimalDigitsRounding;
-
-        }
+            UnivariateForecastingSettings settings)
+            : this(settings, new SlidingWindowValidator()) { }
 
         // Methods (public)
 
         /// <summary>
         /// It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
         /// </summary>
-        public Observation Create(SlidingWindow slidingWindow, double denominator)
+        public Observation Create(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowValidator.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
-            if (denominator < DefaultDenominator)
-                throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(denominator), DefaultDenominator));
 
             Observation observation = new Observation();
 
@@ -71,31 +53,15 @@ namespace NW.UnivariateForecasting
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);
-            observation.C = CalculateC(itemsExceptTarget, denominator);
-            observation.E = CalculateE(itemsExceptTarget, observation.C, denominator);
+            observation.C = CalculateC(itemsExceptTarget, _settings.ForecastingDenominator);
+            observation.E = CalculateE(itemsExceptTarget, observation.C, _settings.ForecastingDenominator);
 
             double CX = CalculateCX(observation.C, observation.X_Actual);
             observation.Y_Forecasted = CalculateY(CX, observation.E);
 
-            if (_roundingStrategy != null)
-            {
-
-                observation.C = _roundingStrategy(observation.C);
-                observation.E = _roundingStrategy(observation.E);
-                observation.Y_Forecasted = _roundingStrategy(observation.Y_Forecasted);
-
-            }
-
             return observation;
 
         }
-
-        /// <summary>
-        /// It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
-        /// <para>Uses <see cref="DefaultDenominator"/>.</para>
-        /// </summary>
-        public Observation Create(SlidingWindow slidingWindow)
-            => Create(slidingWindow, DefaultDenominator);
 
         // Methods (private)
         private DateTime GetObservationStartDate(SlidingWindow slidingWindow)
@@ -181,7 +147,9 @@ namespace NW.UnivariateForecasting
             for (int i = 0; i < items.Count; i++)
                 sum += DivideXByY(items[i], denominator);
 
-            return sum / items.Count;
+            double result = sum / items.Count;
+
+            return _settings.RoundingFunction.Invoke(result);
 
         }
         private double CalculateE(List<SlidingWindowItem> items, double C, double denominator)
@@ -223,13 +191,15 @@ namespace NW.UnivariateForecasting
                 values.Add(
                         DivideXByY(items[i], denominator) - C);
 
-            return CalculateMODE(values);
+            double result = CalculateMODE(values);
+
+            return _settings.RoundingFunction.Invoke(result);
 
         }
         private double CalculateCX(double C, double X) 
-            => C * X;
+            => _settings.RoundingFunction.Invoke(C * X);
         private double CalculateY(double CX, double E) 
-            => CX + E;
+            => _settings.RoundingFunction.Invoke(CX + E);
         private double DivideXByY(SlidingWindowItem item, double denominator)
         {
 
@@ -239,7 +209,9 @@ namespace NW.UnivariateForecasting
             if (Y == 0)
                 Y = denominator;
 
-            return X / Y;
+            double result = X / Y;
+
+            return _settings.RoundingFunction.Invoke(result);
 
         }
         private double CalculateMODE(List<double> values)

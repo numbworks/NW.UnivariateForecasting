@@ -12,7 +12,7 @@ namespace NW.UnivariateForecasting
             (DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName);
 
         DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps);
-        string CreateId(string prefix, DateTime date);
+        DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit);
 
     }
 }

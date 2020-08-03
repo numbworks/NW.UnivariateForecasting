@@ -8,23 +8,19 @@ namespace NW.UnivariateForecasting
     {
 
         // Fields
-        private Func<double, double> _roundingStrategy;
-
+        private UnivariateForecastingSettings _settings;
+        
         // Properties
-        public const string DefaultPrefix = "SW";
-
         // Constructors
-        public SlidingWindowCreator(IStategyProvider strategyProvider)
+        public SlidingWindowCreator(UnivariateForecastingSettings settings)
         {
 
-            if (strategyProvider == null)
-                throw new ArgumentNullException(nameof(strategyProvider));
+            if (settings == null)
+                throw new ArgumentNullException(nameof(settings));
 
-            _roundingStrategy = strategyProvider.TwoDecimalDigitsRounding;
+            _settings = settings;
 
         }
-        public SlidingWindowCreator(Func<double, double> roundingStrategy = null)
-            => _roundingStrategy = roundingStrategy;
 
         // Methods (public)
         public SlidingWindow CreateSlidingWindow
@@ -57,12 +53,12 @@ namespace NW.UnivariateForecasting
         public SlidingWindow CreateSlidingWindow
             (DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName)
                 => CreateSlidingWindow(
-                        CreateId(date: startDate),
+                        _settings.IdCreationFunction.Invoke(),
                         startDate,
                         values,
                         intervalUnit,
                         observationName);
-        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps = 1)
+        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps)
         {
 
             if (steps < 1)
@@ -74,17 +70,8 @@ namespace NW.UnivariateForecasting
             throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(intervalUnit.ToString()));
 
         }
-        public string CreateId(string prefix = DefaultPrefix, DateTime date = default(DateTime))
-        {
-
-            if (string.IsNullOrWhiteSpace(prefix))
-                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(prefix)));
-            if (date == default(DateTime))
-                date = DateTime.Now;
-
-            return $"{prefix}{date.ToString("yyyyMMddhhmmsss")}";
-
-        }
+        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit)
+            => CalculateNext(date, intervalUnit, 1);
 
         // Methods (private)
         private SlidingWindowItem CreateItem(
@@ -203,10 +190,7 @@ namespace NW.UnivariateForecasting
                 ...
              */
 
-            if (_roundingStrategy != null)
-                return values.Select(item => _roundingStrategy.Invoke(item)).ToList();
-
-            return values;
+            return values.Select(item => _settings.RoundingFunction.Invoke(item)).ToList();
 
         }
         private bool IsEndOfTheMonth(DateTime dt)
