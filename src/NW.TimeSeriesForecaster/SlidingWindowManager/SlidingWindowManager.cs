@@ -50,7 +50,7 @@ namespace NW.UnivariateForecasting
                 throw new Exception(MessageCollection.StepsCantBeLessThanOne);
 
             if (intervalUnit == SlidingWindowIntervalUnits.Months)
-                return date.AddMonths(1);
+                return date.AddMonths(steps);
 
             throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(intervalUnit.ToString()));
 
@@ -107,7 +107,7 @@ namespace NW.UnivariateForecasting
         {
 
             if (intervalUnit == SlidingWindowIntervalUnits.Months)
-                return ((date1.Year - date2.Year) * 12) + date1.Month - date2.Month;
+                return Math.Abs(((date1.Year - date2.Year) * 12) + date1.Month - date2.Month);
 
             throw new Exception(MessageCollection.NoStrategyToCalculateDateDifferenceUnit.Invoke(intervalUnit.ToString()));
 

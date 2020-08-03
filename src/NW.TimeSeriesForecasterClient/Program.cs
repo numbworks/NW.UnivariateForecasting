@@ -16,17 +16,17 @@ namespace NW.UnivariateForecastingClient
             string observationName = "Some_Identifier";
 
             SlidingWindow slidingWindow = new SlidingWindowManager().CreateSlidingWindow(startDate, values, intervalUnit, observationName);
+            Observation observation = new UnivariateForecaster().Do(slidingWindow);
+
+            Console.WriteLine(observation.Y_Forecasted);
 
             /*
              * 
-             * Fix building errors
              * Add ToString() method to the Sliding Window and the SlidingWindowItem
              * Compile and see if SlidingWindow looks as in "Iteration 8.txt".
              * Add comment to CreateSlidingWindow's body
              * 
-             */
-
-            IUnivariateForecaster forecaster = new UnivariateForecaster();          
+             */     
 
             Console.ReadKey();
 
