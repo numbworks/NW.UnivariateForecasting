@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
@@ -83,6 +85,17 @@ namespace NW.UnivariateForecasting
                 newSlidingWindow = ForecastAndCombine(newSlidingWindow);
 
             return newSlidingWindow;
+
+        }
+        public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
+            => _slidingWindowCreator.Combine(slidingWindow, observation);
+        public List<double> ExtractValues(SlidingWindow slidingWindow)
+        {
+
+            if (!_validator.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+
+            return slidingWindow.Items.Select(item => item.X_Actual).ToList();
 
         }
 

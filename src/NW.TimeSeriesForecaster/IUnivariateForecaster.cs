@@ -1,4 +1,6 @@
-﻿namespace NW.UnivariateForecasting
+﻿using System.Collections.Generic;
+
+namespace NW.UnivariateForecasting
 {
     public interface IUnivariateForecaster
     {
@@ -12,6 +14,7 @@
 
         SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow);
         SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps);
+        List<double> ExtractValues(SlidingWindow slidingWindow);
 
     }
 }

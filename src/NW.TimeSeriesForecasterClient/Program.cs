@@ -30,6 +30,9 @@ namespace NW.UnivariateForecastingClient
             SlidingWindow newSlidingWindow = forecaster.ForecastAndCombine(slidingWindow, 3);
             Console.WriteLine(newSlidingWindow.ToString(true));
 
+            List<double> results = forecaster.ExtractValues(newSlidingWindow);
+            Console.WriteLine(results);
+
             /*
              * 
              * 1. Add log messages all around.

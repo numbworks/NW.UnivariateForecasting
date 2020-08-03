@@ -16,12 +16,7 @@
 
 UnivariateForecaster:
 
-
-	- public SlidingWindow DoAndCombine(SlidingWindow slidingWindow)
-	- public SlidingWindow DoAndCombine(SlidingWindow slidingWindow, int stepsAhead)	
-	- public SlidingWindow Combine (SlidingWindow slidingWindow, Observation observation)
-	- public double[] ExtractValues(SlidingWindow slidingWindow)
-	- public List<Observation> DoMultipleTimes(SlidingWindow slidingWindow, int stepsAhead)
+	- public List<Observation> DoMultipleTimes(SlidingWindow slidingWindow, uint steps)
 
 
 -----------------------------------------------------------------------
