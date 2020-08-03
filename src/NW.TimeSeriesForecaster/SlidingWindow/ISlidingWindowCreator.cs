@@ -14,6 +14,8 @@ namespace NW.UnivariateForecasting
         DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, uint steps);
         DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit);
 
+        SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation);
+
     }
 }
 
