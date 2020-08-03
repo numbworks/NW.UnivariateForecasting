@@ -11,7 +11,7 @@ namespace NW.UnivariateForecasting
         SlidingWindow CreateSlidingWindow
             (DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName);
 
-        DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps);
+        DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, uint steps);
         DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit);
 
     }

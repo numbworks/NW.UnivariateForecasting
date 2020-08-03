@@ -40,9 +40,9 @@ namespace NW.UnivariateForecasting
 
             slidingWindow.Id = id;
             slidingWindow.StartDate = startDate;
-            slidingWindow.EndDate = CalculateNext(startDate, intervalUnit, values.Count);
+            slidingWindow.EndDate = CalculateNext(startDate, intervalUnit, (uint)values.Count);
             slidingWindow.TargetDate = CalculateNext(slidingWindow.EndDate, intervalUnit);
-            slidingWindow.Interval = values.Count;
+            slidingWindow.Interval = (uint)values.Count;
             slidingWindow.IntervalUnit = intervalUnit;
             slidingWindow.Items = CreateItems(startDate, Round(values), intervalUnit);
             slidingWindow.ObservationName = observationName;
@@ -58,7 +58,7 @@ namespace NW.UnivariateForecasting
                         values,
                         intervalUnit,
                         observationName);
-        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, int steps)
+        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, uint steps)
         {
 
             if (steps < 1)
@@ -72,6 +72,30 @@ namespace NW.UnivariateForecasting
         }
         public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit)
             => CalculateNext(date, intervalUnit, 1);
+        public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
+        {
+
+            if (slidingWindow == null)
+                throw new ArgumentNullException(nameof(slidingWindow));
+            if (slidingWindow == null)
+                throw new ArgumentNullException(nameof(slidingWindow));
+
+            SlidingWindow newSlidingWindow = new SlidingWindow();
+
+            newSlidingWindow.Id = _settings.IdCreationFunction.Invoke();
+            newSlidingWindow.StartDate = slidingWindow.StartDate;
+
+            uint steps = (uint)(slidingWindow.Interval / slidingWindow.Items.Count);
+            newSlidingWindow.EndDate = CalculateNext(slidingWindow.EndDate, slidingWindow.IntervalUnit, steps);
+            newSlidingWindow.TargetDate = CalculateNext(slidingWindow.TargetDate, slidingWindow.IntervalUnit, steps);
+            newSlidingWindow.Interval = slidingWindow.Interval;
+            newSlidingWindow.IntervalUnit = slidingWindow.IntervalUnit;
+            newSlidingWindow.Items = Combine(slidingWindow.Items, slidingWindow.IntervalUnit, steps, observation);
+            newSlidingWindow.ObservationName = slidingWindow.ObservationName;
+
+            return newSlidingWindow;
+
+        }
 
         // Methods (private)
         private SlidingWindowItem CreateItem(
@@ -198,7 +222,7 @@ namespace NW.UnivariateForecasting
             => dt.Day == DateTime.DaysInMonth(dt.Year, dt.Month);
         private DateTime MoveToEndOfTheMonth(DateTime date)
             => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-        private DateTime AddMonths(DateTime date, int months)
+        private DateTime AddMonths(DateTime date, uint months)
         {
 
             /*
@@ -207,12 +231,62 @@ namespace NW.UnivariateForecasting
                 2019-03-28 < Error, this should be 2019-03-31
              */
 
-            DateTime nextDate = date.AddMonths(months);
+            DateTime nextDate = date.AddMonths((int)months);
 
             if (!IsEndOfTheMonth(date))
                 return nextDate;
 
             return MoveToEndOfTheMonth(nextDate);
+
+        }
+        private List<SlidingWindowItem> Combine
+            (List<SlidingWindowItem> slidingWindowItems,
+            IntervalUnits intervalUnits,
+            uint steps,
+            Observation observation)
+        {
+
+            /*
+             
+                Items:
+
+                    [ Id: '1', StartDate: '2019-01-31', EndDate: '2019-02-28', TargetDate: '2019-03-31', X_Actual: '58,5', Y_Forecasted: '615,26' ]
+                    [ Id: '2', StartDate: '2019-02-28', EndDate: '2019-03-31', TargetDate: '2019-04-30', X_Actual: '615,26', Y_Forecasted: '659,84' ]
+                    ...
+                    [ Id: '6', StartDate: '2019-06-30', EndDate: '2019-07-31', TargetDate: '2019-08-31', X_Actual: '632,94', Y_Forecasted: '' ]
+ 
+                Observation:
+
+                    [ ..., Y_Forecasted: '519,23', ... ]
+
+                newItems:
+
+                    [ Id: '1', StartDate: '2019-01-31', EndDate: '2019-02-28', TargetDate: '2019-03-31', X_Actual: '58,5', Y_Forecasted: '615,26' ]
+                    [ Id: '2', StartDate: '2019-02-28', EndDate: '2019-03-31', TargetDate: '2019-04-30', X_Actual: '615,26', Y_Forecasted: '659,84' ]
+                    ...
+                    => [ Id: '6', StartDate: '2019-06-30', EndDate: '2019-07-31', TargetDate: '2019-08-31', X_Actual: '632,94', Y_Forecasted: '519,23' ]
+                    => [ Id: '7', StartDate: '2019-07-31', EndDate: '2019-08-31', TargetDate: '2019-09-30', X_Actual: '519,23', Y_Forecasted: '' ]
+
+             */
+
+            List<SlidingWindowItem> newItems = new List<SlidingWindowItem>();
+            newItems.AddRange(slidingWindowItems);
+
+            SlidingWindowItem oldLastItem = newItems.OrderBy(item => item.Id).Last();
+            newItems.Remove(oldLastItem);
+            oldLastItem.Y_Forecasted = observation.Y_Forecasted;
+            newItems.Add(oldLastItem);
+
+            SlidingWindowItem newLastItem = new SlidingWindowItem();
+            newLastItem.Id = oldLastItem.Id + 1;
+            newLastItem.StartDate = CalculateNext(oldLastItem.StartDate, intervalUnits, steps);
+            newLastItem.EndDate = CalculateNext(oldLastItem.EndDate, intervalUnits, steps);
+            newLastItem.TargetDate = CalculateNext(newLastItem.TargetDate, intervalUnits, steps);
+            newLastItem.X_Actual = observation.Y_Forecasted;
+            newLastItem.Y_Forecasted = null;
+            newItems.Add(newLastItem);
+
+            return newItems;
 
         }
 
