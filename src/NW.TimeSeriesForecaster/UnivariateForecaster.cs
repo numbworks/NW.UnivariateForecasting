@@ -38,6 +38,18 @@ namespace NW.UnivariateForecasting
                   new ObservationManager(
                       new SlidingWindowManager(roundingStrategy), 
                       roundingStrategy)) { }
+        public UnivariateForecaster(
+            IStategyProvider strategyProvider)
+        {
+
+            if (strategyProvider == null)
+                throw new ArgumentNullException(nameof(strategyProvider));
+
+            _slidingWindowManager = new SlidingWindowManager(strategyProvider.TwoDecimalDigitsRounding);
+            _observationManager = new ObservationManager(_slidingWindowManager, strategyProvider.TwoDecimalDigitsRounding);
+            _roundingStrategy = strategyProvider.TwoDecimalDigitsRounding;
+
+        }
         public UnivariateForecaster() 
             : this(
                   null,
