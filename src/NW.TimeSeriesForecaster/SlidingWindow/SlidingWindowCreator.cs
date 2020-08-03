@@ -83,6 +83,18 @@ namespace NW.UnivariateForecasting
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
+            /*
+
+                SlidingWindow:
+
+                    [ Id: 'SW20200803063734', StartDate: '2019-01-31', EndDate: '2019-07-31', TargetDate: '2019-08-31', Interval: '6', IntervalUnit: 'Months', Items: '6', ObservationName: 'Some_Identifier' ]
+                    
+                newSlidingWindow:
+
+                    [ Id: 'SW20200805011010', StartDate: '2019-01-31', EndDate: '2019-08-31', TargetDate: '2019-09-30', Interval: '7', IntervalUnit: 'Months', Items: '7', ObservationName: 'Some_Identifier' ]
+
+             */
+
             if (!_validator.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
             if (!_validator.IsValid(observation))
@@ -96,7 +108,7 @@ namespace NW.UnivariateForecasting
             uint steps = (uint)(slidingWindow.Interval / slidingWindow.Items.Count);
             newSlidingWindow.EndDate = CalculateNext(slidingWindow.EndDate, slidingWindow.IntervalUnit, steps);
             newSlidingWindow.TargetDate = CalculateNext(slidingWindow.TargetDate, slidingWindow.IntervalUnit, steps);
-            newSlidingWindow.Interval = slidingWindow.Interval;
+            newSlidingWindow.Interval = slidingWindow.Interval + 1;
             newSlidingWindow.IntervalUnit = slidingWindow.IntervalUnit;
             newSlidingWindow.Items = Combine(slidingWindow.Items, slidingWindow.IntervalUnit, steps, observation);
             newSlidingWindow.ObservationName = slidingWindow.ObservationName;
@@ -289,7 +301,7 @@ namespace NW.UnivariateForecasting
             newLastItem.Id = oldLastItem.Id + 1;
             newLastItem.StartDate = CalculateNext(oldLastItem.StartDate, intervalUnits, steps);
             newLastItem.EndDate = CalculateNext(oldLastItem.EndDate, intervalUnits, steps);
-            newLastItem.TargetDate = CalculateNext(newLastItem.TargetDate, intervalUnits, steps);
+            newLastItem.TargetDate = CalculateNext(oldLastItem.TargetDate, intervalUnits, steps);
             newLastItem.X_Actual = observation.Y_Forecasted;
             newLastItem.Y_Forecasted = null;
             newItems.Add(newLastItem);

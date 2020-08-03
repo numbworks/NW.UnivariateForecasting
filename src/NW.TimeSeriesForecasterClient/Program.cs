@@ -23,15 +23,26 @@ namespace NW.UnivariateForecastingClient
             foreach(SlidingWindowItem item in slidingWindow.Items)
                 Console.WriteLine(item.ToString());
 
-            Observation observation = new UnivariateForecaster(settings).Do(slidingWindow);
+            IUnivariateForecaster forecaster = new UnivariateForecaster(settings);
+            Observation observation = forecaster.Forecast(slidingWindow);
             Console.WriteLine(observation.ToString());
+
+            SlidingWindow newSlidingWindow = forecaster.ForecastAndCombine(slidingWindow);
+
+            Console.WriteLine(newSlidingWindow.ToString());
+            foreach (SlidingWindowItem item in newSlidingWindow.Items)
+                Console.WriteLine(item.ToString());
+
 
             /*
              * 
-             * Compile and see if SlidingWindow looks as in "Iteration 8.txt".
-             * Add comment to CreateSlidingWindow's body
+             * 1. Add log messages all around.
+             * 2. Add tests
+             * 3. Add buildscript
+             * 4. Add documentation
+             * 5. CLI in the client?
              * 
-             */     
+             */
 
             Console.ReadKey();
 

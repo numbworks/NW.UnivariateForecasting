@@ -8,7 +8,9 @@
         /// <para>Explaination: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...]
         /// which consists of observations on only a single characteristic or attribute.".</para>     
         /// </summary>
-        Observation Do(SlidingWindow objSlidingWindow);
+        Observation Forecast(SlidingWindow objSlidingWindow);
+
+        SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow);
 
     }
 }

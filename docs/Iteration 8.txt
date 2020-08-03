@@ -14,130 +14,90 @@
 [ Id: '7', StartDate: '2019-07-31', EndDate: '2019-08-31', TargetDate: '2019-09-30', X_Actual: '632,94', Y_Forecasted: '' ]
 
 
-
-
-1. Create a new List<SlidingWindowItem>:
-
-	- new.AddRange(current.Items)
-	- oldLastItem = new.Items.OrderBy(item => item.Id).Last()
-	- oldLastItem
-		- Y_Forecasted = observation.Y_Forecasted
-	- new.Remove(item => item.Id = oldLastItem.Id)
-	- new.Add(oldLastItem)
-	- newLastItem
-		- Id = oldLastItem.Id + 1
-		- StartDate = CalculateNext(oldLastItem.StartDate)
-		- EndDate = CalculateNext(oldLastItem.EndDate)
-		- TargetDate = _slidingWindowCreator.CalculateNext(oldLastItem.EndDate)
-		- X_Actual = observation.Y_Forecasted
-		- Y_Forecasted = null
-	- new.Add(newLastItem)
-
-2. Create a new SlidingWindow:
-
-	- Id = _settings.IdCreationFunction.Invoke()
-	- StartDate = slidingWindow.StartDate
-	- EndDate = _slidingWindowCreator.CalculateNext(slidingWindow.EndDate)
-	- TargetDate = _slidingWindowCreator.CalculateNext(slidingWindow.EndDate)
-	- Interval = slidingWindow.Interval + 1
-	- IntervalUnit = slidingWindow.IntervalUnit
-	- Items = Expand(slidingWindow, observation)
-	- ObservationName = slidingWindow.ObservationName
-
-3. add support for SlidingWindowCreator to UnivariateForecaster
-
-4. add Combine()
-
-
-SlidingWindowCreator:
-
-	- private List<SlidingWindowItem> Combine(List<SlidingWindowItem> slidingWindowItems, Observation observation) { ...}
-	- public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation) { ...}
-
 UnivariateForecaster:
 
-	- public List<Observation> DoMultipleTimes(SlidingWindow slidingWindow, int stepsAhead)
+
 	- public SlidingWindow DoAndCombine(SlidingWindow slidingWindow)
 	- public SlidingWindow DoAndCombine(SlidingWindow slidingWindow, int stepsAhead)	
 	- public SlidingWindow Combine (SlidingWindow slidingWindow, Observation observation)
 	- public double[] ExtractValues(SlidingWindow slidingWindow)
+	- public List<Observation> DoMultipleTimes(SlidingWindow slidingWindow, int stepsAhead)
 
-
-Last Update: 03.08.2021
 
 -----------------------------------------------------------------------
 
 SlidingWindow
-	- Id			SW20190131000000
+
+	- Id			SW20200803063734
 	- StartDate		2019-01-31	
 	- EndDate		2019-06-30
 	- TargetDate		2019-07-31
 	- Interval		6
 	- IntervalUnit		Months
-	- Items			6
+	- Items			
+
+		- SlidingWindowItem
+			- Id		1
+			- StartDate	2019-01-31	
+			- EndDate	2019-02-28
+			- TargetDate	2019-03-31
+			- X_Actual	58.50
+			- Y_Forecasted	615.26
+
+		- SlidingWindowItem
+			- Id		2
+			- StartDate	2019-02-28	
+			- EndDate	2019-03-31
+			- TargetDate	2019-04-30
+			- X_Actual	615.26
+			- Y_Forecasted	659.84
+
+		- SlidingWindowItem
+			- Id		3
+			- StartDate	2019-02-28	
+			- EndDate	2019-03-31
+			- TargetDate	2019-04-30
+			- X_Actual	659.84
+			- Y_Forecasted	635.69
+
+		- SlidingWindowItem
+			- Id		4
+			- StartDate	2019-03-31	
+			- EndDate	2019-04-30
+			- TargetDate	2019-05-31
+			- X_Actual	635.69
+			- Y_Forecasted	612.27
+
+		- SlidingWindowItem
+			- Id		5
+			- StartDate	2019-04-30	
+			- EndDate	2019-05-31
+			- TargetDate	2019-06-30
+			- X_Actual	612.27
+			- Y_Forecasted	632.94
+
+		- SlidingWindowItem
+			- Id		6
+			- StartDate	2019-05-31	
+			- EndDate	2019-06-30
+			- TargetDate	2019-07-31
+			- X_Actual	632.94
+			- Y_Forecasted	null
+
 	- ObservationName	Some_Identifier
 
-
-List<SlidingWindowItem>
-
-	- SlidingWindowItem
-		- Id		1
-		- StartDate	2019-01-31	
-		- EndDate	2019-02-28
-		- TargetDate	2019-03-31
-		- X_Actual	58.50
-		- Y_Forecasted	615.26
-
-	- SlidingWindowItem
-		- Id		2
-		- StartDate	2019-02-28	
-		- EndDate	2019-03-31
-		- TargetDate	2019-04-30
-		- X_Actual	615.26
-		- Y_Forecasted	659.84
-
-	- SlidingWindowItem
-		- Id		3
-		- StartDate	2019-02-28	
-		- EndDate	2019-03-31
-		- TargetDate	2019-04-30
-		- X_Actual	659.84
-		- Y_Forecasted	635.69
-
-	- SlidingWindowItem
-		- Id		4
-		- StartDate	2019-03-31	
-		- EndDate	2019-04-30
-		- TargetDate	2019-05-31
-		- X_Actual	635.69
-		- Y_Forecasted	612.27
-
-	- SlidingWindowItem
-		- Id		5
-		- StartDate	2019-04-30	
-		- EndDate	2019-05-31
-		- TargetDate	2019-06-30
-		- X_Actual	612.27
-		- Y_Forecasted	632.94
-
-	- SlidingWindowItem
-		- Id		6
-		- StartDate	2019-05-31	
-		- EndDate	2019-06-30
-		- TargetDate	2019-07-31
-		- X_Actual	632.94
-		- Y_Forecasted	null
-
-
 Observation
+
 	- Name 			Some_Identifier
 	- StartDate		2019-06-30	
 	- EndDate		2019-07-31
+	- Interval		6
+	- IntervalUnit		Months
 	- X_Actual		632,94
 	- C			...
 	- E			...
 	- Y_Forecasted		602,21
-	- SlidingWindowId	SW20190131000000
+	- SlidingWindowId	SW20200803063734
 
 
 ---------------------------------------------------------------------------
