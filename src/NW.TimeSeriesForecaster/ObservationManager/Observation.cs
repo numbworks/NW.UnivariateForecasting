@@ -19,8 +19,26 @@ namespace NW.UnivariateForecasting
         // Constructors
         public Observation() { }
 
-        // Methods (public)
-        // Methods (private)
+        // Methods
+        public override string ToString()
+        {
+
+            string content
+                = string.Join(
+                    ", ",
+                    $"{nameof(Name)}: '{Name}'",
+                    $"{nameof(StartDate)}: '{StartDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(EndDate)}: '{EndDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
+                    $"{nameof(C)}: '{C.ToString()}'",
+                    $"{nameof(E)}: '{E.ToString()}'",
+                    $"{nameof(Y_Forecasted)}: '{Y_Forecasted.ToString()}'",
+                    $"{nameof(SlidingWindowId)}: '{SlidingWindowId.ToString()}'"
+                    );
+
+            return $"[ {content} ]";
+
+        }
 
     }
 }
