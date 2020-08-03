@@ -2,13 +2,13 @@
 
 namespace NW.UnivariateForecasting
 {
-    public class SlidingWindowValidator : ISlidingWindowValidator
+    public class Validator : IValidator
     {
 
         // Fields
         // Properties
         // Constructors
-        public SlidingWindowValidator() { }
+        public Validator() { }
 
         // Methods (public)
         public bool IsValid(SlidingWindow slidingWindow)
@@ -35,6 +35,25 @@ namespace NW.UnivariateForecasting
             if (slidingWindow.Items.Count < 1)
                 return false;
             if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
+                return false;
+
+            return true;
+
+        }
+        public bool IsValid(Observation observation)
+        {
+
+            if (observation == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(observation.Name))
+                return false;
+            if (observation.StartDate >= observation.EndDate)
+                return false;
+            if (observation.Interval < 1)
+                return false;
+            if (observation.Interval != CalculateDifference(observation.StartDate, observation.EndDate, observation.IntervalUnit))
+                return false;
+            if (string.IsNullOrWhiteSpace(observation.SlidingWindowId))
                 return false;
 
             return true;

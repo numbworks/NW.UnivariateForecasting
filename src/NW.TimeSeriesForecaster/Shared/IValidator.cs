@@ -1,8 +1,9 @@
 ﻿namespace NW.UnivariateForecasting
 {
-    public interface ISlidingWindowValidator
+    public interface IValidator
     {
         bool IsValid(SlidingWindow slidingWindow);
+        bool IsValid(Observation observation);
     }
 }
 

@@ -7,26 +7,26 @@ namespace NW.UnivariateForecasting
 
         // Fields
         private UnivariateForecastingSettings _settings;
-        private ISlidingWindowValidator _slidingWindowValidator;
+        private IValidator _validator;
         private IObservationForecaster _observationForecaster;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
             UnivariateForecastingSettings settings,
-            ISlidingWindowValidator slidingWindowValidator,
+            IValidator validator,
             IObservationForecaster observationForecaster)
         {
 
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            if (slidingWindowValidator == null)
-                throw new ArgumentNullException(nameof(slidingWindowValidator));
+            if (validator == null)
+                throw new ArgumentNullException(nameof(validator));
             if (observationForecaster == null)
                 throw new ArgumentNullException(nameof(observationForecaster));
 
             _settings = settings;
-            _slidingWindowValidator = slidingWindowValidator;
+            _validator = validator;
             _observationForecaster = observationForecaster;
 
         }
@@ -37,7 +37,7 @@ namespace NW.UnivariateForecasting
                 throw new ArgumentNullException(nameof(settings));
 
             _settings = settings;
-            _slidingWindowValidator = new SlidingWindowValidator();
+            _validator = new Validator();
             _observationForecaster = new ObservationForecaster(settings);
 
         }
@@ -52,8 +52,8 @@ namespace NW.UnivariateForecasting
         public Observation Do(SlidingWindow slidingWindow)
         {
 
-            if (!_slidingWindowValidator.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
+            if (!_validator.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
             return _observationForecaster.Create(slidingWindow);
 

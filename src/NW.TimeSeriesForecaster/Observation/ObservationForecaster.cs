@@ -10,26 +10,26 @@ namespace NW.UnivariateForecasting
 
         // Fields
         private UnivariateForecastingSettings _settings;
-        private ISlidingWindowValidator _slidingWindowValidator;
+        private IValidator _validator;
 
         // Constructors
         public ObservationForecaster(
             UnivariateForecastingSettings settings,
-            ISlidingWindowValidator slidingWindowValidator)
+            IValidator validator)
         {
 
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            if (slidingWindowValidator == null)
-                throw new ArgumentNullException(nameof(slidingWindowValidator));
+            if (validator == null)
+                throw new ArgumentNullException(nameof(validator));
 
             _settings = settings;
-            _slidingWindowValidator = slidingWindowValidator;
+            _validator = validator;
 
         }
         public ObservationForecaster(
             UnivariateForecastingSettings settings)
-            : this(settings, new SlidingWindowValidator()) { }
+            : this(settings, new Validator()) { }
 
         // Methods (public)
 
@@ -39,8 +39,8 @@ namespace NW.UnivariateForecasting
         public Observation Create(SlidingWindow slidingWindow)
         {
 
-            if (!_slidingWindowValidator.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedSlidingWindowNotValid);
+            if (!_validator.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
             Observation observation = new Observation();
 
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting
             observation.Name = slidingWindow.ObservationName;
             observation.StartDate = GetObservationStartDate(slidingWindow);
             observation.EndDate = slidingWindow.TargetDate;
-            observation.Interval = slidingWindow.Interval / slidingWindow.Items.Count;
+            observation.Interval = (uint)(slidingWindow.Interval / slidingWindow.Items.Count);
             observation.IntervalUnit = slidingWindow.IntervalUnit;
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 

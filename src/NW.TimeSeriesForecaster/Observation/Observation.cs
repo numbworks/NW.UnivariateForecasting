@@ -10,7 +10,7 @@ namespace NW.UnivariateForecasting
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int Interval { get; set; }
+        public uint Interval { get; set; }
         public IntervalUnits IntervalUnit { get; set; }
         public double X_Actual { get; set; }
         public double C { get; set; }

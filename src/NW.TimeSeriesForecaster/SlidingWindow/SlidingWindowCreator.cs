@@ -9,18 +9,26 @@ namespace NW.UnivariateForecasting
 
         // Fields
         private UnivariateForecastingSettings _settings;
-        
+        private IValidator _validator;
+
         // Properties
         // Constructors
-        public SlidingWindowCreator(UnivariateForecastingSettings settings)
+        public SlidingWindowCreator(
+            UnivariateForecastingSettings settings,
+            IValidator validator)
         {
 
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
+            if (validator == null)
+                throw new ArgumentNullException(nameof(validator));
 
             _settings = settings;
+            _validator = validator;
 
         }
+        public SlidingWindowCreator(UnivariateForecastingSettings settings)
+            : this(settings, new Validator()) { }
 
         // Methods (public)
         public SlidingWindow CreateSlidingWindow
@@ -75,10 +83,10 @@ namespace NW.UnivariateForecasting
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
-            if (slidingWindow == null)
-                throw new ArgumentNullException(nameof(slidingWindow));
-            if (slidingWindow == null)
-                throw new ArgumentNullException(nameof(slidingWindow));
+            if (!_validator.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+            if (!_validator.IsValid(observation))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(Observation)));
 
             SlidingWindow newSlidingWindow = new SlidingWindow();
 
