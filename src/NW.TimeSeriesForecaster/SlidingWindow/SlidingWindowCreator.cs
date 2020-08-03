@@ -80,6 +80,7 @@ namespace NW.UnivariateForecasting
 
             SlidingWindowItem item = new SlidingWindowItem();
 
+            item.Id = id;
             item.StartDate = startDate;
             item.EndDate = CalculateNext(startDate, intervalUnit);
             item.TargetDate = CalculateNext(item.EndDate, intervalUnit);

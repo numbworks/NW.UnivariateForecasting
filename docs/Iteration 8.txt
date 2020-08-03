@@ -1,4 +1,14 @@
 
+[ Id: 'SW20200803063734', StartDate: '2019-01-31', EndDate: '2019-07-31', TargetDate: '2019-08-31', Interval: '6', IntervalUnit: 'Months', Items: '6', ObservationName: 'Some_Identifier' ]
+[ Id: '1', StartDate: '2019-01-31', EndDate: '2019-02-28', TargetDate: '2019-03-31', X_Actual: '58,5', Y_Forecasted: '615,26' ]
+[ Id: '2', StartDate: '2019-02-28', EndDate: '2019-03-31', TargetDate: '2019-04-30', X_Actual: '615,26', Y_Forecasted: '659,84' ]
+[ Id: '3', StartDate: '2019-03-31', EndDate: '2019-04-30', TargetDate: '2019-05-31', X_Actual: '659,84', Y_Forecasted: '635,69' ]
+[ Id: '4', StartDate: '2019-04-30', EndDate: '2019-05-31', TargetDate: '2019-06-30', X_Actual: '635,69', Y_Forecasted: '612,27' ]
+[ Id: '5', StartDate: '2019-05-31', EndDate: '2019-06-30', TargetDate: '2019-07-31', X_Actual: '612,27', Y_Forecasted: '632,94' ]
+[ Id: '6', StartDate: '2019-06-30', EndDate: '2019-07-31', TargetDate: '2019-08-31', X_Actual: '632,94', Y_Forecasted: '' ]
+
+[ Name: 'Some_Identifier', StartDate: '2019-07-31', EndDate: '2019-08-31', Interval: '1', IntervalUnit: 'Months', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200803063734' ]
+
 Last Update: 03.08.2021
 
 -----------------------------------------------------------------------
@@ -77,9 +87,5 @@ Observation
 
 
 ---------------------------------------------------------------------------
-
-        /// <para>Explaination: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...]
-        /// which consists of observations on only a single characteristic or attribute.".</para>     
-
 
 	
