@@ -16,6 +16,23 @@ namespace NW.UnivariateForecasting
 
         // Constructors
         // Methods
+        public override string ToString()
+        {
+
+            string content
+                = string.Join(
+                    ", ",
+                    $"{nameof(Id)}: '{Id.ToString()}'",
+                    $"{nameof(StartDate)}: '{StartDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(EndDate)}: '{EndDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(TargetDate)}: '{TargetDate?.ToString("yyyy-MM-dd") ?? "null"}'",
+                    $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
+                    $"{nameof(Y_Forecasted)}: '{Y_Forecasted.ToString() ?? "null"}'"
+                    );
+
+            return $"[ {content} ]";
+
+        }
 
     }
 }
