@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
@@ -7,13 +8,60 @@ namespace NW.UnivariateForecasting
     {
 
         // Fields
+        private Func<double, double> _roundingStrategy;
+
         // Properties
         public const string DefaultPrefix = "SW";
 
         // Constructors
-        public SlidingWindowManager() { }
+        public SlidingWindowManager(Func<double, double> roundingStrategy)
+        {
+
+            if (roundingStrategy == null)
+                throw new ArgumentNullException(nameof(roundingStrategy));
+
+            _roundingStrategy = roundingStrategy;
+
+        }
+        public SlidingWindowManager()
+            : this(null) { }
 
         // Methods (public)
+        public SlidingWindow CreateSlidingWindow
+            (string id, DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
+        {
+
+            if (string.IsNullOrWhiteSpace(id))
+                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(id)));
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+            if (values.Count == 0)
+                throw new ArgumentNullException(nameof(values));
+            if (string.IsNullOrWhiteSpace(observationName))
+                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(observationName)));
+
+            SlidingWindow slidingWindow = new SlidingWindow();
+
+            slidingWindow.Id = id;
+            slidingWindow.StartDate = startDate;
+            slidingWindow.EndDate = CalculateNext(startDate, intervalUnit, values.Count);
+            slidingWindow.TargetDate = CalculateNext(slidingWindow.EndDate, intervalUnit);
+            slidingWindow.Interval = values.Count;
+            slidingWindow.IntervalUnit = intervalUnit;
+            slidingWindow.Items = CreateItems(startDate, Round(values), intervalUnit);
+            slidingWindow.ObservatioName = observationName;
+
+            return slidingWindow;
+
+        }
+        public SlidingWindow CreateSlidingWindow
+            (DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
+                => CreateSlidingWindow(
+                        CreateId(date: startDate),
+                        startDate,
+                        values,
+                        intervalUnit,
+                        observationName);
         public bool IsValid(SlidingWindow slidingWindow)
         {
 
@@ -66,41 +114,6 @@ namespace NW.UnivariateForecasting
             return $"{prefix}{date.ToString("yyyyMMddhhmmsss")}";
 
         }
-        public SlidingWindow CreateSlidingWindow
-            (string id, DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
-        {
-
-            if (string.IsNullOrWhiteSpace(id))
-                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(id)));
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-            if (values.Count == 0)
-                throw new ArgumentNullException(nameof(values));
-            if (string.IsNullOrWhiteSpace(observationName))
-                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(observationName)));
-
-            SlidingWindow slidingWindow = new SlidingWindow();
-
-            slidingWindow.Id = id;
-            slidingWindow.StartDate = startDate;
-            slidingWindow.EndDate = CalculateNext(startDate, intervalUnit, values.Count);
-            slidingWindow.TargetDate = CalculateNext(slidingWindow.EndDate, intervalUnit);
-            slidingWindow.Interval = values.Count;
-            slidingWindow.IntervalUnit = intervalUnit;
-            slidingWindow.Items = CreateItems(startDate, values, intervalUnit);
-            slidingWindow.ObservatioName = observationName;
-
-            return slidingWindow;
-
-        }
-        public SlidingWindow CreateSlidingWindow
-            (DateTime startDate, List<double> values, SlidingWindowIntervalUnits intervalUnit, string observationName)
-                => CreateSlidingWindow(
-                        CreateId(date: startDate),
-                        startDate,
-                        values,
-                        intervalUnit,
-                        observationName);
 
         // Methods (private)
         private int CalculateDifference(DateTime date1, DateTime date2, SlidingWindowIntervalUnits intervalUnit)
@@ -217,6 +230,21 @@ namespace NW.UnivariateForecasting
             }
 
             return items;
+
+        }
+        private List<double> Round(List<double> values)
+        {
+
+            /*
+                934.5322222 => 934.53
+                978.5600101 => 978.56
+                ...
+             */
+
+            if (_roundingStrategy != null)
+                return values.Select(item => _roundingStrategy.Invoke(item)).ToList();
+
+            return values;
 
         }
 

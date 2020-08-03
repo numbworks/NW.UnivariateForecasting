@@ -15,8 +15,9 @@ namespace NW.UnivariateForecastingClient
             List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
             string observationName = "Some_Identifier";
 
-            SlidingWindow slidingWindow = new SlidingWindowManager().CreateSlidingWindow(startDate, values, intervalUnit, observationName);
-            Observation observation = new UnivariateForecaster().Do(slidingWindow);
+            Func<double, double> roundingStrategy = StategyCollection.TwoDecimalDigitsRounding;
+            SlidingWindow slidingWindow = new SlidingWindowManager(roundingStrategy).CreateSlidingWindow(startDate, values, intervalUnit, observationName);
+            Observation observation = new UnivariateForecaster(roundingStrategy).Do(slidingWindow);
 
             Console.WriteLine(observation.Y_Forecasted);
 

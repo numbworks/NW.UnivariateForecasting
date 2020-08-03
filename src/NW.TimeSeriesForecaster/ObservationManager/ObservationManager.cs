@@ -9,6 +9,7 @@ namespace NW.UnivariateForecasting
     {
 
         // Fields
+        private Func<double, double> _roundingStrategy;
         private ISlidingWindowManager _slidingWindowManager;
         private double _denominator;
 
@@ -20,23 +21,45 @@ namespace NW.UnivariateForecasting
         public const double DefaultDenominator = 0.001;
 
         // Constructors
-        public ObservationManager(ISlidingWindowManager slidingWindowManager, double denominator = DefaultDenominator)
+        public ObservationManager(
+            ISlidingWindowManager slidingWindowManager,
+            Func<double, double> roundingStrategy,
+            double denominator)
         {
 
             if (slidingWindowManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowManager));
+            if (roundingStrategy == null)
+                throw new ArgumentNullException(nameof(roundingStrategy));
             if (denominator < DefaultDenominator)
                 throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(denominator), DefaultDenominator));
 
             _slidingWindowManager = slidingWindowManager;
+            _roundingStrategy = roundingStrategy;
             _denominator = denominator;
 
         }
+        public ObservationManager(
+            ISlidingWindowManager slidingWindowManager,
+            Func<double, double> roundingStrategy)
+            : this(
+                  slidingWindowManager, 
+                  roundingStrategy, 
+                  DefaultDenominator) { }
+        public ObservationManager(
+            ISlidingWindowManager slidingWindowManager)
+            : this(
+                  slidingWindowManager, 
+                  null, 
+                  DefaultDenominator) { }
+        public ObservationManager()
+            : this(
+                  new SlidingWindowManager(null), 
+                  null, 
+                  DefaultDenominator) { }
 
         // Methods (public)
-        public Observation Create
-            (SlidingWindow slidingWindow,
-            Func<double, double> roundingStrategy = null)
+        public Observation Create(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
@@ -57,12 +80,12 @@ namespace NW.UnivariateForecasting
             double CX = CalculateCX(observation.C, observation.X_Actual);
             observation.Y_Forecasted = CalculateY(CX, observation.E);
 
-            if (roundingStrategy != null)
+            if (_roundingStrategy != null)
             {
 
-                observation.C = roundingStrategy(observation.C);
-                observation.E = roundingStrategy(observation.E);
-                observation.Y_Forecasted = roundingStrategy(observation.Y_Forecasted);
+                observation.C = _roundingStrategy(observation.C);
+                observation.E = _roundingStrategy(observation.E);
+                observation.Y_Forecasted = _roundingStrategy(observation.Y_Forecasted);
 
             }
 

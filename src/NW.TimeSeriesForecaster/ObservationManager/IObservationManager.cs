@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NW.UnivariateForecasting
+﻿namespace NW.UnivariateForecasting
 {
     public interface IObservationManager
     {
@@ -9,9 +7,7 @@ namespace NW.UnivariateForecasting
         /// <para>It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.</para>
         /// </summary>
         /// <param name="roundingFunction">If provided, the values get rounded accordingly.</param>
-        Observation Create(
-            SlidingWindow slidingWindow,
-            Func<double, double> roundingFunction = null);
+        Observation Create(SlidingWindow slidingWindow);
 
     }
 }

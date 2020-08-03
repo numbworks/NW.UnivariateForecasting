@@ -8,34 +8,43 @@ namespace NW.UnivariateForecasting
         // Fields
         private ISlidingWindowManager _slidingWindowManager;
         private IObservationManager _observationManager;
-        private IStategyProvider _strategyProvider;
+        private Func<double, double> _roundingStrategy;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
+            Func<double, double> roundingStrategy,
             ISlidingWindowManager slidingWindowManager,
-            IObservationManager observationManager,
-            IStategyProvider strategyProvider)
+            IObservationManager observationManager)
         {
 
+            if (roundingStrategy == null)
+                throw new ArgumentNullException(nameof(roundingStrategy));
             if (slidingWindowManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowManager));
             if (observationManager == null)
                 throw new ArgumentNullException(nameof(observationManager));
-            if (strategyProvider == null)
-                throw new ArgumentNullException(nameof(strategyProvider));
 
+            _roundingStrategy = roundingStrategy;
             _slidingWindowManager = slidingWindowManager;
             _observationManager = observationManager;
-            _strategyProvider = strategyProvider;
 
         }
+        public UnivariateForecaster(
+            Func<double, double> roundingStrategy)
+            : this(
+                  roundingStrategy,
+                  new SlidingWindowManager(roundingStrategy),
+                  new ObservationManager(
+                      new SlidingWindowManager(roundingStrategy), 
+                      roundingStrategy)) { }
         public UnivariateForecaster() 
             : this(
-                  new SlidingWindowManager(),
-                  new ObservationManager(new SlidingWindowManager()), 
-                  new StategyProvider()
-                  ) { }
+                  null,
+                  new SlidingWindowManager(null),
+                  new ObservationManager(
+                      new SlidingWindowManager(null), 
+                      null)) { }
  
         // Methods (public)
         public Observation Do(SlidingWindow slidingWindow)
