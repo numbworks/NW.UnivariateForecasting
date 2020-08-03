@@ -57,11 +57,11 @@ namespace NW.UnivariateForecasting
             ForecastingDenominator = forecastingDenominator;
 
             if (idCreationFunction == null)
-                idCreationFunction = () => $"SW{DateTime.Now.ToString("yyyyMMddhhmmsss")}";
-            if (RoundingFunction == null)
-                roundingFunction = new Func<double, double>(x => Math.Round(x, 2, MidpointRounding.AwayFromZero));
-            if (LoggingAction == null)
-                loggingAction = (message) => Console.WriteLine(message);
+                IdCreationFunction = () => $"SW{DateTime.Now.ToString("yyyyMMddhhmmsss")}";
+            if (roundingFunction == null)
+                RoundingFunction = new Func<double, double>(x => Math.Round(x, 2, MidpointRounding.AwayFromZero));
+            if (loggingAction == null)
+                LoggingAction = (message) => Console.WriteLine(message);
 
         }
 
