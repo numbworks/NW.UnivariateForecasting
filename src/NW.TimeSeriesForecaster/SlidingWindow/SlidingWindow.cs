@@ -38,6 +38,25 @@ namespace NW.UnivariateForecasting
             return $"[ {content} ]";
 
         }
+        public string ToString(bool rolloutItems)
+        {
+
+            if (rolloutItems == false)
+                return ToString();
+
+            List<string> strings = new List<string>();
+            strings.Add(ToString());
+
+            if (Items != null)
+                foreach (SlidingWindowItem item in Items)
+                    strings.Add(item.ToString());         
+
+            return string.Join(
+                Environment.NewLine,
+                strings
+                );
+
+        }
 
     }
 }
