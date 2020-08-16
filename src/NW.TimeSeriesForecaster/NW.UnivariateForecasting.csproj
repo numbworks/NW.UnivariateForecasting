@@ -1,7 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netcoreapp2.1;net47</TargetFrameworks>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Forecasts the next value for the provided SlidingWindow according to Univariate Forecasting. 
+Univariate Forecasting: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute."</Description>
+    <Copyright>NW 2020</Copyright>
+    <Authors>NW</Authors>
+    <PackageTags>MachineLearning Forecasting UnivariateForecasting TimeSeriesForecasting</PackageTags>
+    <PackageProjectUrl>https://github.com/numbworks</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>
