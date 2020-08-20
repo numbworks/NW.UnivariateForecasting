@@ -18,23 +18,15 @@ namespace NW.UnivariateForecasting
                 return false;
             if (string.IsNullOrWhiteSpace(slidingWindow.Id))
                 return false;
-            if (slidingWindow.StartDate >= slidingWindow.EndDate)
+            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
                 return false;
-            if (slidingWindow.StartDate >= slidingWindow.TargetDate)
-                return false;
-            if (slidingWindow.TargetDate <= slidingWindow.EndDate)
-                return false;
-            if (slidingWindow.Interval < 1)
-                return false;
-            if (slidingWindow.Interval != CalculateDifference(slidingWindow.StartDate, slidingWindow.EndDate, slidingWindow.IntervalUnit))
-                return false;
-            if (1 != CalculateDifference(slidingWindow.EndDate, slidingWindow.TargetDate, slidingWindow.IntervalUnit))
+            if (slidingWindow.Interval == null)
                 return false;
             if (slidingWindow.Items == null)
                 return false;
             if (slidingWindow.Items.Count < 1)
                 return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
+            if (slidingWindow.Items.Count != slidingWindow.Interval.SubIntervals)
                 return false;
 
             return true;

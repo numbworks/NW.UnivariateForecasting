@@ -7,14 +7,29 @@ namespace NW.UnivariateForecasting
 
         // Fields
         // Properties
-        public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public DateTime TargetDate { get; set; }
-        public double X_Actual { get; set; }
-        public double? Y_Forecasted { get; set; }
+        public uint Id { get; }
+        public Interval Interval { get; }
+        public double X_Actual { get; }
+        public double? Y_Forecasted { get; }
 
         // Constructors
+        public SlidingWindowItem(
+            uint id,
+            Interval interval,
+            double X_Actual,
+            double? Y_Forecasted)
+        {
+
+            if (interval == null)
+                throw new ArgumentNullException(nameof(interval));
+
+            Id = id;
+            Interval = interval;
+            this.X_Actual = X_Actual;
+            this.Y_Forecasted = Y_Forecasted;
+
+        }
+
         // Methods
         public override string ToString()
         {
@@ -23,9 +38,7 @@ namespace NW.UnivariateForecasting
                 = string.Join(
                     ", ",
                     $"{nameof(Id)}: '{Id.ToString()}'",
-                    $"{nameof(StartDate)}: '{StartDate.ToString("yyyy-MM-dd")}'",
-                    $"{nameof(EndDate)}: '{EndDate.ToString("yyyy-MM-dd")}'",
-                    $"{nameof(TargetDate)}: '{TargetDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(Interval)}: '{Interval.ToString(true)}'",
                     $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
                     $"{nameof(Y_Forecasted)}: '{Y_Forecasted.ToString() ?? "null"}'"
                     );

@@ -48,8 +48,8 @@ namespace NW.UnivariateForecasting
             observation.Name = slidingWindow.ObservationName;
             observation.StartDate = GetObservationStartDate(slidingWindow);
             observation.EndDate = slidingWindow.TargetDate;
-            observation.Interval = (uint)(slidingWindow.Interval / slidingWindow.Items.Count);
-            observation.IntervalUnit = slidingWindow.IntervalUnit;
+            observation.Interval = (uint)(slidingWindow.Size / slidingWindow.Items.Count);
+            observation.IntervalUnit = slidingWindow.Unit;
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);

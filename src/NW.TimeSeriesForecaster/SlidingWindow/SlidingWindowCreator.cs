@@ -32,54 +32,39 @@ namespace NW.UnivariateForecasting
 
         // Methods (public)
         public SlidingWindow CreateSlidingWindow
-            (string id, DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName)
+            (string id, 
+            string observationName, 
+            List<double> values, 
+            uint steps,
+            IntervalUnits intervalUnit, 
+            DateTime startDate)
         {
 
             if (string.IsNullOrWhiteSpace(id))
-                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(id)));
+                throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(id)));
+            if (string.IsNullOrWhiteSpace(observationName))
+                throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(observationName)));
             if (values == null)
                 throw new ArgumentNullException(nameof(values));
             if (values.Count == 0)
-                throw new ArgumentNullException(nameof(values));
-            if (string.IsNullOrWhiteSpace(observationName))
-                throw new Exception(MessageCollection.StringCantBeEmptyOrNull.Invoke(nameof(observationName)));
+                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
+            if (steps < 1)
+                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
 
-            SlidingWindow slidingWindow = new SlidingWindow();
-
-            slidingWindow.Id = id;
-            slidingWindow.StartDate = startDate;
-            slidingWindow.EndDate = CalculateNext(startDate, intervalUnit, (uint)values.Count);
-            slidingWindow.TargetDate = CalculateNext(slidingWindow.EndDate, intervalUnit);
-            slidingWindow.Interval = (uint)values.Count;
-            slidingWindow.IntervalUnit = intervalUnit;
-            slidingWindow.Items = CreateItems(startDate, Round(values), intervalUnit);
-            slidingWindow.ObservationName = observationName;
+            SlidingWindow slidingWindow = new SlidingWindow(
+                id,
+                observationName,
+                new Interval(
+                    (uint)values.Count,
+                    intervalUnit,
+                    startDate,
+                    steps),
+                CreateItems(startDate, Round(values), intervalUnit)
+                );
 
             return slidingWindow;
 
         }
-        public SlidingWindow CreateSlidingWindow
-            (DateTime startDate, List<double> values, IntervalUnits intervalUnit, string observationName)
-                => CreateSlidingWindow(
-                        _settings.IdCreationFunction.Invoke(),
-                        startDate,
-                        values,
-                        intervalUnit,
-                        observationName);
-        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit, uint steps)
-        {
-
-            if (steps < 1)
-                throw new Exception(MessageCollection.StepsCantBeLessThanOne);
-
-            if (intervalUnit == IntervalUnits.Months)
-                return AddMonths(date, steps);
-
-            throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(intervalUnit.ToString()));
-
-        }
-        public DateTime CalculateNext(DateTime date, IntervalUnits intervalUnit)
-            => CalculateNext(date, intervalUnit, 1);
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
@@ -105,12 +90,12 @@ namespace NW.UnivariateForecasting
             newSlidingWindow.Id = _settings.IdCreationFunction.Invoke();
             newSlidingWindow.StartDate = slidingWindow.StartDate;
 
-            uint steps = (uint)(slidingWindow.Interval / slidingWindow.Items.Count);
-            newSlidingWindow.EndDate = CalculateNext(slidingWindow.EndDate, slidingWindow.IntervalUnit, steps);
-            newSlidingWindow.TargetDate = CalculateNext(slidingWindow.TargetDate, slidingWindow.IntervalUnit, steps);
-            newSlidingWindow.Interval = slidingWindow.Interval + 1;
-            newSlidingWindow.IntervalUnit = slidingWindow.IntervalUnit;
-            newSlidingWindow.Items = Combine(slidingWindow.Items, slidingWindow.IntervalUnit, steps, observation);
+            uint steps = (uint)(slidingWindow.Size / slidingWindow.Items.Count);
+            newSlidingWindow.EndDate = CalculateNext(slidingWindow.EndDate, slidingWindow.Unit, steps);
+            newSlidingWindow.TargetDate = CalculateNext(slidingWindow.TargetDate, slidingWindow.Unit, steps);
+            newSlidingWindow.Size = slidingWindow.Size + 1;
+            newSlidingWindow.Unit = slidingWindow.Unit;
+            newSlidingWindow.Items = Combine(slidingWindow.Items, slidingWindow.Unit, steps, observation);
             newSlidingWindow.ObservationName = slidingWindow.ObservationName;
 
             return newSlidingWindow;
@@ -236,27 +221,6 @@ namespace NW.UnivariateForecasting
              */
 
             return values.Select(item => _settings.RoundingFunction.Invoke(item)).ToList();
-
-        }
-        private bool IsEndOfTheMonth(DateTime dt)
-            => dt.Day == DateTime.DaysInMonth(dt.Year, dt.Month);
-        private DateTime MoveToEndOfTheMonth(DateTime date)
-            => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-        private DateTime AddMonths(DateTime date, uint months)
-        {
-
-            /*
-                2019-01-31
-                2019-02-28
-                2019-03-28 < Error, this should be 2019-03-31
-             */
-
-            DateTime nextDate = date.AddMonths((int)months);
-
-            if (!IsEndOfTheMonth(date))
-                return nextDate;
-
-            return MoveToEndOfTheMonth(nextDate);
 
         }
         private List<SlidingWindowItem> Combine

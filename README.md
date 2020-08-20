@@ -13,20 +13,20 @@ As its name states, this library implements the univariate approach. A good defi
 
 Let's imagine to have the following `SlidingWindow` object:
 
-|Id | StartDate | EndDate | TargetDate | Interval | IntervalUnit | Items | ObservationName |
-|---|---|---|---|---|---|---|---|
-| SW20200803063734 | 2019-01-31 | 2019-07-31 | 2019-08-31 | 6 | Months | 6 | Total Monthly Sales USD |
+|Id | ObservationName | Interval | Items | 
+|---|---|---|---|
+| SW20200803063734 | Total Monthly Sales USD | 6:Months:20190131:20190731:20190831 | 6 |
 
 which contains the following '6' `SlidingWindowItems`:
 
-|Id | StartDate | EndDate | TargetDate | X_Actual | Y_Forecasted |
-|---|---|---|---|---|---|
-| 1 | 2019-01-31 | 2019-02-28 | 2019-03-31 | 58,5 | 615,26|
-| 2 | 2019-02-28 | 2019-03-31 | 2019-04-30 | 615,26 | 659,84 |
-| 3 | 2019-03-31 | 2019-04-30 | 2019-05-31 | 659,84 | 635,69 | 
-| 4 | 2019-04-30 | 2019-05-31 | 2019-06-30 | 635,69 | 612,27 |
-| 5 | 2019-05-31 | 2019-06-30 | 2019-07-31 | 612,27 | 632,94 |
-| 6 | 2019-06-30 | 2019-07-31 | 2019-08-31 | 632,94 | `[NULL]` |
+|Id | Interval | X_Actual | Y_Forecasted |
+|---|---|---|---|
+| 1 | 20190131:20190228:20190331 | 58,5 | 615,26|
+| 2 | 20190228:20190331:20190430 | 615,26 | 659,84 |
+| 3 | 20190331:20190430:20190531 | 659,84 | 635,69 | 
+| 4 | 20190430:20190531:20190630 | 635,69 | 612,27 |
+| 5 | 20190531:20190630:20190731 | 612,27 | 632,94 |
+| 6 | 20190630:20190731:20190831 | 632,94 | `[NULL]` |
 
 Each `SlidingWindowItem` object has the following properties:
 

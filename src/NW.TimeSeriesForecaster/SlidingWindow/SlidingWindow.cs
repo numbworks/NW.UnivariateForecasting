@@ -8,16 +8,40 @@ namespace NW.UnivariateForecasting
 
         // Fields
         // Properties
-        public string Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public DateTime TargetDate { get; set; }
-        public uint Interval { get; set; }
-        public IntervalUnits IntervalUnit { get; set; }
-        public List<SlidingWindowItem> Items { get; set; }
-        public string ObservationName { get; set; }
+        public string Id { get; }
+        public string ObservationName { get; }
+        public Interval Interval { get; }
+        public List<SlidingWindowItem> Items { get; }
 
         // Constructors
+        public SlidingWindow(
+            string id,
+            string observationName,
+            Interval interval,
+            List<SlidingWindowItem> items
+            )
+        {
+
+            if (string.IsNullOrWhiteSpace(id))
+                throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(id)));
+            if (string.IsNullOrWhiteSpace(observationName))
+                throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(ObservationName)));
+            if (interval == null)
+                throw new ArgumentNullException(nameof(interval));
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+            if (items.Count == 0)
+                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(items)));
+            if (items.Count != interval.SubIntervals)
+                throw new Exception(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
+
+            Id = id;
+            ObservationName = observationName;
+            Interval = interval;
+            Items = items;
+
+        }
+
         // Methods
         public override string ToString()
         {
@@ -26,13 +50,9 @@ namespace NW.UnivariateForecasting
                 = string.Join(
                     ", ",
                     $"{nameof(Id)}: '{Id}'",
-                    $"{nameof(StartDate)}: '{StartDate.ToString("yyyy-MM-dd")}'",
-                    $"{nameof(EndDate)}: '{EndDate.ToString("yyyy-MM-dd")}'",
-                    $"{nameof(TargetDate)}: '{TargetDate.ToString("yyyy-MM-dd")}'",
+                    $"{nameof(ObservationName)}: '{ObservationName}'",
                     $"{nameof(Interval)}: '{Interval.ToString()}'",
-                    $"{nameof(IntervalUnit)}: '{IntervalUnit}'",
-                    $"{nameof(Items)}: '{Items.Count.ToString() ?? "null"}'",
-                    $"{nameof(ObservationName)}: '{ObservationName}'"
+                    $"{nameof(Items)}: '{Items.Count.ToString() ?? "null"}'"
                     );
 
             return $"[ {content} ]";
