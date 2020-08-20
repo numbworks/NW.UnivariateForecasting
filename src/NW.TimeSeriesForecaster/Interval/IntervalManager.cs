@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
@@ -33,15 +34,15 @@ namespace NW.UnivariateForecasting
             return interval;
 
         }
-        public DateTime CalculateNext(DateTime date, IntervalUnits unit, uint size)
+        public DateTime CalculateNext(DateTime date, IntervalUnits unit, uint steps)
         {
 
-            if (size < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(size)));
+            if (steps < 1)
+                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
             if (unit != IntervalUnits.Months)
                 throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(unit.ToString()));
 
-            return AddMonths(date, size);           
+            return AddMonths(date, steps);           
 
         }
         public bool IsEndOfTheMonth(DateTime datetime)
@@ -67,6 +68,42 @@ namespace NW.UnivariateForecasting
                 return false;
 
             return true;
+
+        }
+        public List<Interval> CalculateSubIntervals(Interval interval)
+        {
+
+            if (!IsValid(interval))
+                throw new Exception(MessageCollection.IntervalNullOrInvalid);
+            if (interval.SubIntervals < 2)
+                throw new Exception(MessageCollection.SubIntervalsCantBeLessThanTwo);
+            if (interval.Unit != IntervalUnits.Months)
+                throw new Exception(MessageCollection.NoStrategyToCalculateSubIntervalsUnit.Invoke(interval.Unit.ToString()));
+
+            List<Interval> subIntervals = new List<Interval>();
+            for (int i = 1; i <= interval.Size; i++)
+            {
+
+                Interval subInterval = new Interval();
+
+                subInterval.Size = 1;
+                subInterval.Steps = 1;
+                subInterval.SubIntervals = 1;
+                subInterval.Unit = interval.Unit;
+
+                if (i == 1)
+                    subInterval.StartDate = interval.StartDate;
+                else
+                    subInterval.StartDate = CalculateNext(interval.StartDate, interval.Unit, (uint)i);
+
+                subInterval.EndDate = CalculateNext(subInterval.StartDate, subInterval.Unit, subInterval.Steps);
+                subInterval.TargetDate = CalculateNext(subInterval.EndDate, subInterval.Unit, subInterval.Steps);
+
+                subIntervals.Add(subInterval);
+
+            }
+
+            return subIntervals;
 
         }
 

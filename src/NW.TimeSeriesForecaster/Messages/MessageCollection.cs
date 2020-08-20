@@ -24,6 +24,8 @@ namespace NW.UnivariateForecasting
             = (unitName) => $"There is no strategy to calculate the date difference for the provided {typeof(IntervalUnits).Name} item: '{unitName}'.";
         public static Func<string, string> NoStrategyToCreateItemsUnit { get; }
             = (unitName) => $"There is no strategy to create a {typeof(List<SlidingWindowItem>).Name} object out of the provided {typeof(IntervalUnits).Name} item: '{unitName}'.";
+        public static string SubIntervalsCantBeLessThanTwo { get; }
+            = "Subintervals can't be less than two";
 
         public static string IntervalNullOrInvalid { get; }
             = "The provided interval is null or invalid.";
@@ -33,6 +35,8 @@ namespace NW.UnivariateForecasting
             = (unitName) => $"There is no strategy to calculate the next date for the provided {typeof(IntervalUnits).Name} item: '{unitName}'.";
         public static Func<int, Interval, string> ItemsDontMatchSubintervals { get; }
             = (items, interval) => $"The number of items ('{items.ToString()}') doesn't match with the expected number of subintervals ('{interval.SubIntervals.ToString()}').";
+        public static Func<string, string> NoStrategyToCalculateSubIntervalsUnit { get; }
+            = (unitName) => $"There is no strategy to calculate subintervals for the provided {typeof(IntervalUnits).Name} item: '{unitName}'.";
 
     }
 }
