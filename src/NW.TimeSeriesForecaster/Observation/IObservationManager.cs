@@ -1,8 +1,8 @@
 ﻿namespace NW.UnivariateForecasting
 {
-    public interface IValidator
+    public interface IObservationManager
     {
-        bool IsValid(SlidingWindow slidingWindow);
+        Observation Create(SlidingWindow slidingWindow);
         bool IsValid(Observation observation);
     }
 }
@@ -10,6 +10,6 @@
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 03.08.2021
+    Last Update: 20.08.2020    
 
 */

@@ -4,52 +4,57 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
-
-    public class ObservationForecaster : IObservationForecaster
+    public class ObservationManager : IObservationManager
     {
 
         // Fields
         private UnivariateForecastingSettings _settings;
-        private IValidator _validator;
+        private IIntervalManager _intervalManager;
+        private ISlidingWindowManager _slidingWindowManager;
 
         // Constructors
-        public ObservationForecaster(
+        public ObservationManager(
             UnivariateForecastingSettings settings,
-            IValidator validator)
+            IIntervalManager intervalManager,
+            ISlidingWindowManager slidingWindowManager)
         {
 
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            if (validator == null)
-                throw new ArgumentNullException(nameof(validator));
+            if (intervalManager == null)
+                throw new ArgumentNullException(nameof(intervalManager));
+            if (slidingWindowManager == null)
+                throw new ArgumentNullException(nameof(slidingWindowManager));
 
             _settings = settings;
-            _validator = validator;
+            _intervalManager = intervalManager;
+            _slidingWindowManager = slidingWindowManager;
 
         }
-        public ObservationForecaster(
-            UnivariateForecastingSettings settings)
-            : this(settings, new Validator()) { }
+        public ObservationManager(UnivariateForecastingSettings settings)
+            : this(settings, new IntervalManager(), new SlidingWindowManager(settings)) { }
 
         // Methods (public)
-
         /// <summary>
         /// It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
         /// </summary>
         public Observation Create(SlidingWindow slidingWindow)
         {
 
-            if (!_validator.IsValid(slidingWindow))
+            if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
             Observation observation = new Observation();
 
             observation.SlidingWindowId = slidingWindow.Id;
             observation.Name = slidingWindow.ObservationName;
-            observation.StartDate = GetObservationStartDate(slidingWindow);
-            observation.EndDate = slidingWindow.TargetDate;
-            observation.Interval = (uint)(slidingWindow.Size / slidingWindow.Items.Count);
-            observation.IntervalUnit = slidingWindow.Unit;
+
+            uint size = 1;
+            IntervalUnits unit = slidingWindow.Interval.Unit;
+            uint steps = slidingWindow.Interval.Steps;
+            DateTime startDate = GetObservationStartDate(slidingWindow);
+            observation.Interval = _intervalManager.Create(size, unit, startDate, steps);
+
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);
@@ -62,10 +67,25 @@ namespace NW.UnivariateForecasting
             return observation;
 
         }
+        public bool IsValid(Observation observation)
+        {
+
+            if (observation == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(observation.Name))
+                return false;
+            if (observation.Interval == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(observation.SlidingWindowId))
+                return false;
+
+            return true;
+
+        }
 
         // Methods (private)
         private DateTime GetObservationStartDate(SlidingWindow slidingWindow)
-            => slidingWindow.Items.OrderBy(item => item.EndDate).Last().EndDate;
+            => slidingWindow.Items.OrderBy(item => item.Interval.EndDate).Last().Interval.EndDate;
         private double GetTargetXActual(List<SlidingWindowItem> items)
         {
 
@@ -232,6 +252,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 28.04.2020    
+    Last Update: 20.08.2020    
 
 */

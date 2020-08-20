@@ -93,6 +93,27 @@ namespace NW.UnivariateForecasting
             throw new NotImplementedException();
 
         }
+        public bool IsValid(SlidingWindow slidingWindow)
+        {
+
+            if (slidingWindow == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(slidingWindow.Id))
+                return false;
+            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
+                return false;
+            if (slidingWindow.Interval == null)
+                return false;
+            if (slidingWindow.Items == null)
+                return false;
+            if (slidingWindow.Items.Count < 1)
+                return false;
+            if (slidingWindow.Items.Count != slidingWindow.Interval.SubIntervals)
+                return false;
+
+            return true;
+
+        }
 
         // Methods (private)
         private List<double> Round(List<double> values)

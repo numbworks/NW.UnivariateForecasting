@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NW.UnivariateForecasting
+﻿namespace NW.UnivariateForecasting
 {
     public class Observation
     {
@@ -8,10 +6,7 @@ namespace NW.UnivariateForecasting
         // Fields
         // Properties
         public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public uint Interval { get; set; }
-        public IntervalUnits IntervalUnit { get; set; }
+        public Interval Interval { get; set; }
         public double X_Actual { get; set; }
         public double C { get; set; }
         public double E { get; set; }
@@ -28,16 +23,13 @@ namespace NW.UnivariateForecasting
             string content
                 = string.Join(
                     ", ",
-                    $"{nameof(Name)}: '{Name}'",
-                    $"{nameof(StartDate)}: '{StartDate.ToString("yyyy-MM-dd")}'",
-                    $"{nameof(EndDate)}: '{EndDate.ToString("yyyy-MM-dd")}'",
-                    $"{nameof(Interval)}: '{Interval.ToString()}'",
-                    $"{nameof(IntervalUnit)}: '{IntervalUnit}'",
+                    $"{nameof(Name)}: '{Name ?? "null"}'",
+                    $"{nameof(Interval)}: '{Interval.ToString(true) ?? "null"}'",
                     $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
                     $"{nameof(C)}: '{C.ToString()}'",
                     $"{nameof(E)}: '{E.ToString()}'",
                     $"{nameof(Y_Forecasted)}: '{Y_Forecasted.ToString()}'",
-                    $"{nameof(SlidingWindowId)}: '{SlidingWindowId.ToString()}'"
+                    $"{nameof(SlidingWindowId)}: '{SlidingWindowId.ToString() ?? "null"}'"
                     );
 
             return $"[ {content} ]";

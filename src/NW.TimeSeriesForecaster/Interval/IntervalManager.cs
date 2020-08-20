@@ -62,7 +62,7 @@ namespace NW.UnivariateForecasting
                 return false;
             if (interval.EndDate != CalculateNext(interval.StartDate, interval.Unit, interval.Size))
                 return false;
-            if (interval.TargetDate != CalculateNext(interval.EndDate, interval.Unit, interval.Size))
+            if (interval.TargetDate != CalculateNext(interval.EndDate, interval.Unit, interval.Steps))
                 return false;
             if (interval.SubIntervals != (interval.Size / interval.Steps))
                 return false;
