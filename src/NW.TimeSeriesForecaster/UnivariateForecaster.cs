@@ -46,7 +46,7 @@ namespace NW.UnivariateForecasting
             _settings = settings;
             _validator = new Validator();
             _observationForecaster = new ObservationForecaster(settings);
-            _slidingWindowCreator = new SlidingWindowCreator(settings);
+            _slidingWindowCreator = new SlidingWindowManager(settings);
 
         }
 

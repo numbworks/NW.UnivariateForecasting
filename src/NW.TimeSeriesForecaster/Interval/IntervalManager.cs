@@ -44,9 +44,34 @@ namespace NW.UnivariateForecasting
             return AddMonths(date, size);           
 
         }
+        public bool IsEndOfTheMonth(DateTime datetime)
+            => datetime.Day == DateTime.DaysInMonth(datetime.Year, datetime.Month);
+        public DateTime MoveToEndOfTheMonth(DateTime datetime)
+            => new DateTime(datetime.Year, datetime.Month, DateTime.DaysInMonth(datetime.Year, datetime.Month));
+        public bool IsValid(Interval interval)
+        {
+
+            if (interval == null)
+                return false;
+            if (interval.Size < 1)
+                return false;
+            if (interval.Steps < 1)
+                return false;
+            if (interval.Size % interval.Steps != 0)
+                return false;
+            if (interval.EndDate != CalculateNext(interval.StartDate, interval.Unit, interval.Size))
+                return false;
+            if (interval.TargetDate != CalculateNext(interval.EndDate, interval.Unit, interval.Size))
+                return false;
+            if (interval.SubIntervals != (interval.Size / interval.Steps))
+                return false;
+
+            return true;
+
+        }
 
         // Methods (private)
-        private DateTime AddMonths(DateTime date, uint months)
+        private DateTime AddMonths(DateTime datetime, uint months)
         {
 
             /*
@@ -55,18 +80,14 @@ namespace NW.UnivariateForecasting
                 2019-03-28 < Error, this should be 2019-03-31
              */
 
-            DateTime nextDate = date.AddMonths((int)months);
+            DateTime nextDate = datetime.AddMonths((int)months);
 
-            if (!IsEndOfTheMonth(date))
+            if (!IsEndOfTheMonth(datetime))
                 return nextDate;
 
             return MoveToEndOfTheMonth(nextDate);
 
         }
-        private bool IsEndOfTheMonth(DateTime dt)
-            => dt.Day == DateTime.DaysInMonth(dt.Year, dt.Month);
-        private DateTime MoveToEndOfTheMonth(DateTime date)
-            => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
 
     }
 }

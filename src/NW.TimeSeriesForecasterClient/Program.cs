@@ -11,7 +11,7 @@ namespace NW.UnivariateForecastingClient
         {
 
             UnivariateForecastingSettings settings = new UnivariateForecastingSettings();
-            ISlidingWindowCreator slidingWindowCreator = new SlidingWindowCreator(settings);
+            ISlidingWindowCreator slidingWindowCreator = new SlidingWindowManager(settings);
 
             DateTime startDate = new DateTime(2019, 01, 31, 00, 00, 00);
             IntervalUnits intervalUnit = IntervalUnits.Months;

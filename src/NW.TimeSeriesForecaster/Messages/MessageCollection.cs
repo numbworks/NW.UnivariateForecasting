@@ -25,6 +25,8 @@ namespace NW.UnivariateForecasting
         public static Func<string, string> NoStrategyToCreateItemsUnit { get; }
             = (unitName) => $"There is no strategy to create a {typeof(List<SlidingWindowItem>).Name} object out of the provided {typeof(IntervalUnits).Name} item: '{unitName}'.";
 
+        public static string IntervalNullOrInvalid { get; }
+            = "The provided interval is null or invalid.";
         public static Func<string, string> VariableContainsZeroItems{ get; }
             = (variableName) => $"'{variableName}' contains zero items.";
         public static Func<string, string> NoStrategyToCalculateNextDateUnit { get; }

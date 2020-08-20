@@ -6,6 +6,9 @@ namespace NW.UnivariateForecasting
     {
         DateTime CalculateNext(DateTime date, IntervalUnits unit, uint size);
         Interval Create(uint size, IntervalUnits unit, DateTime startDate, uint steps);
+        bool IsEndOfTheMonth(DateTime datetime);
+        bool IsValid(Interval interval);
+        DateTime MoveToEndOfTheMonth(DateTime datetime);
     }
 }
 

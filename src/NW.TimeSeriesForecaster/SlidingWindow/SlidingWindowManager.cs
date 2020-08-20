@@ -4,103 +4,96 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
-    public class SlidingWindowCreator : ISlidingWindowCreator
+    public class SlidingWindowManager
     {
 
         // Fields
         private UnivariateForecastingSettings _settings;
-        private IValidator _validator;
+        private IIntervalManager _intervalManager;
+        private ISlidingWindowItemManager _slidingWindowItemManager;
 
         // Properties
         // Constructors
-        public SlidingWindowCreator(
+        public SlidingWindowManager(
             UnivariateForecastingSettings settings,
-            IValidator validator)
+            IIntervalManager intervalManager,
+            ISlidingWindowItemManager slidingWindowItemManager)
         {
 
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            if (validator == null)
-                throw new ArgumentNullException(nameof(validator));
+            if (intervalManager == null)
+                throw new ArgumentNullException(nameof(intervalManager));
+            if (slidingWindowItemManager == null)
+                throw new ArgumentNullException(nameof(slidingWindowItemManager));
 
             _settings = settings;
-            _validator = validator;
+            _intervalManager = intervalManager;
+            _slidingWindowItemManager = slidingWindowItemManager;
 
         }
-        public SlidingWindowCreator(UnivariateForecastingSettings settings)
-            : this(settings, new Validator()) { }
+        public SlidingWindowManager(UnivariateForecastingSettings settings)
+            : this(settings, new IntervalManager(), new SlidingWindowItemManager()) { }
 
         // Methods (public)
-        public SlidingWindow CreateSlidingWindow
-            (string id, 
+        public SlidingWindow Create(
+            string id, 
             string observationName, 
-            List<double> values, 
-            uint steps,
-            IntervalUnits intervalUnit, 
-            DateTime startDate)
+            Interval interval, 
+            List<SlidingWindowItem> items)
         {
 
             if (string.IsNullOrWhiteSpace(id))
                 throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(id)));
             if (string.IsNullOrWhiteSpace(observationName))
                 throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(observationName)));
+            if (!_intervalManager.IsValid(interval))
+                throw new Exception(MessageCollection.IntervalNullOrInvalid);
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+            if (items.Count == 0)
+                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(items)));
+            if (items.Count != interval.SubIntervals)
+                throw new Exception(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
+
+            return new SlidingWindow()
+            {
+
+                Id = id,
+                ObservationName = observationName,
+                Interval = interval,
+                Items = items
+
+            };
+
+        }
+        public SlidingWindow Create
+            (string id,
+            string observationName,
+            List<double> values,
+            uint steps,
+            IntervalUnits intervalUnit,
+            DateTime startDate)
+        {
+
             if (values == null)
                 throw new ArgumentNullException(nameof(values));
             if (values.Count == 0)
                 throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
-            if (steps < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
 
-            SlidingWindow slidingWindow = new SlidingWindow(
-                id,
-                observationName,
-                new Interval(
-                    (uint)values.Count,
-                    intervalUnit,
-                    startDate,
-                    steps),
-                CreateItems(startDate, Round(values), intervalUnit)
-                );
+            Interval interval = _intervalManager.Create((uint)values.Count, intervalUnit, startDate, steps);
+            List<SlidingWindowItem> items = CreateItems(startDate, Round(values), intervalUnit);
 
-            return slidingWindow;
+            return Create(id, observationName, interval, items);
 
         }
-        public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
-        {
 
-            /*
 
-                SlidingWindow:
 
-                    [ Id: 'SW20200803063734', StartDate: '2019-01-31', EndDate: '2019-07-31', TargetDate: '2019-08-31', Interval: '6', IntervalUnit: 'Months', Items: '6', ObservationName: 'Some_Identifier' ]
-                    
-                newSlidingWindow:
 
-                    [ Id: 'SW20200805011010', StartDate: '2019-01-31', EndDate: '2019-08-31', TargetDate: '2019-09-30', Interval: '7', IntervalUnit: 'Months', Items: '7', ObservationName: 'Some_Identifier' ]
 
-             */
 
-            if (!_validator.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-            if (!_validator.IsValid(observation))
-                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(Observation)));
 
-            SlidingWindow newSlidingWindow = new SlidingWindow();
-
-            newSlidingWindow.Id = _settings.IdCreationFunction.Invoke();
-            newSlidingWindow.StartDate = slidingWindow.StartDate;
-
-            uint steps = (uint)(slidingWindow.Size / slidingWindow.Items.Count);
-            newSlidingWindow.EndDate = CalculateNext(slidingWindow.EndDate, slidingWindow.Unit, steps);
-            newSlidingWindow.TargetDate = CalculateNext(slidingWindow.TargetDate, slidingWindow.Unit, steps);
-            newSlidingWindow.Size = slidingWindow.Size + 1;
-            newSlidingWindow.Unit = slidingWindow.Unit;
-            newSlidingWindow.Items = Combine(slidingWindow.Items, slidingWindow.Unit, steps, observation);
-            newSlidingWindow.ObservationName = slidingWindow.ObservationName;
-
-            return newSlidingWindow;
-
-        }
 
         // Methods (private)
         private SlidingWindowItem CreateItem(
@@ -111,7 +104,7 @@ namespace NW.UnivariateForecasting
 
             item.Id = id;
             item.StartDate = startDate;
-            item.EndDate = CalculateNext(startDate, intervalUnit);
+            item.EndDate = _intervalManager.CalculateNext(startDate, intervalUnit);
             item.TargetDate = CalculateNext(item.EndDate, intervalUnit);
             item.X_Actual = firstValue;
             item.Y_Forecasted = nextValue;
@@ -198,10 +191,10 @@ namespace NW.UnivariateForecasting
             {
 
                 SlidingWindowItem item = null;
-                if (i == (values.Count-1))
-                    item = CreateItem((i+1), current, intervalUnit, values[i], null);
+                if (i == (values.Count - 1))
+                    item = CreateItem((i + 1), current, intervalUnit, values[i], null);
                 else
-                    item = CreateItem((i+1), current, intervalUnit, values[i], values[i+1]);
+                    item = CreateItem((i + 1), current, intervalUnit, values[i], values[i + 1]);
 
                 items.Add(item);
                 current = CalculateNext(current, intervalUnit);
