@@ -11,6 +11,23 @@ namespace NW.UnivariateForecasting
         public Validator() { }
 
         // Methods (public)
+        public bool IsValid(Interval interval)
+        {
+
+            if (interval == null)
+                return false;
+            if (interval.Size < 1)
+                return false;
+            if (interval.Steps < 1)
+                return false;
+            if (interval.Size % interval.Steps != 0)
+                return false;
+
+            return true;
+
+        }
+
+
         public bool IsValid(SlidingWindow slidingWindow)
         {
 
