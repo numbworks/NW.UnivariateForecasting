@@ -115,6 +115,26 @@ namespace NW.UnivariateForecasting.UnitTests
                         MessageCollection.SubIntervalsCantBeLessThanTwo)
 
         };
+        private static TestCaseData[] createTestCases =
+        {
+
+            new TestCaseData(
+                    (uint)6, 
+                    IntervalUnits.Months,
+                    new DateTime(2019, 01, 31),
+                    (uint)1,
+                    MemberRepository.SlidingWindow1_Interval
+                ).SetDescription("Interval"),
+
+            new TestCaseData(
+                    (uint)1,
+                    IntervalUnits.Months,
+                    new DateTime(2019, 01, 31),
+                    (uint)1,
+                    MemberRepository.SlidingWindow1_SubInterval1
+                ).SetDescription("SubInterval"),
+
+        };
 
         // SetUp
         // Tests
@@ -157,7 +177,25 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(createTestCases))]
+        public void Create_ShouldReturnProperInterval_WhenProperArguments
+            (uint size, IntervalUnits unit, DateTime startDate, uint steps, Interval expected)
+        {
+
+            // Arrange
+            // Act
+            Interval actual = new IntervalManager().Create(size, unit, startDate, steps);
+
+            // Assert
+            Assert.IsTrue(
+                    MemberRepository.AreEqual(expected, actual));
+
+        }
+
         // TearDown
+
+
+
 
         // Support methods
         /*
@@ -188,14 +226,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        private bool AreEqual(SketchCollection obj1, SketchCollection obj2)
-        {
-
-            return string.Equals(obj1.Id, obj2.Id, StringComparison.InvariantCultureIgnoreCase)
-                   && string.Equals(obj1.Url, obj2.Url, StringComparison.InvariantCultureIgnoreCase)
-                   && (obj1.Type == obj2.Type);
-
-        }		
+	
 		*/
 
     }

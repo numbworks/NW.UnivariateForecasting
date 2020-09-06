@@ -229,6 +229,16 @@ namespace NW.UnivariateForecasting.UnitTests
         };
 
         // Methods
+        internal static bool AreEqual(Interval obj1, Interval obj2)
+        {
+
+            return Equals(obj1.Size, obj2.Size)
+                        && Equals(obj1.Unit, obj2.Unit)
+                        && Equals(obj1.StartDate, obj2.StartDate)
+                        && Equals(obj1.Steps, obj2.Steps);
+
+        }
+
         // Methods (private)
 
     }

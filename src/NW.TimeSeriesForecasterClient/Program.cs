@@ -37,20 +37,6 @@ namespace NW.UnivariateForecastingClient
             //List<double> results = forecaster.ExtractValues(newSlidingWindow);
             //Console.WriteLine(results);
 
-            /*
-             * 
-             * 1. Add log messages all around.
-             * 2. Add tests
-             * 4. Complete documentation
-             * 5. CLI in the client?
-             * 6. Shallow copy-like bug if ForecastAndCombine() sequences
-             * 7. Take as input an array and output just the number creating a dummy List<SlidingWindowItem> with random dates.
-             * 8. Edit the <Description> to match the one in the readme?
-             * 9. Create a NW.MarkdownTabulizer library to convert stuff to Markdown Tables
-             * 10. Test out the .nupkg from another solution.
-             * 
-             */
-
             Console.ReadKey();
 
         }
