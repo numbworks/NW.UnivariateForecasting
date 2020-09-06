@@ -71,13 +71,22 @@ namespace NW.UnivariateForecasting
         }
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
             => _slidingWindowManager.Combine(slidingWindow, observation);
-        public List<double> ExtractValues(SlidingWindow slidingWindow)
+        public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
             return slidingWindow.Items.Select(item => item.X_Actual).ToList();
+
+        }
+        public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
+        {
+
+            if (!_slidingWindowManager.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+
+            return slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
 
         }
 

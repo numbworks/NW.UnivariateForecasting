@@ -12,4 +12,14 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NW.TimeSeriesForecaster\NW.UnivariateForecasting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

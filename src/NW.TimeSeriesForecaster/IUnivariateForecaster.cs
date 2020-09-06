@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
@@ -14,7 +15,8 @@ namespace NW.UnivariateForecasting
 
         SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow);
         SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps);
-        List<double> ExtractValues(SlidingWindow slidingWindow);
+        List<double> ExtractXActualValues(SlidingWindow slidingWindow);
+        List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
 
     }
 }
