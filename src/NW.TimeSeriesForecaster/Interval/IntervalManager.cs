@@ -77,8 +77,6 @@ namespace NW.UnivariateForecasting
                 throw new Exception(MessageCollection.IntervalNullOrInvalid);
             if (interval.SubIntervals < 2)
                 throw new Exception(MessageCollection.SubIntervalsCantBeLessThanTwo);
-            if (interval.Unit != IntervalUnits.Months)
-                throw new Exception(MessageCollection.NoStrategyToCalculateSubIntervalsUnit.Invoke(interval.Unit.ToString()));
 
             List<Interval> subIntervals = new List<Interval>();
             for (int i = 1; i <= interval.Size; i++)
