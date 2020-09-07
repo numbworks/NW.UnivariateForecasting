@@ -135,6 +135,29 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetDescription("SubInterval"),
 
         };
+        private static TestCaseData[] calculateNextTestCases =
+        {
+
+            new TestCaseData(
+                new DateTime(2019, 01, 01), 
+                IntervalUnits.Months, 
+                (uint)1, 
+                new DateTime(2019, 02, 01)
+                ),
+            new TestCaseData(
+                new DateTime(2019, 01, 31), 
+                IntervalUnits.Months,
+                (uint)1, 
+                new DateTime(2019, 02, 28)
+                ),
+            new TestCaseData(
+                new DateTime(2019, 01, 02), 
+                IntervalUnits.Months,
+                (uint)1, 
+                new DateTime(2019, 02, 01)
+                )
+
+        };
 
         // SetUp
         // Tests
@@ -191,6 +214,25 @@ namespace NW.UnivariateForecasting.UnitTests
                     MemberRepository.AreEqual(expected, actual));
 
         }
+
+        [TestCaseSource(nameof(calculateNextTestCases))]
+        public void CalculateNext_ShouldReturnProperDateTime_WhenProperArguments
+            (DateTime date, IntervalUnits unit, uint steps, DateTime expected)
+        {
+
+            // Arrange
+            // Act
+            DateTime actual = new IntervalManager().CalculateNext(date, unit, steps);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
+
+
+
 
         // TearDown
 
