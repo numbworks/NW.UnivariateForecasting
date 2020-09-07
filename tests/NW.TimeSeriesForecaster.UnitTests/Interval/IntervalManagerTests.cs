@@ -142,7 +142,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new DateTime(2019, 01, 01), 
                 IntervalUnits.Months, 
                 (uint)1, 
-                new DateTime(2019, 02, 02)
+                new DateTime(2019, 02, 01)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 31), 
@@ -169,6 +169,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(new DateTime(2019, 01, 01), false),
             new TestCaseData(new DateTime(2019, 02, 28), true)
+
+        };
+        private static TestCaseData[] moveToEndOfTheMonthTestCases =
+        {
+
+            new TestCaseData(new DateTime(2019, 01, 01), new DateTime(2019, 01, 31)),
+            new TestCaseData(new DateTime(2019, 02, 01), new DateTime(2019, 02, 28))
 
         };
 
@@ -256,7 +263,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(moveToEndOfTheMonthTestCases))]
+        public void MoveToEndOfTheMonth_ShouldReturnExpectedDateTime_WhenDateTime
+            (DateTime date, DateTime expected)
+        {
 
+            // Arrange
+            // Act
+            DateTime actual = new IntervalManager().MoveToEndOfTheMonth(date);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
 
 
         // TearDown
