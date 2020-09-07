@@ -142,19 +142,13 @@ namespace NW.UnivariateForecasting.UnitTests
                 new DateTime(2019, 01, 01), 
                 IntervalUnits.Months, 
                 (uint)1, 
-                new DateTime(2019, 02, 01)
+                new DateTime(2019, 02, 02)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 31), 
                 IntervalUnits.Months,
                 (uint)1, 
                 new DateTime(2019, 02, 28)
-                ),
-            new TestCaseData(
-                new DateTime(2019, 01, 02), 
-                IntervalUnits.Months,
-                (uint)1, 
-                new DateTime(2019, 02, 01)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 01),
@@ -168,6 +162,13 @@ namespace NW.UnivariateForecasting.UnitTests
                 (uint)2,
                 new DateTime(2019, 03, 31)
                 )
+
+        };
+        private static TestCaseData[] isEndOfTheMonthTestCases =
+        {
+
+            new TestCaseData(new DateTime(2019, 01, 01), false),
+            new TestCaseData(new DateTime(2019, 02, 28), true)
 
         };
 
@@ -213,7 +214,7 @@ namespace NW.UnivariateForecasting.UnitTests
         }
 
         [TestCaseSource(nameof(createTestCases))]
-        public void Create_ShouldReturnProperInterval_WhenProperArguments
+        public void Create_ShouldReturnExpectedInterval_WhenProperArguments
             (uint size, IntervalUnits unit, DateTime startDate, uint steps, Interval expected)
         {
 
@@ -228,7 +229,7 @@ namespace NW.UnivariateForecasting.UnitTests
         }
 
         [TestCaseSource(nameof(calculateNextTestCases))]
-        public void CalculateNext_ShouldReturnProperDateTime_WhenProperArguments
+        public void CalculateNext_ShouldReturnNextDateTime_WhenDateTime
             (DateTime date, IntervalUnits unit, uint steps, DateTime expected)
         {
 
@@ -241,7 +242,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(isEndOfTheMonthTestCases))]
+        public void IsEndOfTheMonth_ShouldReturnExpectedBoolean_WhenDateTime
+            (DateTime date, bool expected)
+        {
 
+            // Arrange
+            // Act
+            bool actual = new IntervalManager().IsEndOfTheMonth(date);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
 
 
 
