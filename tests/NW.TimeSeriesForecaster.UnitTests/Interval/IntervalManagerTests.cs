@@ -178,6 +178,24 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(new DateTime(2019, 02, 01), new DateTime(2019, 02, 28))
 
         };
+        private static TestCaseData[] isValidTestCases =
+        {
+
+            new TestCaseData(MemberRepository.InvalidIntervalDueOfEndDate, false),
+            new TestCaseData(MemberRepository.InvalidIntervalDueOfSize, false),
+            new TestCaseData(MemberRepository.InvalidIntervalDueOfSizeBySteps, false),
+            new TestCaseData(MemberRepository.InvalidIntervalDueOfSteps, false),
+            new TestCaseData(MemberRepository.InvalidIntervalDueOfSubIntervals, false),
+            new TestCaseData(MemberRepository.InvalidIntervalDueOfTargetDate, false),
+            new TestCaseData(MemberRepository.SlidingWindow1_Interval, true),
+            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval1, true),
+            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval2, true),
+            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval3, true),
+            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval4, true),
+            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval5, true),
+            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval6, true)
+
+        };
 
         // SetUp
         // Tests
@@ -277,6 +295,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(isValidTestCases))]
+        public void IsValid_ShouldReturnExpectedDateTime_WhenDateTime
+            (Interval interval, bool expected)
+        {
+
+            // Arrange
+            // Act
+            bool actual = new IntervalManager().IsValid(interval);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
 
         // TearDown
 
