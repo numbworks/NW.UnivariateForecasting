@@ -155,6 +155,18 @@ namespace NW.UnivariateForecasting.UnitTests
                 IntervalUnits.Months,
                 (uint)1, 
                 new DateTime(2019, 02, 01)
+                ),
+            new TestCaseData(
+                new DateTime(2019, 01, 01),
+                IntervalUnits.Months,
+                (uint)2,
+                new DateTime(2019, 03, 01)
+                ),
+            new TestCaseData(
+                new DateTime(2019, 01, 31),
+                IntervalUnits.Months,
+                (uint)2,
+                new DateTime(2019, 03, 31)
                 )
 
         };
