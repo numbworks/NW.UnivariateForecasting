@@ -18,18 +18,25 @@
 
         // Methods
         public override string ToString()
+            => ToString(true);
+        public string ToString(bool onlyDates)
         {
+
+            // "[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190831:20190930:20191031:1:1', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
+            // "[ Name: 'Total Monthly Sales USD', Interval: '20190831:20190930:20191031', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
+            // "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]"
+            // ...
 
             string content
                 = string.Join(
                     ", ",
                     $"{nameof(Name)}: '{Name ?? "null"}'",
-                    $"{nameof(Interval)}: '{Interval.ToString(true) ?? "null"}'",
+                    $"{nameof(Interval)}: '{Interval?.ToString(onlyDates) ?? "null"}'",
                     $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
                     $"{nameof(C)}: '{C.ToString()}'",
                     $"{nameof(E)}: '{E.ToString()}'",
                     $"{nameof(Y_Forecasted)}: '{Y_Forecasted.ToString()}'",
-                    $"{nameof(SlidingWindowId)}: '{SlidingWindowId.ToString() ?? "null"}'"
+                    $"{nameof(SlidingWindowId)}: '{SlidingWindowId ?? "null"}'"
                     );
 
             return $"[ {content} ]";
