@@ -182,6 +182,7 @@ namespace NW.UnivariateForecasting.UnitTests
         private static TestCaseData[] isValidTestCases =
         {
 
+            new TestCaseData(null, false),
             new TestCaseData(MemberRepository.InvalidIntervalDueOfEndDate, false),
             new TestCaseData(MemberRepository.InvalidIntervalDueOfSize, false),
             new TestCaseData(MemberRepository.InvalidIntervalDueOfSizeBySteps, false),
