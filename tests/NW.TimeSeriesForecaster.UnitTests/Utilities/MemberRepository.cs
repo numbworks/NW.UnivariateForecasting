@@ -80,6 +80,9 @@ namespace NW.UnivariateForecasting.UnitTests
             Steps = 1,
             SubIntervals = 5 // <= invalid
         };
+        internal static Interval NewInterval = new Interval();
+        internal static string NewInterval_ToString = "0:Months:00010101:00010101:00010101:0:0";
+        internal static string NewInterval_ToStringOnlyDates = "00010101:00010101:00010101";
 
         internal static string SlidingWindow1_Id = "SW20200906090516";
         internal static string SlidingWindow1_ObservationName = "Total Monthly Sales USD";
@@ -157,6 +160,10 @@ namespace NW.UnivariateForecasting.UnitTests
             Steps = 1,
             SubIntervals = 1
         };
+        internal static string SlidingWindow1_Interval_ToString = "6:Months:20190131:20190731:20190831:1:6";
+        internal static string SlidingWindow1_Interval_ToStringOnlyDates = "20190131:20190731:20190831";
+        internal static string SlidingWindow1_SubInterval1_ToString = "1:Months:20190131:20190228:20190331:1:1";
+        internal static string SlidingWindow1_SubInterval1_ToStringOnlyDates = "20190131:20190228:20190331";
         internal static SlidingWindow SlidingWindow1 = new SlidingWindow()
         {
             Id = SlidingWindow1_Id,
