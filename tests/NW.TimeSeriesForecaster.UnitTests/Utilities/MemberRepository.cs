@@ -238,6 +238,25 @@ namespace NW.UnivariateForecasting.UnitTests
                         && Equals(obj1.Steps, obj2.Steps);
 
         }
+        internal static bool AreEqual(List<Interval> list1, List<Interval> list2)
+        {
+
+            if (list1 == null && list2 == null)
+                return true;
+
+            if (list1 == null || list2 == null)
+                return false;
+
+            if (list1.Count != list2.Count)
+                return false;
+
+            for (int i = 0; i < list1.Count; i++)
+                if (AreEqual(list1[i], list2[i]) == false)
+                    return false;
+
+            return true;
+
+        }
 
         // Methods (private)
 

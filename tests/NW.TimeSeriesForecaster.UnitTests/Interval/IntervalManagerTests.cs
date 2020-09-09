@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -196,6 +197,22 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(MemberRepository.SlidingWindow1_SubInterval6, true)
 
         };
+        private static TestCaseData[] calculateSubIntervalsTestCases =
+        {
+
+            new TestCaseData(
+                MemberRepository.SlidingWindow1_Interval,
+                new List<Interval>() {
+                    MemberRepository.SlidingWindow1_SubInterval1,
+                    MemberRepository.SlidingWindow1_SubInterval2,
+                    MemberRepository.SlidingWindow1_SubInterval3,
+                    MemberRepository.SlidingWindow1_SubInterval4,
+                    MemberRepository.SlidingWindow1_SubInterval5,
+                    MemberRepository.SlidingWindow1_SubInterval6
+                    }
+                )
+
+        }; 
 
         // SetUp
         // Tests
@@ -309,42 +326,21 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(calculateSubIntervalsTestCases))]
+        public void CalculateSubIntervals_ShouldReturnExpectedSubIntervals_WhenInterval
+            (Interval interval, List<Interval> expected)
+        {
+
+            // Arrange
+            List<Interval> actual = new IntervalManager().CalculateSubIntervals(interval);
+
+            // Assert
+            Assert.IsTrue(
+                MemberRepository.AreEqual(expected, actual));
+
+        }
+
         // TearDown
-
-
-
-
-        // Support methods
-        /*
-
-        private static TestCaseData[] arrTestCases =
-        {
-
-            new TestCaseData( "Something", false )
-
-        };
-
-        [TestCaseSource(nameof(arrTestCases))]
-        public void Method_Should_When()
-        {
-
-            // Arrange
-            // Act
-            // Assert
-
-        }
-        [Test]
-        public void SomeOtherMethod_Should_When()
-        {
-
-            // Arrange
-            // Act
-            // Assert
-
-        }
-
-	
-		*/
 
     }
 }
@@ -352,6 +348,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 06.09.2020
+    Last Update: 09.09.2020
 
 */

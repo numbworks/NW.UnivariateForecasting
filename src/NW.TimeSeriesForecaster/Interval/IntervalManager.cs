@@ -79,7 +79,7 @@ namespace NW.UnivariateForecasting
                 throw new Exception(MessageCollection.SubIntervalsCantBeLessThanTwo);
 
             List<Interval> subIntervals = new List<Interval>();
-            for (int i = 1; i <= interval.Size; i++)
+            for (int i = 0; i < interval.Size; i++)
             {
 
                 Interval subInterval = new Interval();
@@ -89,7 +89,7 @@ namespace NW.UnivariateForecasting
                 subInterval.SubIntervals = 1;
                 subInterval.Unit = interval.Unit;
 
-                if (i == 1)
+                if (i == 0)
                     subInterval.StartDate = interval.StartDate;
                 else
                     subInterval.StartDate = CalculateNext(interval.StartDate, interval.Unit, (uint)i);
@@ -130,6 +130,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.08.2020
+    Last Update: 09.09.2020
 
 */
