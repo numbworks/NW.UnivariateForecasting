@@ -17,8 +17,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate( 
                     () => new IntervalManager()
                             .Create(
-                                0, 
-                                IntervalUnits.Months, 
+                                0,
+                                MemberRepository.SlidingWindow1_IntervalUnit, 
                                 MemberRepository.SlidingWindow1_StartDate,
                                 1)),
                 typeof(Exception),
@@ -32,7 +32,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 1,
-                                IntervalUnits.Months,
+                                MemberRepository.SlidingWindow1_IntervalUnit,
                                 MemberRepository.SlidingWindow1_StartDate,
                                 0)),
                 typeof(Exception),
@@ -46,7 +46,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 5,
-                                IntervalUnits.Months,
+                                MemberRepository.SlidingWindow1_IntervalUnit,
                                 MemberRepository.SlidingWindow1_StartDate,
                                 2)),
                 typeof(Exception),
@@ -65,7 +65,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .CalculateNext(
                                 MemberRepository.SlidingWindow1_StartDate,
-                                IntervalUnits.Months,
+                                MemberRepository.SlidingWindow1_IntervalUnit,
                                 0)),
                 typeof(Exception),
                 new Exception(
@@ -120,8 +120,8 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                    (uint)6, 
-                    IntervalUnits.Months,
+                    (uint)6,
+                    MemberRepository.SlidingWindow1_IntervalUnit,
                     new DateTime(2019, 01, 31),
                     (uint)1,
                     MemberRepository.SlidingWindow1_Interval
@@ -129,7 +129,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                     (uint)1,
-                    IntervalUnits.Months,
+                    MemberRepository.SlidingWindow1_IntervalUnit,
                     new DateTime(2019, 01, 31),
                     (uint)1,
                     MemberRepository.SlidingWindow1_SubInterval1
@@ -140,26 +140,26 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                new DateTime(2019, 01, 01), 
-                IntervalUnits.Months, 
+                new DateTime(2019, 01, 01),
+                MemberRepository.SlidingWindow1_IntervalUnit, 
                 (uint)1, 
                 new DateTime(2019, 02, 01)
                 ),
             new TestCaseData(
-                new DateTime(2019, 01, 31), 
-                IntervalUnits.Months,
+                new DateTime(2019, 01, 31),
+                MemberRepository.SlidingWindow1_IntervalUnit,
                 (uint)1, 
                 new DateTime(2019, 02, 28)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 01),
-                IntervalUnits.Months,
+                MemberRepository.SlidingWindow1_IntervalUnit,
                 (uint)2,
                 new DateTime(2019, 03, 01)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 31),
-                IntervalUnits.Months,
+                MemberRepository.SlidingWindow1_IntervalUnit,
                 (uint)2,
                 new DateTime(2019, 03, 31)
                 )

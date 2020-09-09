@@ -80,14 +80,6 @@ namespace NW.UnivariateForecasting.UnitTests
             Steps = 1,
             SubIntervals = 5 // <= invalid
         };
-        internal static Interval NewInterval = new Interval();
-        internal static string NewInterval_ToString = "0:Months:00010101:00010101:00010101:0:0";
-        internal static string NewInterval_ToStringOnlyDates = "00010101:00010101:00010101";
-
-        internal static string SlidingWindow1_Id = "SW20200906090516";
-        internal static string SlidingWindow1_ObservationName = "Total Monthly Sales USD";
-        internal static List<double> SlidingWindow1_Values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-        internal static uint SlidingWindow1_Steps = 1;
         internal static IntervalUnits SlidingWindow1_IntervalUnit = IntervalUnits.Months;
         internal static DateTime SlidingWindow1_StartDate = new DateTime(2019, 01, 31, 00, 00, 00);
         internal static Interval SlidingWindow1_Interval = new Interval()
@@ -160,10 +152,19 @@ namespace NW.UnivariateForecasting.UnitTests
             Steps = 1,
             SubIntervals = 1
         };
+
+        internal static Interval NewInterval = new Interval();
+        internal static string NewInterval_ToString = "0:Months:00010101:00010101:00010101:0:0";
+        internal static string NewInterval_ToStringOnlyDates = "00010101:00010101:00010101";
         internal static string SlidingWindow1_Interval_ToString = "6:Months:20190131:20190731:20190831:1:6";
         internal static string SlidingWindow1_Interval_ToStringOnlyDates = "20190131:20190731:20190831";
         internal static string SlidingWindow1_SubInterval1_ToString = "1:Months:20190131:20190228:20190331:1:1";
         internal static string SlidingWindow1_SubInterval1_ToStringOnlyDates = "20190131:20190228:20190331";
+
+        internal static string SlidingWindow1_Id = "SW20200906090516";
+        internal static string SlidingWindow1_ObservationName = "Total Monthly Sales USD";
+        internal static List<double> SlidingWindow1_Values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+        internal static uint SlidingWindow1_Steps = 1;
         internal static SlidingWindow SlidingWindow1 = new SlidingWindow()
         {
             Id = SlidingWindow1_Id,
@@ -273,6 +274,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 06.09.2020
+    Last Update: 09.09.2020
 
 */
