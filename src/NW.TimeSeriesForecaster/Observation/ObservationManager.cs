@@ -44,8 +44,9 @@ namespace NW.UnivariateForecasting
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            Observation observation = new Observation();
+            _settings.LoggingAction.Invoke(MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(slidingWindow));
 
+            Observation observation = new Observation();
             observation.SlidingWindowId = slidingWindow.Id;
             observation.Name = slidingWindow.ObservationName;
 
@@ -63,6 +64,8 @@ namespace NW.UnivariateForecasting
 
             double CX = CalculateCX(observation.C, observation.X_Actual);
             observation.Y_Forecasted = CalculateY(CX, observation.E);
+
+            _settings.LoggingAction.Invoke(MessageCollection.FollowingObservationHasBeenCreated.Invoke(observation));
 
             return observation;
 
