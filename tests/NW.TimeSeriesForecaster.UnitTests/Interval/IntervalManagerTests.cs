@@ -97,7 +97,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
-                                    MemberRepository.InvalidIntervalDueOfSize)),
+                                    MemberRepository.Interval_InvalidDueOfSize)),
                 typeof(Exception),
                 new Exception(
                         MessageCollection.IntervalNullOrInvalid).Message
@@ -183,12 +183,12 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(null, false),
-            new TestCaseData(MemberRepository.InvalidIntervalDueOfEndDate, false),
-            new TestCaseData(MemberRepository.InvalidIntervalDueOfSize, false),
-            new TestCaseData(MemberRepository.InvalidIntervalDueOfSizeBySteps, false),
-            new TestCaseData(MemberRepository.InvalidIntervalDueOfSteps, false),
-            new TestCaseData(MemberRepository.InvalidIntervalDueOfSubIntervals, false),
-            new TestCaseData(MemberRepository.InvalidIntervalDueOfTargetDate, false),
+            new TestCaseData(MemberRepository.Interval_InvalidDueOfEndDate, false),
+            new TestCaseData(MemberRepository.Interval_InvalidDueOfSize, false),
+            new TestCaseData(MemberRepository.Interval_InvalidDueOfSizeBySteps, false),
+            new TestCaseData(MemberRepository.Interval_InvalidDueOfSteps, false),
+            new TestCaseData(MemberRepository.Interval_InvalidDueOfSubIntervals, false),
+            new TestCaseData(MemberRepository.Interval_InvalidDueOfTargetDate, false),
             new TestCaseData(MemberRepository.SlidingWindow1_Interval, true),
             new TestCaseData(MemberRepository.SlidingWindow1_SubInterval1, true),
             new TestCaseData(MemberRepository.SlidingWindow1_SubInterval2, true),
@@ -314,7 +314,7 @@ namespace NW.UnivariateForecasting.UnitTests
         }
 
         [TestCaseSource(nameof(isValidTestCases))]
-        public void IsValid_ShouldReturnExpectedDateTime_WhenDateTime
+        public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
             (Interval interval, bool expected)
         {
 

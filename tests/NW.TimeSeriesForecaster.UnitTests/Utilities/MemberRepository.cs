@@ -10,8 +10,9 @@ namespace NW.UnivariateForecasting.UnitTests
         // Fields
         // Properties
         internal static IntervalUnits NonExistantIntervalUnit = (IntervalUnits)(-1); // Emulates a non-existant enum value
-        internal static Interval InvalidIntervalDueOfSize = new Interval()
+        internal static Interval Interval_InvalidDueOfSize = new Interval()
         {
+
             Size = 0, // <= invalid
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -19,9 +20,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 1,
             SubIntervals = 6
+
         };
-        internal static Interval InvalidIntervalDueOfUnit = new Interval()
+        internal static Interval Interval_InvalidDueOfUnit = new Interval()
         {
+
             Size = 6, 
             Unit = NonExistantIntervalUnit, // <= invalid
             StartDate = new DateTime(2019, 01, 31),
@@ -29,9 +32,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 1,
             SubIntervals = 6
+
         };
-        internal static Interval InvalidIntervalDueOfSteps = new Interval()
+        internal static Interval Interval_InvalidDueOfSteps = new Interval()
         {
+
             Size = 6,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -39,9 +44,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 0, // <= invalid
             SubIntervals = 6
+
         };
-        internal static Interval InvalidIntervalDueOfSizeBySteps = new Interval()
+        internal static Interval Interval_InvalidDueOfSizeBySteps = new Interval()
         {
+
             Size = 6, // <= invalid
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -49,9 +56,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 4,  // <= invalid
             SubIntervals = 6
+
         };
-        internal static Interval InvalidIntervalDueOfEndDate = new Interval()
+        internal static Interval Interval_InvalidDueOfEndDate = new Interval()
         {
+
             Size = 6, 
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -59,9 +68,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 1,
             SubIntervals = 6
+
         };
-        internal static Interval InvalidIntervalDueOfTargetDate = new Interval()
+        internal static Interval Interval_InvalidDueOfTargetDate = new Interval()
         {
+
             Size = 6,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -69,9 +80,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 07, 31), // <= invalid
             Steps = 1,
             SubIntervals = 6
+
         };
-        internal static Interval InvalidIntervalDueOfSubIntervals = new Interval()
+        internal static Interval Interval_InvalidDueOfSubIntervals = new Interval()
         {
+
             Size = 6,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -79,11 +92,13 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 1,
             SubIntervals = 5 // <= invalid
+
         };
         internal static IntervalUnits SlidingWindow1_IntervalUnit = IntervalUnits.Months;
         internal static DateTime SlidingWindow1_StartDate = new DateTime(2019, 01, 31, 00, 00, 00);
         internal static Interval SlidingWindow1_Interval = new Interval()
         {
+
             Size = 6,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -91,9 +106,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 1,
             SubIntervals = 6
+
         };
         internal static Interval SlidingWindow1_SubInterval1 = new Interval()
         {
+
             Size = 1,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 01, 31),
@@ -101,9 +118,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 03, 31),
             Steps = 1,
             SubIntervals = 1
+
         };
         internal static Interval SlidingWindow1_SubInterval2 = new Interval()
         {
+
             Size = 1,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 02, 28),
@@ -111,9 +130,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 04, 30),
             Steps = 1,
             SubIntervals = 1
+
         };
         internal static Interval SlidingWindow1_SubInterval3 = new Interval()
         {
+
             Size = 1,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 03, 31),
@@ -121,9 +142,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 05, 31),
             Steps = 1,
             SubIntervals = 1
+
         };
         internal static Interval SlidingWindow1_SubInterval4 = new Interval()
         {
+
             Size = 1,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 04, 30),
@@ -131,9 +154,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 06, 30),
             Steps = 1,
             SubIntervals = 1
+
         };
         internal static Interval SlidingWindow1_SubInterval5 = new Interval()
         {
+
             Size = 1,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 05, 31),
@@ -141,9 +166,11 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 07, 31),
             Steps = 1,
             SubIntervals = 1
+
         };
         internal static Interval SlidingWindow1_SubInterval6 = new Interval()
         {
+
             Size = 1,
             Unit = IntervalUnits.Months,
             StartDate = new DateTime(2019, 06, 30),
@@ -151,6 +178,7 @@ namespace NW.UnivariateForecasting.UnitTests
             TargetDate = new DateTime(2019, 08, 31),
             Steps = 1,
             SubIntervals = 1
+
         };
 
         internal static Interval NewInterval = new Interval();
@@ -165,6 +193,7 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static string SlidingWindow1_ObservationName = "Total Monthly Sales USD";
         internal static Observation Observation1 = new Observation()
         {
+
             Name = SlidingWindow1_ObservationName,
             Interval = new Interval()
             {
@@ -181,6 +210,7 @@ namespace NW.UnivariateForecasting.UnitTests
             E = 0.22,
             Y_Forecasted = 519.23,
             SlidingWindowId = SlidingWindow1_Id
+
         };
         internal static string Observation1_ToString = "[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190831:20190930:20191031:1:1', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
         internal static string Observation1_ToStringOnlyDates = "[ Name: 'Total Monthly Sales USD', Interval: '20190831:20190930:20191031', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
@@ -242,6 +272,28 @@ namespace NW.UnivariateForecasting.UnitTests
             }
         };
 
+        internal static ObservationManager ObservationManager_Default = new ObservationManager(new UnivariateForecastingSettings());
+        internal static Observation Observation_InvalidDueOfNullName = new Observation()
+        {
+
+            Name = null
+
+        };
+        internal static Observation Observation_InvalidDueOfNullInterval = new Observation()
+        {
+
+            Name = SlidingWindow1_ObservationName,
+            Interval = null   
+            
+        };
+        internal static Observation Observation_InvalidDueOfNullSlidingWindow = new Observation()
+        {
+
+            Name = SlidingWindow1_ObservationName,
+            Interval = SlidingWindow1_SubInterval1, // Whatever valid Interval
+            SlidingWindowId = null
+
+        };
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
