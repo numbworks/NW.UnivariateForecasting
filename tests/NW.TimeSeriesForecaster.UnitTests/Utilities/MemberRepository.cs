@@ -199,9 +199,9 @@ namespace NW.UnivariateForecasting.UnitTests
             {
                 Size = 1,
                 Unit = IntervalUnits.Months,
-                StartDate = new DateTime(2019, 08, 31),
-                EndDate = new DateTime(2019, 09, 30),
-                TargetDate = new DateTime(2019, 10, 31),
+                StartDate = new DateTime(2019, 07, 31),
+                EndDate = new DateTime(2019, 08, 31),
+                TargetDate = new DateTime(2019, 09, 30),
                 Steps = 1,
                 SubIntervals = 1
             },
@@ -212,8 +212,8 @@ namespace NW.UnivariateForecasting.UnitTests
             SlidingWindowId = SlidingWindow1_Id
 
         };
-        internal static string Observation1_ToString = "[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190831:20190930:20191031:1:1', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
-        internal static string Observation1_ToStringOnlyDates = "[ Name: 'Total Monthly Sales USD', Interval: '20190831:20190930:20191031', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
+        internal static string Observation1_ToString = "[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190731:20190831:20190930:1:1', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
+        internal static string Observation1_ToStringOnlyDates = "[ Name: 'Total Monthly Sales USD', Interval: '20190731:20190831:20190930', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
         internal static Observation NewObservation = new Observation();
         internal static string NewObservation_ToString = "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]";
         internal static string NewObservation_ToStringOnlyDates = "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]";
@@ -322,6 +322,18 @@ namespace NW.UnivariateForecasting.UnitTests
                     return false;
 
             return true;
+
+        }
+        internal static bool AreEqual(Observation obj1, Observation obj2)
+        {
+
+            return string.Equals(obj1.Name, obj2.Name, StringComparison.InvariantCulture)
+                        && AreEqual(obj1.Interval, obj2.Interval)
+                        && Equals(obj1.X_Actual, obj2.X_Actual)
+                        && Equals(obj1.C, obj2.C)
+                        && Equals(obj1.E, obj2.E)
+                        && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted)
+                        && string.Equals(obj1.SlidingWindowId, obj2.SlidingWindowId, StringComparison.InvariantCulture);
 
         }
 

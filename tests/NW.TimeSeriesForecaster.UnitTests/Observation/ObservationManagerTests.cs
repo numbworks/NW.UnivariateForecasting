@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -56,7 +57,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetDescription(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)))
 
         };
-
         private static TestCaseData[] isValidTestCases =
         {
 
@@ -70,7 +70,14 @@ namespace NW.UnivariateForecasting.UnitTests
         private static TestCaseData[] createTestCases =
         {
 
-
+            new TestCaseData(
+                MemberRepository.SlidingWindow1,
+                MemberRepository.Observation1,
+                new List<string>() {
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(MemberRepository.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(MemberRepository.Observation1)
+                    }
+                )
 
         };
 
@@ -118,7 +125,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
-            (SlidingWindow slidingWindow, bool expected)
+            (SlidingWindow slidingWindow, Observation expected, List<string> expectedMessages)
         {
 
             // Arrange
@@ -130,7 +137,9 @@ namespace NW.UnivariateForecasting.UnitTests
             Observation actual = observationManager.Create(slidingWindow);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.True(
+                MemberRepository.AreEqual(expected, actual));
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
 
