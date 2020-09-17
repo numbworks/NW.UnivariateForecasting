@@ -22,8 +22,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 MemberRepository.SlidingWindow1_StartDate,
                                 1)),
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke("size")).Message
+                MessageCollection.VariableCantBeLessThanOne.Invoke("size")
                 ).SetDescription(
                         MessageCollection.VariableCantBeLessThanOne.Invoke("size")),
 
@@ -36,8 +35,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 MemberRepository.SlidingWindow1_StartDate,
                                 0)),
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke("steps")).Message
+                MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
                         MessageCollection.VariableCantBeLessThanOne.Invoke("steps")),
 
@@ -50,8 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 MemberRepository.SlidingWindow1_StartDate,
                                 2)),
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.DividingSizeByStepsMustReturnWholeNumber).Message
+                MessageCollection.DividingSizeByStepsMustReturnWholeNumber
                 ).SetDescription(
                         MessageCollection.DividingSizeByStepsMustReturnWholeNumber)
 
@@ -68,8 +65,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 MemberRepository.SlidingWindow1_IntervalUnit,
                                 0)),
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke("steps")).Message
+                MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
                         MessageCollection.VariableCantBeLessThanOne.Invoke("steps")),
 
@@ -81,9 +77,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 MemberRepository.NonExistantIntervalUnit,
                                 1)),
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
-                            MemberRepository.NonExistantIntervalUnit.ToString())).Message
+                MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
+                            MemberRepository.NonExistantIntervalUnit.ToString())
                 ).SetDescription(
                         MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
                             MemberRepository.NonExistantIntervalUnit.ToString())),
@@ -99,8 +94,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 .CalculateSubIntervals(
                                     MemberRepository.Interval_InvalidDueOfSize)),
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.IntervalNullOrInvalid).Message
+                MessageCollection.IntervalNullOrInvalid
                 ).SetDescription(
                         MessageCollection.IntervalNullOrInvalid),
 
@@ -110,8 +104,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 .CalculateSubIntervals(
                                         MemberRepository.SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
                 typeof(Exception),
-                new Exception(
-                        MessageCollection.SubIntervalsCantBeLessThanTwo).Message
+                MessageCollection.SubIntervalsCantBeLessThanTwo
                 ).SetDescription(
                         MessageCollection.SubIntervalsCantBeLessThanTwo)
 

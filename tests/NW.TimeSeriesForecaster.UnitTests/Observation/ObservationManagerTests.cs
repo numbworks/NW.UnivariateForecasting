@@ -44,6 +44,19 @@ namespace NW.UnivariateForecasting.UnitTests
                 ),
 
         };
+        private static TestCaseData[] createExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => MemberRepository.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
+                    ),
+                typeof(Exception),
+                MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                ).SetDescription(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)))
+
+        };
+
         private static TestCaseData[] isValidTestCases =
         {
 
@@ -76,6 +89,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(createExceptionTestCases))]
+        public void Create_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
         [TestCaseSource(nameof(isValidTestCases))]
         public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
             (Observation observation, bool expected)
@@ -90,7 +116,6 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        [Ignore("")]
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
             (SlidingWindow slidingWindow, bool expected)
