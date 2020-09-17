@@ -8,6 +8,42 @@ namespace NW.UnivariateForecasting.UnitTests
     {
 
         // Fields
+        private static TestCaseData[] constructorExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new ObservationManager(
+                            null, 
+                            new IntervalManager(),
+                            new SlidingWindowManager(
+                                new UnivariateForecastingSettings()))),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("settings").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new ObservationManager(
+                            new UnivariateForecastingSettings(),
+                            null,
+                            new SlidingWindowManager(
+                                new UnivariateForecastingSettings()))),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("intervalManager").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new ObservationManager(
+                            new UnivariateForecastingSettings(),
+                            new IntervalManager(),
+                            null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("slidingWindowManager").Message
+                ),
+
+        };
         private static TestCaseData[] isValidTestCases =
         {
 
@@ -27,6 +63,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         // SetUp
         // Tests
+        [TestCaseSource(nameof(constructorExceptionTestCases))]
+        public void Constructor_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
         [TestCaseSource(nameof(isValidTestCases))]
         public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
             (Observation observation, bool expected)
@@ -41,6 +90,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [Ignore("")]
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
             (SlidingWindow slidingWindow, bool expected)
