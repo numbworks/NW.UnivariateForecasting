@@ -18,32 +18,32 @@ namespace NW.UnivariateForecasting
 
         // Methods
         public override string ToString()
+            => ToString(true);
+        public string ToString(bool rolloutItems)
         {
 
-            string content 
+            // [ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]
+            // [ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]
+            // ...
+
+            string content
                 = string.Join(
                     ", ",
                     $"{nameof(Id)}: '{Id ?? "null"}'",
                     $"{nameof(ObservationName)}: '{ObservationName ?? "null"}'",
-                    $"{nameof(Interval)}: '{Interval.ToString() ?? "null"}'",
-                    $"{nameof(Items)}: '{Items.Count.ToString() ?? "null"}'"
+                    $"{nameof(Interval)}: '{Interval?.ToString() ?? "null"}'",
+                    $"{nameof(Items)}: '{Items?.Count.ToString() ?? "null"}'"
                     );
+            content = $"[ {content} ]";
 
-            return $"[ {content} ]";
-
-        }
-        public string ToString(bool rolloutItems)
-        {
-
-            if (rolloutItems == false)
-                return ToString();
+            if (rolloutItems == false || Items == null || Items?.Count == 0)
+                return content;
 
             List<string> strings = new List<string>();
-            strings.Add(ToString());
+            strings.Add(content);
 
-            if (Items != null)
-                foreach (SlidingWindowItem item in Items)
-                    strings.Add(item.ToString());         
+            foreach (SlidingWindowItem item in Items)
+                strings.Add(item.ToString());
 
             return string.Join(
                 Environment.NewLine,
@@ -58,6 +58,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 28.04.2020
+    Last Update: 20.09.2020
 
 */

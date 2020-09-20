@@ -220,6 +220,48 @@ namespace NW.UnivariateForecasting.UnitTests
 
         internal static List<double> SlidingWindow1_Values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
         internal static uint SlidingWindow1_Steps = 1;
+        internal static SlidingWindowItem SlidingWindow1_Item1 = new SlidingWindowItem()
+        {
+            Id = 1,
+            Interval = SlidingWindow1_SubInterval1,
+            X_Actual = 58.5,
+            Y_Forecasted = 615.26
+        };
+        internal static SlidingWindowItem SlidingWindow1_Item2 = new SlidingWindowItem()
+        {
+            Id = 2,
+            Interval = SlidingWindow1_SubInterval2,
+            X_Actual = 615.26,
+            Y_Forecasted = 659.84
+        };
+        internal static SlidingWindowItem SlidingWindow1_Item3 = new SlidingWindowItem()
+        {
+            Id = 3,
+            Interval = SlidingWindow1_SubInterval3,
+            X_Actual = 659.84,
+            Y_Forecasted = 635.69
+        };
+        internal static SlidingWindowItem SlidingWindow1_Item4 = new SlidingWindowItem()
+        {
+            Id = 4,
+            Interval = SlidingWindow1_SubInterval4,
+            X_Actual = 635.69,
+            Y_Forecasted = 612.27
+        };
+        internal static SlidingWindowItem SlidingWindow1_Item5 = new SlidingWindowItem()
+        {
+            Id = 5,
+            Interval = SlidingWindow1_SubInterval5,
+            X_Actual = 612.27,
+            Y_Forecasted = 632.94
+        };
+        internal static SlidingWindowItem SlidingWindow1_Item6 = new SlidingWindowItem()
+        {
+            Id = 6,
+            Interval = SlidingWindow1_SubInterval6,
+            X_Actual = 632.94,
+            Y_Forecasted = null
+        };
         internal static SlidingWindow SlidingWindow1 = new SlidingWindow()
         {
             Id = SlidingWindow1_Id,
@@ -227,48 +269,12 @@ namespace NW.UnivariateForecasting.UnitTests
             Interval = SlidingWindow1_Interval,
             Items = new List<SlidingWindowItem> ()
             {
-                new SlidingWindowItem()
-                {
-                    Id = 1,
-                    Interval = SlidingWindow1_SubInterval1,
-                    X_Actual = 58.5,
-                    Y_Forecasted = 615.26
-                },
-                new SlidingWindowItem()
-                {
-                    Id = 2,
-                    Interval = SlidingWindow1_SubInterval2,
-                    X_Actual = 615.26,
-                    Y_Forecasted = 659.84
-                },
-                new SlidingWindowItem()
-                {
-                    Id = 3,
-                    Interval = SlidingWindow1_SubInterval3,
-                    X_Actual = 659.84,
-                    Y_Forecasted = 635.69
-                },
-                new SlidingWindowItem()
-                {
-                    Id = 4,
-                    Interval = SlidingWindow1_SubInterval4,
-                    X_Actual = 635.69,
-                    Y_Forecasted = 612.27
-                },
-                new SlidingWindowItem()
-                {
-                    Id = 5,
-                    Interval = SlidingWindow1_SubInterval5,
-                    X_Actual = 612.27,
-                    Y_Forecasted = 632.94
-                },
-                new SlidingWindowItem()
-                {
-                    Id = 6,
-                    Interval = SlidingWindow1_SubInterval6,
-                    X_Actual = 632.94,
-                    Y_Forecasted = null
-                }
+                SlidingWindow1_Item1,
+                SlidingWindow1_Item2,
+                SlidingWindow1_Item3,
+                SlidingWindow1_Item4,
+                SlidingWindow1_Item5,
+                SlidingWindow1_Item6
             }
         };
 
@@ -294,6 +300,22 @@ namespace NW.UnivariateForecasting.UnitTests
             SlidingWindowId = null
 
         };
+
+        internal static string SlidingWindow1_ToString = "[ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]";
+        internal static string SlidingWindow1_ToStringRolloutItems 
+            = string.Join(
+                Environment.NewLine,
+                SlidingWindow1_ToString,
+                SlidingWindow1_Item1.ToString(),
+                SlidingWindow1_Item2.ToString(),
+                SlidingWindow1_Item3.ToString(),
+                SlidingWindow1_Item4.ToString(),
+                SlidingWindow1_Item5.ToString(),
+                SlidingWindow1_Item6.ToString()
+                );
+        internal static SlidingWindow NewSlidingWindow = new SlidingWindow();
+        internal static string NewSlidingWindow_ToString = "[ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]";
+        internal static string NewSlidingWindow_ToStringRolloutItems = NewSlidingWindow_ToString;
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
@@ -345,6 +367,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 09.09.2020
+    Last Update: 20.09.2020
 
 */
