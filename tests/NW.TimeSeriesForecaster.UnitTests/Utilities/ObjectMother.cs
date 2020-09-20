@@ -262,20 +262,21 @@ namespace NW.UnivariateForecasting.UnitTests
             X_Actual = 632.94,
             Y_Forecasted = null
         };
+        internal static List<SlidingWindowItem> SlidingWindow1_Items = new List<SlidingWindowItem>()
+        {
+            SlidingWindow1_Item1,
+            SlidingWindow1_Item2,
+            SlidingWindow1_Item3,
+            SlidingWindow1_Item4,
+            SlidingWindow1_Item5,
+            SlidingWindow1_Item6
+        };
         internal static SlidingWindow SlidingWindow1 = new SlidingWindow()
         {
             Id = SlidingWindow1_Id,
             ObservationName = SlidingWindow1_ObservationName,
             Interval = SlidingWindow1_Interval,
-            Items = new List<SlidingWindowItem> ()
-            {
-                SlidingWindow1_Item1,
-                SlidingWindow1_Item2,
-                SlidingWindow1_Item3,
-                SlidingWindow1_Item4,
-                SlidingWindow1_Item5,
-                SlidingWindow1_Item6
-            }
+            Items = SlidingWindow1_Items
         };
 
         internal static ObservationManager ObservationManager_Default = new ObservationManager(new UnivariateForecastingSettings());
@@ -333,6 +334,8 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static Interval SlidingWindow1_Item1_Interval = SlidingWindow1_SubInterval1;
         internal static double SlidingWindow1_Item1_XActual = 58.5;
         internal static double? SlidingWindow1_Item1_YForecasted = 615.26;
+
+        internal static SlidingWindowManager SlidingWindowManager_Default = new SlidingWindowManager(new UnivariateForecastingSettings());
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
