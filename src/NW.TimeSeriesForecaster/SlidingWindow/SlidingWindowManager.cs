@@ -56,7 +56,13 @@ namespace NW.UnivariateForecasting
             if (items.Count != interval.SubIntervals)
                 throw new Exception(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
 
-            return new SlidingWindow()
+            _settings.LoggingAction.Invoke(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedIdIs.Invoke(id));
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedObservationNameIs.Invoke(observationName));
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedIntervalIs.Invoke(interval));
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedItemsCountIs.Invoke(items));
+
+            SlidingWindow slidingWindow = new SlidingWindow()
             {
 
                 Id = id,
@@ -65,6 +71,10 @@ namespace NW.UnivariateForecasting
                 Items = items
 
             };
+
+            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(slidingWindow));
+
+            return slidingWindow;
 
         }
         public SlidingWindow Create
@@ -80,6 +90,11 @@ namespace NW.UnivariateForecasting
                 throw new ArgumentNullException(nameof(values));
             if (values.Count == 0)
                 throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
+
+            _settings.LoggingAction.Invoke(MessageCollection.CreatingIntervalOutOfFollowingArguments);
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedValuesAre.Invoke(values));
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedStepsAre.Invoke(steps));
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedIntervalUnitsIs.Invoke(intervalUnit));
 
             Interval interval = _intervalManager.Create((uint)values.Count, intervalUnit, startDate, steps);
             List<SlidingWindowItem> items = CreateItems(interval, Round(values));
