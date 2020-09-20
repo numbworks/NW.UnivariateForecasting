@@ -321,6 +321,19 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static SlidingWindowItem NewSlidingWindowItem = new SlidingWindowItem();
         internal static string NewSlidingWindowItem_ToString = "[ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]";
 
+        internal static SlidingWindowItemManager SlidingWindowItemManager_Default = new SlidingWindowItemManager();
+        internal static SlidingWindowItem SlidingWindowItem_InvalidDueOfSize = new SlidingWindowItem()
+        {
+            Id = 2,
+            Interval = Interval_InvalidDueOfSize,
+            X_Actual = 615.26,
+            Y_Forecasted = 659.84
+        };
+        internal static uint SlidingWindow1_Item1_Id = 1;
+        internal static Interval SlidingWindow1_Item1_Interval = SlidingWindow1_SubInterval1;
+        internal static double SlidingWindow1_Item1_XActual = 58.5;
+        internal static double? SlidingWindow1_Item1_YForecasted = 615.26;
+
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
         {
@@ -360,6 +373,15 @@ namespace NW.UnivariateForecasting.UnitTests
                         && Equals(obj1.E, obj2.E)
                         && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted)
                         && string.Equals(obj1.SlidingWindowId, obj2.SlidingWindowId, StringComparison.InvariantCulture);
+
+        }
+        internal static bool AreEqual(SlidingWindowItem obj1, SlidingWindowItem obj2)
+        {
+
+            return Equals(obj1.Id, obj2.Id)
+                        && AreEqual(obj1.Interval, obj2.Interval)
+                        && Equals(obj1.X_Actual, obj2.X_Actual)
+                        && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted);
 
         }
 

@@ -46,6 +46,8 @@ namespace NW.UnivariateForecasting
         public bool IsValid(SlidingWindowItem slidingWindowItem)
         {
 
+            if (slidingWindowItem == null)
+                return false;
             if (!_intervalManager.IsValid(slidingWindowItem.Interval))
                 return false;
 
