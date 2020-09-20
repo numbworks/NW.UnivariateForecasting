@@ -50,7 +50,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => MemberRepository.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
+                    () => ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(Exception),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
@@ -61,21 +61,21 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(null, false),
-            new TestCaseData(MemberRepository.Observation_InvalidDueOfNullName, false),
-            new TestCaseData(MemberRepository.Observation_InvalidDueOfNullInterval, false),
-            new TestCaseData(MemberRepository.Observation_InvalidDueOfNullSlidingWindow, false),
-            new TestCaseData(MemberRepository.Observation1, true)
+            new TestCaseData(ObjectMother.Observation_InvalidDueOfNullName, false),
+            new TestCaseData(ObjectMother.Observation_InvalidDueOfNullInterval, false),
+            new TestCaseData(ObjectMother.Observation_InvalidDueOfNullSlidingWindow, false),
+            new TestCaseData(ObjectMother.Observation1, true)
 
         };
         private static TestCaseData[] createTestCases =
         {
 
             new TestCaseData(
-                MemberRepository.SlidingWindow1,
-                MemberRepository.Observation1,
+                ObjectMother.SlidingWindow1,
+                ObjectMother.Observation1,
                 new List<string>() {
-                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(MemberRepository.SlidingWindow1),
-                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(MemberRepository.Observation1)
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
                     }
                 )
 
@@ -116,7 +116,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = MemberRepository.ObservationManager_Default.IsValid(observation);
+            bool actual = ObjectMother.ObservationManager_Default.IsValid(observation);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -138,7 +138,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                MemberRepository.AreEqual(expected, actual));
+                ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }

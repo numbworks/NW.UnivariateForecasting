@@ -12,8 +12,8 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(null, false),
-            new TestCaseData(MemberRepository.SlidingWindowItem_InvalidDueOfSize, false),
-            new TestCaseData(MemberRepository.SlidingWindow1_Item1, true)
+            new TestCaseData(ObjectMother.SlidingWindowItem_InvalidDueOfSize, false),
+            new TestCaseData(ObjectMother.SlidingWindow1_Item1, true)
 
         };
         private static TestCaseData[] constructorExceptionTestCases =
@@ -42,11 +42,11 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                MemberRepository.SlidingWindow1_Item1_Id,
-                MemberRepository.SlidingWindow1_Item1_Interval,
-                MemberRepository.SlidingWindow1_Item1_XActual,
-                MemberRepository.SlidingWindow1_Item1_YForecasted,
-                MemberRepository.SlidingWindow1_Item1
+                ObjectMother.SlidingWindow1_Item1_Id,
+                ObjectMother.SlidingWindow1_Item1_Interval,
+                ObjectMother.SlidingWindow1_Item1_XActual,
+                ObjectMother.SlidingWindow1_Item1_YForecasted,
+                ObjectMother.SlidingWindow1_Item1
                 )
 
         };
@@ -60,7 +60,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = MemberRepository.SlidingWindowItemManager_Default.IsValid(slidingWindowItem);
+            bool actual = ObjectMother.SlidingWindowItemManager_Default.IsValid(slidingWindowItem);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -104,7 +104,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                MemberRepository.AreEqual(expected, actual));
+                ObjectMother.AreEqual(expected, actual));
 
         }
 

@@ -18,8 +18,8 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 0,
-                                MemberRepository.SlidingWindow1_IntervalUnit, 
-                                MemberRepository.SlidingWindow1_StartDate,
+                                ObjectMother.SlidingWindow1_IntervalUnit, 
+                                ObjectMother.SlidingWindow1_StartDate,
                                 1)),
                 typeof(Exception),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("size")
@@ -31,8 +31,8 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 1,
-                                MemberRepository.SlidingWindow1_IntervalUnit,
-                                MemberRepository.SlidingWindow1_StartDate,
+                                ObjectMother.SlidingWindow1_IntervalUnit,
+                                ObjectMother.SlidingWindow1_StartDate,
                                 0)),
                 typeof(Exception),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
@@ -44,8 +44,8 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 5,
-                                MemberRepository.SlidingWindow1_IntervalUnit,
-                                MemberRepository.SlidingWindow1_StartDate,
+                                ObjectMother.SlidingWindow1_IntervalUnit,
+                                ObjectMother.SlidingWindow1_StartDate,
                                 2)),
                 typeof(Exception),
                 MessageCollection.DividingSizeByStepsMustReturnWholeNumber
@@ -61,8 +61,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                             .CalculateNext(
-                                MemberRepository.SlidingWindow1_StartDate,
-                                MemberRepository.SlidingWindow1_IntervalUnit,
+                                ObjectMother.SlidingWindow1_StartDate,
+                                ObjectMother.SlidingWindow1_IntervalUnit,
                                 0)),
                 typeof(Exception),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
@@ -73,15 +73,15 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                             .CalculateNext(
-                                MemberRepository.SlidingWindow1_StartDate,
-                                MemberRepository.NonExistantIntervalUnit,
+                                ObjectMother.SlidingWindow1_StartDate,
+                                ObjectMother.NonExistantIntervalUnit,
                                 1)),
                 typeof(Exception),
                 MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
-                            MemberRepository.NonExistantIntervalUnit.ToString())
+                            ObjectMother.NonExistantIntervalUnit.ToString())
                 ).SetDescription(
                         MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
-                            MemberRepository.NonExistantIntervalUnit.ToString())),
+                            ObjectMother.NonExistantIntervalUnit.ToString())),
 
         };
         private static TestCaseData[] calculateSubIntervalsExceptionTestCases =
@@ -92,7 +92,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
-                                    MemberRepository.Interval_InvalidDueOfSize)),
+                                    ObjectMother.Interval_InvalidDueOfSize)),
                 typeof(Exception),
                 MessageCollection.IntervalNullOrInvalid
                 ).SetDescription(
@@ -102,7 +102,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
-                                        MemberRepository.SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
+                                        ObjectMother.SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
                 typeof(Exception),
                 MessageCollection.SubIntervalsCantBeLessThanTwo
                 ).SetDescription(
@@ -114,18 +114,18 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                     (uint)6,
-                    MemberRepository.SlidingWindow1_IntervalUnit,
+                    ObjectMother.SlidingWindow1_IntervalUnit,
                     new DateTime(2019, 01, 31),
                     (uint)1,
-                    MemberRepository.SlidingWindow1_Interval
+                    ObjectMother.SlidingWindow1_Interval
                 ).SetDescription("Interval"),
 
             new TestCaseData(
                     (uint)1,
-                    MemberRepository.SlidingWindow1_IntervalUnit,
+                    ObjectMother.SlidingWindow1_IntervalUnit,
                     new DateTime(2019, 01, 31),
                     (uint)1,
-                    MemberRepository.SlidingWindow1_SubInterval1
+                    ObjectMother.SlidingWindow1_SubInterval1
                 ).SetDescription("SubInterval"),
 
         };
@@ -134,25 +134,25 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new DateTime(2019, 01, 01),
-                MemberRepository.SlidingWindow1_IntervalUnit, 
+                ObjectMother.SlidingWindow1_IntervalUnit, 
                 (uint)1, 
                 new DateTime(2019, 02, 01)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 31),
-                MemberRepository.SlidingWindow1_IntervalUnit,
+                ObjectMother.SlidingWindow1_IntervalUnit,
                 (uint)1, 
                 new DateTime(2019, 02, 28)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 01),
-                MemberRepository.SlidingWindow1_IntervalUnit,
+                ObjectMother.SlidingWindow1_IntervalUnit,
                 (uint)2,
                 new DateTime(2019, 03, 01)
                 ),
             new TestCaseData(
                 new DateTime(2019, 01, 31),
-                MemberRepository.SlidingWindow1_IntervalUnit,
+                ObjectMother.SlidingWindow1_IntervalUnit,
                 (uint)2,
                 new DateTime(2019, 03, 31)
                 )
@@ -176,33 +176,33 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(null, false),
-            new TestCaseData(MemberRepository.Interval_InvalidDueOfEndDate, false),
-            new TestCaseData(MemberRepository.Interval_InvalidDueOfSize, false),
-            new TestCaseData(MemberRepository.Interval_InvalidDueOfSizeBySteps, false),
-            new TestCaseData(MemberRepository.Interval_InvalidDueOfSteps, false),
-            new TestCaseData(MemberRepository.Interval_InvalidDueOfSubIntervals, false),
-            new TestCaseData(MemberRepository.Interval_InvalidDueOfTargetDate, false),
-            new TestCaseData(MemberRepository.SlidingWindow1_Interval, true),
-            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval1, true),
-            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval2, true),
-            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval3, true),
-            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval4, true),
-            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval5, true),
-            new TestCaseData(MemberRepository.SlidingWindow1_SubInterval6, true)
+            new TestCaseData(ObjectMother.Interval_InvalidDueOfEndDate, false),
+            new TestCaseData(ObjectMother.Interval_InvalidDueOfSize, false),
+            new TestCaseData(ObjectMother.Interval_InvalidDueOfSizeBySteps, false),
+            new TestCaseData(ObjectMother.Interval_InvalidDueOfSteps, false),
+            new TestCaseData(ObjectMother.Interval_InvalidDueOfSubIntervals, false),
+            new TestCaseData(ObjectMother.Interval_InvalidDueOfTargetDate, false),
+            new TestCaseData(ObjectMother.SlidingWindow1_Interval, true),
+            new TestCaseData(ObjectMother.SlidingWindow1_SubInterval1, true),
+            new TestCaseData(ObjectMother.SlidingWindow1_SubInterval2, true),
+            new TestCaseData(ObjectMother.SlidingWindow1_SubInterval3, true),
+            new TestCaseData(ObjectMother.SlidingWindow1_SubInterval4, true),
+            new TestCaseData(ObjectMother.SlidingWindow1_SubInterval5, true),
+            new TestCaseData(ObjectMother.SlidingWindow1_SubInterval6, true)
 
         };
         private static TestCaseData[] calculateSubIntervalsTestCases =
         {
 
             new TestCaseData(
-                MemberRepository.SlidingWindow1_Interval,
+                ObjectMother.SlidingWindow1_Interval,
                 new List<Interval>() {
-                    MemberRepository.SlidingWindow1_SubInterval1,
-                    MemberRepository.SlidingWindow1_SubInterval2,
-                    MemberRepository.SlidingWindow1_SubInterval3,
-                    MemberRepository.SlidingWindow1_SubInterval4,
-                    MemberRepository.SlidingWindow1_SubInterval5,
-                    MemberRepository.SlidingWindow1_SubInterval6
+                    ObjectMother.SlidingWindow1_SubInterval1,
+                    ObjectMother.SlidingWindow1_SubInterval2,
+                    ObjectMother.SlidingWindow1_SubInterval3,
+                    ObjectMother.SlidingWindow1_SubInterval4,
+                    ObjectMother.SlidingWindow1_SubInterval5,
+                    ObjectMother.SlidingWindow1_SubInterval6
                     }
                 )
 
@@ -260,7 +260,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                    MemberRepository.AreEqual(expected, actual));
+                    ObjectMother.AreEqual(expected, actual));
 
         }
 
@@ -330,7 +330,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                MemberRepository.AreEqual(expected, actual));
+                ObjectMother.AreEqual(expected, actual));
 
         }
 

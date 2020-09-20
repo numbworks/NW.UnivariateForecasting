@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
-    public static class MemberRepository
+    public static class ObjectMother
     {
 
         // Fields

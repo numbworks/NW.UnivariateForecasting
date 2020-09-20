@@ -11,14 +11,14 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                MemberRepository.Observation1,
-                MemberRepository.Observation1_ToString,
-                MemberRepository.Observation1_ToStringOnlyDates
+                ObjectMother.Observation1,
+                ObjectMother.Observation1_ToString,
+                ObjectMother.Observation1_ToStringOnlyDates
                 ),
             new TestCaseData(
-                MemberRepository.NewObservation,
-                MemberRepository.NewObservation_ToString,
-                MemberRepository.NewObservation_ToStringOnlyDates
+                ObjectMother.NewObservation,
+                ObjectMother.NewObservation_ToString,
+                ObjectMother.NewObservation_ToStringOnlyDates
                 ),
 
         };

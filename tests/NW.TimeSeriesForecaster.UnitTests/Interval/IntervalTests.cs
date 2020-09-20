@@ -11,19 +11,19 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData( 
-                MemberRepository.SlidingWindow1_Interval,
-                MemberRepository.SlidingWindow1_Interval_ToString,
-                MemberRepository.SlidingWindow1_Interval_ToStringOnlyDates
+                ObjectMother.SlidingWindow1_Interval,
+                ObjectMother.SlidingWindow1_Interval_ToString,
+                ObjectMother.SlidingWindow1_Interval_ToStringOnlyDates
                 ),
             new TestCaseData(
-                MemberRepository.SlidingWindow1_SubInterval1,
-                MemberRepository.SlidingWindow1_SubInterval1_ToString,
-                MemberRepository.SlidingWindow1_SubInterval1_ToStringOnlyDates
+                ObjectMother.SlidingWindow1_SubInterval1,
+                ObjectMother.SlidingWindow1_SubInterval1_ToString,
+                ObjectMother.SlidingWindow1_SubInterval1_ToStringOnlyDates
                 ),
             new TestCaseData(
-                MemberRepository.NewInterval,
-                MemberRepository.NewInterval_ToString,
-                MemberRepository.NewInterval_ToStringOnlyDates
+                ObjectMother.NewInterval,
+                ObjectMother.NewInterval_ToString,
+                ObjectMother.NewInterval_ToStringOnlyDates
                 )
 
         };

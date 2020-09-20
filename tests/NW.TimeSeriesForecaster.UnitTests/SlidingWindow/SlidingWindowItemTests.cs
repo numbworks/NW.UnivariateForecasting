@@ -11,12 +11,12 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                MemberRepository.NewSlidingWindowItem,
-                MemberRepository.NewSlidingWindowItem_ToString
+                ObjectMother.NewSlidingWindowItem,
+                ObjectMother.NewSlidingWindowItem_ToString
                 ),
             new TestCaseData(
-                MemberRepository.SlidingWindow1_Item1,
-                MemberRepository.SlidingWindow1_Item1_ToString
+                ObjectMother.SlidingWindow1_Item1,
+                ObjectMother.SlidingWindow1_Item1_ToString
                 )
 
         };
