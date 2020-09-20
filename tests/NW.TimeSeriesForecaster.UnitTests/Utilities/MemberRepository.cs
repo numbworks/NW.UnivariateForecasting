@@ -317,6 +317,10 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static string NewSlidingWindow_ToString = "[ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]";
         internal static string NewSlidingWindow_ToStringRolloutItems = NewSlidingWindow_ToString;
 
+        internal static string SlidingWindow1_Item1_ToString = "[ Id: '1', Interval: '20190131:20190228:20190331', X_Actual: '58,5', Y_Forecasted: '615,26' ]";
+        internal static SlidingWindowItem NewSlidingWindowItem = new SlidingWindowItem();
+        internal static string NewSlidingWindowItem_ToString = "[ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]";
+
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
         {
