@@ -158,6 +158,19 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetDescription(MessageCollection.VariableContainsZeroItems.Invoke("values"))
 
         };
+        private static TestCaseData[] isValidTestCases =
+        {
+
+            new TestCaseData(null, false),
+            new TestCaseData(ObjectMother.SlidingWindow_InvalidDueOfNullId, false),
+            new TestCaseData(ObjectMother.SlidingWindow_InvalidDueOfNullObservationName, false),
+            new TestCaseData(ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval, false),
+            new TestCaseData(ObjectMother.SlidingWindow_InvalidDueOfNullItems, false),
+            new TestCaseData(ObjectMother.SlidingWindow_InvalidDueOfItemsCountZero, false),
+            new TestCaseData(ObjectMother.SlidingWindow_InvalidDueOfSubInterval, false),
+            new TestCaseData(ObjectMother.SlidingWindow1, true)
+
+        };
 
         // SetUp
         // Tests
@@ -187,6 +200,20 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(isValidTestCases))]
+        public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
+            (SlidingWindow slidingWindow, bool expected)
+        {
+
+            // Arrange
+            // Act
+            bool actual = ObjectMother.SlidingWindowManager_Default.IsValid(slidingWindow);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
         // TearDown
         // Support methods
 
@@ -196,6 +223,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 20.09.2020
+    Last Update: 23.09.2020
 
 */

@@ -336,6 +336,48 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static double? SlidingWindow1_Item1_YForecasted = 615.26;
 
         internal static SlidingWindowManager SlidingWindowManager_Default = new SlidingWindowManager(new UnivariateForecastingSettings());
+        internal static SlidingWindow SlidingWindow_InvalidDueOfNullId = new SlidingWindow()
+        {
+            Id = null,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = SlidingWindow1_Interval,
+            Items = SlidingWindow1_Items
+        };
+        internal static SlidingWindow SlidingWindow_InvalidDueOfNullObservationName = new SlidingWindow()
+        {
+            Id = SlidingWindow1_Id,
+            ObservationName = null,
+            Interval = SlidingWindow1_Interval,
+            Items = SlidingWindow1_Items
+        };
+        internal static SlidingWindow SlidingWindow_InvalidDueOfInvalidInterval = new SlidingWindow()
+        {
+            Id = SlidingWindow1_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = null, // Whatever other invalid interval would do the trick
+            Items = SlidingWindow1_Items
+        };
+        internal static SlidingWindow SlidingWindow_InvalidDueOfNullItems = new SlidingWindow()
+        {
+            Id = SlidingWindow1_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = SlidingWindow1_Interval,
+            Items = null
+        };
+        internal static SlidingWindow SlidingWindow_InvalidDueOfItemsCountZero = new SlidingWindow()
+        {
+            Id = SlidingWindow1_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = SlidingWindow1_Interval,
+            Items = new List<SlidingWindowItem>()
+        };
+        internal static SlidingWindow SlidingWindow_InvalidDueOfSubInterval = new SlidingWindow()
+        {
+            Id = SlidingWindow1_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = SlidingWindow1_Interval,
+            Items = SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
+        };
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)

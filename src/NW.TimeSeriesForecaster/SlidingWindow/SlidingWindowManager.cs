@@ -117,7 +117,7 @@ namespace NW.UnivariateForecasting
                 return false;
             if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
                 return false;
-            if (slidingWindow.Interval == null)
+            if (_intervalManager.IsValid(slidingWindow.Interval) == false)
                 return false;
             if (slidingWindow.Items == null)
                 return false;
