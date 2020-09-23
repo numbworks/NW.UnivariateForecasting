@@ -171,6 +171,32 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(ObjectMother.SlidingWindow1, true)
 
         };
+        private static TestCaseData[] createTestCases =
+        {
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1_Id,
+                ObjectMother.SlidingWindow1_ObservationName,
+                ObjectMother.SlidingWindow1_Values,
+                ObjectMother.SlidingWindow1_Steps,
+                ObjectMother.SlidingWindow1_IntervalUnit,
+                ObjectMother.SlidingWindow1_StartDate,
+                ObjectMother.SlidingWindow1,
+                new List<string>() {
+                    MessageCollection.CreatingIntervalOutOfFollowingArguments,
+                    MessageCollection.ProvidedValuesAre.Invoke(ObjectMother.SlidingWindow1_Values),
+                    MessageCollection.ProvidedStepsAre.Invoke(ObjectMother.SlidingWindow1_Steps),
+                    MessageCollection.ProvidedIntervalUnitsIs.Invoke(ObjectMother.SlidingWindow1_IntervalUnit),
+                    MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
+                    MessageCollection.ProvidedIdIs.Invoke(ObjectMother.SlidingWindow1_Id),
+                    MessageCollection.ProvidedObservationNameIs.Invoke(ObjectMother.SlidingWindow1_ObservationName),
+                    MessageCollection.ProvidedIntervalIs.Invoke(ObjectMother.SlidingWindow1_Interval),
+                    MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_Items),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1)
+                    }
+                )
+
+        };
 
         // SetUp
         // Tests
@@ -211,6 +237,33 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestCaseSource(nameof(createTestCases))]
+        public void Create_ShouldReturnExpectedSlidingWindowAndLogExpectedMessages_WhenProperArguments
+            (string id,
+            string observationName,
+            List<double> values,
+            uint steps,
+            IntervalUnits intervalUnit,
+            DateTime startDate,
+            SlidingWindow expected, 
+            List<string> expectedMessages)
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
+            SlidingWindowManager slidingWindowManager = new SlidingWindowManager(settings);
+
+            // Act
+            SlidingWindow actual = slidingWindowManager.Create(id, observationName, values, steps, intervalUnit, startDate);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(expected, actual));
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
 

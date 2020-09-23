@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
@@ -55,7 +56,7 @@ namespace NW.UnivariateForecasting
         public static string CreatingIntervalOutOfFollowingArguments { get; }
             = $"Creating a {typeof(Interval).Name} out of the provided arguments...";
         public static Func<List<double>, string> ProvidedValuesAre { get; }
-            = (values) => $"The provided values are: '{RollOutCollection((IEnumerable<object>)values)}'.";
+            = (values) => $"The provided values are: '{RollOutCollection(values)}'.";
         public static Func<uint, string> ProvidedStepsAre { get; }
             = (steps) => $"The provided steps are: '{steps.ToString()}'.";
         public static Func<IntervalUnits, string> ProvidedIntervalUnitsIs { get; }
@@ -63,6 +64,8 @@ namespace NW.UnivariateForecasting
         public static Func<SlidingWindow, string> FollowingSlidingWindowHasBeenCreated { get; }
             = (slidingWindow) => $"The following {typeof(SlidingWindow).Name} has been created: '{slidingWindow.ToString(true)}'.";
 
+        public static string RollOutCollection(List<double> coll)
+            => RollOutCollection(coll.Cast<object>().ToList());
         public static string RollOutCollection(IEnumerable<object> coll)
         {
 
@@ -81,6 +84,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.09.2020
+    Last Update: 23.09.2020
 
 */
