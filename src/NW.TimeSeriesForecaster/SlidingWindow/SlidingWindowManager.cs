@@ -102,12 +102,6 @@ namespace NW.UnivariateForecasting
             return Create(id, observationName, interval, items);
 
         }
-        public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
-        {
-
-            throw new NotImplementedException();
-
-        }
         public bool IsValid(SlidingWindow slidingWindow)
         {
 
@@ -177,6 +171,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.08.2020
+    Last Update: 23.09.2020
 
 */

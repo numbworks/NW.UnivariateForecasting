@@ -53,7 +53,7 @@ namespace NW.UnivariateForecasting
 
             Observation observation = Forecast(slidingWindow);
 
-            return _slidingWindowManager.Combine(slidingWindow, observation);
+            return Combine(slidingWindow, observation);
 
         }
         public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
@@ -70,7 +70,30 @@ namespace NW.UnivariateForecasting
 
         }
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
-            => _slidingWindowManager.Combine(slidingWindow, observation);
+        {
+
+            if (!_slidingWindowManager.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+            if (!_observationManager.IsValid(observation))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(Observation)));
+
+            SlidingWindow newSlidingWindow = new SlidingWindow();
+
+            /*
+            newSlidingWindow.Id = _settings.IdCreationFunction.Invoke();
+            newSlidingWindow.StartDate = slidingWindow.StartDate;
+
+            uint steps = (uint)(slidingWindow.Size / slidingWindow.Items.Count);
+            newSlidingWindow.EndDate = CalculateNext(slidingWindow.EndDate, slidingWindow.Unit, steps);
+            newSlidingWindow.TargetDate = CalculateNext(slidingWindow.TargetDate, slidingWindow.Unit, steps);
+            newSlidingWindow.Size = slidingWindow.Size + 1;
+            newSlidingWindow.Unit = slidingWindow.Unit;
+            newSlidingWindow.Items = Combine(slidingWindow.Items, slidingWindow.Unit, steps, observation);
+            newSlidingWindow.ObservationName = slidingWindow.ObservationName;
+            */
+            return newSlidingWindow;
+
+        }
         public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
         {
 
