@@ -117,19 +117,22 @@ namespace NW.UnivariateForecasting
             _settings.LoggingAction.Invoke(MessageCollection.ProvidedSlidingWindowIs.Invoke(slidingWindow));
             _settings.LoggingAction.Invoke(MessageCollection.ProvidedObservationIs.Invoke(observation));
 
-            SlidingWindow newSlidingWindow = new SlidingWindow();
-            newSlidingWindow.Id = _settings.IdCreationFunction.Invoke();
-            newSlidingWindow.ObservationName = slidingWindow.ObservationName;
-
             uint steps = (uint)(slidingWindow.Interval.Size / slidingWindow.Items.Count);
-            Interval interval = _intervalManager.Create(
+            SlidingWindow newSlidingWindow = new SlidingWindow()
+            {
+
+                Id = _settings.IdCreationFunction.Invoke(),
+                ObservationName = slidingWindow.ObservationName,
+                Interval = _intervalManager.Create(
                                                     slidingWindow.Interval.Size + 1,
                                                     slidingWindow.Interval.Unit,
                                                     slidingWindow.Interval.StartDate,
-                                                    steps);
+                                                    steps),
+                Items = CombineItems(slidingWindow.Items, slidingWindow.Interval.Unit, steps, observation)
 
-            newSlidingWindow.Interval = interval;
-            newSlidingWindow.Items = CombineItems(slidingWindow.Items, slidingWindow.Interval.Unit, steps, observation);
+
+            };
+
             _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             return newSlidingWindow;
@@ -193,8 +196,14 @@ namespace NW.UnivariateForecasting
 
              */
 
-            List<SlidingWindowItem> newItems = new List<SlidingWindowItem>();
-            newItems.AddRange(slidingWindowItems);
+            List<SlidingWindowItem> newItems = 
+                slidingWindowItems.ConvertAll(item => new SlidingWindowItem()
+                                                            {
+                                                                Id = item.Id,
+                                                                Interval = item.Interval,
+                                                                X_Actual = item.X_Actual,
+                                                                Y_Forecasted = item.Y_Forecasted
+                                                            });
 
             SlidingWindowItem oldLastItem = newItems.OrderBy(item => item.Id).Last();
             newItems.Remove(oldLastItem);
