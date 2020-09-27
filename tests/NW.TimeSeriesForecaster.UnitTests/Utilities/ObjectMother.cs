@@ -191,20 +191,21 @@ namespace NW.UnivariateForecasting.UnitTests
 
         internal static string SlidingWindow1_Id = "SW20200906090516";
         internal static string SlidingWindow1_ObservationName = "Total Monthly Sales USD";
+        internal static Interval Observation1_Interval = new Interval()
+        {
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 07, 31),
+            EndDate = new DateTime(2019, 08, 31),
+            TargetDate = new DateTime(2019, 09, 30),
+            Steps = 1,
+            SubIntervals = 1
+        };
         internal static Observation Observation1 = new Observation()
         {
 
             Name = SlidingWindow1_ObservationName,
-            Interval = new Interval()
-            {
-                Size = 1,
-                Unit = IntervalUnits.Months,
-                StartDate = new DateTime(2019, 07, 31),
-                EndDate = new DateTime(2019, 08, 31),
-                TargetDate = new DateTime(2019, 09, 30),
-                Steps = 1,
-                SubIntervals = 1
-            },
+            Interval = Observation1_Interval,
             X_Actual = 632.94,
             C = 0.82,
             E = 0.22,
@@ -391,6 +392,56 @@ namespace NW.UnivariateForecasting.UnitTests
             SlidingWindow1_Item6.Interval.StartDate
 
         };
+
+        internal static string SlidingWindow1PlusObservation1_Id = "SW20200925000000";
+        internal static Func<string> SlidingWindow1PlusObservation1_IdCreationFunction
+            = () => SlidingWindow1PlusObservation1_Id;
+        internal static SlidingWindowItem SlidingWindow1PlusObservation1_Item6
+            = new SlidingWindowItem()
+            {
+                Id = 6,
+                Interval = SlidingWindow1_SubInterval6,
+                X_Actual = 632.94,
+                Y_Forecasted = 519.23
+            };
+        internal static SlidingWindowItem SlidingWindow1PlusObservation1_Item7
+            = new SlidingWindowItem()
+            {
+                Id = 7,
+                Interval = Observation1_Interval,
+                X_Actual = 519.23,
+                Y_Forecasted = null
+            };
+        internal static Interval SlidingWindow1PlusObservation1_Interval = new Interval()
+        {
+
+            Size = 7,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 01, 31),
+            EndDate = new DateTime(2019, 08, 31),
+            TargetDate = new DateTime(2019, 09, 30),
+            Steps = 1,
+            SubIntervals = 7
+
+        };
+        internal static List<SlidingWindowItem> SlidingWindow1PlusObservation1_Items = new List<SlidingWindowItem>()
+        {
+            SlidingWindow1_Item1,
+            SlidingWindow1_Item2,
+            SlidingWindow1_Item3,
+            SlidingWindow1_Item4,
+            SlidingWindow1_Item5,
+            SlidingWindow1PlusObservation1_Item6,
+            SlidingWindow1PlusObservation1_Item7
+        };
+        internal static SlidingWindow SlidingWindow1PlusObservation1 = new SlidingWindow()
+        {
+            Id = SlidingWindow1PlusObservation1_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = SlidingWindow1PlusObservation1_Interval,
+            Items = SlidingWindow1PlusObservation1_Items
+        };
+
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)

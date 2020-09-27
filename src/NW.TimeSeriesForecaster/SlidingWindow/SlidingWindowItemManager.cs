@@ -50,9 +50,13 @@ namespace NW.UnivariateForecasting
             Interval interval = new Interval()
             {
 
+                Size = 1,
+                Unit = intervalUnit,
                 StartDate = startDate,
                 EndDate = _intervalManager.CalculateNext(startDate, intervalUnit, 1),
-                TargetDate = _intervalManager.CalculateNext(startDate, intervalUnit, 2)
+                TargetDate = _intervalManager.CalculateNext(startDate, intervalUnit, 2),
+                Steps = 1,
+                SubIntervals = 1
 
             };
 

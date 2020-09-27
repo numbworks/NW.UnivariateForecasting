@@ -122,20 +122,14 @@ namespace NW.UnivariateForecasting
             newSlidingWindow.ObservationName = slidingWindow.ObservationName;
 
             uint steps = (uint)(slidingWindow.Interval.Size / slidingWindow.Items.Count);
-            Interval interval = new Interval()
-            {
+            Interval interval = _intervalManager.Create(
+                                                    slidingWindow.Interval.Size + 1,
+                                                    slidingWindow.Interval.Unit,
+                                                    slidingWindow.Interval.StartDate,
+                                                    steps);
 
-                StartDate = slidingWindow.Interval.StartDate,
-                EndDate = _intervalManager.CalculateNext(slidingWindow.Interval.EndDate, slidingWindow.Interval.Unit, steps),
-                TargetDate = _intervalManager.CalculateNext(slidingWindow.Interval.TargetDate, slidingWindow.Interval.Unit, steps),
-                Size = slidingWindow.Interval.Size + 1,
-                Unit = slidingWindow.Interval.Unit,
-                SubIntervals = slidingWindow.Interval.SubIntervals + 1
-
-            };
-
+            newSlidingWindow.Interval = interval;
             newSlidingWindow.Items = CombineItems(slidingWindow.Items, slidingWindow.Interval.Unit, steps, observation);
-
             _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             return newSlidingWindow;
@@ -207,21 +201,13 @@ namespace NW.UnivariateForecasting
             oldLastItem.Y_Forecasted = observation.Y_Forecasted;
             newItems.Add(oldLastItem);
 
-            SlidingWindowItem newLastItem = new SlidingWindowItem();
-            newLastItem.Id = oldLastItem.Id + 1;
-
-            Interval interval = new Interval()
-            {
-
-                StartDate = _intervalManager.CalculateNext(oldLastItem.Interval.StartDate, intervalUnits, steps),
-                EndDate = _intervalManager.CalculateNext(oldLastItem.Interval.EndDate, intervalUnits, steps),
-                TargetDate = _intervalManager.CalculateNext(oldLastItem.Interval.TargetDate, intervalUnits, steps)
-
-            };
-
-            newLastItem.Interval = interval;
-            newLastItem.X_Actual = observation.Y_Forecasted;
-            newLastItem.Y_Forecasted = null;
+            SlidingWindowItem newLastItem = 
+                _slidingWindowItemManager.CreateItem(
+                                            oldLastItem.Id + 1,
+                                            _intervalManager.CalculateNext(oldLastItem.Interval.StartDate, intervalUnits, steps),
+                                            intervalUnits,
+                                            observation.Y_Forecasted,
+                                            null);
             newItems.Add(newLastItem);
 
             return newItems;

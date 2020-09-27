@@ -204,8 +204,23 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] combineTestCases =
+        {
 
-        
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                ObjectMother.Observation1,
+                ObjectMother.SlidingWindow1PlusObservation1,
+                new List<string>() {
+                    MessageCollection.CombiningProvidedSlidingWindowWithObservation,
+                    MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.Observation1),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1PlusObservation1)
+                    }
+                )
+
+        };
+
 
         // SetUp
         // Tests
@@ -341,6 +356,30 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
+        [TestCaseSource(nameof(combineTestCases))]
+        public void Combine_ShouldReturnExpectedSlidingWindowAndLogExpectedMessages_WhenProperArguments
+            (SlidingWindow slidingWindow, Observation observation, SlidingWindow expected, List<string> expectedMessages)
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            UnivariateForecastingSettings settings 
+                = new UnivariateForecastingSettings(
+                    loggingAction: (message) => fakeLogger.Log(message),
+                    idCreationFunction: ObjectMother.SlidingWindow1PlusObservation1_IdCreationFunction
+                    );
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+
+            // Act
+            SlidingWindow actual = univariateForecaster.Combine(slidingWindow, observation);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
