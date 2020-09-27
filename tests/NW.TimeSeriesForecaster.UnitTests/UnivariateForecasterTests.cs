@@ -191,6 +191,19 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] extractStartDatesTestCases =
+        {
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                ObjectMother.SlidingWindow1_StartDates,
+                new List<string>() {
+                    MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(ObjectMother.SlidingWindow1_StartDates)
+                    }
+                )
+
+        };
 
         
 
@@ -306,6 +319,25 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Act
             List<double> actual = univariateForecaster.ExtractXActualValues(slidingWindow);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
+        [TestCaseSource(nameof(extractStartDatesTestCases))]
+        public void ExtractStartDates_ShouldReturnExpectedDatesAndLogExpectedMessages_WhenProperSlidingWindow
+            (SlidingWindow slidingWindow, List<DateTime> expected, List<string> expectedMessages)
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+
+            // Act
+            List<DateTime> actual = univariateForecaster.ExtractStartDates(slidingWindow);
 
             // Assert
             Assert.AreEqual(expected, actual);

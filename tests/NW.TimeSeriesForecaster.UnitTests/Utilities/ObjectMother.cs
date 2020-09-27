@@ -380,6 +380,17 @@ namespace NW.UnivariateForecasting.UnitTests
         };
 
         internal static UnivariateForecaster UnivariateForecaster_Default = new UnivariateForecaster(new UnivariateForecastingSettings());
+        internal static List<DateTime> SlidingWindow1_StartDates = new List<DateTime>()
+        {
+
+            SlidingWindow1_Item1.Interval.StartDate,
+            SlidingWindow1_Item2.Interval.StartDate,
+            SlidingWindow1_Item3.Interval.StartDate,
+            SlidingWindow1_Item4.Interval.StartDate,
+            SlidingWindow1_Item5.Interval.StartDate,
+            SlidingWindow1_Item6.Interval.StartDate
+
+        };
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
