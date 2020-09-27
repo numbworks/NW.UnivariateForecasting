@@ -103,6 +103,19 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] extractStartDatesExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => ObjectMother.UnivariateForecaster_Default.ExtractStartDates(
+                            ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
+                        )),
+                typeof(Exception),
+                MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                )
+
+        };
 
         // SetUp
         // Tests
@@ -144,6 +157,20 @@ namespace NW.UnivariateForecasting.UnitTests
             Assert.AreEqual(expectedMessage, objActual.Message);
 
         }
+
+        [TestCaseSource(nameof(extractStartDatesExceptionTestCases))]
+        public void ExtractStartDates_ShouldThrowAnException_WhenInvalidSlidingWindow
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
 
         // TearDown
         // Support methods

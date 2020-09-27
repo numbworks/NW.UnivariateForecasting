@@ -141,8 +141,6 @@ namespace NW.UnivariateForecasting
             return newSlidingWindow;
 
         }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)
-            => ForecastAndCombine(slidingWindow, 1);
         public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
         {
 
@@ -170,6 +168,8 @@ namespace NW.UnivariateForecasting
             return newSlidingWindow;
 
         }
+        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)
+            => ForecastAndCombine(slidingWindow, 1);
 
         // Methods (private)
         private List<SlidingWindowItem> CombineItems(
