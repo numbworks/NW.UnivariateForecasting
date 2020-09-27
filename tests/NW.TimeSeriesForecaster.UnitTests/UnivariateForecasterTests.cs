@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -164,6 +165,19 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] forecastTestCases =
+        {
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                ObjectMother.Observation1,
+                new List<string>() {
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
+                    }
+                )
+
+        };
 
         // SetUp
         // Tests
@@ -244,6 +258,27 @@ namespace NW.UnivariateForecasting.UnitTests
             Assert.AreEqual(expectedMessage, objActual.Message);
 
         }
+
+        [TestCaseSource(nameof(forecastTestCases))]
+        public void Forecast_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
+            (SlidingWindow slidingWindow, Observation expected, List<string> expectedMessages)
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
+            UnivariateForecaster forecasterManager = new UnivariateForecaster(settings);
+
+            // Act
+            Observation actual = forecasterManager.Forecast(slidingWindow);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(expected, actual));
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
 
         // TearDown
         // Support methods
