@@ -65,6 +65,34 @@ namespace NW.UnivariateForecasting
             return _observationManager.Create(slidingWindow);
 
         }
+        public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
+        {
+
+            if (!_slidingWindowManager.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+
+            _settings.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+
+            List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
+
+            return values;
+
+        }
+        public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
+        {
+
+            if (!_slidingWindowManager.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+
+            _settings.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+
+            List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
+
+            return startDates;
+
+        }
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
@@ -111,34 +139,6 @@ namespace NW.UnivariateForecasting
             _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             return newSlidingWindow;
-
-        }
-        public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
-        {
-
-            if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-
-            _settings.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
-
-            List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
-            _settings.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
-
-            return values;
-
-        }
-        public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
-        {
-
-            if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-
-            _settings.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
-
-            List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
-            _settings.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
-
-            return startDates;
 
         }
         public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)

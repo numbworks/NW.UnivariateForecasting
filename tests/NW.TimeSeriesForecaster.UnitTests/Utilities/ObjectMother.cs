@@ -379,6 +379,8 @@ namespace NW.UnivariateForecasting.UnitTests
             Items = SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
         };
 
+        internal static UnivariateForecaster UnivariateForecaster_Default = new UnivariateForecaster(new UnivariateForecastingSettings());
+
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
         {
