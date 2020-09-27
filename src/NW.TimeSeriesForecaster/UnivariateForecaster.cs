@@ -130,7 +130,6 @@ namespace NW.UnivariateForecasting
                                                     steps),
                 Items = CombineItems(slidingWindow.Items, slidingWindow.Interval.Unit, steps, observation)
 
-
             };
 
             _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
@@ -148,7 +147,7 @@ namespace NW.UnivariateForecasting
 
             _settings.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
 
-            SlidingWindow newSlidingWindow = slidingWindow;
+            SlidingWindow newSlidingWindow = DeepCloneSlidingWindow(slidingWindow);
             for (uint i = 1; i <= steps; i++)
             {
 
@@ -169,6 +168,31 @@ namespace NW.UnivariateForecasting
             => ForecastAndCombine(slidingWindow, 1);
 
         // Methods (private)
+        private List<SlidingWindowItem> DeepCloneSlidingWindowItems(List<SlidingWindowItem> slidingWindowItems)
+        {
+
+            return slidingWindowItems.ConvertAll(item =>
+                                            new SlidingWindowItem()
+                                            {
+                                                Id = item.Id,
+                                                Interval = item.Interval,
+                                                X_Actual = item.X_Actual,
+                                                Y_Forecasted = item.Y_Forecasted
+                                            });
+
+        }
+        private SlidingWindow DeepCloneSlidingWindow(SlidingWindow slidingWindow)
+        {
+
+            return new SlidingWindow()
+            {
+                Id = slidingWindow.Id,
+                ObservationName = slidingWindow.ObservationName,
+                Interval = slidingWindow.Interval,
+                Items = slidingWindow.Items
+            };
+
+        }
         private List<SlidingWindowItem> CombineItems(
             List<SlidingWindowItem> slidingWindowItems, IntervalUnits intervalUnits, uint steps, Observation observation)
         {
@@ -196,14 +220,7 @@ namespace NW.UnivariateForecasting
 
              */
 
-            List<SlidingWindowItem> newItems = 
-                slidingWindowItems.ConvertAll(item => new SlidingWindowItem()
-                                                            {
-                                                                Id = item.Id,
-                                                                Interval = item.Interval,
-                                                                X_Actual = item.X_Actual,
-                                                                Y_Forecasted = item.Y_Forecasted
-                                                            });
+            List<SlidingWindowItem> newItems = DeepCloneSlidingWindowItems(slidingWindowItems);
 
             SlidingWindowItem oldLastItem = newItems.OrderBy(item => item.Id).Last();
             newItems.Remove(oldLastItem);
