@@ -35,6 +35,8 @@ namespace NW.UnivariateForecasting
                 throw new ArgumentNullException(nameof(slidingWindowManager));
             if (slidingWindowItemManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowItemManager));
+            if (observationManager == null)
+                throw new ArgumentNullException(nameof(observationManager));
             if (intervalManager == null)
                 throw new ArgumentNullException(nameof(intervalManager));
 
