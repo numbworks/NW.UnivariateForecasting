@@ -23,11 +23,8 @@ namespace NW.UnivariateForecasting
             : this(new IntervalManager()) { }
 
         // Methods (public)
-        public SlidingWindowItem Create(
-            uint id,
-            Interval interval,
-            double X_Actual,
-            double? Y_Forecasted)
+        public SlidingWindowItem CreateItem(
+            uint id, Interval interval, double X_Actual, double? Y_Forecasted)
         {
 
             if (!_intervalManager.IsValid(interval))
@@ -63,6 +60,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.08.2020
+    Last Update: 27.09.2020
 
 */

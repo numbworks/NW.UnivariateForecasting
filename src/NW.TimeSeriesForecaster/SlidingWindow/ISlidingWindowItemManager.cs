@@ -2,7 +2,7 @@
 {
     public interface ISlidingWindowItemManager
     {
-        SlidingWindowItem Create(uint id, Interval interval, double X_Actual, double? Y_Forecasted);
+        SlidingWindowItem CreateItem(uint id, Interval interval, double X_Actual, double? Y_Forecasted);
         bool IsValid(SlidingWindowItem slidingWindowItem);
     }
 }

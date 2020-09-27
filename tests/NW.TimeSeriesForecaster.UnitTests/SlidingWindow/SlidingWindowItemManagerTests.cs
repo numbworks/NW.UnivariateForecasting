@@ -27,18 +27,18 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
-        private static TestCaseData[] createExceptionTestCases =
+        private static TestCaseData[] createItemExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new SlidingWindowItemManager().Create(1, null, 58.65, 639.10)),
+                    () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
                 typeof(Exception),
                 MessageCollection.IntervalNullOrInvalid
                 )
 
         };
-        private static TestCaseData[] createTestCases =
+        private static TestCaseData[] createItemTestCases =
         {
 
             new TestCaseData(
@@ -80,8 +80,8 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        [TestCaseSource(nameof(createExceptionTestCases))]
-        public void Create_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(createItemExceptionTestCases))]
+        public void CreateItem_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 
@@ -93,14 +93,14 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        [TestCaseSource(nameof(createTestCases))]
-        public void Create_ShouldReturnExpectedSlidingWindowItem_WhenProperArguments
+        [TestCaseSource(nameof(createItemTestCases))]
+        public void CreateItem_ShouldReturnExpectedSlidingWindowItem_WhenProperArguments
             (uint id, Interval interval, double X_Actual, double? Y_Forecasted, SlidingWindowItem expected)
         {
 
             // Arrange
             // Act
-            SlidingWindowItem actual = new SlidingWindowItemManager().Create(id, interval, X_Actual, Y_Forecasted);
+            SlidingWindowItem actual = new SlidingWindowItemManager().CreateItem(id, interval, X_Actual, Y_Forecasted);
 
             // Assert
             Assert.True(
@@ -117,6 +117,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 20.09.2020
+    Last Update: 27.09.2020
 
 */

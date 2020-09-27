@@ -155,7 +155,7 @@ namespace NW.UnivariateForecasting
                     Y_Forecasted = values[i + 1]; // only the "before last" is null
 
                 SlidingWindowItem slidingWindowItem
-                    = _slidingWindowItemManager.Create(id, subInterval, X_Actual, Y_Forecasted);
+                    = _slidingWindowItemManager.CreateItem(id, subInterval, X_Actual, Y_Forecasted);
 
                 slidingWindowItems.Add(slidingWindowItem);
 
