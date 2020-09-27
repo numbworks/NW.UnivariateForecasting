@@ -59,6 +59,28 @@ namespace NW.UnivariateForecasting
         public static Func<SlidingWindow, string> FollowingSlidingWindowHasBeenCreated { get; }
             = (slidingWindow) => $"The following {typeof(SlidingWindow).Name} has been created: '{slidingWindow.ToString(true)}'.";
 
+        // UnivariateForecaster
+        public static Func<SlidingWindow, string> ExtractingValuesOutOfProvidedSlidingWindow { get; }
+            = (slidingWindow) => $"Extracting X_Values out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
+        public static Func<List<double>, string> ValuesHaveBeenSuccessfullyExtracted { get; }
+            = (values) => $"X_Values have been successfully extracted: '{RollOutCollection(values)}'.";
+        public static Func<SlidingWindow, string> ExtractingStartDatesOutOfProvidedSlidingWindow { get; }
+            = (slidingWindow) => $"Extracting StartDates out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
+        public static Func<List<DateTime>, string> StartDatesHaveBeenSuccessfullyExtracted { get; }
+            = (startDates) => $"StartDates have been successfully extracted: '{startDates.Count.ToString()}'.";
+        public static Func<uint, string> RunningForecastAndCombineForSteps { get; }
+            = (steps) => $"Running '{nameof(UnivariateForecaster.ForecastAndCombine)}' for '{steps}' steps...";
+        public static Func<uint, string> ForecastingAndCombineForStepNr { get; }
+            = (steps) => $"Forecasting and combine for step nr. '{steps}'...";
+        public static Func<uint, string> ForecastAndCombineSuccessfullyRunForSteps { get; }
+            = (steps) => $"'{nameof(UnivariateForecaster.ForecastAndCombine)}' has been successfully run for '{steps}' steps.";
+        public static string CombiningProvidedSlidingWindowWithObservation { get; }
+            = $"Combining the provided '{nameof(SlidingWindow)}' with the provided '{nameof(Observation)}'...";
+        public static Func<SlidingWindow, string> ProvidedSlidingWindowIs { get; }
+            = (slidingWindow) => $"The provided '{nameof(SlidingWindow)}' is: '{slidingWindow.ToString(false)}'.";
+        public static Func<Observation, string> ProvidedObservationIs { get; }
+            = (observation) => $"The provided '{nameof(Observation)}' is: '{observation.ToString(true)}'.";
+
         public static string RollOutCollection(List<double> coll)
             => RollOutCollection(coll.Cast<object>().ToList());
         public static string RollOutCollection(IEnumerable<object> coll)
@@ -79,6 +101,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 23.09.2020
+    Last Update: 27.09.2020
 
 */

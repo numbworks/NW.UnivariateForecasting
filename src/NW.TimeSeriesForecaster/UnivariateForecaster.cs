@@ -63,27 +63,6 @@ namespace NW.UnivariateForecasting
             return _observationManager.Create(slidingWindow);
 
         }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)
-        {
-
-            Observation observation = Forecast(slidingWindow);
-
-            return Combine(slidingWindow, observation);
-
-        }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
-        {
-
-            if (steps < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
-
-            SlidingWindow newSlidingWindow = slidingWindow;
-            for (int i = 1; i <= steps; i++)
-                newSlidingWindow = ForecastAndCombine(newSlidingWindow);
-
-            return newSlidingWindow;
-
-        }
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
@@ -104,6 +83,10 @@ namespace NW.UnivariateForecasting
             if (!_observationManager.IsValid(observation))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(Observation)));
 
+            _settings.LoggingAction.Invoke(MessageCollection.CombiningProvidedSlidingWindowWithObservation);
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedSlidingWindowIs.Invoke(slidingWindow));
+            _settings.LoggingAction.Invoke(MessageCollection.ProvidedObservationIs.Invoke(observation));
+
             SlidingWindow newSlidingWindow = new SlidingWindow();
             newSlidingWindow.Id = _settings.IdCreationFunction.Invoke();
             newSlidingWindow.ObservationName = slidingWindow.ObservationName;
@@ -123,6 +106,8 @@ namespace NW.UnivariateForecasting
 
             newSlidingWindow.Items = CombineItems(slidingWindow.Items, slidingWindow.Interval.Unit, steps, observation);
 
+            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+
             return newSlidingWindow;
 
         }
@@ -132,7 +117,12 @@ namespace NW.UnivariateForecasting
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            return slidingWindow.Items.Select(item => item.X_Actual).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+
+            List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
+
+            return values;
 
         }
         public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
@@ -141,7 +131,41 @@ namespace NW.UnivariateForecasting
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            return slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+
+            List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
+
+            return startDates;
+
+        }
+        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)
+            => ForecastAndCombine(slidingWindow, 1);
+        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
+        {
+
+            if (!_slidingWindowManager.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+            if (steps < 1)
+                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
+
+            _settings.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
+
+            SlidingWindow newSlidingWindow = slidingWindow;
+            for (uint i = 1; i <= steps; i++)
+            {
+
+                _settings.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(steps));
+
+                Observation observation = Forecast(slidingWindow);
+                newSlidingWindow = Combine(slidingWindow, observation);
+
+            };
+
+            _settings.LoggingAction.Invoke(MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
+            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+
+            return newSlidingWindow;
 
         }
 
