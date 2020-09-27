@@ -140,6 +140,30 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] forecastAndCombineExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => ObjectMother.UnivariateForecaster_Default.ForecastAndCombine(
+                            ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval,
+                            1
+                        )),
+                typeof(Exception),
+                MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => ObjectMother.UnivariateForecaster_Default.ForecastAndCombine(
+                            ObjectMother.SlidingWindow1,
+                            0
+                        )),
+                typeof(Exception),
+                MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                )
+
+        };
 
         // SetUp
         // Tests
@@ -208,8 +232,18 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(forecastAndCombineExceptionTestCases))]
+        public void ForecastAndCombine_ShouldThrowAnException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
 
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
 
+        }
 
         // TearDown
         // Support methods
