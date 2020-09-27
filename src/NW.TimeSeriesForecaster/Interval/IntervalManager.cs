@@ -40,7 +40,7 @@ namespace NW.UnivariateForecasting
             if (steps < 1)
                 throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
             if (unit != IntervalUnits.Months)
-                throw new Exception(MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(unit.ToString()));
+                throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
 
             return AddMonths(date, steps);           
 

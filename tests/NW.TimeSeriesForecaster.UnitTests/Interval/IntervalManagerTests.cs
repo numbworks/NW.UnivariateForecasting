@@ -77,10 +77,10 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.NonExistantIntervalUnit,
                                 1)),
                 typeof(Exception),
-                MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
+                MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
                             ObjectMother.NonExistantIntervalUnit.ToString())
                 ).SetDescription(
-                        MessageCollection.NoStrategyToCalculateNextDateUnit.Invoke(
+                        MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
                             ObjectMother.NonExistantIntervalUnit.ToString())),
 
         };

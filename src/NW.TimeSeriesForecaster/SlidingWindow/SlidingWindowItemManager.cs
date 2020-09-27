@@ -44,6 +44,8 @@ namespace NW.UnivariateForecasting
         public SlidingWindowItem CreateItem(
             uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted)
         {
+            if (intervalUnit != IntervalUnits.Months)
+                throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
             Interval interval = new Interval()
             {
@@ -60,10 +62,14 @@ namespace NW.UnivariateForecasting
         public List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, IntervalUnits intervalUnit)
         {
 
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+            if (values.Count == 0)
+                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
             if (intervalUnit == IntervalUnits.Months)
                 return CreateItemsIfMonths(startDate, values);
 
-            throw new Exception(MessageCollection.NoStrategyToCreateItemsUnit.Invoke(intervalUnit.ToString()));
+            throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
         }
         public bool IsValid(SlidingWindowItem slidingWindowItem)
