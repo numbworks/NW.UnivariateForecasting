@@ -178,6 +178,21 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] extractXActualValuesTestCases =
+        {
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                ObjectMother.SlidingWindow1_Values,
+                new List<string>() {
+                    MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(ObjectMother.SlidingWindow1_Values)
+                    }
+                )
+
+        };
+
+        
 
         // SetUp
         // Tests
@@ -267,10 +282,10 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
             UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
-            UnivariateForecaster forecasterManager = new UnivariateForecaster(settings);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
 
             // Act
-            Observation actual = forecasterManager.Forecast(slidingWindow);
+            Observation actual = univariateForecaster.Forecast(slidingWindow);
 
             // Assert
             Assert.True(
@@ -279,6 +294,24 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(extractXActualValuesTestCases))]
+        public void ExtractXActualValues_ShouldReturnExpectedValuesAndLogExpectedMessages_WhenProperSlidingWindow
+            (SlidingWindow slidingWindow, List<double> expected, List<string> expectedMessages)
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+
+            // Act
+            List<double> actual = univariateForecaster.ExtractXActualValues(slidingWindow);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
 
         // TearDown
         // Support methods
