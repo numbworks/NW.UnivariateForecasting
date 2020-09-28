@@ -175,8 +175,8 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            SlidingWindowItem actual =
-                new SlidingWindowItemManager().CreateItem(
+            SlidingWindowItem actual
+                 = new SlidingWindowItemManager().CreateItem(
                                                     ObjectMother.SlidingWindow1_Item1_Id,
                                                     ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
                                                     ObjectMother.SlidingWindow1_Item1.Interval.Unit,
@@ -198,6 +198,24 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Exception objActual = Assert.Throws(expectedType, del);
             Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
+        [Test]
+        public void CreateItems_ShouldReturnExpectedListSlidingWindowItem_WhenProperStartDateEtc()
+        {
+
+            // Arrange
+            // Act
+            List<SlidingWindowItem> actual
+                = new SlidingWindowItemManager().CreateItems(
+                                                    ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
+                                                    ObjectMother.SlidingWindow1_Values,
+                                                    ObjectMother.SlidingWindow1_Item1.Interval.Unit);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(ObjectMother.SlidingWindow1_Items, actual));
 
         }
 
