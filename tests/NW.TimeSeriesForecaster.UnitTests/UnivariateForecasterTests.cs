@@ -210,12 +210,12 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
                 ObjectMother.Observation1,
-                ObjectMother.SlidingWindow1PlusObservation1,
+                ObjectMother.FaCSteps1_Final,
                 new List<string>() {
                     MessageCollection.CombiningProvidedSlidingWindowWithObservation,
                     MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.Observation1),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1PlusObservation1)
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final)
                     }
                 )
 
@@ -226,7 +226,7 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
                 (uint)1,
-                ObjectMother.SlidingWindow1PlusObservation1,
+                ObjectMother.FaCSteps1_Final,
                 new List<string>() {
                     MessageCollection.RunningForecastAndCombineForSteps.Invoke(1),
                     MessageCollection.ForecastingAndCombineForStepNr.Invoke(1),
@@ -235,9 +235,45 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.CombiningProvidedSlidingWindowWithObservation,
                     MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.Observation1),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1PlusObservation1),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final),
                     MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(1),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1PlusObservation1)
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final)
+                    }
+                ),
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                (uint)3,
+                ObjectMother.FaCSteps3_Final,
+                new List<string>() {
+                    MessageCollection.RunningForecastAndCombineForSteps.Invoke(3),
+                    // i = 1
+                    MessageCollection.ForecastingAndCombineForStepNr.Invoke(1),
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1),
+                    MessageCollection.CombiningProvidedSlidingWindowWithObservation,
+                    MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.Observation1),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps3_MidwaySlidingWindow_1),
+                    // i = 2
+                    MessageCollection.ForecastingAndCombineForStepNr.Invoke(2),
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.FaCSteps3_MidwaySlidingWindow_1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.FaCSteps3_MidwayObservation_1),
+                    MessageCollection.CombiningProvidedSlidingWindowWithObservation,
+                    MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.FaCSteps3_MidwaySlidingWindow_1),
+                    MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.FaCSteps3_MidwayObservation_1),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps3_MidwaySlidingWindow_2),
+                    // i = 3
+                    MessageCollection.ForecastingAndCombineForStepNr.Invoke(3),
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.FaCSteps3_MidwaySlidingWindow_2),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.FaCSteps3_MidwayObservation_2),
+                    MessageCollection.CombiningProvidedSlidingWindowWithObservation,
+                    MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.FaCSteps3_MidwaySlidingWindow_2),
+                    MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.FaCSteps3_MidwayObservation_2),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps3_Final),
+                    // final
+                    MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(3),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps3_Final)
                     }
                 )
 
@@ -391,7 +427,7 @@ namespace NW.UnivariateForecasting.UnitTests
             UnivariateForecastingSettings settings 
                 = new UnivariateForecastingSettings(
                     loggingAction: (message) => fakeLogger.Log(message),
-                    idCreationFunction: ObjectMother.SlidingWindow1PlusObservation1_IdCreationFunction
+                    idCreationFunction: ObjectMother.FaC_IdCreationFunction
                     );
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
 
@@ -415,7 +451,7 @@ namespace NW.UnivariateForecasting.UnitTests
             UnivariateForecastingSettings settings
                 = new UnivariateForecastingSettings(
                     loggingAction: (message) => fakeLogger.Log(message),
-                    idCreationFunction: ObjectMother.SlidingWindow1PlusObservation1_IdCreationFunction
+                    idCreationFunction: ObjectMother.FaC_IdCreationFunction
                     );
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
 
@@ -438,6 +474,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 27.09.2020
+    Last Update: 28.09.2020
 
 */

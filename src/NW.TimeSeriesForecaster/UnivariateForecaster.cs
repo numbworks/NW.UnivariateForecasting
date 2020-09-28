@@ -151,10 +151,10 @@ namespace NW.UnivariateForecasting
             for (uint i = 1; i <= steps; i++)
             {
 
-                _settings.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(steps));
+                _settings.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(i));
 
-                Observation observation = Forecast(slidingWindow);
-                newSlidingWindow = Combine(slidingWindow, observation);
+                Observation observation = Forecast(newSlidingWindow);
+                newSlidingWindow = Combine(newSlidingWindow, observation);
 
             };
 

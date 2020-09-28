@@ -393,55 +393,217 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        internal static string SlidingWindow1PlusObservation1_Id = "SW20200925000000";
-        internal static Func<string> SlidingWindow1PlusObservation1_IdCreationFunction
-            = () => SlidingWindow1PlusObservation1_Id;
-        internal static SlidingWindowItem SlidingWindow1PlusObservation1_Item6
-            = new SlidingWindowItem()
-            {
-                Id = 6,
-                Interval = SlidingWindow1_SubInterval6,
-                X_Actual = 632.94,
-                Y_Forecasted = 519.23
-            };
-        internal static SlidingWindowItem SlidingWindow1PlusObservation1_Item7
-            = new SlidingWindowItem()
-            {
-                Id = 7,
-                Interval = Observation1_Interval,
-                X_Actual = 519.23,
-                Y_Forecasted = null
-            };
-        internal static Interval SlidingWindow1PlusObservation1_Interval = new Interval()
+        internal static string FaC_Id = "SW20200925000000";
+        internal static Func<string> FaC_IdCreationFunction = () => FaC_Id;
+        internal static SlidingWindow FaCSteps1_Final = new SlidingWindow()
         {
-
-            Size = 7,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 01, 31),
-            EndDate = new DateTime(2019, 08, 31),
-            TargetDate = new DateTime(2019, 09, 30),
-            Steps = 1,
-            SubIntervals = 7
-
-        };
-        internal static List<SlidingWindowItem> SlidingWindow1PlusObservation1_Items = new List<SlidingWindowItem>()
-        {
-            SlidingWindow1_Item1,
-            SlidingWindow1_Item2,
-            SlidingWindow1_Item3,
-            SlidingWindow1_Item4,
-            SlidingWindow1_Item5,
-            SlidingWindow1PlusObservation1_Item6,
-            SlidingWindow1PlusObservation1_Item7
-        };
-        internal static SlidingWindow SlidingWindow1PlusObservation1 = new SlidingWindow()
-        {
-            Id = SlidingWindow1PlusObservation1_Id,
+            Id = FaC_Id,
             ObservationName = SlidingWindow1_ObservationName,
-            Interval = SlidingWindow1PlusObservation1_Interval,
-            Items = SlidingWindow1PlusObservation1_Items
-        };
+            Interval = new Interval()
+                        {
 
+                            Size = 7,
+                            Unit = IntervalUnits.Months,
+                            StartDate = new DateTime(2019, 01, 31),
+                            EndDate = new DateTime(2019, 08, 31),
+                            TargetDate = new DateTime(2019, 09, 30),
+                            Steps = 1,
+                            SubIntervals = 7
+
+                        },
+            Items = new List<SlidingWindowItem>()
+                    {
+                        SlidingWindow1_Item1,
+                        SlidingWindow1_Item2,
+                        SlidingWindow1_Item3,
+                        SlidingWindow1_Item4,
+                        SlidingWindow1_Item5,
+                        new SlidingWindowItem()
+                        {
+                            Id = 6,
+                            Interval = SlidingWindow1_SubInterval6,
+                            X_Actual = 632.94,
+                            Y_Forecasted = 519.23
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 7,
+                            Interval = Observation1_Interval,
+                            X_Actual = 519.23,
+                            Y_Forecasted = null
+                        }
+                    }
+        };
+        internal static SlidingWindow FaCSteps3_MidwaySlidingWindow_1 = FaCSteps1_Final;
+        internal static Observation FaCSteps3_MidwayObservation_1 = new Observation()
+        {
+
+            Name = SlidingWindow1_ObservationName,
+            Interval = new Interval()
+            {
+                Size = 1,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 08, 31),
+                EndDate = new DateTime(2019, 09, 30),
+                TargetDate = new DateTime(2019, 10, 31),
+                Steps = 1,
+                SubIntervals = 1
+            },
+            X_Actual = 519.23,
+            C = 0.88,
+            E = 0.16,
+            Y_Forecasted = 457.08,
+            SlidingWindowId = FaC_Id
+
+        };
+        internal static SlidingWindow FaCSteps3_MidwaySlidingWindow_2 = new SlidingWindow()
+        {
+            Id = FaC_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = new Interval()
+            {
+
+                Size = 8,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 01, 31),
+                EndDate = new DateTime(2019, 09, 30),
+                TargetDate = new DateTime(2019, 10, 31),
+                Steps = 1,
+                SubIntervals = 8
+
+            },
+            Items = new List<SlidingWindowItem>()
+                    {
+                        SlidingWindow1_Item1,
+                        SlidingWindow1_Item2,
+                        SlidingWindow1_Item3,
+                        SlidingWindow1_Item4,
+                        SlidingWindow1_Item5,
+                        new SlidingWindowItem()
+                        {
+                            Id = 6,
+                            Interval = SlidingWindow1_SubInterval6,
+                            X_Actual = 632.94,
+                            Y_Forecasted = 519.23
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 7,
+                            Interval = Observation1_Interval,
+                            X_Actual = 519.23,
+                            Y_Forecasted = 457.08
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 8,
+                            Interval = new Interval()
+                                        {
+                                            Size = 1,
+                                            Unit = IntervalUnits.Months,
+                                            StartDate = new DateTime(2019, 08, 31),
+                                            EndDate = new DateTime(2019, 09, 30),
+                                            TargetDate = new DateTime(2019, 10, 31),
+                                            Steps = 1,
+                                            SubIntervals = 1
+                                        },
+                            X_Actual = 457.08,
+                            Y_Forecasted = null
+                        }
+                    }
+        };
+        internal static Observation FaCSteps3_MidwayObservation_2 = new Observation()
+        {
+
+            Name = SlidingWindow1_ObservationName,
+            Interval = new Interval()
+            {
+                Size = 1,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 09, 30),
+                EndDate = new DateTime(2019, 10, 31),
+                TargetDate = new DateTime(2019, 11, 30),
+                Steps = 1,
+                SubIntervals = 1
+            },
+            X_Actual = 457.08,
+            C = 0.92,
+            E = 0.12,
+            Y_Forecasted = 420.63,
+            SlidingWindowId = FaC_Id
+
+        };
+        internal static SlidingWindow FaCSteps3_Final = new SlidingWindow()
+        {
+            Id = FaC_Id,
+            ObservationName = SlidingWindow1_ObservationName,
+            Interval = new Interval()
+                        {
+
+                            Size = 9,
+                            Unit = IntervalUnits.Months,
+                            StartDate = new DateTime(2019, 01, 31),
+                            EndDate = new DateTime(2019, 10, 31),
+                            TargetDate = new DateTime(2019, 11, 30),
+                            Steps = 1,
+                            SubIntervals = 9
+
+                        },
+            Items = new List<SlidingWindowItem>()
+                    {
+                        SlidingWindow1_Item1,
+                        SlidingWindow1_Item2,
+                        SlidingWindow1_Item3,
+                        SlidingWindow1_Item4,
+                        SlidingWindow1_Item5,
+                        new SlidingWindowItem()
+                        {
+                            Id = 6,
+                            Interval = SlidingWindow1_SubInterval6,
+                            X_Actual = 632.94,
+                            Y_Forecasted = 519.23
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 7,
+                            Interval = Observation1_Interval,
+                            X_Actual = 519.23,
+                            Y_Forecasted = 457.08
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 8,
+                            Interval = new Interval()
+                                        {
+                                            Size = 1,
+                                            Unit = IntervalUnits.Months,
+                                            StartDate = new DateTime(2019, 08, 31),
+                                            EndDate = new DateTime(2019, 09, 30),
+                                            TargetDate = new DateTime(2019, 10, 31),
+                                            Steps = 1,
+                                            SubIntervals = 1
+                                        },
+                            X_Actual = 457.08,
+                            Y_Forecasted = 420.63
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 9,
+                            Interval = new Interval()
+                                        {
+                                            Size = 1,
+                                            Unit = IntervalUnits.Months,
+                                            StartDate = new DateTime(2019, 09, 30),
+                                            EndDate = new DateTime(2019, 10, 31),
+                                            TargetDate = new DateTime(2019, 11, 30),
+                                            Steps = 1,
+                                            SubIntervals = 1
+                                        },
+                            X_Actual = 420.63,
+                            Y_Forecasted = null
+                        }
+
+                    }
+        };
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
@@ -530,6 +692,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.09.2020
+    Last Update: 28.09.2020
 
 */
