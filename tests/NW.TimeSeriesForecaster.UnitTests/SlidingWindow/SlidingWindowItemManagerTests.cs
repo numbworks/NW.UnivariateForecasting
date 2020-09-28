@@ -219,7 +219,6 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-
         // TearDown
         // Support methods
 
@@ -229,6 +228,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 27.09.2020
+    Last Update: 28.09.2020
 
 */
