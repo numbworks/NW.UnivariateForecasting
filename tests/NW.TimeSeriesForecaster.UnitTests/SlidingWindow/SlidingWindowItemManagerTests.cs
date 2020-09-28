@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -47,6 +48,43 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.SlidingWindow1_Item1_XActual,
                 ObjectMother.SlidingWindow1_Item1_YForecasted,
                 ObjectMother.SlidingWindow1_Item1
+                )
+
+        };
+        private static TestCaseData[] createItemsExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowItemManager().CreateItems(
+                            ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
+                            null,
+                            ObjectMother.SlidingWindow1_Item1.Interval.Unit
+                        )),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("values").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowItemManager().CreateItems(
+                            ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
+                            new List<double>(),
+                            ObjectMother.SlidingWindow1_Item1.Interval.Unit
+                        )),
+                typeof(Exception),
+                MessageCollection.VariableContainsZeroItems.Invoke("values")
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowItemManager().CreateItems(
+                            ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
+                            ObjectMother.SlidingWindow1_Values,
+                            ObjectMother.NonExistantIntervalUnit
+                        )),
+                typeof(Exception),
+                MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString())
                 )
 
         };
@@ -147,6 +185,19 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Assert.True(
                 ObjectMother.AreEqual(ObjectMother.SlidingWindow1_Item1, actual));
+
+        }
+
+        [TestCaseSource(nameof(createItemsExceptionTestCases))]
+        public void CreateItems_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
 
         }
 

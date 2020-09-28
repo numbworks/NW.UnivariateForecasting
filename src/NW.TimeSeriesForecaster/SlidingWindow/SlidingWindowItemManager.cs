@@ -70,10 +70,10 @@ namespace NW.UnivariateForecasting
                 throw new ArgumentNullException(nameof(values));
             if (values.Count == 0)
                 throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
-            if (intervalUnit == IntervalUnits.Months)
-                return CreateItemsIfMonths(startDate, values);
+            if (intervalUnit != IntervalUnits.Months)
+                throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
-            throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
+            return CreateItemsIfMonths(startDate, values);
 
         }
         public bool IsValid(SlidingWindowItem slidingWindowItem)
