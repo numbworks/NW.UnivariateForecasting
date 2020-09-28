@@ -108,6 +108,49 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [Test]
+        public void CreateItem_ShouldThrowACertainException_WhenUnproperIntervalUnit()
+        {
+
+            // Arrange
+            TestDelegate del = () =>
+                new SlidingWindowItemManager().CreateItem(
+                                                    ObjectMother.SlidingWindow1_Item1_Id,
+                                                    ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
+                                                    ObjectMother.NonExistantIntervalUnit,
+                                                    ObjectMother.SlidingWindow1_Item1.X_Actual,
+                                                    ObjectMother.SlidingWindow1_Item1.Y_Forecasted);
+            Type expectedType = typeof(Exception);
+            string expectedMessage 
+                = MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString());
+
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
+        [Test]
+        public void CreateItem_ShouldReturnExpectedSlidingWindowItem_WhenProperStartDateEtc()
+        {
+
+            // Arrange
+            // Act
+            SlidingWindowItem actual =
+                new SlidingWindowItemManager().CreateItem(
+                                                    ObjectMother.SlidingWindow1_Item1_Id,
+                                                    ObjectMother.SlidingWindow1_Item1.Interval.StartDate,
+                                                    ObjectMother.SlidingWindow1_Item1.Interval.Unit,
+                                                    ObjectMother.SlidingWindow1_Item1.X_Actual,
+                                                    ObjectMother.SlidingWindow1_Item1.Y_Forecasted);
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(ObjectMother.SlidingWindow1_Item1, actual));
+
+        }
+
+
         // TearDown
         // Support methods
 
