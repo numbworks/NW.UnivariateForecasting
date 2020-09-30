@@ -72,10 +72,23 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
+                null,
+                null,
                 ObjectMother.Observation1,
                 new List<string>() {
                     MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
+                    }
+                ),
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                ObjectMother.Observation1withCustomCE_C,
+                ObjectMother.Observation1withCustomCE_E,
+                ObjectMother.Observation1withCustomCE,
+                new List<string>() {
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1withCustomCE)
                     }
                 )
 
@@ -125,7 +138,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
-            (SlidingWindow slidingWindow, Observation expected, List<string> expectedMessages)
+            (SlidingWindow slidingWindow, double? C, double? E, Observation expected, List<string> expectedMessages)
         {
 
             // Arrange
@@ -134,7 +147,7 @@ namespace NW.UnivariateForecasting.UnitTests
             ObservationManager observationManager = new ObservationManager(settings);
 
             // Act
-            Observation actual = observationManager.Create(slidingWindow);
+            Observation actual = observationManager.Create(slidingWindow, C, E);
 
             // Assert
             Assert.True(

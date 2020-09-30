@@ -38,7 +38,7 @@ namespace NW.UnivariateForecasting
         /// <summary>
         /// It calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
         /// </summary>
-        public Observation Create(SlidingWindow slidingWindow)
+        public Observation Create(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
@@ -59,8 +59,8 @@ namespace NW.UnivariateForecasting
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);
-            observation.C = CalculateC(itemsExceptTarget, _settings.ForecastingDenominator);
-            observation.E = CalculateE(itemsExceptTarget, observation.C, _settings.ForecastingDenominator);
+            observation.C = C ?? CalculateC(itemsExceptTarget, _settings.ForecastingDenominator);
+            observation.E = E ?? CalculateE(itemsExceptTarget, observation.C, _settings.ForecastingDenominator);
 
             double CX = CalculateCX(observation.C, observation.X_Actual);
             observation.Y_Forecasted = CalculateY(CX, observation.E);
@@ -255,6 +255,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.08.2020    
+    Last Update: 30.09.2020    
 
 */

@@ -280,6 +280,7 @@ namespace NW.UnivariateForecasting.UnitTests
             Items = SlidingWindow1_Items
         };
 
+        // ObservationManagerTests
         internal static ObservationManager ObservationManager_Default = new ObservationManager(new UnivariateForecastingSettings());
         internal static Observation Observation_InvalidDueOfNullName = new Observation()
         {
@@ -301,6 +302,19 @@ namespace NW.UnivariateForecasting.UnitTests
             Interval = SlidingWindow1_SubInterval1, // Whatever valid Interval
             SlidingWindowId = null
 
+        };
+        internal static double Observation1withCustomCE_C = 0.92;
+        internal static double Observation1withCustomCE_E = 0.12;
+        internal static double Observation1withCustomCE_Y = 582.42;
+        internal static Observation Observation1withCustomCE = new Observation()
+        {
+            Name = Observation1.Name,
+            Interval = Observation1.Interval,
+            SlidingWindowId = Observation1.SlidingWindowId,
+            X_Actual = Observation1.X_Actual,
+            C = Observation1withCustomCE_C,
+            E = Observation1withCustomCE_E,
+            Y_Forecasted = Observation1withCustomCE_Y
         };
 
         internal static string SlidingWindow1_ToString = "[ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]";
