@@ -646,6 +646,25 @@ namespace NW.UnivariateForecasting.UnitTests
                         && string.Equals(obj1.SlidingWindowId, obj2.SlidingWindowId, StringComparison.InvariantCulture);
 
         }
+        internal static bool AreEqual(List<Observation> list1, List<Observation> list2)
+        {
+
+            if (list1 == null && list2 == null)
+                return true;
+
+            if (list1 == null || list2 == null)
+                return false;
+
+            if (list1.Count != list2.Count)
+                return false;
+
+            for (int i = 0; i < list1.Count; i++)
+                if (AreEqual(list1[i], list2[i]) == false)
+                    return false;
+
+            return true;
+
+        }
         internal static bool AreEqual(SlidingWindowItem obj1, SlidingWindowItem obj2)
         {
 
@@ -692,6 +711,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 28.09.2020
+    Last Update: 30.09.2020
 
 */

@@ -137,7 +137,7 @@ namespace NW.UnivariateForecasting
             return newSlidingWindow;
 
         }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
+        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps, out List<Observation> observations)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
@@ -148,6 +148,8 @@ namespace NW.UnivariateForecasting
             _settings.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
 
             SlidingWindow newSlidingWindow = DeepCloneSlidingWindow(slidingWindow);
+            List<Observation> temp = new List<Observation>();
+
             for (uint i = 1; i <= steps; i++)
             {
 
@@ -156,12 +158,22 @@ namespace NW.UnivariateForecasting
                 Observation observation = Forecast(newSlidingWindow);
                 newSlidingWindow = Combine(newSlidingWindow, observation);
 
+                temp.Add(observation);
+
             };
 
             _settings.LoggingAction.Invoke(MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
             _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
+            observations = temp;
             return newSlidingWindow;
+
+        }
+        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
+        {
+
+            List<Observation> observations = null;
+            return ForecastAndCombine(slidingWindow, steps, out observations);
 
         }
         public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)

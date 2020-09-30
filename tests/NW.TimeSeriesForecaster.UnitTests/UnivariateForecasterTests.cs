@@ -227,6 +227,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.SlidingWindow1,
                 (uint)1,
                 ObjectMother.FaCSteps1_Final,
+                new List<Observation>()
+                {
+                    ObjectMother.Observation1
+                },
                 new List<string>() {
                     MessageCollection.RunningForecastAndCombineForSteps.Invoke(1),
                     MessageCollection.ForecastingAndCombineForStepNr.Invoke(1),
@@ -245,6 +249,12 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.SlidingWindow1,
                 (uint)3,
                 ObjectMother.FaCSteps3_Final,
+                new List<Observation>()
+                {
+                    ObjectMother.Observation1,
+                    ObjectMother.FaCSteps3_MidwayObservation_1,
+                    ObjectMother.FaCSteps3_MidwayObservation_2
+                },
                 new List<string>() {
                     MessageCollection.RunningForecastAndCombineForSteps.Invoke(3),
                     // i = 1
@@ -442,8 +452,12 @@ namespace NW.UnivariateForecasting.UnitTests
         }
 
         [TestCaseSource(nameof(forecastAndCombineTestCases))]
-        public void ForecastAndCombine_ShouldReturnExpectedSlidingWindowAndLogExpectedMessages_WhenProperArguments
-            (SlidingWindow slidingWindow, uint steps, SlidingWindow expected, List<string> expectedMessages)
+        public void ForecastAndCombine_ShouldReturnExpectedObjectsAndLogExpectedMessages_WhenProperArguments
+            (SlidingWindow slidingWindow, 
+            uint steps, 
+            SlidingWindow expected, 
+            List<Observation> expectedObservations, 
+            List<string> expectedMessages)
         {
 
             // Arrange
@@ -456,11 +470,14 @@ namespace NW.UnivariateForecasting.UnitTests
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
 
             // Act
-            SlidingWindow actual = univariateForecaster.ForecastAndCombine(slidingWindow, steps);
+            List<Observation> actualObservations = null;
+            SlidingWindow actual = univariateForecaster.ForecastAndCombine(slidingWindow, steps, out actualObservations);
 
             // Assert
             Assert.True(
                 ObjectMother.AreEqual(expected, actual));
+            Assert.True(
+                ObjectMother.AreEqual(expectedObservations, actualObservations));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
@@ -474,6 +491,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 28.09.2020
+    Last Update: 30.09.2020
 
 */
