@@ -41,17 +41,17 @@ namespace NW.UnivariateForecasting
         {
 
             if (string.IsNullOrWhiteSpace(id))
-                throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(id)));
+                throw new ArgumentException(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(id)));
             if (string.IsNullOrWhiteSpace(observationName))
-                throw new Exception(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(observationName)));
+                throw new ArgumentException(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(observationName)));
             if (!_intervalManager.IsValid(interval))
-                throw new Exception(MessageCollection.IntervalNullOrInvalid);
+                throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
             if (items.Count == 0)
-                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(items)));
+                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(items)));
             if (items.Count != interval.SubIntervals)
-                throw new Exception(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
+                throw new ArgumentException(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
 
             _settings.LoggingAction.Invoke(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
             _settings.LoggingAction.Invoke(MessageCollection.ProvidedIdIs.Invoke(id));
@@ -81,7 +81,7 @@ namespace NW.UnivariateForecasting
             if (values == null)
                 throw new ArgumentNullException(nameof(values));
             if (values.Count == 0)
-                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
+                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
 
             _settings.LoggingAction.Invoke(MessageCollection.CreatingIntervalOutOfFollowingArguments);
             _settings.LoggingAction.Invoke(MessageCollection.ProvidedValuesAre.Invoke(values));

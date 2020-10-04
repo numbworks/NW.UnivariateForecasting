@@ -57,7 +57,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Interval,
                                 ObjectMother.SlidingWindow1_Items
                                 )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableCantBeEmptyOrNull.Invoke("id")
                 ).SetDescription(MessageCollection.VariableCantBeEmptyOrNull.Invoke("id")),
 
@@ -70,7 +70,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Interval,
                                 ObjectMother.SlidingWindow1_Items
                                 )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableCantBeEmptyOrNull.Invoke("observationName")
                 ).SetDescription(MessageCollection.VariableCantBeEmptyOrNull.Invoke("observationName")),
 
@@ -83,7 +83,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Interval_InvalidDueOfEndDate, // Whatever invalid Interval
                                 ObjectMother.SlidingWindow1_Items
                                 )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.IntervalNullOrInvalid
                 ).SetDescription(MessageCollection.IntervalNullOrInvalid),
 
@@ -109,7 +109,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Interval,
                                 new List<SlidingWindowItem>()
                                 )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableContainsZeroItems.Invoke("items")
                 ).SetDescription(MessageCollection.VariableContainsZeroItems.Invoke("items")),
 
@@ -122,7 +122,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Interval,
                                 ObjectMother.SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
                                 )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)
                 ).SetDescription(MessageCollection.ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)),
 
@@ -153,7 +153,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_IntervalUnit,
                                 ObjectMother.SlidingWindow1_StartDate
                                 )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableContainsZeroItems.Invoke("values")
                 ).SetDescription(MessageCollection.VariableContainsZeroItems.Invoke("values"))
 
