@@ -16,11 +16,11 @@ namespace NW.UnivariateForecasting
         {
 
             if (size < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(size)));
+                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(size)));
             if (steps < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
+                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
             if (size % steps != 0)
-                throw new Exception(MessageCollection.DividingSizeByStepsMustReturnWholeNumber);
+                throw new ArgumentException(MessageCollection.DividingSizeByStepsMustReturnWholeNumber);
 
             Interval interval = new Interval();
             interval.Size = size;
@@ -38,9 +38,9 @@ namespace NW.UnivariateForecasting
         {
 
             if (steps < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
+                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
             if (unit != IntervalUnits.Months)
-                throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
+                throw new ArgumentException(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
 
             return AddMonths(date, steps);           
 
@@ -74,9 +74,9 @@ namespace NW.UnivariateForecasting
         {
 
             if (!IsValid(interval))
-                throw new Exception(MessageCollection.IntervalNullOrInvalid);
+                throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
             if (interval.SubIntervals < 2)
-                throw new Exception(MessageCollection.SubIntervalsCantBeLessThanTwo);
+                throw new ArgumentException(MessageCollection.SubIntervalsCantBeLessThanTwo);
 
             List<Interval> subIntervals = new List<Interval>();
             for (int i = 0; i < interval.Size; i++)

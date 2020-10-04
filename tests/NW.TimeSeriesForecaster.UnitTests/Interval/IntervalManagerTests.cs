@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_IntervalUnit, 
                                 ObjectMother.SlidingWindow1_StartDate,
                                 1)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("size")
                 ).SetDescription(
                         MessageCollection.VariableCantBeLessThanOne.Invoke("size")),
@@ -34,7 +34,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_IntervalUnit,
                                 ObjectMother.SlidingWindow1_StartDate,
                                 0)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
                         MessageCollection.VariableCantBeLessThanOne.Invoke("steps")),
@@ -47,7 +47,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_IntervalUnit,
                                 ObjectMother.SlidingWindow1_StartDate,
                                 2)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.DividingSizeByStepsMustReturnWholeNumber
                 ).SetDescription(
                         MessageCollection.DividingSizeByStepsMustReturnWholeNumber)
@@ -64,7 +64,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_StartDate,
                                 ObjectMother.SlidingWindow1_IntervalUnit,
                                 0)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
                         MessageCollection.VariableCantBeLessThanOne.Invoke("steps")),
@@ -76,7 +76,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_StartDate,
                                 ObjectMother.NonExistantIntervalUnit,
                                 1)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
                             ObjectMother.NonExistantIntervalUnit.ToString())
                 ).SetDescription(
@@ -93,7 +93,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
                                     ObjectMother.Interval_InvalidDueOfSize)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.IntervalNullOrInvalid
                 ).SetDescription(
                         MessageCollection.IntervalNullOrInvalid),
@@ -103,7 +103,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
                                         ObjectMother.SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.SubIntervalsCantBeLessThanTwo
                 ).SetDescription(
                         MessageCollection.SubIntervalsCantBeLessThanTwo)
