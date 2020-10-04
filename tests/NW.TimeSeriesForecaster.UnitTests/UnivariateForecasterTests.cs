@@ -86,7 +86,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.UnivariateForecaster_Default.Forecast(
                             ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 )
 
@@ -99,7 +99,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.UnivariateForecaster_Default.ExtractXActualValues(
                             ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 )
 
@@ -112,7 +112,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.UnivariateForecaster_Default.ExtractStartDates(
                             ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 )
 
@@ -126,7 +126,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.SlidingWindow1,
                             ObjectMother.Observation_InvalidDueOfNullName
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(Observation))
                 ),
 
@@ -136,7 +136,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval,
                             ObjectMother.Observation1
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 )
 
@@ -150,7 +150,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval,
                             1
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 ),
 
@@ -160,7 +160,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.SlidingWindow1,
                             0
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 )
 
@@ -178,7 +178,7 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => ObjectMother.UnivariateForecaster_Default.ForecastNextValue(new List<double>() { })),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableContainsZeroItems.Invoke("values")
                 )
 
