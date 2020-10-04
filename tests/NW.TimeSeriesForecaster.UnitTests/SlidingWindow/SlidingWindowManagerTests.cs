@@ -267,6 +267,25 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [Test]
+        public void Create_ShouldReturnSlidingWindowWithDummyFields_WhenValues()
+        {
+
+            // Arrange
+            // Act
+            SlidingWindow actual 
+                = new SlidingWindowManager(new UnivariateForecastingSettings())
+                        .Create(ObjectMother.SlidingWindow1_Values);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(
+                    ObjectMother.SlidingWindow1_WithDummyFields,
+                    actual)
+                );
+
+        }
+
         // TearDown
         // Support methods
 
@@ -276,6 +295,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 23.09.2020
+    Last Update: 04.10.2020
 
 */
