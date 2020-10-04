@@ -31,19 +31,30 @@ namespace NW.UnivariateForecasting
         /// </summary>
         public double ForecastingDenominator { get; private set; }
 
+        /// <summary>
+        /// For <see cref="SlidingWindow"/>.
+        /// <para>Default: "Default Observation".</para>
+        /// </summary>
+        public string DefaultObservationName { get; private set; }
+
+        /// <summary>
+        /// For <see cref="SlidingWindow"/>.
+        /// <para>Default: 2020-01-01.</para>
+        /// </summary>
+        public DateTime DefaultStartDate { get; private set; }
+
         // Constructors
         /// <summary>
         /// If not provided, pre-definited functions and values are assigned. Hover the mouse over the parameters for details.
         /// </summary>
-        /// <param name="idCreationFunction">Default: "SW{yyyyMMddhhmmsss}" using current datetime.</param>
-        /// <param name="roundingFunction">Default: two decimal digits.</param>
-        /// <param name="loggingAction">Default: Console.WriteLine(message).</param>
-        /// <param name="forecastingDenominator">Default: 0.001.</param>
         public UnivariateForecastingSettings(
                 Func<string> idCreationFunction = null,
                 Func<double, double> roundingFunction = null,
                 Action<string> loggingAction = null,
-                double forecastingDenominator = 0.001)
+                double forecastingDenominator = 0.001,
+                string defaultObservationName = null,
+                DateTime defaultStartDate = default(DateTime)
+            )
         {
 
             double defaultDenominator = 0.001;
@@ -55,6 +66,8 @@ namespace NW.UnivariateForecasting
             RoundingFunction = roundingFunction;
             LoggingAction = loggingAction;
             ForecastingDenominator = forecastingDenominator;
+            DefaultObservationName = defaultObservationName;
+            DefaultStartDate = defaultStartDate;
 
             if (idCreationFunction == null)
                 IdCreationFunction = () => $"SW{DateTime.Now.ToString("yyyyMMddhhmmsss")}";
@@ -62,6 +75,10 @@ namespace NW.UnivariateForecasting
                 RoundingFunction = new Func<double, double>(x => Math.Round(x, 2, MidpointRounding.AwayFromZero));
             if (loggingAction == null)
                 LoggingAction = (message) => Console.WriteLine(message);
+            if (defaultObservationName == null)
+                DefaultObservationName = "Default Observation";
+            if (defaultStartDate == default(DateTime))
+                DefaultStartDate = new DateTime(2020, 01, 01);
 
         }
 
@@ -74,6 +91,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 03.08.2021
+    Last Update: 04.10.2020
 
 */

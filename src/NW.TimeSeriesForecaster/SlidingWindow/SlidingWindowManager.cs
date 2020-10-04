@@ -36,11 +36,8 @@ namespace NW.UnivariateForecasting
             : this(settings, new IntervalManager(), new SlidingWindowItemManager()) { }
 
         // Methods (public)
-        public SlidingWindow Create(
-            string id, 
-            string observationName, 
-            Interval interval, 
-            List<SlidingWindowItem> items)
+        public SlidingWindow Create
+            (string id, string observationName, Interval interval, List<SlidingWindowItem> items)
         {
 
             if (string.IsNullOrWhiteSpace(id))
@@ -78,12 +75,7 @@ namespace NW.UnivariateForecasting
 
         }
         public SlidingWindow Create
-            (string id,
-            string observationName,
-            List<double> values,
-            uint steps,
-            IntervalUnits intervalUnit,
-            DateTime startDate)
+            (string id, string observationName, List<double> values, uint steps, IntervalUnits intervalUnit, DateTime startDate)
         {
 
             if (values == null)
@@ -100,6 +92,19 @@ namespace NW.UnivariateForecasting
             List<SlidingWindowItem> items = CreateItems(interval, Round(values));
 
             return Create(id, observationName, interval, items);
+
+        }
+        public SlidingWindow Create(List<double> values)
+        {
+
+            return Create(
+                    _settings.IdCreationFunction.Invoke(),
+                    _settings.DefaultObservationName,
+                    values,
+                    1,
+                    IntervalUnits.Months,
+                    _settings.DefaultStartDate
+                );
 
         }
         public bool IsValid(SlidingWindow slidingWindow)
@@ -171,6 +176,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 23.09.2020
+    Last Update: 04.10.2020
 
 */
