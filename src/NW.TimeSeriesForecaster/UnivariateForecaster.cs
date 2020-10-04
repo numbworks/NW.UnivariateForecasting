@@ -56,43 +56,59 @@ namespace NW.UnivariateForecasting
                   new IntervalManager()) { }
 
         // Methods (public)
-        public Observation Forecast(SlidingWindow slidingWindow)
+        public Observation Forecast(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            return _observationManager.Create(slidingWindow);
+            return _observationManager.Create(slidingWindow, C, E);
 
         }
-        public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
+        public SlidingWindow ForecastAndCombine
+            (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+            if (steps < 1)
+                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+            _settings.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
 
-            List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
-            _settings.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
+            SlidingWindow newSlidingWindow = DeepCloneSlidingWindow(slidingWindow);
+            List<Observation> temp = new List<Observation>();
 
-            return values;
+            for (uint i = 1; i <= steps; i++)
+            {
+
+                _settings.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(i));
+
+                Observation observation = Forecast(newSlidingWindow, C, E);
+                newSlidingWindow = Combine(newSlidingWindow, observation);
+
+                temp.Add(observation);
+
+            };
+
+            _settings.LoggingAction.Invoke(MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
+            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+
+            observations = temp;
+            return newSlidingWindow;
 
         }
-        public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
+        public SlidingWindow ForecastAndCombine
+            (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-
-            _settings.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
-
-            List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
-            _settings.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
-
-            return startDates;
+            List<Observation> observations = null;
+            return ForecastAndCombine(slidingWindow, steps, out observations, C, E);
 
         }
+        public SlidingWindow ForecastAndCombine
+            (SlidingWindow slidingWindow, double? C = null, double? E = null)
+                => ForecastAndCombine(slidingWindow, 1, C, E);
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
@@ -137,47 +153,34 @@ namespace NW.UnivariateForecasting
             return newSlidingWindow;
 
         }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps, out List<Observation> observations)
+        public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
                 throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-            if (steps < 1)
-                throw new Exception(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
+            _settings.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
 
-            SlidingWindow newSlidingWindow = DeepCloneSlidingWindow(slidingWindow);
-            List<Observation> temp = new List<Observation>();
+            List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
 
-            for (uint i = 1; i <= steps; i++)
-            {
-
-                _settings.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(i));
-
-                Observation observation = Forecast(newSlidingWindow);
-                newSlidingWindow = Combine(newSlidingWindow, observation);
-
-                temp.Add(observation);
-
-            };
-
-            _settings.LoggingAction.Invoke(MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
-            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
-
-            observations = temp;
-            return newSlidingWindow;
+            return values;
 
         }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps)
+        public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
         {
 
-            List<Observation> observations = null;
-            return ForecastAndCombine(slidingWindow, steps, out observations);
+            if (!_slidingWindowManager.IsValid(slidingWindow))
+                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+
+            _settings.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+
+            List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
+            _settings.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
+
+            return startDates;
 
         }
-        public SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow)
-            => ForecastAndCombine(slidingWindow, 1);
 
         // Methods (private)
         private List<SlidingWindowItem> DeepCloneSlidingWindowItems(List<SlidingWindowItem> slidingWindowItems)
@@ -258,6 +261,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 27.09.2020
+    Last Update: 04.10.2020
 
 */

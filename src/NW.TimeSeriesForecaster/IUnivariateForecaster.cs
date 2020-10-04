@@ -11,9 +11,14 @@ namespace NW.UnivariateForecasting
     public interface IUnivariateForecaster
     {
 
-        Observation Forecast(SlidingWindow objSlidingWindow);
-        SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow);
-        SlidingWindow ForecastAndCombine(SlidingWindow slidingWindow, uint steps);
+        Observation Forecast(SlidingWindow objSlidingWindow, double? C = null, double? E = null);
+        SlidingWindow ForecastAndCombine
+            (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null);
+        SlidingWindow ForecastAndCombine
+            (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null);
+        SlidingWindow ForecastAndCombine
+            (SlidingWindow slidingWindow, double? C = null, double? E = null);
+        SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation);
         List<double> ExtractXActualValues(SlidingWindow slidingWindow);
         List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
 
@@ -23,6 +28,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 03.08.2021
+    Last Update: 04.10.2020
 
 */
