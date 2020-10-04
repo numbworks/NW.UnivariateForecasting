@@ -170,12 +170,25 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
+                null,
+                null,
                 ObjectMother.Observation1,
                 new List<string>() {
                     MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
                     }
-                )
+                ),
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                0.82,
+                0.22,
+                ObjectMother.Observation1,
+                new List<string>() {
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
+                    }
+                ),
 
         };
         private static TestCaseData[] extractXActualValuesTestCases =
@@ -226,6 +239,32 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
                 (uint)1,
+                null,
+                null,
+                ObjectMother.FaCSteps1_Final,
+                new List<Observation>()
+                {
+                    ObjectMother.Observation1
+                },
+                new List<string>() {
+                    MessageCollection.RunningForecastAndCombineForSteps.Invoke(1),
+                    MessageCollection.ForecastingAndCombineForStepNr.Invoke(1),
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1),
+                    MessageCollection.CombiningProvidedSlidingWindowWithObservation,
+                    MessageCollection.ProvidedSlidingWindowIs.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.ProvidedObservationIs.Invoke(ObjectMother.Observation1),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final),
+                    MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(1),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final)
+                    }
+                ),
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1,
+                (uint)1,
+                0.82,
+                0.22,
                 ObjectMother.FaCSteps1_Final,
                 new List<Observation>()
                 {
@@ -248,6 +287,8 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
                 (uint)3,
+                null,
+                null,
                 ObjectMother.FaCSteps3_Final,
                 new List<Observation>()
                 {
@@ -371,7 +412,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
         [TestCaseSource(nameof(forecastTestCases))]
         public void Forecast_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
-            (SlidingWindow slidingWindow, Observation expected, List<string> expectedMessages)
+            (SlidingWindow slidingWindow, double? C, double? E, Observation expected, List<string> expectedMessages)
         {
 
             // Arrange
@@ -380,7 +421,7 @@ namespace NW.UnivariateForecasting.UnitTests
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
 
             // Act
-            Observation actual = univariateForecaster.Forecast(slidingWindow);
+            Observation actual = univariateForecaster.Forecast(slidingWindow, C, E);
 
             // Assert
             Assert.True(
@@ -454,7 +495,9 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(forecastAndCombineTestCases))]
         public void ForecastAndCombine_ShouldReturnExpectedObjectsAndLogExpectedMessages_WhenProperArguments
             (SlidingWindow slidingWindow, 
-            uint steps, 
+            uint steps,
+            double? C, 
+            double? E,
             SlidingWindow expected, 
             List<Observation> expectedObservations, 
             List<string> expectedMessages)
@@ -471,7 +514,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Act
             List<Observation> actualObservations = null;
-            SlidingWindow actual = univariateForecaster.ForecastAndCombine(slidingWindow, steps, out actualObservations);
+            SlidingWindow actual = univariateForecaster.ForecastAndCombine(slidingWindow, steps, out actualObservations, C, E);
 
             // Assert
             Assert.True(
@@ -491,6 +534,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 30.09.2020
+    Last Update: 04.10.2020
 
 */
