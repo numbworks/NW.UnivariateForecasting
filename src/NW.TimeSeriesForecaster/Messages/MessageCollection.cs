@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace NW.UnivariateForecasting
 {
@@ -84,6 +85,14 @@ namespace NW.UnivariateForecasting
             = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
         public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
             = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
+
+        // FileManager
+        public static Func<FileInfo, string> ProvidedPathDoesntExist
+            = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
+        public static Func<FileInfo, string> NotPossibleToRead
+            = (file) => $"It hasn't been possible to read from the provided file: '{file.FullName}'.";
+        public static Func<FileInfo, string> NotPossibleToWrite
+            = (file) => $"It hasn't been possible to write to the provided file: '{file.FullName}'.";
 
         public static string RollOutCollection(List<double> coll)
             => RollOutCollection(coll.Cast<object>().ToList());
