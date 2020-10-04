@@ -80,8 +80,7 @@ namespace NW.UnivariateForecasting
 
             double defaultDenominator = 0.001;
             if (forecastingDenominator < defaultDenominator)
-                if (forecastingDenominator < defaultDenominator)
-                    throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), defaultDenominator));
+                throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), defaultDenominator));
 
             IdCreationFunction = idCreationFunction;
             RoundingFunction = roundingFunction;
