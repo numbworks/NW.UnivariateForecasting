@@ -42,7 +42,7 @@ namespace NW.UnivariateForecasting
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new Exception(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+                throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
             _settings.LoggingAction.Invoke(MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(slidingWindow));
 

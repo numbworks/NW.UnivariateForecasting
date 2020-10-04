@@ -52,7 +52,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
                     ),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 ).SetDescription(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)))
 
