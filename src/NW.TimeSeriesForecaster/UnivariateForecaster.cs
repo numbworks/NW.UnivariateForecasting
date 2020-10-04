@@ -109,6 +109,14 @@ namespace NW.UnivariateForecasting
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, double? C = null, double? E = null)
                 => ForecastAndCombine(slidingWindow, 1, C, E);
+        public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
+        {
+
+            SlidingWindow slidingWindow = _slidingWindowManager.Create(values);
+
+            return _observationManager.Create(slidingWindow, C, E).Y_Forecasted;
+
+        }
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 

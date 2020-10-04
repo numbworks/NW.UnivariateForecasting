@@ -18,6 +18,7 @@ namespace NW.UnivariateForecasting
             (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null);
         SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, double? C = null, double? E = null);
+        double ForecastNextValue(List<double> values, double? C = null, double? E = null);
         SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation);
         List<double> ExtractXActualValues(SlidingWindow slidingWindow);
         List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
