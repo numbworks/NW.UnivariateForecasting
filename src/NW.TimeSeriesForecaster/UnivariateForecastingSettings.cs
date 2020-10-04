@@ -33,15 +33,33 @@ namespace NW.UnivariateForecasting
 
         /// <summary>
         /// For <see cref="SlidingWindow"/>.
+        /// <para>Default: "Default Id".</para>
+        /// </summary>
+        public string DummyId{ get; private set; }
+
+        /// <summary>
+        /// For <see cref="SlidingWindow"/>.
         /// <para>Default: "Default Observation".</para>
         /// </summary>
-        public string DefaultObservationName { get; private set; }
+        public string DummyObservationName { get; private set; }
 
         /// <summary>
         /// For <see cref="SlidingWindow"/>.
         /// <para>Default: 2020-01-01.</para>
         /// </summary>
-        public DateTime DefaultStartDate { get; private set; }
+        public DateTime DummyStartDate { get; private set; }
+
+        /// <summary>
+        /// For <see cref="SlidingWindow"/>.
+        /// <para>Default: 1.</para>
+        /// </summary>
+        public uint DummySteps { get; private set; }
+
+        /// <summary>
+        /// For <see cref="SlidingWindow"/>.
+        /// <para>Default: <see cref="IntervalUnits.Months"/>.</para>
+        /// </summary>
+        public IntervalUnits DummyIntervalUnit { get; private set; }
 
         // Constructors
         /// <summary>
@@ -52,8 +70,11 @@ namespace NW.UnivariateForecasting
                 Func<double, double> roundingFunction = null,
                 Action<string> loggingAction = null,
                 double forecastingDenominator = 0.001,
-                string defaultObservationName = null,
-                DateTime defaultStartDate = default(DateTime)
+                string dummyId = null,
+                string dummyObservationName = null,
+                DateTime dummyStartDate = default(DateTime),
+                uint dummySteps = default(uint),
+                IntervalUnits dummyIntervalUnit = default(IntervalUnits)
             )
         {
 
@@ -66,8 +87,11 @@ namespace NW.UnivariateForecasting
             RoundingFunction = roundingFunction;
             LoggingAction = loggingAction;
             ForecastingDenominator = forecastingDenominator;
-            DefaultObservationName = defaultObservationName;
-            DefaultStartDate = defaultStartDate;
+            DummyId = dummyId;
+            DummyObservationName = dummyObservationName;
+            DummyStartDate = dummyStartDate;
+            DummySteps = dummySteps;
+            DummyIntervalUnit = dummyIntervalUnit;
 
             if (idCreationFunction == null)
                 IdCreationFunction = () => $"SW{DateTime.Now.ToString("yyyyMMddhhmmsss")}";
@@ -75,10 +99,16 @@ namespace NW.UnivariateForecasting
                 RoundingFunction = new Func<double, double>(x => Math.Round(x, 2, MidpointRounding.AwayFromZero));
             if (loggingAction == null)
                 LoggingAction = (message) => Console.WriteLine(message);
-            if (defaultObservationName == null)
-                DefaultObservationName = "Default Observation";
-            if (defaultStartDate == default(DateTime))
-                DefaultStartDate = new DateTime(2020, 01, 01);
+            if (dummyId == null)
+                DummyId = "Dummy Id";
+            if (dummyObservationName == null)
+                DummyObservationName = "Dummy Observation";
+            if (dummyStartDate == default(DateTime))
+                DummyStartDate = new DateTime(2020, 01, 01);
+            if (dummySteps== default(uint))
+                DummySteps = 1;
+            if (dummyIntervalUnit == default(IntervalUnits))
+                DummyIntervalUnit = IntervalUnits.Months;
 
         }
 

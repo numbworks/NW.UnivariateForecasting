@@ -98,12 +98,12 @@ namespace NW.UnivariateForecasting
         {
 
             return Create(
-                    _settings.IdCreationFunction.Invoke(),
-                    _settings.DefaultObservationName,
+                    _settings.DummyId,
+                    _settings.DummyObservationName,
                     values,
-                    1,
-                    IntervalUnits.Months,
-                    _settings.DefaultStartDate
+                    _settings.DummySteps,
+                    _settings.DummyIntervalUnit,
+                    _settings.DummyStartDate
                 );
 
         }

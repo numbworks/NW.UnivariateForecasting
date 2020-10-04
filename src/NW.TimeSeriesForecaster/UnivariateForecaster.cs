@@ -112,9 +112,19 @@ namespace NW.UnivariateForecasting
         public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
         {
 
-            SlidingWindow slidingWindow = _slidingWindowManager.Create(values);
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+            if (values.Count == 0)
+                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
 
-            return _observationManager.Create(slidingWindow, C, E).Y_Forecasted;
+            _settings.LoggingAction.Invoke(MessageCollection.ForecastNextValueRunningForProvidedValues.Invoke(values));
+
+            SlidingWindow slidingWindow = _slidingWindowManager.Create(values);
+            double nextValue = _observationManager.Create(slidingWindow, C, E).Y_Forecasted;
+
+            _settings.LoggingAction.Invoke(MessageCollection.ForecastNextValueSuccessfullyRun.Invoke(nextValue));
+
+            return nextValue;
 
         }
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)

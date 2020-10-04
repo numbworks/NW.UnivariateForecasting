@@ -618,6 +618,51 @@ namespace NW.UnivariateForecasting.UnitTests
 
                     }
         };
+        internal static string SlidingWindow1_DummyId = new UnivariateForecastingSettings().DummyId;
+        internal static string SlidingWindow1_DummyObservationName = new UnivariateForecastingSettings().DummyObservationName;
+        internal static Interval SlidingWindow1_DummyInterval
+            = new IntervalManager().Create(
+                    (uint)SlidingWindow1_Values.Count,
+                    new UnivariateForecastingSettings().DummyIntervalUnit,
+                    new UnivariateForecastingSettings().DummyStartDate,
+                    new UnivariateForecastingSettings().DummySteps
+                    );
+        internal static List<SlidingWindowItem> SlidingWindow1_DummyItems
+            = new SlidingWindowItemManager().CreateItems(
+                    new UnivariateForecastingSettings().DummyStartDate,
+                    SlidingWindow1_Values,
+                    new UnivariateForecastingSettings().DummyIntervalUnit
+                );
+        internal static SlidingWindow SlidingWindow1_WithDummyFields = new SlidingWindow()
+        {
+
+            Id = SlidingWindow1_DummyId,
+            ObservationName = SlidingWindow1_DummyObservationName,
+            Interval = SlidingWindow1_DummyInterval,
+            Items = SlidingWindow1_DummyItems
+        };
+        internal static Interval Observation1_DummyInterval = new Interval()
+        {
+            Size = 1,
+            Unit = new UnivariateForecastingSettings().DummyIntervalUnit,
+            StartDate = new DateTime(2020, 07, 01),
+            EndDate = new DateTime(2020, 08, 01),
+            TargetDate = new DateTime(2020, 09, 01),
+            Steps = new UnivariateForecastingSettings().DummySteps,
+            SubIntervals = 1
+        };
+        internal static Observation Observation1_WithDummyFields = new Observation()
+        {
+
+            Name = new UnivariateForecastingSettings().DummyObservationName,
+            Interval = Observation1_DummyInterval,
+            X_Actual = 632.94,
+            C = 0.82,
+            E = 0.22,
+            Y_Forecasted = 519.23,
+            SlidingWindowId = new UnivariateForecastingSettings().DummyId
+
+        };
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)

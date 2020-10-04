@@ -80,6 +80,10 @@ namespace NW.UnivariateForecasting
             = (slidingWindow) => $"The provided '{nameof(SlidingWindow)}' is: '{slidingWindow.ToString(false)}'.";
         public static Func<Observation, string> ProvidedObservationIs { get; }
             = (observation) => $"The provided '{nameof(Observation)}' is: '{observation.ToString(true)}'.";
+        public static Func<List<double>, string> ForecastNextValueRunningForProvidedValues { get; }
+            = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
+        public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
+            = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
 
         public static string RollOutCollection(List<double> coll)
             => RollOutCollection(coll.Cast<object>().ToList());
