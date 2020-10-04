@@ -29,7 +29,7 @@ namespace NW.UnivariateForecasting
         {
 
             if (!_intervalManager.IsValid(interval))
-                throw new Exception(MessageCollection.IntervalNullOrInvalid);
+                throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
 
             return new SlidingWindowItem()
             {
@@ -45,7 +45,7 @@ namespace NW.UnivariateForecasting
             uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted)
         {
             if (intervalUnit != IntervalUnits.Months)
-                throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
+                throw new ArgumentException(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
             Interval interval = new Interval()
             {
@@ -69,9 +69,9 @@ namespace NW.UnivariateForecasting
             if (values == null)
                 throw new ArgumentNullException(nameof(values));
             if (values.Count == 0)
-                throw new Exception(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
+                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
             if (intervalUnit != IntervalUnits.Months)
-                throw new Exception(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
+                throw new ArgumentException(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
             return CreateItemsIfMonths(startDate, values);
 

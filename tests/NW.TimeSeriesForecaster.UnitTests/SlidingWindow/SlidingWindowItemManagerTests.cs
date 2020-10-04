@@ -34,7 +34,7 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.IntervalNullOrInvalid
                 )
 
@@ -72,7 +72,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             new List<double>(),
                             ObjectMother.SlidingWindow1_Item1.Interval.Unit
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.VariableContainsZeroItems.Invoke("values")
                 ),
 
@@ -83,7 +83,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.SlidingWindow1_Values,
                             ObjectMother.NonExistantIntervalUnit
                         )),
-                typeof(Exception),
+                typeof(ArgumentException),
                 MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString())
                 )
 
@@ -158,7 +158,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                                     ObjectMother.NonExistantIntervalUnit,
                                                     ObjectMother.SlidingWindow1_Item1.X_Actual,
                                                     ObjectMother.SlidingWindow1_Item1.Y_Forecasted);
-            Type expectedType = typeof(Exception);
+            Type expectedType = typeof(ArgumentException);
             string expectedMessage 
                 = MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString());
 
