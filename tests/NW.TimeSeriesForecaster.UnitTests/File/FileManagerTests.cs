@@ -35,6 +35,17 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new FileManager(ObjectMother.FileAdapter_ReadAllMethodsThrowIOException)
+                                    .ReadAllLines(ObjectMother.FileInfoAdapter_Exists)
+                    ),
+                typeof(Exception),
+                MessageCollection.NotPossibleToRead.Invoke(
+                                    ObjectMother.FileInfoAdapter_Exists,
+                                    ObjectMother.FileAdapter_IOException)
                 )
 
         };
@@ -55,6 +66,17 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new FileManager(ObjectMother.FileAdapter_ReadAllMethodsThrowIOException)
+                                    .ReadAllText(ObjectMother.FileInfoAdapter_Exists)
+                    ),
+                typeof(Exception),
+                MessageCollection.NotPossibleToRead.Invoke(
+                                    ObjectMother.FileInfoAdapter_Exists,
+                                    ObjectMother.FileAdapter_IOException)
                 )
 
         };
@@ -77,6 +99,19 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new FileManager(ObjectMother.FileAdapter_WriteAllMethodsThrowIOException)
+                                    .WriteAllLines(
+                                        ObjectMother.FileInfoAdapter_Exists,
+                                        ObjectMother.Content_MultipleLines)
+                    ),
+                typeof(Exception),
+                MessageCollection.NotPossibleToWrite.Invoke(
+                                    ObjectMother.FileInfoAdapter_Exists,
+                                    ObjectMother.FileAdapter_IOException)
                 )
 
         };
@@ -99,6 +134,19 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new FileManager(ObjectMother.FileAdapter_WriteAllMethodsThrowIOException)
+                                    .WriteAllText(
+                                        ObjectMother.FileInfoAdapter_Exists,
+                                        ObjectMother.Content_SingleLine)
+                    ),
+                typeof(Exception),
+                MessageCollection.NotPossibleToWrite.Invoke(
+                                    ObjectMother.FileInfoAdapter_Exists,
+                                    ObjectMother.FileAdapter_IOException)
                 )
 
         };

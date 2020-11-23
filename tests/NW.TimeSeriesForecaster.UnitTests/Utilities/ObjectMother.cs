@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -676,6 +677,17 @@ namespace NW.UnivariateForecasting.UnitTests
             => new FakeFileInfoAdapter(false, FileInfoAdapter_FullName);
         internal static IFileInfoAdapter FileInfoAdapter_Exists
             => new FakeFileInfoAdapter(true, FileInfoAdapter_FullName);
+        internal static IOException FileAdapter_IOException = new IOException("Impossible to access the file.");
+        internal static IFileAdapter FileAdapter_ReadAllMethodsThrowIOException
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw FileAdapter_IOException,
+                    fakeReadAllText: () => throw FileAdapter_IOException
+                );
+        internal static IFileAdapter FileAdapter_WriteAllMethodsThrowIOException
+            => new FakeFileAdapter(
+                    fakeWriteAllLines: () => throw FileAdapter_IOException,
+                    fakeWriteAllText: () => throw FileAdapter_IOException
+                );
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
