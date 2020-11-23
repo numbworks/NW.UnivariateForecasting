@@ -87,11 +87,11 @@ namespace NW.UnivariateForecasting
             = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
 
         // FileManager
-        public static Func<FileInfo, string> ProvidedPathDoesntExist
+        public static Func<IFileInfoAdapter, string> ProvidedPathDoesntExist
             = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
-        public static Func<FileInfo, Exception, string> NotPossibleToRead
+        public static Func<IFileInfoAdapter, Exception, string> NotPossibleToRead
             = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
-        public static Func<FileInfo, Exception, string> NotPossibleToWrite
+        public static Func<IFileInfoAdapter, Exception, string> NotPossibleToWrite
             = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
 
         public static string RollOutCollection(List<double> coll)

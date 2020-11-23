@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
@@ -23,7 +22,7 @@ namespace NW.UnivariateForecasting
         }
 
         // Methods (public)
-        public IEnumerable<string> ReadAllLines(FileInfo file)
+        public IEnumerable<string> ReadAllLines(IFileInfoAdapter file)
         {
 
             if (file == null)
@@ -45,7 +44,7 @@ namespace NW.UnivariateForecasting
             }
 
         }
-        public string ReadAllText(FileInfo file)
+        public string ReadAllText(IFileInfoAdapter file)
         {
 
             if (file == null)
@@ -67,7 +66,7 @@ namespace NW.UnivariateForecasting
             }
 
         }
-        public void WriteAllLines(FileInfo file, IEnumerable<string> content)
+        public void WriteAllLines(IFileInfoAdapter file, IEnumerable<string> content)
         {
 
             if (file == null)
@@ -89,7 +88,7 @@ namespace NW.UnivariateForecasting
             }
 
         }
-        public void WriteAllText(FileInfo file, string content)
+        public void WriteAllText(IFileInfoAdapter file, string content)
         {
 
             if (file == null)
