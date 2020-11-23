@@ -664,6 +664,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
+        // FileManager
+        internal static string Content_SingleLine = "First line";
+        internal static IEnumerable<string> Content_MultipleLines =
+            new List<string>() {
+                "First line",
+                "Second line"
+            };
+        internal static string FileInfoAdapter_FullName = @"C:\somefile.txt";
+        internal static IFileInfoAdapter FileInfoAdapter_DoesntExist
+            => new FakeFileInfoAdapter(false, FileInfoAdapter_FullName);
+        internal static IFileInfoAdapter FileInfoAdapter_Exists
+            => new FakeFileInfoAdapter(true, FileInfoAdapter_FullName);
+
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
         {

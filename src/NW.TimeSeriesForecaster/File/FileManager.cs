@@ -20,6 +20,12 @@ namespace NW.UnivariateForecasting
             _fileAdapter = fileAdapter;
 
         }
+        public FileManager()
+        {
+
+            _fileAdapter = new FileAdapter();
+
+        }
 
         // Methods (public)
         public IEnumerable<string> ReadAllLines(IFileInfoAdapter file)
