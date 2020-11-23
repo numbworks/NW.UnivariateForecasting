@@ -89,10 +89,10 @@ namespace NW.UnivariateForecasting
         // FileManager
         public static Func<FileInfo, string> ProvidedPathDoesntExist
             = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
-        public static Func<FileInfo, string> NotPossibleToRead
-            = (file) => $"It hasn't been possible to read from the provided file: '{file.FullName}'.";
-        public static Func<FileInfo, string> NotPossibleToWrite
-            = (file) => $"It hasn't been possible to write to the provided file: '{file.FullName}'.";
+        public static Func<FileInfo, Exception, string> NotPossibleToRead
+            = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
+        public static Func<FileInfo, Exception, string> NotPossibleToWrite
+            = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
 
         public static string RollOutCollection(List<double> coll)
             => RollOutCollection(coll.Cast<object>().ToList());

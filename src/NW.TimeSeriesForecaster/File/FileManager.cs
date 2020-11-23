@@ -29,7 +29,7 @@ namespace NW.UnivariateForecasting
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
             if (!file.Exists)
-                throw new ArgumentException(ProvidedPathDoesntExist.Invoke(file));
+                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
             try
             {
@@ -40,7 +40,7 @@ namespace NW.UnivariateForecasting
             catch (Exception e)
             {
 
-                throw new Exception(NotPossibleToRead.Invoke(file), e);
+                throw new Exception(MessageCollection.NotPossibleToRead.Invoke(file, e), e);
 
             }
 
@@ -51,7 +51,7 @@ namespace NW.UnivariateForecasting
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
             if (!file.Exists)
-                throw new ArgumentException(ProvidedPathDoesntExist.Invoke(file));
+                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
             try
             {
@@ -62,7 +62,7 @@ namespace NW.UnivariateForecasting
             catch (Exception e)
             {
 
-                throw new Exception(NotPossibleToRead.Invoke(file), e);
+                throw new Exception(MessageCollection.NotPossibleToRead.Invoke(file, e), e);
 
             }
 
@@ -73,7 +73,7 @@ namespace NW.UnivariateForecasting
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
             if (!file.Exists)
-                throw new ArgumentException(ProvidedPathDoesntExist.Invoke(file));
+                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
             try
             {
@@ -84,7 +84,7 @@ namespace NW.UnivariateForecasting
             catch (Exception e)
             {
 
-                throw new Exception(NotPossibleToWrite.Invoke(file), e);
+                throw new Exception(MessageCollection.NotPossibleToWrite.Invoke(file, e), e);
 
             }
 
@@ -95,7 +95,7 @@ namespace NW.UnivariateForecasting
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
             if (!file.Exists)
-                throw new ArgumentException(ProvidedPathDoesntExist.Invoke(file));
+                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
             try
             {
@@ -106,7 +106,7 @@ namespace NW.UnivariateForecasting
             catch(Exception e)
             {
 
-                throw new Exception(NotPossibleToWrite.Invoke(file), e);
+                throw new Exception(MessageCollection.NotPossibleToWrite.Invoke(file, e), e);
 
             }
 
@@ -120,6 +120,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
+    Last Update: 23.11.2020
 
 */
