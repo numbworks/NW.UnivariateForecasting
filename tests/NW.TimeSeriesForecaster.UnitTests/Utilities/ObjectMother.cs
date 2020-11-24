@@ -688,6 +688,13 @@ namespace NW.UnivariateForecasting.UnitTests
                     fakeWriteAllLines: () => throw FileAdapter_IOException,
                     fakeWriteAllText: () => throw FileAdapter_IOException
                 );
+        internal static IFileAdapter FileAdapter_AllMethodsWork
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => Content_MultipleLines.ToArray(),
+                    fakeReadAllText: () => Content_SingleLine,
+                    fakeWriteAllLines: () => { },
+                    fakeWriteAllText: () => { }
+                );
 
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)

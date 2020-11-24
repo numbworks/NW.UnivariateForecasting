@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -215,6 +216,84 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Exception actual = Assert.Throws(expected, del);
             Assert.AreEqual(message, actual.Message);
+
+        }
+
+        [Test]
+        public void ReadAllLines_ShouldReturnStrings_WhenFileExists()
+        {
+
+            // Arrange
+            // Act
+            IEnumerable<string> actual
+                = new FileManager(ObjectMother.FileAdapter_AllMethodsWork)
+                            .ReadAllLines(ObjectMother.FileInfoAdapter_Exists);
+
+            // Assert
+            Assert.AreEqual(ObjectMother.Content_MultipleLines, actual);
+
+        }
+
+        [Test]
+        public void ReadAllText_ShouldReturnString_WhenFileExists()
+        {
+
+            // Arrange
+            // Act
+            string actual
+                = new FileManager(ObjectMother.FileAdapter_AllMethodsWork)
+                            .ReadAllText(ObjectMother.FileInfoAdapter_Exists);
+
+            // Assert
+            Assert.AreEqual(ObjectMother.Content_SingleLine, actual);
+
+        }
+
+        [Test]
+        public void WriteAllLines_ShouldSuccessfullyWriteToFile_WhenNoIOIssuesArise()
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            try
+            {
+
+                new FileManager(ObjectMother.FileAdapter_AllMethodsWork)
+                        .WriteAllLines(ObjectMother.FileInfoAdapter_Exists, ObjectMother.Content_MultipleLines);
+                Assert.IsTrue(true);
+
+            }
+            catch
+            {
+
+                Assert.IsFalse(false);
+
+            }
+
+        }
+
+        [Test]
+        public void WriteAllText_ShouldSuccessfullyWriteToFile_WhenNoIOIssuesArise()
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            try
+            {
+
+                new FileManager(ObjectMother.FileAdapter_AllMethodsWork)
+                        .WriteAllText(ObjectMother.FileInfoAdapter_Exists, ObjectMother.Content_SingleLine);
+                Assert.IsTrue(true);
+
+            }
+            catch
+            {
+
+                Assert.IsFalse(false);
+
+            }
 
         }
 

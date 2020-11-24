@@ -34,37 +34,37 @@ namespace NW.UnivariateForecasting.UnitTests
         public string[] ReadAllLines(string path)
         {
 
-            if (_fakeReadAllLines != null)
-                _fakeReadAllLines.Invoke();
+            if (_fakeReadAllLines == null)
+                throw new NotImplementedException();
 
-            throw new NotImplementedException();
+            return _fakeReadAllLines.Invoke();
 
         }
         public string ReadAllText(string path)
         {
 
-            if (_fakeReadAllText != null)
-                _fakeReadAllText.Invoke();
+            if (_fakeReadAllText == null)
+                throw new NotImplementedException();
 
-            throw new NotImplementedException();
+            return _fakeReadAllText.Invoke();
 
         }
         public void WriteAllLines(string path, IEnumerable<string> contents)
         {
 
-            if (_fakeWriteAllLines != null)
-                _fakeWriteAllLines.Invoke();
+            if (_fakeWriteAllLines == null)
+                throw new NotImplementedException();
 
-            throw new NotImplementedException();
+            _fakeWriteAllLines.Invoke();          
 
         }
         public void WriteAllText(string path, string contents)
         {
 
-            if (_fakeWriteAllText != null)
-                _fakeWriteAllText.Invoke();
+            if (_fakeWriteAllText == null)
+                throw new NotImplementedException();
 
-            throw new NotImplementedException();
+            _fakeWriteAllText.Invoke();           
 
         }
 
