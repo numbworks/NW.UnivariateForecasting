@@ -2,7 +2,13 @@
 
 **Author:** NW
 **Email:** numbworks [AT] gmail [DOT] com
-**Last Update:** 28.11.2020
+
+### Revision History
+
+| <sub>Date</sub> | <sub>Author</sub> | <sub>Note</sub> |
+|---|---|---|
+| <sub>27.04.2020</sub> | <sub>NW</sub> | <sub>Created</sub> |
+| <sub>28.04.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized document.</sub> |
 
 ### Introduction
 
@@ -10,9 +16,11 @@
 
 For example, given the last six months of "*Total Monthly Sales USD*" of your company, you would like the machine to predict the amounts for the next x months. 
 
-*Time Series Forecasting* is divided in *Univariate* and *Multivariate*. The first one can predict only one step ahead, while the second one can predict multiple steps ahead. 
+*Time Series Forecasting* is divided in *Univariate* and *Multivariate*. 
+The first one can predict only one step ahead, while the second one can predict multiple steps ahead. 
 
-As its name states, this library implements the univariate approach. A good definition of "*univariate*" could be"*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
+As its name states, this library implements the univariate approach. 
+A good definition of "*univariate*" could be"*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
 
 ### Getting Started 
 
