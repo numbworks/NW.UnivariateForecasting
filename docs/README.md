@@ -5,10 +5,10 @@
 
 ### Revision History
 
-| <sub>Date</sub> | <sub>Author</sub> | <sub>Note</sub> |
+| <sub>Date</sub> | <sub>Author</sub> | <sub>Description</sub> |
 |---|---|---|
 | <sub>27.04.2020</sub> | <sub>NW</sub> | <sub>Created</sub> |
-| <sub>28.04.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized document.</sub> |
+| <sub>28.04.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized the document.</sub> |
 
 ### Introduction
 
@@ -187,6 +187,59 @@ double nextValue = forecaster.ForecastNextValue(values);
 ```
 
 This scenario hasn't been shows as the first one, because it was important to explain the forecasting together with the concept of `SlidingWindow` first.
+
+### The Algorithm
+
+Let's explain the algorithm on which the library is based by using an example.
+
+This is our trusty `SlidingWindow`:
+
+| <sub>Id</sub> | <sub>Interval</sub> | <sub>X_Actual</sub> | <sub>Y_Forecasted</sub> |
+|---|---|---|---|
+| <sub>1</sub> | <sub>20190131:20190228:20190331</sub> | <sub>58,5</sub> | <sub>615,26</sub> |
+| <sub>2</sub> | <sub>20190228:20190331:20190430</sub> | <sub>615,26</sub> | <sub>659,84</sub> |
+| <sub>3</sub> | <sub>20190331:20190430:20190531</sub> | <sub>659,84</sub> | <sub>635,69</sub> | 
+| <sub>4</sub> | <sub>20190430:20190531:20190630</sub> | <sub>635,69</sub> | <sub>612,27</sub> |
+| <sub>5</sub> | <sub>20190531:20190630:20190731</sub> | <sub>612,27</sub> | <sub>632,94</sub> |
+| <sub>6</sub> | <sub>20190630:20190731:20190831</sub> | <sub>632,94</sub> | <sub>`[NULL]`</sub> |
+
+The first thing we do is to divide each `X_Actual` for the corresponding `Y_Forecasted`:
+
+| <sub>Id</sub> | <sub>XByY</sub>  |
+|---|---|
+| <sub>1</sub> | <sub>0,1</sub> |
+| <sub>2</sub> | <sub>0,93</sub> |
+| <sub>3</sub> | <sub>1,04</sub> |
+| <sub>4</sub> | <sub>1,04</sub> |
+| <sub>5</sub> | <sub>0,97</sub> |
+
+Then, we do calculate C by averaging all the values in the `XByY` column:
+
+| <sub>C</sub> |
+|---|
+| <sub>0,82</sub> |
+
+At this point, we do substract `C` from each values in `XByY`:
+
+| <sub>Id</sub> | <sub>(XByY)-C</sub>  |
+|---|---|
+| <sub>1</sub> | <sub>-0,72</sub> |
+| <sub>2</sub> | <sub>0,11</sub> |
+| <sub>3</sub> | <sub>0,22</sub> |
+| <sub>4</sub> | <sub>0,22</sub> |
+| <sub>5</sub> | <sub>0,15</sub> |
+
+Calculating the MODE of `(XByY)-C` will return the error `E`:
+
+| <sub>E</sub> |
+|---|
+| <sub>0,22</sub> |
+
+The function to forecast the next value in the series is `Y=F(X)+E`, which can be expressed as `Y=CX+E`, where X is the actual value. Now that we have both `C` and `E`, it's just a matter of replacing them in the equation to obtain the `Y_Forecasted` value we are looking for:
+
+| <sub>Y_Forecasted</sub> |
+|---|
+| <sub>519,23</sub> |
 
 ### Markdown Toolset
 
