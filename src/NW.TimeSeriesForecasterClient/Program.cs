@@ -14,6 +14,8 @@ namespace NW.UnivariateForecastingClient
             // RunExample2();
             // RunExample3();
             // RunExample4();
+            RunExample5();
+            RunExample6();
 
             Console.ReadKey();
 
@@ -73,6 +75,25 @@ namespace NW.UnivariateForecastingClient
             List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
             IUnivariateForecaster forecaster = new UnivariateForecaster(settings);
             double nextValue = forecaster.ForecastNextValue(values);
+
+        }
+        public static void RunExample5()
+        {
+
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings();
+            List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+            IUnivariateForecaster forecaster = new UnivariateForecaster(settings);
+            double nextValue = forecaster.ForecastNextValue(values, C: 0.82, E: 0.00); // 519.01
+
+        }
+
+        public static void RunExample6()
+        {
+
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings();
+            List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+            IUnivariateForecaster forecaster = new UnivariateForecaster(settings);
+            double nextValue = forecaster.ForecastNextValue(values, C: 1.11, E: 0.22); // 702.78
 
         }
 

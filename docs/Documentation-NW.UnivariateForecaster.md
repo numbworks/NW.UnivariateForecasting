@@ -8,7 +8,8 @@
 | <sub>Date</sub> | <sub>Author</sub> | <sub>Description</sub> |
 |---|---|---|
 | <sub>27.04.2020</sub> | <sub>NW</sub> | <sub>Created</sub> |
-| <sub>28.04.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized the document.</sub> |
+| <sub>28.11.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized the document.</sub> |
+| <sub>04.12.2020</sub> | <sub>NW</sub> | <sub>Added examples of user-provided C and E.</sub> |
 
 ### Introduction
 
@@ -22,7 +23,7 @@ The first one can predict only one step ahead, while the second one can predict 
 As its name states, this library implements the univariate approach. 
 A good definition of "*univariate*" could be"*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
 
-### Getting Started 
+### Example: Main Scenario 
 
 In order to use the library, the first thing we need to initialize a `UnivariateForecastingSettings` object, which collects all the required settings in one place:
 
@@ -117,7 +118,7 @@ This will return an `Observation` object, which will look like the following:
 The original time series was: `{ 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }`.
 According to the univariate forecasting, the next value of the series will be: `519,23`.
 
-### Less is More?
+### Example: Less is More?
 
 If we do have only a list of values without any specific time stamps, one of the `SlidingWindowManager.Create()` overloads can create a dummy `SlidingWindow` around them for us:
 
@@ -139,7 +140,7 @@ The dummy `SlidingWindow` will look like this:
 
 The dummy values can be customized in `UnivariateForecastingSettings`.
 
-### One, Two, Three, ...
+### Example: One, Two, Three, ...
 
 If we can predict values for more than one step ahead, we can use `ForecastAndCombine` to recursively add each observation to the `SlidingWindow` and perform the forecasting on it:
 
@@ -175,7 +176,7 @@ Obviously, the predictions will be quite on the pessimistic side.
 
 The `ExtractXActualValues` method helps extracting the provided and the forecasted values in the same list for convenience, which in this case will look like this: `[58,5, 615,26, 659,84, 635,69, 612,27, 632,94, 519,23, 457,08, 420,63]`.
 
-### In a Hurry
+### Example: In a Hurry
 
 If you are really in a hurry, you can predict the next value in a time series with only four lines of code:
 
@@ -187,6 +188,30 @@ double nextValue = forecaster.ForecastNextValue(values);
 ```
 
 This scenario hasn't been shows as the first one, because it was important to explain the forecasting together with the concept of `SlidingWindow` first.
+
+### Example: Custom Coefficients?
+
+The library offers the possibility to skip all the calculations and provide the C and E coefficients yourself. 
+
+The following scenario is pessimistic:
+
+```csharp
+UnivariateForecastingSettings settings = new UnivariateForecastingSettings();
+List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+IUnivariateForecaster forecaster = new UnivariateForecaster(settings);
+double nextValue = forecaster.ForecastNextValue(values, C: 0.82, E: 0.00); // 519.01
+```
+
+...while the following one is optimistic:
+
+```csharp
+UnivariateForecastingSettings settings = new UnivariateForecastingSettings();
+List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+IUnivariateForecaster forecaster = new UnivariateForecaster(settings);
+double nextValue = forecaster.ForecastNextValue(values, C: 1.11, E: 0.22); // 702.78
+```
+
+What the method does is: ```(632,94 * 1.11) + 0.22 = 702.78```.
 
 ### The Algorithm
 
