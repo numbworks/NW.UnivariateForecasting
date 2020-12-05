@@ -10,7 +10,6 @@ namespace NW.UnivariateForecastingClient
         static void Main(string[] args)
         {
 
-
             Run(() => RunExample1(), nameof(RunExample1));
             Run(() => RunExample2(), nameof(RunExample2));
             Run(() => RunExample3(), nameof(RunExample3));
