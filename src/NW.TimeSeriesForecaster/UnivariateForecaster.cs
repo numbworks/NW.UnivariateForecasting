@@ -4,77 +4,54 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
-    /// <summary>
-    /// Forecasts the next value for the provided <see cref="SlidingWindow"/> according to Univariate Forecasting.
-    /// <para>Explaination: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...]
-    /// which consists of observations on only a single characteristic or attribute.".</para>     
-    /// </summary>
     public class UnivariateForecaster : IUnivariateForecaster
     {
 
         // Fields
         private UnivariateForecastingSettings _settings;
-        private IObservationManager _observationManager;
-        private ISlidingWindowManager _slidingWindowManager;
-        private ISlidingWindowItemManager _slidingWindowItemManager;
-        private IIntervalManager _intervalManager;
+        private UnivariateForecastingComponents _components;
 
         // Properties
         // Constructors
         public UnivariateForecaster(
             UnivariateForecastingSettings settings,
-            ISlidingWindowManager slidingWindowManager,
-            ISlidingWindowItemManager slidingWindowItemManager,
-            IObservationManager observationManager,
-            IIntervalManager intervalManager)
+            UnivariateForecastingComponents components)
         {
 
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
-            if (slidingWindowManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowManager));
-            if (slidingWindowItemManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowItemManager));
-            if (observationManager == null)
-                throw new ArgumentNullException(nameof(observationManager));
-            if (intervalManager == null)
-                throw new ArgumentNullException(nameof(intervalManager));
+            if (components == null)
+                throw new ArgumentNullException(nameof(components));
 
             _settings = settings;
-            _observationManager = observationManager;
-            _slidingWindowManager = slidingWindowManager;
-            _slidingWindowItemManager = slidingWindowItemManager;
-            _intervalManager = intervalManager;
+            _components = components;
 
         }
-        public UnivariateForecaster(UnivariateForecastingSettings settings)
+        public UnivariateForecaster()
             : this (
-                  settings, 
-                  new SlidingWindowManager(settings),
-                  new SlidingWindowItemManager(),
-                  new ObservationManager(settings), 
-                  new IntervalManager()) { }
+                  new UnivariateForecastingSettings(), 
+                  new UnivariateForecastingComponents()) { }
 
         // Methods (public)
         public Observation Forecast(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            return _observationManager.Create(slidingWindow, C, E);
+            return _components.ObservationManager.Create(slidingWindow, C, E);
 
         }
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
             if (steps < 1)
                 throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
+            _components.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
 
             SlidingWindow newSlidingWindow = DeepCloneSlidingWindow(slidingWindow);
             List<Observation> temp = new List<Observation>();
@@ -82,7 +59,7 @@ namespace NW.UnivariateForecasting
             for (uint i = 1; i <= steps; i++)
             {
 
-                _settings.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(i));
+                _components.LoggingAction.Invoke(MessageCollection.ForecastingAndCombineForStepNr.Invoke(i));
 
                 Observation observation = Forecast(newSlidingWindow, C, E);
                 newSlidingWindow = Combine(newSlidingWindow, observation);
@@ -91,8 +68,8 @@ namespace NW.UnivariateForecasting
 
             };
 
-            _settings.LoggingAction.Invoke(MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
-            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+            _components.LoggingAction.Invoke(MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
+            _components.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             observations = temp;
             return newSlidingWindow;
@@ -117,12 +94,12 @@ namespace NW.UnivariateForecasting
             if (values.Count == 0)
                 throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.ForecastNextValueRunningForProvidedValues.Invoke(values));
+            _components.LoggingAction.Invoke(MessageCollection.ForecastNextValueRunningForProvidedValues.Invoke(values));
 
-            SlidingWindow slidingWindow = _slidingWindowManager.Create(values);
-            double nextValue = _observationManager.Create(slidingWindow, C, E).Y_Forecasted;
+            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(values);
+            double nextValue = _components.ObservationManager.Create(slidingWindow, C, E).Y_Forecasted;
 
-            _settings.LoggingAction.Invoke(MessageCollection.ForecastNextValueSuccessfullyRun.Invoke(nextValue));
+            _components.LoggingAction.Invoke(MessageCollection.ForecastNextValueSuccessfullyRun.Invoke(nextValue));
 
             return nextValue;
 
@@ -142,22 +119,22 @@ namespace NW.UnivariateForecasting
 
              */
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-            if (!_observationManager.IsValid(observation))
+            if (!_components.ObservationManager.IsValid(observation))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(Observation)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.CombiningProvidedSlidingWindowWithObservation);
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedSlidingWindowIs.Invoke(slidingWindow));
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedObservationIs.Invoke(observation));
+            _components.LoggingAction.Invoke(MessageCollection.CombiningProvidedSlidingWindowWithObservation);
+            _components.LoggingAction.Invoke(MessageCollection.ProvidedSlidingWindowIs.Invoke(slidingWindow));
+            _components.LoggingAction.Invoke(MessageCollection.ProvidedObservationIs.Invoke(observation));
 
             uint steps = (uint)(slidingWindow.Interval.Size / slidingWindow.Items.Count);
             SlidingWindow newSlidingWindow = new SlidingWindow()
             {
 
-                Id = _settings.IdCreationFunction.Invoke(),
+                Id = _components.IdCreationFunction.Invoke(),
                 ObservationName = slidingWindow.ObservationName,
-                Interval = _intervalManager.Create(
+                Interval = _components.IntervalManager.Create(
                                                     slidingWindow.Interval.Size + 1,
                                                     slidingWindow.Interval.Unit,
                                                     slidingWindow.Interval.StartDate,
@@ -166,7 +143,7 @@ namespace NW.UnivariateForecasting
 
             };
 
-            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+            _components.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             return newSlidingWindow;
 
@@ -174,13 +151,13 @@ namespace NW.UnivariateForecasting
         public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+            _components.LoggingAction.Invoke(MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
 
             List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
-            _settings.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
+            _components.LoggingAction.Invoke(MessageCollection.ValuesHaveBeenSuccessfullyExtracted.Invoke(values));
 
             return values;
 
@@ -188,13 +165,13 @@ namespace NW.UnivariateForecasting
         public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
+            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+            _components.LoggingAction.Invoke(MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(slidingWindow));
 
             List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
-            _settings.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
+            _components.LoggingAction.Invoke(MessageCollection.StartDatesHaveBeenSuccessfullyExtracted.Invoke(startDates));
 
             return startDates;
 
@@ -260,10 +237,10 @@ namespace NW.UnivariateForecasting
             oldLastItem.Y_Forecasted = observation.Y_Forecasted;
             newItems.Add(oldLastItem);
 
-            SlidingWindowItem newLastItem = 
-                _slidingWindowItemManager.CreateItem(
+            SlidingWindowItem newLastItem =
+                _components.SlidingWindowItemManager.CreateItem(
                                             oldLastItem.Id + 1,
-                                            _intervalManager.CalculateNext(oldLastItem.Interval.StartDate, intervalUnits, steps),
+                                            _components.IntervalManager.CalculateNext(oldLastItem.Interval.StartDate, intervalUnits, steps),
                                             intervalUnits,
                                             observation.Y_Forecasted,
                                             null);
@@ -279,6 +256,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
+    Last Update: 04.12.2020
 
 */

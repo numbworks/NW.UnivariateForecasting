@@ -8,22 +8,31 @@ namespace NW.UnivariateForecasting.UnitTests
     {
 
         // Fields
-        private static TestCaseData[] constructorExceptionTestCases =
+        private static TestCaseData[] univariateForecastingSettingsExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new UnivariateForecastingSettings(forecastingDenominator: 0)),
+                    () => new UnivariateForecastingSettings(
+                                    forecastingDenominator: 0,
+                                    dummyId: UnivariateForecastingSettings.DefaultDummyId,
+                                    dummyObservationName: UnivariateForecastingSettings.DefaultDummyObservationName,
+                                    dummyStartDate: UnivariateForecastingSettings.DefaultDummyStartDate,
+                                    dummySteps: UnivariateForecastingSettings.DefaultDummySteps,
+                                    dummyIntervalUnit: UnivariateForecastingSettings.DefaultDummyIntervalUnit
+                                    )),
                 typeof(ArgumentException),
-                MessageCollection.DenominatorCantBeLessThan("forecastingDenominator", 0.001)
+                MessageCollection.DenominatorCantBeLessThan(
+                                    "forecastingDenominator", 
+                                    UnivariateForecastingSettings.DefaultForecastingDenominator)
                 )
 
         };
 
         // SetUp
         // Tests
-        [TestCaseSource(nameof(constructorExceptionTestCases))]
-        public void Constructor_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(univariateForecastingSettingsExceptionTestCases))]
+        public void UnivariateForecastingSettings_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 

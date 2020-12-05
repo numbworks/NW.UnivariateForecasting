@@ -282,7 +282,7 @@ namespace NW.UnivariateForecasting.UnitTests
         };
 
         // ObservationManagerTests
-        internal static ObservationManager ObservationManager_Default = new ObservationManager(new UnivariateForecastingSettings());
+        internal static ObservationManager ObservationManager_Default = new ObservationManager();
         internal static Observation Observation_InvalidDueOfNullName = new Observation()
         {
 
@@ -351,7 +351,7 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static double SlidingWindow1_Item1_XActual = 58.5;
         internal static double? SlidingWindow1_Item1_YForecasted = 615.26;
 
-        internal static SlidingWindowManager SlidingWindowManager_Default = new SlidingWindowManager(new UnivariateForecastingSettings());
+        internal static SlidingWindowManager SlidingWindowManager_Default = new SlidingWindowManager();
         internal static SlidingWindow SlidingWindow_InvalidDueOfNullId = new SlidingWindow()
         {
             Id = null,
@@ -395,7 +395,7 @@ namespace NW.UnivariateForecasting.UnitTests
             Items = SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
         };
 
-        internal static UnivariateForecaster UnivariateForecaster_Default = new UnivariateForecaster(new UnivariateForecastingSettings());
+        internal static UnivariateForecaster UnivariateForecaster_Default = new UnivariateForecaster();
         internal static List<DateTime> SlidingWindow1_StartDates = new List<DateTime>()
         {
 

@@ -10,15 +10,18 @@ namespace NW.UnivariateForecasting.UnitTests
     {
 
         // Fields
-        private static TestCaseData[] constructorExceptionTestCases =
+        private static TestCaseData[] slidingWindowManagerExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowManager(
-                            null, 
-                            new IntervalManager(), 
-                            new SlidingWindowItemManager())),
+                            settings: null,
+                            intervalManager: new IntervalManager(),
+                            slidingWindowItemManager: new SlidingWindowItemManager(),
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                        )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("settings").Message
                 ),
@@ -26,9 +29,12 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowManager(
-                            new UnivariateForecastingSettings(),
-                            null,
-                            new SlidingWindowItemManager())),
+                            settings: new UnivariateForecastingSettings(),
+                            intervalManager: null,
+                            slidingWindowItemManager: new SlidingWindowItemManager(),
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                        )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("intervalManager").Message
                 ),
@@ -36,11 +42,40 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowManager(
-                            new UnivariateForecastingSettings(),
-                            new IntervalManager(),
-                            null)),
+                            settings: new UnivariateForecastingSettings(),
+                            intervalManager: new IntervalManager(),
+                            slidingWindowItemManager: null,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                        )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindowItemManager").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowManager(
+                            settings: new UnivariateForecastingSettings(),
+                            intervalManager: new IntervalManager(),
+                            slidingWindowItemManager: new SlidingWindowItemManager(),
+                            roundingFunction: null,
+                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                        )),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("roundingFunction").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowManager(
+                            settings: new UnivariateForecastingSettings(),
+                            intervalManager: new IntervalManager(),
+                            slidingWindowItemManager: new SlidingWindowItemManager(),
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            loggingAction: null
+                        )),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("loggingAction").Message
                 )
 
         };
@@ -200,8 +235,8 @@ namespace NW.UnivariateForecasting.UnitTests
 
         // SetUp
         // Tests
-        [TestCaseSource(nameof(constructorExceptionTestCases))]
-        public void Constructor_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(slidingWindowManagerExceptionTestCases))]
+        public void SlidingWindowManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 
@@ -254,8 +289,14 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
-            SlidingWindowManager slidingWindowManager = new SlidingWindowManager(settings);
+            SlidingWindowManager slidingWindowManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                            intervalManager: new IntervalManager(),
+                            slidingWindowItemManager: new SlidingWindowItemManager(),
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            loggingAction: (message) => fakeLogger.Log(message)
+                        );
 
             // Act
             SlidingWindow actual = slidingWindowManager.Create(id, observationName, values, steps, intervalUnit, startDate);
@@ -274,8 +315,7 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             SlidingWindow actual 
-                = new SlidingWindowManager(new UnivariateForecastingSettings())
-                        .Create(ObjectMother.SlidingWindow1_Values);
+                = new SlidingWindowManager().Create(ObjectMother.SlidingWindow1_Values);
 
             // Assert
             Assert.True(

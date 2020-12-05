@@ -17,7 +17,7 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(ObjectMother.SlidingWindow1_Item1, true)
 
         };
-        private static TestCaseData[] constructorExceptionTestCases =
+        private static TestCaseData[] slidingWindowItemManagerExceptionTestCases =
         {
 
             new TestCaseData(
@@ -105,8 +105,8 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        [TestCaseSource(nameof(constructorExceptionTestCases))]
-        public void Constructor_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(slidingWindowItemManagerExceptionTestCases))]
+        public void SlidingWindowItemManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 

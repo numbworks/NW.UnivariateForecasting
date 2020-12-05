@@ -9,18 +9,14 @@ namespace NW.UnivariateForecasting.UnitTests
     {
 
         // Fields
-        private static TestCaseData[] constructorExceptionTestCases =
+        private static TestCaseData[] univariateForecasterExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
                     () => new UnivariateForecaster(
-                            null,
-                            new SlidingWindowManager(new UnivariateForecastingSettings()),
-                            new SlidingWindowItemManager(),
-                            new ObservationManager(new UnivariateForecastingSettings()),
-                            new IntervalManager()
-                        )),
+                            settings: null,
+                            components: new UnivariateForecastingComponents())),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("settings").Message
                 ),
@@ -28,53 +24,10 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => new UnivariateForecaster(
-                            new UnivariateForecastingSettings(),
-                            null,
-                            new SlidingWindowItemManager(),
-                            new ObservationManager(new UnivariateForecastingSettings()),
-                            new IntervalManager()
-                        )),
+                            settings: new UnivariateForecastingSettings(),
+                            components: null)),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("slidingWindowManager").Message
-                ),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new UnivariateForecaster(
-                            new UnivariateForecastingSettings(),
-                            new SlidingWindowManager(new UnivariateForecastingSettings()),
-                            null,
-                            new ObservationManager(new UnivariateForecastingSettings()),
-                            new IntervalManager()
-                        )),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("slidingWindowItemManager").Message
-                ),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new UnivariateForecaster(
-                            new UnivariateForecastingSettings(),
-                            new SlidingWindowManager(new UnivariateForecastingSettings()),
-                            new SlidingWindowItemManager(),
-                            null,
-                            new IntervalManager()
-                        )),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("observationManager").Message
-                ),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new UnivariateForecaster(
-                            new UnivariateForecastingSettings(),
-                            new SlidingWindowManager(new UnivariateForecastingSettings()),
-                            new SlidingWindowItemManager(),
-                            new ObservationManager(new UnivariateForecastingSettings()),
-                            null
-                        )),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("intervalManager").Message
+                new ArgumentNullException("components").Message
                 )
 
         };
@@ -400,8 +353,8 @@ namespace NW.UnivariateForecasting.UnitTests
 
         // SetUp
         // Tests
-        [TestCaseSource(nameof(constructorExceptionTestCases))]
-        public void Constructor_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(univariateForecasterExceptionTestCases))]
+        public void UnivariateForecaster_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 
@@ -498,8 +451,37 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            ObservationManager observationManager 
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
 
             // Act
             Observation actual = univariateForecaster.Forecast(slidingWindow, C, E);
@@ -518,8 +500,20 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: new ObservationManager(),
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: (message) => fakeLogger.Log(message));
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
 
             // Act
             List<double> actual = univariateForecaster.ExtractXActualValues(slidingWindow);
@@ -537,8 +531,20 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: new ObservationManager(),
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: (message) => fakeLogger.Log(message));
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
 
             // Act
             List<DateTime> actual = univariateForecaster.ExtractStartDates(slidingWindow);
@@ -556,12 +562,20 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings 
-                = new UnivariateForecastingSettings(
-                    loggingAction: (message) => fakeLogger.Log(message),
-                    idCreationFunction: ObjectMother.FaC_IdCreationFunction
-                    );
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: new ObservationManager(),
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: ObjectMother.FaC_IdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: (message) => fakeLogger.Log(message));
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
 
             // Act
             SlidingWindow actual = univariateForecaster.Combine(slidingWindow, observation);
@@ -586,12 +600,37 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings
-                = new UnivariateForecastingSettings(
-                    loggingAction: (message) => fakeLogger.Log(message),
-                    idCreationFunction: ObjectMother.FaC_IdCreationFunction
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
                     );
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+            ObservationManager observationManager
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: ObjectMother.FaC_IdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
 
             // Act
             List<Observation> actualObservations = null;
@@ -613,8 +652,37 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
-            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(loggingAction: (message) => fakeLogger.Log(message));
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings);
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            ObservationManager observationManager
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
 
             // Act
             double actual = univariateForecaster.ForecastNextValue(values, C, E);

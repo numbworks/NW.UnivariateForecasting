@@ -11,13 +11,17 @@ namespace NW.UnivariateForecasting
         private UnivariateForecastingSettings _settings;
         private IIntervalManager _intervalManager;
         private ISlidingWindowItemManager _slidingWindowItemManager;
+        private Func<double, double> _roundingFunction;
+        private Action<string> _loggingAction;
 
         // Properties
         // Constructors
         public SlidingWindowManager(
             UnivariateForecastingSettings settings,
             IIntervalManager intervalManager,
-            ISlidingWindowItemManager slidingWindowItemManager)
+            ISlidingWindowItemManager slidingWindowItemManager,
+            Func<double, double> roundingFunction,
+            Action<string> loggingAction)
         {
 
             if (settings == null)
@@ -26,14 +30,26 @@ namespace NW.UnivariateForecasting
                 throw new ArgumentNullException(nameof(intervalManager));
             if (slidingWindowItemManager == null)
                 throw new ArgumentNullException(nameof(slidingWindowItemManager));
+            if (roundingFunction == null)
+                throw new ArgumentNullException(nameof(roundingFunction));
+            if (loggingAction == null)
+                throw new ArgumentNullException(nameof(loggingAction));
 
             _settings = settings;
             _intervalManager = intervalManager;
             _slidingWindowItemManager = slidingWindowItemManager;
+            _roundingFunction = roundingFunction;
+            _loggingAction = loggingAction;
 
         }
-        public SlidingWindowManager(UnivariateForecastingSettings settings)
-            : this(settings, new IntervalManager(), new SlidingWindowItemManager()) { }
+        public SlidingWindowManager()
+            : this(
+                  new UnivariateForecastingSettings(),
+                  new IntervalManager(),
+                  new SlidingWindowItemManager(),
+                  UnivariateForecastingComponents.DefaultRoundingFunction,
+                  UnivariateForecastingComponents.DefaultLoggingAction
+                  ) { }
 
         // Methods (public)
         public SlidingWindow Create
@@ -53,11 +69,11 @@ namespace NW.UnivariateForecasting
             if (items.Count != interval.SubIntervals)
                 throw new ArgumentException(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
 
-            _settings.LoggingAction.Invoke(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedIdIs.Invoke(id));
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedObservationNameIs.Invoke(observationName));
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedIntervalIs.Invoke(interval));
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedItemsCountIs.Invoke(items));
+            _loggingAction.Invoke(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
+            _loggingAction.Invoke(MessageCollection.ProvidedIdIs.Invoke(id));
+            _loggingAction.Invoke(MessageCollection.ProvidedObservationNameIs.Invoke(observationName));
+            _loggingAction.Invoke(MessageCollection.ProvidedIntervalIs.Invoke(interval));
+            _loggingAction.Invoke(MessageCollection.ProvidedItemsCountIs.Invoke(items));
 
             SlidingWindow slidingWindow = new SlidingWindow()
             {
@@ -69,7 +85,7 @@ namespace NW.UnivariateForecasting
 
             };
 
-            _settings.LoggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(slidingWindow));
+            _loggingAction.Invoke(MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(slidingWindow));
 
             return slidingWindow;
 
@@ -83,10 +99,10 @@ namespace NW.UnivariateForecasting
             if (values.Count == 0)
                 throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
 
-            _settings.LoggingAction.Invoke(MessageCollection.CreatingIntervalOutOfFollowingArguments);
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedValuesAre.Invoke(values));
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedStepsAre.Invoke(steps));
-            _settings.LoggingAction.Invoke(MessageCollection.ProvidedIntervalUnitsIs.Invoke(intervalUnit));
+            _loggingAction.Invoke(MessageCollection.CreatingIntervalOutOfFollowingArguments);
+            _loggingAction.Invoke(MessageCollection.ProvidedValuesAre.Invoke(values));
+            _loggingAction.Invoke(MessageCollection.ProvidedStepsAre.Invoke(steps));
+            _loggingAction.Invoke(MessageCollection.ProvidedIntervalUnitsIs.Invoke(intervalUnit));
 
             Interval interval = _intervalManager.Create((uint)values.Count, intervalUnit, startDate, steps);
             List<SlidingWindowItem> items = CreateItems(interval, Round(values));
@@ -139,7 +155,7 @@ namespace NW.UnivariateForecasting
                 ...
              */
 
-            return values.Select(item => _settings.RoundingFunction.Invoke(item)).ToList();
+            return values.Select(item => _roundingFunction.Invoke(item)).ToList();
 
         }
         private List<SlidingWindowItem> CreateItems(Interval interval, List<double> values)
