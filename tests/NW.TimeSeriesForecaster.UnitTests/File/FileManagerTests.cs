@@ -94,16 +94,6 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager().WriteAllLines(
-                                    ObjectMother.FileInfoAdapter_DoesntExist, 
-                                    ObjectMother.Content_MultipleLines)
-                    ),
-                typeof(ArgumentException),
-                MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
-                ),
-
-            new TestCaseData(
-                new TestDelegate(
                         () => new FileManager(ObjectMother.FileAdapter_WriteAllMethodsThrowIOException)
                                     .WriteAllLines(
                                         ObjectMother.FileInfoAdapter_Exists,
@@ -125,16 +115,6 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
-                ),
-
-            new TestCaseData(
-                new TestDelegate(
-                        () => new FileManager().WriteAllText(
-                                    ObjectMother.FileInfoAdapter_DoesntExist,
-                                    ObjectMother.Content_SingleLine)
-                    ),
-                typeof(ArgumentException),
-                MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
                 ),
 
             new TestCaseData(
@@ -306,6 +286,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 23.11.2020
+    Last Update: 06.12.2020
 
 */
