@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace NW.UnivariateForecasting
 {
@@ -177,6 +179,68 @@ namespace NW.UnivariateForecasting
 
         }
 
+        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfoAdapter fileInfoAdapter)
+        {
+
+            if (slidingWindow == null)
+                throw new ArgumentNullException(nameof(slidingWindow));
+            if (fileInfoAdapter == null)
+                throw new ArgumentNullException(nameof(fileInfoAdapter));
+
+            SaveAsJson(slidingWindow, fileInfoAdapter);
+
+        }
+        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfo fileInfo)
+            => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(fileInfo));
+        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath)
+            => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(filePath));
+        public void SaveObservationAsJson(Observation observation, FileInfoAdapter fileInfoAdapter)
+        {
+
+            if (observation == null)
+                throw new ArgumentNullException(nameof(observation));
+            if (fileInfoAdapter == null)
+                throw new ArgumentNullException(nameof(fileInfoAdapter));
+
+            SaveAsJson(observation, fileInfoAdapter);
+
+        }
+        public void SaveObservationAsJson(Observation observation, FileInfo fileInfo)
+            => SaveObservationAsJson(observation, _components.FileManager.Create(fileInfo));
+        public void SaveObservationAsJson(Observation observation, string filePath)
+            => SaveObservationAsJson(observation, _components.FileManager.Create(filePath));
+
+        public SlidingWindow GetSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter)
+        {
+
+            if (fileInfoAdapter == null)
+                throw new ArgumentNullException(nameof(fileInfoAdapter));
+            if (!fileInfoAdapter.Exists)
+                throw new ArgumentException($"The provided '{nameof(fileInfoAdapter)}' doesn't exist.");
+
+            return GetFromJson<SlidingWindow>(fileInfoAdapter);
+
+        }
+        public SlidingWindow GetSlidingWindowFromJson(FileInfo fileInfo)
+            => GetSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
+        public SlidingWindow GetSlidingWindowtFromJson(string filePath)
+            => GetSlidingWindowFromJson(_components.FileManager.Create(filePath));
+        public Observation GetObservationFromJson(FileInfoAdapter fileInfoAdapter)
+        {
+
+            if (fileInfoAdapter == null)
+                throw new ArgumentNullException(nameof(fileInfoAdapter));
+            if (!fileInfoAdapter.Exists)
+                throw new ArgumentException($"The provided '{nameof(fileInfoAdapter)}' doesn't exist.");
+
+            return GetFromJson<Observation>(fileInfoAdapter);
+
+        }
+        public Observation GetObservationFromJson(FileInfo fileInfo)
+            => GetObservationFromJson(_components.FileManager.Create(fileInfo));
+        public Observation GetObservationFromJson(string filePath)
+            => GetObservationFromJson(_components.FileManager.Create(filePath));
+
         // Methods (private)
         private List<SlidingWindowItem> DeepCloneSlidingWindowItems(List<SlidingWindowItem> slidingWindowItems)
         {
@@ -250,12 +314,37 @@ namespace NW.UnivariateForecasting
 
         }
 
+        private void SaveAsJson(object obj, FileInfoAdapter fileInfoAdapter)
+        {
+
+            string content = JsonConvert.SerializeObject(obj, GetJsonSerializerSettings());
+            _components.FileManager.WriteAllText(fileInfoAdapter, content);
+
+        }
+        private T GetFromJson<T>(FileInfoAdapter fileInfoAdapter)
+        {
+
+            string content = _components.FileManager.ReadAllText(fileInfoAdapter);
+
+            return JsonConvert.DeserializeObject<T>(content, GetJsonSerializerSettings());
+
+        }
+        private JsonSerializerSettings GetJsonSerializerSettings()
+        {
+
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.DateFormatString = "yyyy-MM-dd";
+
+            return settings;
+
+        }
+
     }
 }
 
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.12.2020
+    Last Update: 06.12.2020
 
 */

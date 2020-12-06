@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace NW.UnivariateForecasting
 {
@@ -8,12 +9,14 @@ namespace NW.UnivariateForecasting
         string ReadAllText(IFileInfoAdapter file);
         void WriteAllLines(IFileInfoAdapter file, IEnumerable<string> content);
         void WriteAllText(IFileInfoAdapter file, string content);
+        FileInfoAdapter Create(string filePath);
+        FileInfoAdapter Create(FileInfo fileInfo);
     }
 }
 
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 23.11.2020
+    Last Update: 06.12.2020
 
 */

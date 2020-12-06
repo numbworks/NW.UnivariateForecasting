@@ -13,4 +13,8 @@ Univariate Forecasting: "[...] univariate refers to an expression, equation, fun
     <PackageProjectUrl>https://github.com/numbworks</PackageProjectUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
 </Project>

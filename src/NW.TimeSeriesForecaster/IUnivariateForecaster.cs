@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace NW.UnivariateForecasting
 {
@@ -23,12 +24,26 @@ namespace NW.UnivariateForecasting
         List<double> ExtractXActualValues(SlidingWindow slidingWindow);
         List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
 
+        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfoAdapter fileInfoAdapter);
+        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfo fileInfo);
+        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath);
+        void SaveObservationAsJson(Observation observation, FileInfoAdapter fileInfoAdapter);
+        void SaveObservationAsJson(Observation observation, FileInfo fileInfo);
+        void SaveObservationAsJson(Observation observation, string filePath);
+
+        SlidingWindow GetSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter);
+        SlidingWindow GetSlidingWindowFromJson(FileInfo fileInfo);
+        SlidingWindow GetSlidingWindowtFromJson(string filePath);
+        Observation GetObservationFromJson(FileInfoAdapter fileInfoAdapter);
+        Observation GetObservationFromJson(FileInfo fileInfo);
+        Observation GetObservationFromJson(string filePath);
+
     }
 }
 
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
+    Last Update: 06.12.2020
 
 */

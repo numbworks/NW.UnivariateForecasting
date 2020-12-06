@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace NW.UnivariateForecasting
 {
@@ -77,8 +78,6 @@ namespace NW.UnivariateForecasting
 
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
-            if (!file.Exists)
-                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
             try
             {
@@ -99,8 +98,6 @@ namespace NW.UnivariateForecasting
 
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
-            if (!file.Exists)
-                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
             try
             {
@@ -116,6 +113,10 @@ namespace NW.UnivariateForecasting
             }
 
         }
+        public FileInfoAdapter Create(string filePath)
+            => Create(new FileInfo(filePath));
+        public FileInfoAdapter Create(FileInfo fileInfo)
+            => new FileInfoAdapter(fileInfo);
 
         // Methods (private)
 
@@ -125,6 +126,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 23.11.2020
+    Last Update: 06.12.2020
 
 */
