@@ -998,6 +998,126 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [Test]
+        public void SaveSlidingWindowAsJson_ShouldSaveExpectedJSONFile_WhenProperSlidingWindow()
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            ObservationManager observationManager
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            IFileAdapter fakeFileAdapter = new FakeFileAdapterWithInternalMemory();
+            IFileManager fakeFileManager = new FileManager(fakeFileAdapter);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: fakeFileManager,
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+            List<string> expectedMessages = new List<string>()
+            {
+
+                MessageCollection.SerializingProvidedSlidingWindowAsJsonAndSavingItTo.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.ProvidedObjectHasBeenSuccessfullySavedAsJson
+
+            };
+
+            // Act
+            univariateForecaster.SaveSlidingWindowAsJson(
+                                    ObjectMother.SlidingWindow1_WithDefaultDummyFields,
+                                    ObjectMother.FileInfoAdapter_Exists);
+
+            // Assert
+            Assert.AreEqual(
+                    Properties.Resources.SlidingWindowWithDummyValues,
+                    fakeFileAdapter.ReadAllText(ObjectMother.FileInfoAdapter_Exists.FullName)); // whatever argument will work
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
+        [Test]
+        public void SaveObservationAsJson_ShouldSaveExpectedJSONFile_WhenProperObservation()
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            ObservationManager observationManager
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            IFileAdapter fakeFileAdapter = new FakeFileAdapterWithInternalMemory();
+            IFileManager fakeFileManager = new FileManager(fakeFileAdapter);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: fakeFileManager,
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+            List<string> expectedMessages = new List<string>()
+            {
+
+                MessageCollection.SerializingProvidedObservationAsJsonAndSavingItTo.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.ProvidedObjectHasBeenSuccessfullySavedAsJson
+
+            };
+
+            // Act
+            univariateForecaster.SaveObservationAsJson(
+                                    ObjectMother.Observation1_WithDefaultDummyFields,
+                                    ObjectMother.FileInfoAdapter_Exists);
+
+            // Assert
+            Assert.AreEqual(
+                    Properties.Resources.ObservationWithDummyValues,
+                    fakeFileAdapter.ReadAllText(ObjectMother.FileInfoAdapter_Exists.FullName)); // whatever argument will work
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
         // TearDown
         // Support methods
 
