@@ -8,8 +8,6 @@ namespace NW.UnivariateForecasting.UnitTests
     public static class ObjectMother
     {
 
-        // Fields
-        // Properties
         internal static IntervalUnits NonExistantIntervalUnit = (IntervalUnits)(-1); // Emulates a non-existant enum value
         internal static Interval Interval_InvalidDueOfSize = new Interval()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -350,6 +351,139 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
+        private static TestCaseData[] saveSlidingWindowAsJsonExceptionTestCases = 
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveSlidingWindowAsJson(
+                                null,
+                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("slidingWindow").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveSlidingWindowAsJson(
+                                ObjectMother.SlidingWindow1,
+                                (IFileInfoAdapter)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileInfoAdapter").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveSlidingWindowAsJson(
+                                ObjectMother.SlidingWindow1,
+                                (FileInfo)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileInfo").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveSlidingWindowAsJson(
+                                ObjectMother.SlidingWindow1,
+                                (string)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileName").Message
+                )
+
+        };
+        private static TestCaseData[] saveObservationAsJsonExceptionTestCases = 
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveObservationAsJson(
+                                null,
+                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("observation").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveObservationAsJson(
+                                ObjectMother.Observation1,
+                                (IFileInfoAdapter)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileInfoAdapter").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveObservationAsJson(
+                                ObjectMother.Observation1,
+                                (FileInfo)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileInfo").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .SaveObservationAsJson(
+                                ObjectMother.Observation1,
+                                (string)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileName").Message
+                )
+
+        };
+        private static TestCaseData[] loadSlidingWindowFromJsonExceptionTestCases = 
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .LoadSlidingWindowFromJson(
+                                (IFileInfoAdapter)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileInfoAdapter").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .LoadSlidingWindowFromJson(
+                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                typeof(ArgumentException),
+                MessageCollection.ProvidedFileDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                )
+
+        };
+        private static TestCaseData[] loadObservationFromJsonExceptionTestCases = 
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .LoadObservationFromJson(
+                                (IFileInfoAdapter)null)),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("fileInfoAdapter").Message
+                ),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster()
+                            .LoadObservationFromJson(
+                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                typeof(ArgumentException),
+                MessageCollection.ProvidedFileDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                )
+
+        };
+
 
         // SetUp
         // Tests
@@ -693,6 +827,58 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [TestCaseSource(nameof(saveSlidingWindowAsJsonExceptionTestCases))]
+        public void SaveSlidingWindowAsJson_ShouldThrowAnException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
+        [TestCaseSource(nameof(saveObservationAsJsonExceptionTestCases))]
+        public void SaveObservationAsJson_ShouldThrowAnException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
+        [TestCaseSource(nameof(loadSlidingWindowFromJsonExceptionTestCases))]
+        public void LoadSlidingWindowFromJson_ShouldThrowAnException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
+        [TestCaseSource(nameof(loadObservationFromJsonExceptionTestCases))]
+        public void LoadObservationFromJson_ShouldThrowAnException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception objActual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, objActual.Message);
+
+        }
+
         // TearDown
         // Support methods
 
@@ -702,6 +888,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
+    Last Update: 06.12.2020
 
 */
