@@ -237,7 +237,7 @@ namespace NW.UnivariateForecasting
         }
         public SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo)
             => LoadSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
-        public SlidingWindow LoadSlidingWindowtFromJson(string filePath)
+        public SlidingWindow LoadSlidingWindowFromJson(string filePath)
             => LoadSlidingWindowFromJson(_components.FileManager.Create(filePath));
         public Observation LoadObservationFromJson(FileInfoAdapter fileInfoAdapter)
         {

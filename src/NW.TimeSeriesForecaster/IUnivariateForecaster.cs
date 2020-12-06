@@ -33,7 +33,7 @@ namespace NW.UnivariateForecasting
 
         SlidingWindow LoadSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter);
         SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo);
-        SlidingWindow LoadSlidingWindowtFromJson(string filePath);
+        SlidingWindow LoadSlidingWindowFromJson(string filePath);
         Observation LoadObservationFromJson(FileInfoAdapter fileInfoAdapter);
         Observation LoadObservationFromJson(FileInfo fileInfo);
         Observation LoadObservationFromJson(string filePath);
