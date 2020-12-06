@@ -85,17 +85,17 @@ namespace NW.UnivariateForecasting
             = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
         public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
             = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
-        public static Func<FileInfoAdapter, string> ProvidedFileDoesntExist
+        public static Func<IFileInfoAdapter, string> ProvidedFileDoesntExist
             = (fileInfoAdapter) => $"The provided file doesn't exist: '{nameof(fileInfoAdapter.FullName)}'.";
-        public static Func<FileInfoAdapter, string> SerializingProvidedSlidingWindowAsJsonAndSavingItTo
+        public static Func<IFileInfoAdapter, string> SerializingProvidedSlidingWindowAsJsonAndSavingItTo
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(SlidingWindow).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
-        public static Func<FileInfoAdapter, string> SerializingProvidedObservationAsJsonAndSavingItTo
+        public static Func<IFileInfoAdapter, string> SerializingProvidedObservationAsJsonAndSavingItTo
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(Observation).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
         public static string ProvidedObjectHasBeenSuccessfullySavedAsJson 
             = "The provided object has been successfully saved as JSON.";
-        public static Func<FileInfoAdapter, string> DeserializingProvidedFileAsSlidingWindowObject
+        public static Func<IFileInfoAdapter, string> DeserializingProvidedFileAsSlidingWindowObject
             = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(SlidingWindow).Name}' object...";
-        public static Func<FileInfoAdapter, string> DeserializingProvidedFileAsObservationObject
+        public static Func<IFileInfoAdapter, string> DeserializingProvidedFileAsObservationObject
             = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(Observation).Name}' object...";
         public static string ProvidedFileHasBeenSuccessfullyDeserialized
             = "The provided file has been successfully deserialized.";

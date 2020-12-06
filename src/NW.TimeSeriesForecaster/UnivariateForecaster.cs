@@ -180,7 +180,7 @@ namespace NW.UnivariateForecasting
 
         }
 
-        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfoAdapter fileInfoAdapter)
+        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, IFileInfoAdapter fileInfoAdapter)
         {
 
             if (slidingWindow == null)
@@ -199,7 +199,7 @@ namespace NW.UnivariateForecasting
             => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(fileInfo));
         public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath)
             => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(filePath));
-        public void SaveObservationAsJson(Observation observation, FileInfoAdapter fileInfoAdapter)
+        public void SaveObservationAsJson(Observation observation, IFileInfoAdapter fileInfoAdapter)
         {
 
             if (observation == null)
@@ -219,7 +219,7 @@ namespace NW.UnivariateForecasting
         public void SaveObservationAsJson(Observation observation, string filePath)
             => SaveObservationAsJson(observation, _components.FileManager.Create(filePath));
 
-        public SlidingWindow LoadSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter)
+        public SlidingWindow LoadSlidingWindowFromJson(IFileInfoAdapter fileInfoAdapter)
         {
 
             if (fileInfoAdapter == null)
@@ -239,7 +239,7 @@ namespace NW.UnivariateForecasting
             => LoadSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
         public SlidingWindow LoadSlidingWindowFromJson(string filePath)
             => LoadSlidingWindowFromJson(_components.FileManager.Create(filePath));
-        public Observation LoadObservationFromJson(FileInfoAdapter fileInfoAdapter)
+        public Observation LoadObservationFromJson(IFileInfoAdapter fileInfoAdapter)
         {
 
             if (fileInfoAdapter == null)
@@ -333,15 +333,14 @@ namespace NW.UnivariateForecasting
             return newItems;
 
         }
-
-        private void SaveAsJson(object obj, FileInfoAdapter fileInfoAdapter)
+        private void SaveAsJson(object obj, IFileInfoAdapter fileInfoAdapter)
         {
 
             string content = JsonConvert.SerializeObject(obj, GetJsonSerializerSettings());
             _components.FileManager.WriteAllText(fileInfoAdapter, content);
 
         }
-        private T GetFromJson<T>(FileInfoAdapter fileInfoAdapter)
+        private T GetFromJson<T>(IFileInfoAdapter fileInfoAdapter)
         {
 
             string content = _components.FileManager.ReadAllText(fileInfoAdapter);

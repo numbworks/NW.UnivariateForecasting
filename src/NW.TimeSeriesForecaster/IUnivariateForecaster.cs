@@ -24,17 +24,17 @@ namespace NW.UnivariateForecasting
         List<double> ExtractXActualValues(SlidingWindow slidingWindow);
         List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
 
-        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfoAdapter fileInfoAdapter);
+        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, IFileInfoAdapter fileInfoAdapter);
         void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfo fileInfo);
         void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath);
-        void SaveObservationAsJson(Observation observation, FileInfoAdapter fileInfoAdapter);
+        void SaveObservationAsJson(Observation observation, IFileInfoAdapter fileInfoAdapter);
         void SaveObservationAsJson(Observation observation, FileInfo fileInfo);
         void SaveObservationAsJson(Observation observation, string filePath);
 
-        SlidingWindow LoadSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter);
+        SlidingWindow LoadSlidingWindowFromJson(IFileInfoAdapter fileInfoAdapter);
         SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo);
         SlidingWindow LoadSlidingWindowFromJson(string filePath);
-        Observation LoadObservationFromJson(FileInfoAdapter fileInfoAdapter);
+        Observation LoadObservationFromJson(IFileInfoAdapter fileInfoAdapter);
         Observation LoadObservationFromJson(FileInfo fileInfo);
         Observation LoadObservationFromJson(string filePath);
 
