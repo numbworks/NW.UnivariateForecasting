@@ -10,6 +10,7 @@
 | <sub>27.04.2020</sub> | <sub>NW</sub> | <sub>Created</sub> |
 | <sub>28.11.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized the document.</sub> |
 | <sub>04.12.2020</sub> | <sub>NW</sub> | <sub>Added examples of user-provided C and E.</sub> |
+| <sub>06.12.2020</sub> | <sub>NW</sub> | <sub>Added "Saving and Loading" paragraph.</sub> |
 
 ### Introduction
 
@@ -211,6 +212,160 @@ public UnivariateForecastingComponents(
     { /* ... */ }
 ```
 Both classes have a default constructor to improve usability ("Don't make me think!").
+
+
+### Saving and Loading
+
+The library allows you to save objects to files and load objects from them by using the JSON format for exchanging data. 
+
+Below an example of the code required to save:
+
+```csharp
+/* ... */
+List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+
+ISlidingWindowManager slidingWindowManager = new SlidingWindowManager();
+SlidingWindow slidingWindow = slidingWindowManager.Create(values);
+IUnivariateForecaster forecaster = new UnivariateForecaster();
+forecaster.SaveSlidingWindowAsJson(slidingWindow, @"C:\SlidingWindow.json");
+
+Observation observation = forecaster.Forecast(slidingWindow);
+forecaster.SaveObservationAsJson(observation, @"C:\Observation.json");
+```
+
+Below an example of the code required to load:
+
+```csharp
+IUnivariateForecaster forecaster = new UnivariateForecaster();
+SlidingWindow slidingWindow = forecaster.LoadSlidingWindowFromJson(@"C:\SlidingWindow.json");
+Observation observation = forecaster.LoadObservationFromJson(@"C:\Observation.json");
+```
+
+Below an example of how a ```SlidingWindow``` object looks like in JSON format:
+
+```json
+{
+    "Id": "Dummy Id",
+    "ObservationName": "Dummy Observation",
+    "Interval": {
+        "Size": 6,
+        "Unit": "Months",
+        "StartDate": "2020-01-01",
+        "EndDate": "2020-07-01",
+        "TargetDate": "2020-08-01",
+        "Steps": 1,
+        "SubIntervals": 6
+    },
+    "Items": [
+        {
+            "Id": 1,
+            "Interval": {
+                "Size": 1,
+                "Unit": "Months",
+                "StartDate": "2020-01-01",
+                "EndDate": "2020-02-01",
+                "TargetDate": "2020-03-01",
+                "Steps": 1,
+                "SubIntervals": 1
+            },
+            "X_Actual": 58.5,
+            "Y_Forecasted": 615.26
+        },
+        {
+            "Id": 2,
+            "Interval": {
+                "Size": 1,
+                "Unit": "Months",
+                "StartDate": "2020-02-01",
+                "EndDate": "2020-03-01",
+                "TargetDate": "2020-04-01",
+                "Steps": 1,
+                "SubIntervals": 1
+            },
+            "X_Actual": 615.26,
+            "Y_Forecasted": 659.84
+        },
+        {
+            "Id": 3,
+            "Interval": {
+                "Size": 1,
+                "Unit": "Months",
+                "StartDate": "2020-03-01",
+                "EndDate": "2020-04-01",
+                "TargetDate": "2020-05-01",
+                "Steps": 1,
+                "SubIntervals": 1
+            },
+            "X_Actual": 659.84,
+            "Y_Forecasted": 635.69
+        },
+        {
+            "Id": 4,
+            "Interval": {
+                "Size": 1,
+                "Unit": "Months",
+                "StartDate": "2020-04-01",
+                "EndDate": "2020-05-01",
+                "TargetDate": "2020-06-01",
+                "Steps": 1,
+                "SubIntervals": 1
+            },
+            "X_Actual": 635.69,
+            "Y_Forecasted": 612.27
+        },
+        {
+            "Id": 5,
+            "Interval": {
+                "Size": 1,
+                "Unit": "Months",
+                "StartDate": "2020-05-01",
+                "EndDate": "2020-06-01",
+                "TargetDate": "2020-07-01",
+                "Steps": 1,
+                "SubIntervals": 1
+            },
+            "X_Actual": 612.27,
+            "Y_Forecasted": 632.94
+        },
+        {
+            "Id": 6,
+            "Interval": {
+                "Size": 1,
+                "Unit": "Months",
+                "StartDate": "2020-06-01",
+                "EndDate": "2020-07-01",
+                "TargetDate": "2020-08-01",
+                "Steps": 1,
+                "SubIntervals": 1
+            },
+            "X_Actual": 632.94,
+            "Y_Forecasted": null
+        }
+    ]
+}
+```
+
+Below an example of how a ```Observation``` object looks like in JSON format:
+
+```json
+{
+    "Name": "Dummy Observation",
+    "Interval": {
+        "Size": 1,
+        "Unit": "Months",
+        "StartDate": "2020-07-01",
+        "EndDate": "2020-08-01",
+        "TargetDate": "2020-09-01",
+        "Steps": 1,
+        "SubIntervals": 1
+    },
+    "X_Actual": 632.94,
+    "C": 0.82,
+    "E": 0.22,
+    "Y_Forecasted": 519.23,
+    "SlidingWindowId": "Dummy Id"
+}
+```
 
 ### The Algorithm
 
