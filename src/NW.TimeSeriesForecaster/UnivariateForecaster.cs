@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace NW.UnivariateForecasting
 {
@@ -334,6 +335,7 @@ namespace NW.UnivariateForecasting
 
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.DateFormatString = "yyyy-MM-dd";
+            settings.Converters.Add(new StringEnumConverter());
 
             return settings;
 
