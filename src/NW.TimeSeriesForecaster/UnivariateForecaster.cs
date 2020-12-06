@@ -188,7 +188,11 @@ namespace NW.UnivariateForecasting
             if (fileInfoAdapter == null)
                 throw new ArgumentNullException(nameof(fileInfoAdapter));
 
+            _components.LoggingAction.Invoke(MessageCollection.SerializingProvidedSlidingWindowAsJsonAndSavingItTo.Invoke(fileInfoAdapter));
+
             SaveAsJson(slidingWindow, fileInfoAdapter);
+
+            _components.LoggingAction.Invoke(MessageCollection.ProvidedObjectHasBeenSuccessfullySavedAsJson);
 
         }
         public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfo fileInfo)
@@ -203,7 +207,11 @@ namespace NW.UnivariateForecasting
             if (fileInfoAdapter == null)
                 throw new ArgumentNullException(nameof(fileInfoAdapter));
 
+            _components.LoggingAction.Invoke(MessageCollection.SerializingProvidedObservationAsJsonAndSavingItTo.Invoke(fileInfoAdapter));
+
             SaveAsJson(observation, fileInfoAdapter);
+
+            _components.LoggingAction.Invoke(MessageCollection.ProvidedObjectHasBeenSuccessfullySavedAsJson);
 
         }
         public void SaveObservationAsJson(Observation observation, FileInfo fileInfo)
@@ -217,10 +225,15 @@ namespace NW.UnivariateForecasting
             if (fileInfoAdapter == null)
                 throw new ArgumentNullException(nameof(fileInfoAdapter));
             if (!fileInfoAdapter.Exists)
-                throw new ArgumentException($"The provided '{nameof(fileInfoAdapter)}' doesn't exist.");
+                throw new ArgumentException(MessageCollection.ProvidedFileDoesntExist.Invoke(fileInfoAdapter));
 
-            return GetFromJson<SlidingWindow>(fileInfoAdapter);
+            _components.LoggingAction.Invoke(MessageCollection.DeserializingProvidedFileAsSlidingWindowObject.Invoke(fileInfoAdapter));
 
+            SlidingWindow slidingWindow = GetFromJson<SlidingWindow>(fileInfoAdapter);
+
+            _components.LoggingAction.Invoke(MessageCollection.ProvidedFileHasBeenSuccessfullyDeserialized);
+
+            return slidingWindow;
         }
         public SlidingWindow GetSlidingWindowFromJson(FileInfo fileInfo)
             => GetSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
@@ -232,9 +245,15 @@ namespace NW.UnivariateForecasting
             if (fileInfoAdapter == null)
                 throw new ArgumentNullException(nameof(fileInfoAdapter));
             if (!fileInfoAdapter.Exists)
-                throw new ArgumentException($"The provided '{nameof(fileInfoAdapter)}' doesn't exist.");
+                throw new ArgumentException(MessageCollection.ProvidedFileDoesntExist.Invoke(fileInfoAdapter));
 
-            return GetFromJson<Observation>(fileInfoAdapter);
+            _components.LoggingAction.Invoke(MessageCollection.DeserializingProvidedFileAsObservationObject.Invoke(fileInfoAdapter));
+
+            Observation observation = GetFromJson<Observation>(fileInfoAdapter);
+
+            _components.LoggingAction.Invoke(MessageCollection.ProvidedFileHasBeenSuccessfullyDeserialized);
+
+            return observation;
 
         }
         public Observation GetObservationFromJson(FileInfo fileInfo)

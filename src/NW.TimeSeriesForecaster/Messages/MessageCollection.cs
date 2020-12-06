@@ -85,6 +85,20 @@ namespace NW.UnivariateForecasting
             = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
         public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
             = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
+        public static Func<FileInfoAdapter, string> ProvidedFileDoesntExist
+            = (fileInfoAdapter) => $"The provided file doesn't exist: '{nameof(fileInfoAdapter.FullName)}'.";
+        public static Func<FileInfoAdapter, string> SerializingProvidedSlidingWindowAsJsonAndSavingItTo
+            = (fileInfoAdapter) => $"Serializing the provided '{typeof(SlidingWindow).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
+        public static Func<FileInfoAdapter, string> SerializingProvidedObservationAsJsonAndSavingItTo
+            = (fileInfoAdapter) => $"Serializing the provided '{typeof(Observation).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
+        public static string ProvidedObjectHasBeenSuccessfullySavedAsJson 
+            = "The provided object has been successfully saved as JSON.";
+        public static Func<FileInfoAdapter, string> DeserializingProvidedFileAsSlidingWindowObject
+            = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(SlidingWindow).Name}' object...";
+        public static Func<FileInfoAdapter, string> DeserializingProvidedFileAsObservationObject
+            = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(Observation).Name}' object...";
+        public static string ProvidedFileHasBeenSuccessfullyDeserialized
+            = "The provided file has been successfully deserialized.";
 
         // FileManager
         public static Func<IFileInfoAdapter, string> ProvidedPathDoesntExist
@@ -94,9 +108,9 @@ namespace NW.UnivariateForecasting
         public static Func<IFileInfoAdapter, Exception, string> NotPossibleToWrite
             = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
 
-        public static string RollOutCollection(List<double> coll)
+        private static string RollOutCollection(List<double> coll)
             => RollOutCollection(coll.Cast<object>().ToList());
-        public static string RollOutCollection(IEnumerable<object> coll)
+        private static string RollOutCollection(IEnumerable<object> coll)
         {
 
             List<string> list = new List<string>();
@@ -114,6 +128,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 27.09.2020
+    Last Update: 06.12.2020
 
 */
