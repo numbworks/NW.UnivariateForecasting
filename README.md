@@ -22,6 +22,6 @@ The first one can predict only one step ahead, while the second one can predict 
 
 ### Quick Links
 
-- [Documentation](docs\Documentation-NW.UnivariateForecaster.md)
+- [Documentation](docs/Documentation-NW.UnivariateForecaster.md)
 - [LICENSE](LICENSE)
 - [NuGet Package](htto://nuget.org) 
