@@ -31,12 +31,12 @@ namespace NW.UnivariateForecasting
         void SaveObservationAsJson(Observation observation, FileInfo fileInfo);
         void SaveObservationAsJson(Observation observation, string filePath);
 
-        SlidingWindow GetSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter);
-        SlidingWindow GetSlidingWindowFromJson(FileInfo fileInfo);
-        SlidingWindow GetSlidingWindowtFromJson(string filePath);
-        Observation GetObservationFromJson(FileInfoAdapter fileInfoAdapter);
-        Observation GetObservationFromJson(FileInfo fileInfo);
-        Observation GetObservationFromJson(string filePath);
+        SlidingWindow LoadSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter);
+        SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo);
+        SlidingWindow LoadSlidingWindowtFromJson(string filePath);
+        Observation LoadObservationFromJson(FileInfoAdapter fileInfoAdapter);
+        Observation LoadObservationFromJson(FileInfo fileInfo);
+        Observation LoadObservationFromJson(string filePath);
 
     }
 }

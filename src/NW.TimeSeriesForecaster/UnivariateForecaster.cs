@@ -219,7 +219,7 @@ namespace NW.UnivariateForecasting
         public void SaveObservationAsJson(Observation observation, string filePath)
             => SaveObservationAsJson(observation, _components.FileManager.Create(filePath));
 
-        public SlidingWindow GetSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter)
+        public SlidingWindow LoadSlidingWindowFromJson(FileInfoAdapter fileInfoAdapter)
         {
 
             if (fileInfoAdapter == null)
@@ -235,11 +235,11 @@ namespace NW.UnivariateForecasting
 
             return slidingWindow;
         }
-        public SlidingWindow GetSlidingWindowFromJson(FileInfo fileInfo)
-            => GetSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
-        public SlidingWindow GetSlidingWindowtFromJson(string filePath)
-            => GetSlidingWindowFromJson(_components.FileManager.Create(filePath));
-        public Observation GetObservationFromJson(FileInfoAdapter fileInfoAdapter)
+        public SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo)
+            => LoadSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
+        public SlidingWindow LoadSlidingWindowtFromJson(string filePath)
+            => LoadSlidingWindowFromJson(_components.FileManager.Create(filePath));
+        public Observation LoadObservationFromJson(FileInfoAdapter fileInfoAdapter)
         {
 
             if (fileInfoAdapter == null)
@@ -256,10 +256,10 @@ namespace NW.UnivariateForecasting
             return observation;
 
         }
-        public Observation GetObservationFromJson(FileInfo fileInfo)
-            => GetObservationFromJson(_components.FileManager.Create(fileInfo));
-        public Observation GetObservationFromJson(string filePath)
-            => GetObservationFromJson(_components.FileManager.Create(filePath));
+        public Observation LoadObservationFromJson(FileInfo fileInfo)
+            => LoadObservationFromJson(_components.FileManager.Create(fileInfo));
+        public Observation LoadObservationFromJson(string filePath)
+            => LoadObservationFromJson(_components.FileManager.Create(filePath));
 
         // Methods (private)
         private List<SlidingWindowItem> DeepCloneSlidingWindowItems(List<SlidingWindowItem> slidingWindowItems)
