@@ -316,6 +316,7 @@ namespace NW.UnivariateForecasting.UnitTests
             Y_Forecasted = Observation1withCustomCE_Y
         };
 
+        // SlidingWindowTests
         internal static string SlidingWindow1_ToString = "[ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]";
         internal static string SlidingWindow1_ToStringRolloutItems 
             = string.Join(
@@ -332,10 +333,12 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static string NewSlidingWindow_ToString = "[ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]";
         internal static string NewSlidingWindow_ToStringRolloutItems = NewSlidingWindow_ToString;
 
+        // SlidingWindowItemTests
         internal static string SlidingWindow1_Item1_ToString = "[ Id: '1', Interval: '20190131:20190228:20190331', X_Actual: '58,5', Y_Forecasted: '615,26' ]";
         internal static SlidingWindowItem NewSlidingWindowItem = new SlidingWindowItem();
         internal static string NewSlidingWindowItem_ToString = "[ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]";
 
+        // SlidingWindowItemManagerTests
         internal static SlidingWindowItemManager SlidingWindowItemManager_Default = new SlidingWindowItemManager();
         internal static SlidingWindowItem SlidingWindowItem_InvalidDueOfSize = new SlidingWindowItem()
         {
@@ -349,6 +352,7 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static double SlidingWindow1_Item1_XActual = 58.5;
         internal static double? SlidingWindow1_Item1_YForecasted = 615.26;
 
+        // SlidingWindowManagerTests
         internal static SlidingWindowManager SlidingWindowManager_Default = new SlidingWindowManager();
         internal static SlidingWindow SlidingWindow_InvalidDueOfNullId = new SlidingWindow()
         {
@@ -393,6 +397,7 @@ namespace NW.UnivariateForecasting.UnitTests
             Items = SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
         };
 
+        // UnivariateForecasterTests
         internal static UnivariateForecaster UnivariateForecaster_Default = new UnivariateForecaster();
         internal static List<DateTime> SlidingWindow1_StartDates = new List<DateTime>()
         {
@@ -405,7 +410,6 @@ namespace NW.UnivariateForecasting.UnitTests
             SlidingWindow1_Item6.Interval.StartDate
 
         };
-
         internal static string FaC_Id = "SW20200925000000";
         internal static Func<string> FaC_IdCreationFunction = () => FaC_Id;
         internal static SlidingWindow FaCSteps1_Final = new SlidingWindow()
@@ -617,51 +621,59 @@ namespace NW.UnivariateForecasting.UnitTests
 
                     }
         };
-        internal static string SlidingWindow1_DummyId = new UnivariateForecastingSettings().DummyId;
-        internal static string SlidingWindow1_DummyObservationName = new UnivariateForecastingSettings().DummyObservationName;
         internal static Interval SlidingWindow1_DummyInterval
             = new IntervalManager().Create(
                     (uint)SlidingWindow1_Values.Count,
-                    new UnivariateForecastingSettings().DummyIntervalUnit,
-                    new UnivariateForecastingSettings().DummyStartDate,
-                    new UnivariateForecastingSettings().DummySteps
+                    UnivariateForecastingSettings.DefaultDummyIntervalUnit,
+                    UnivariateForecastingSettings.DefaultDummyStartDate,
+                    UnivariateForecastingSettings.DefaultDummySteps
                     );
-        internal static List<SlidingWindowItem> SlidingWindow1_DummyItems
+        internal static List<SlidingWindowItem> SlidingWindow1_DefaultDummyItems
             = new SlidingWindowItemManager().CreateItems(
-                    new UnivariateForecastingSettings().DummyStartDate,
+                    UnivariateForecastingSettings.DefaultDummyStartDate,
                     SlidingWindow1_Values,
-                    new UnivariateForecastingSettings().DummyIntervalUnit
+                    UnivariateForecastingSettings.DefaultDummyIntervalUnit
                 );
-        internal static SlidingWindow SlidingWindow1_WithDummyFields = new SlidingWindow()
+        internal static SlidingWindow SlidingWindow1_WithDefaultDummyFields = new SlidingWindow()
         {
 
-            Id = SlidingWindow1_DummyId,
-            ObservationName = SlidingWindow1_DummyObservationName,
+            Id = UnivariateForecastingSettings.DefaultDummyId,
+            ObservationName = UnivariateForecastingSettings.DefaultDummyObservationName,
             Interval = SlidingWindow1_DummyInterval,
-            Items = SlidingWindow1_DummyItems
+            Items = SlidingWindow1_DefaultDummyItems
         };
-        internal static Interval Observation1_DummyInterval = new Interval()
+        internal static Interval Observation1_DefaultDummyInterval = new Interval()
         {
             Size = 1,
-            Unit = new UnivariateForecastingSettings().DummyIntervalUnit,
+            Unit = UnivariateForecastingSettings.DefaultDummyIntervalUnit,
             StartDate = new DateTime(2020, 07, 01),
             EndDate = new DateTime(2020, 08, 01),
             TargetDate = new DateTime(2020, 09, 01),
-            Steps = new UnivariateForecastingSettings().DummySteps,
+            Steps = UnivariateForecastingSettings.DefaultDummySteps,
             SubIntervals = 1
         };
-        internal static Observation Observation1_WithDummyFields = new Observation()
+        internal static Observation Observation1_WithDefaultDummyFields = new Observation()
         {
 
-            Name = new UnivariateForecastingSettings().DummyObservationName,
-            Interval = Observation1_DummyInterval,
+            Name = UnivariateForecastingSettings.DefaultDummyObservationName,
+            Interval = Observation1_DefaultDummyInterval,
             X_Actual = 632.94,
             C = 0.82,
             E = 0.22,
             Y_Forecasted = 519.23,
-            SlidingWindowId = new UnivariateForecastingSettings().DummyId
+            SlidingWindowId = UnivariateForecastingSettings.DefaultDummyId
 
         };
+        internal static IFileAdapter FileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw FileAdapter_IOException,
+                    fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
+                );
+        internal static IFileAdapter FileAdapter_ReadAllTextReturnsObservationWithDummyValues
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw FileAdapter_IOException,
+                    fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
+                );
 
         // FileManager
         internal static string Content_SingleLine = "First line";

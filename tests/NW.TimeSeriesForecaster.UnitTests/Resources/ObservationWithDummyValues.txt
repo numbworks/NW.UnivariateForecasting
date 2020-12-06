@@ -1,0 +1,17 @@
+{
+    "Name": "Dummy Observation",
+    "Interval": {
+        "Size": 1,
+        "Unit": "Months",
+        "StartDate": "2020-07-01",
+        "EndDate": "2020-08-01",
+        "TargetDate": "2020-09-01",
+        "Steps": 1,
+        "SubIntervals": 1
+    },
+    "X_Actual": 632.94,
+    "C": 0.82,
+    "E": 0.22,
+    "Y_Forecasted": 519.23,
+    "SlidingWindowId": "Dummy Id"
+}

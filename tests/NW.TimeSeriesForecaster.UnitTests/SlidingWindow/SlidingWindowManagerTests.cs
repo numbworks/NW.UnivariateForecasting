@@ -320,7 +320,7 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Assert.True(
                 ObjectMother.AreEqual(
-                    ObjectMother.SlidingWindow1_WithDummyFields,
+                    ObjectMother.SlidingWindow1_WithDefaultDummyFields,
                     actual)
                 );
 

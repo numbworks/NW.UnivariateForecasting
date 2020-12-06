@@ -308,7 +308,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.SlidingWindow1_Values,
                 null,
                 null,
-                ObjectMother.Observation1_WithDummyFields.Y_Forecasted,
+                ObjectMother.Observation1_WithDefaultDummyFields.Y_Forecasted,
                 new List<string>() {
                     MessageCollection.ForecastNextValueRunningForProvidedValues.Invoke(ObjectMother.SlidingWindow1_Values),
                     MessageCollection.CreatingIntervalOutOfFollowingArguments,
@@ -319,19 +319,19 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ProvidedIdIs.Invoke(new UnivariateForecastingSettings().DummyId),
                     MessageCollection.ProvidedObservationNameIs.Invoke(new UnivariateForecastingSettings().DummyObservationName),
                     MessageCollection.ProvidedIntervalIs.Invoke(ObjectMother.SlidingWindow1_DummyInterval),
-                    MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_DummyItems),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1_WithDummyFields),
-                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1_WithDummyFields),
-                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1_WithDummyFields),
+                    MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_DefaultDummyItems),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1_WithDefaultDummyFields),
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1_WithDefaultDummyFields),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1_WithDefaultDummyFields),
                     MessageCollection.ForecastNextValueSuccessfullyRun.Invoke(ObjectMother.Observation1.Y_Forecasted)
                     }
                 ),
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1_Values,
-                ObjectMother.Observation1_WithDummyFields.C,
-                ObjectMother.Observation1_WithDummyFields.E,
-                ObjectMother.Observation1_WithDummyFields.Y_Forecasted,
+                ObjectMother.Observation1_WithDefaultDummyFields.C,
+                ObjectMother.Observation1_WithDefaultDummyFields.E,
+                ObjectMother.Observation1_WithDefaultDummyFields.Y_Forecasted,
                 new List<string>() {
                     MessageCollection.ForecastNextValueRunningForProvidedValues.Invoke(ObjectMother.SlidingWindow1_Values),
                     MessageCollection.CreatingIntervalOutOfFollowingArguments,
@@ -342,16 +342,16 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ProvidedIdIs.Invoke(new UnivariateForecastingSettings().DummyId),
                     MessageCollection.ProvidedObservationNameIs.Invoke(new UnivariateForecastingSettings().DummyObservationName),
                     MessageCollection.ProvidedIntervalIs.Invoke(ObjectMother.SlidingWindow1_DummyInterval),
-                    MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_DummyItems),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1_WithDummyFields),
-                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1_WithDummyFields),
-                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1_WithDummyFields),
+                    MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_DefaultDummyItems),
+                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1_WithDefaultDummyFields),
+                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1_WithDefaultDummyFields),
+                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1_WithDefaultDummyFields),
                     MessageCollection.ForecastNextValueSuccessfullyRun.Invoke(ObjectMother.Observation1.Y_Forecasted)
                     }
                 )
 
         };
-        private static TestCaseData[] saveSlidingWindowAsJsonExceptionTestCases = 
+        private static TestCaseData[] saveSlidingWindowAsJsonExceptionTestCases =
         {
 
             new TestCaseData(
@@ -395,7 +395,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
-        private static TestCaseData[] saveObservationAsJsonExceptionTestCases = 
+        private static TestCaseData[] saveObservationAsJsonExceptionTestCases =
         {
 
             new TestCaseData(
@@ -439,7 +439,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
-        private static TestCaseData[] loadSlidingWindowFromJsonExceptionTestCases = 
+        private static TestCaseData[] loadSlidingWindowFromJsonExceptionTestCases =
         {
 
             new TestCaseData(
@@ -461,7 +461,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
-        private static TestCaseData[] loadObservationFromJsonExceptionTestCases = 
+        private static TestCaseData[] loadObservationFromJsonExceptionTestCases =
         {
 
             new TestCaseData(
@@ -483,7 +483,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 )
 
         };
-
 
         // SetUp
         // Tests
@@ -495,8 +494,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -508,8 +507,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -521,8 +520,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -534,8 +533,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -547,8 +546,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -560,8 +559,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -573,8 +572,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -594,7 +593,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction
                     );
-            ObservationManager observationManager 
+            ObservationManager observationManager
                 = new ObservationManager(
                         settings: new UnivariateForecastingSettings(),
                         intervalManager: new IntervalManager(),
@@ -723,12 +722,12 @@ namespace NW.UnivariateForecasting.UnitTests
 
         [TestCaseSource(nameof(forecastAndCombineTestCases))]
         public void ForecastAndCombine_ShouldReturnExpectedObjectsAndLogExpectedMessages_WhenProperArguments
-            (SlidingWindow slidingWindow, 
+            (SlidingWindow slidingWindow,
             uint steps,
-            double? C, 
+            double? C,
             double? E,
-            SlidingWindow expected, 
-            List<Observation> expectedObservations, 
+            SlidingWindow expected,
+            List<Observation> expectedObservations,
             List<string> expectedMessages)
         {
 
@@ -835,8 +834,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -848,8 +847,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -861,8 +860,8 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
@@ -874,8 +873,128 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
+
+        }
+
+        [Test]
+        public void LoadSlidingWindowFromJson_ShouldReturnExpectedSlidingWindow_WhenProperJSONFile()
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            ObservationManager observationManager
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            IFileManager fakeFileManager 
+                = new FileManager(ObjectMother.FileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: fakeFileManager,
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+            List<string> expectedMessages = new List<string>()
+            {
+
+                MessageCollection.DeserializingProvidedFileAsSlidingWindowObject.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.ProvidedFileHasBeenSuccessfullyDeserialized
+
+            };
+
+            // Act
+            SlidingWindow actual 
+                = univariateForecaster.LoadSlidingWindowFromJson(ObjectMother.FileInfoAdapter_Exists);
+
+            // Assert
+            Assert.IsTrue(
+                    ObjectMother.AreEqual(
+                        ObjectMother.SlidingWindow1_WithDefaultDummyFields,
+                        actual));
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
+        [Test]
+        public void LoadObservationFromJson_ShouldReturnExpectedObservation_WhenProperJSONFile()
+        {
+
+            // Arrange
+            FakeLogger fakeLogger = new FakeLogger();
+            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
+            SlidingWindowManager slidingManager
+                = new SlidingWindowManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            ObservationManager observationManager
+                = new ObservationManager(
+                        settings: new UnivariateForecastingSettings(),
+                        intervalManager: new IntervalManager(),
+                        slidingWindowManager: slidingManager,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction
+                    );
+            IFileManager fakeFileManager
+                = new FileManager(ObjectMother.FileAdapter_ReadAllTextReturnsObservationWithDummyValues);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: slidingManager,
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: observationManager,
+                        intervalManager: new IntervalManager(),
+                        fileManager: fakeFileManager,
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction);
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+            List<string> expectedMessages = new List<string>()
+            {
+
+                MessageCollection.DeserializingProvidedFileAsObservationObject.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.ProvidedFileHasBeenSuccessfullyDeserialized
+
+            };
+
+            // Act
+            Observation actual
+                = univariateForecaster.LoadObservationFromJson(ObjectMother.FileInfoAdapter_Exists);
+
+            // Assert
+            Assert.IsTrue(
+                    ObjectMother.AreEqual(
+                        ObjectMother.Observation1_WithDefaultDummyFields,
+                        actual));
+            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
 
