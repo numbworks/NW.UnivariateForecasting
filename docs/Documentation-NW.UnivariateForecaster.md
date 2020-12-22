@@ -1,18 +1,17 @@
 # NW.UnivariateForecasting
+Contact: numbworks@gmail.com
 
-**Author:** NW
-**Email:** numbworks [AT] gmail [DOT] com
+## Revision History
 
-### Revision History
-
-| <sub>Date</sub> | <sub>Author</sub> | <sub>Description</sub> |
+| Date | Author | Description |
 |---|---|---|
-| <sub>27.04.2020</sub> | <sub>NW</sub> | <sub>Created</sub> |
-| <sub>28.11.2020</sub> | <sub>NW</sub> | <sub>Added new examples, re-organized the document.</sub> |
-| <sub>04.12.2020</sub> | <sub>NW</sub> | <sub>Added examples of user-provided C and E.</sub> |
-| <sub>06.12.2020</sub> | <sub>NW</sub> | <sub>Added "Saving and Loading" paragraph.</sub> |
+| 2020-04-27 | numbworks | Created. |
+| 2020-11-28 | numbworks | Added new examples, re-organized the document. |
+| 2020-12-04 | numbworks | Added examples of user-provided C and E. |
+| 2020-12-06 | numbworks | Added "Saving and Loading" paragraph. |
+| 2020-12-22 | numbworks | Changed font size and date format in Revision History. |
 
-### Introduction
+## Introduction
 
 *Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
 
@@ -24,7 +23,7 @@ The first one can predict only one step ahead, while the second one can predict 
 As its name states, this library implements the univariate approach. 
 A good definition of "*univariate*" could be"*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
 
-### Example 1: Main Scenario 
+## Example 1: Main Scenario 
 
 In order to use the library, the first thing we need to do is to create a `SlidingWindow` object to host the time series, and the library provides a  `SlidingWindowManager` helper class that aids the process: 
 
@@ -95,7 +94,7 @@ This will return an `Observation` object, which will look like the following:
 The original time series was: `{ 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }`.
 According to the univariate forecasting, the next value of the series will be: `519,23`.
 
-### Example 2: Less is More?
+## Example 2: Less is More?
 
 If we do have only a list of values without any specific time stamps, one of the `SlidingWindowManager.Create()` overloads can create a dummy `SlidingWindow` around them for us:
 
@@ -116,7 +115,7 @@ The dummy `SlidingWindow` will look like this:
 
 The dummy values can be customized in `UnivariateForecastingSettings`.
 
-### Example 3: One, Two, Three, ...
+## Example 3: One, Two, Three, ...
 
 If we can predict values for more than one step ahead, we can use `ForecastAndCombine` to recursively add each observation to the `SlidingWindow` and perform the forecasting on it:
 
@@ -164,7 +163,7 @@ double nextValue = forecaster.ForecastNextValue(values);
 
 This scenario hasn't been shows as the first one, because it was important to explain the forecasting together with the concept of `SlidingWindow` first.
 
-### Example 5: Custom Coefficients?
+## Example 5: Custom Coefficients?
 
 The library offers the possibility to skip all the calculations and provide the C and E coefficients yourself:
 
@@ -178,7 +177,7 @@ double optimisticNextValue = forecaster.ForecastNextValue(values, C: 1.11, E: 0.
 
 If we take the last statement as reference, what the method does is: ```(632,94 * 1.11) + 0.22 = 702.78```.
 
-### The Settings 
+## The Settings 
 
 You can personalize the library settings by instantiating your own instance of the ```UnivariateForecastingSettings``` class:
 
@@ -214,7 +213,7 @@ public UnivariateForecastingComponents(
 Both classes have a default constructor to improve usability ("Don't make me think!").
 
 
-### Saving and Loading
+## Saving and Loading
 
 The library allows you to save objects to files and load objects from them by using the JSON format for exchanging data. 
 
@@ -367,7 +366,7 @@ Below an example of how a ```Observation``` object looks like in JSON format:
 }
 ```
 
-### The Algorithm
+## The Algorithm
 
 Let's explain the algorithm on which the library is based by using an example.
 
@@ -420,7 +419,7 @@ The function to forecast the next value in the series is `Y=F(X)+E`, which can b
 |---|
 | <sub>519,23</sub> |
 
-### Markdown Toolset
+## Markdown Toolset
 
 Suggested toolset to view and edit this Markdown file:
 
