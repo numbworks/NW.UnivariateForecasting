@@ -1,9 +1,14 @@
 # NW.UnivariateForecasting
+Contact: numbworks@gmail.com
 
-**Author:** NW
-**Email:** numbworks [AT] gmail [DOT] com
+## Revision History
 
-### In Short:
+| Date | Author | Description |
+|---|---|---|
+| 2020-12-06 | numbworks | Created. |
+| 2020-12-22 | numbworks | Added Revision History. |
+
+## In Short
 
 **NW.UnivariateForecasting** is a **.NET Standard 2.0** library written in **C#** to perform Univariate Forecasting on your own values. 
 
@@ -20,7 +25,7 @@ The first one can predict only one step ahead, while the second one can predict 
 
 **NW.UnivariateForecasting** is available as source code and as NuGet package.
 
-### Quick Links
+## Quick Links
 
 - [Documentation](docs/Documentation-NW.UnivariateForecaster.md)
 - [LICENSE](LICENSE)
