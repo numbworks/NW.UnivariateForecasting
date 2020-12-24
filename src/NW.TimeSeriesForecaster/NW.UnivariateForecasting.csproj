@@ -5,12 +5,15 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Forecasts the next value for the provided SlidingWindow according to Univariate Forecasting. 
-Univariate Forecasting: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute."</Description>
-    <Copyright>NW 2020</Copyright>
-    <Authors>NW</Authors>
-    <PackageTags>MachineLearning Forecasting UnivariateForecasting TimeSeriesForecasting</PackageTags>
-    <PackageProjectUrl>https://github.com/numbworks</PackageProjectUrl>
+    <Description>NW.UnivariateForecasting is a .NET Standard 2.0 library written in C# to perform Univariate Forecasting on your own values. Time Series Forecasting is a machine learning technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("sliding window").</Description>
+    <Copyright>numbworks 2020</Copyright>
+    <Authors>numbworks</Authors>
+    <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
+    <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
+    <Company>numbworks</Company>
+    <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/numbworks/numbworks/master/numbworks_logo_64x64px.png</PackageIconUrl>
+    <PackageLicenseUrl>https://github.com/numbworks/NW.UnivariateForecasting/blob/main/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
