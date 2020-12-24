@@ -25,4 +25,4 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Push generated package to NuGet
       if: github.ref == 'refs/heads/main'
-      run: dotnet nuget push ${{env.working-directory}}/src/NW.TimeSeriesForecaster/bin/Release/*.nupkg --skip-duplicate --api-key ${{ secrets.Nuget }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ${{env.working-directory}}/src/NW.TimeSeriesForecaster/bin/Release/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
