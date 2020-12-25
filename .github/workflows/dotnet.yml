@@ -13,14 +13,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install dotnet SDK 3.1.x
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
     - name: Install dotnet SDK 2.1.x
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.1.23
+        dotnet-version: 2.1.x
+    - name: Install dotnet SDK 3.1.301
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
     - run:  dotnet --info
     - name: Restore dependencies
       run: dotnet restore -s https://api.nuget.org/v3/index.json --verbosity n
