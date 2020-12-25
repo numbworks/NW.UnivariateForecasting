@@ -38,4 +38,4 @@ jobs:
       
     - name: Display directory content
       working-directory: ./src/NW.TimeSeriesForecaster/bin/Release/
-      run: Get-ChildItem -Recurse
+      run: powershell "Get-ChildItem -Recurse"
