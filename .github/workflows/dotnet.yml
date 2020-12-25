@@ -37,4 +37,5 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       
     - name: Display directory content
-      run: Get-ChildItem -Recurse -Path .\src\NW.TimeSeriesForecaster\bin\Release\
+      working-directory: ./
+      run: Get-ChildItem -Recurse
