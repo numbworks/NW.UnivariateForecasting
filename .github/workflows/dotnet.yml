@@ -12,6 +12,35 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       
-    - name: Trying to understand working-directories
+    - name: Install dotnet SDK 2.1.x
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.x
+
+    - name: Install dotnet SDK 3.1.x
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Display installed SDKs
+      run:  dotnet --info
+      
+    - name: Restore dependencies
+      run: dotnet restore -s https://api.nuget.org/v3/index.json --verbosity n
+      
+    - name: Build
       working-directory: ./
-      run: ls
+      run: dotnet build --no-restore
+      
+    - name: Test
+      working-directory: ./
+      run: dotnet test --no-build --verbosity normal
+      
+    - name: Pack
+      working-directory: ./src/NW.TimeSeriesForecaster/
+      run: dotnet pack --no-build --configuration Release NW.UnivariateForecasting.csproj
+
+    - name: Push to NuGet.org
+      working-directory: ./src/NW.TimeSeriesForecaster/bin/Release/
+      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate      
+
