@@ -21,8 +21,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.23
-    - name: Show installed SDKs
-    - run:  dotnet --info      
+    - run:  dotnet --info
     - name: Restore dependencies
       run: dotnet restore -s https://api.nuget.org/v3/index.json --verbosity n
     - name: Build
