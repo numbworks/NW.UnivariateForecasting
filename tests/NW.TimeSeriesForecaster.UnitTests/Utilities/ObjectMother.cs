@@ -212,8 +212,10 @@ namespace NW.UnivariateForecasting.UnitTests
             SlidingWindowId = SlidingWindow1_Id
 
         };
-        internal static string Observation1_ToString = "[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190731:20190831:20190930:1:1', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
-        internal static string Observation1_ToStringOnlyDates = "[ Name: 'Total Monthly Sales USD', Interval: '20190731:20190831:20190930', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]";
+        internal static string Observation1_ToString 
+            = $"[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190731:20190831:20190930:1:1', X_Actual: '{632.94.ToString()}', C: '{0.82.ToString()}', E: '{0.22.ToString()}', Y_Forecasted: '{519.23.ToString()}', SlidingWindowId: 'SW20200906090516' ]";
+        internal static string Observation1_ToStringOnlyDates 
+            = $"[ Name: 'Total Monthly Sales USD', Interval: '20190731:20190831:20190930', X_Actual: '{632.94.ToString()}', C: '{0.82.ToString()}', E: '{0.22.ToString()}', Y_Forecasted: '{519.23.ToString()}', SlidingWindowId: 'SW20200906090516' ]";
         internal static Observation NewObservation = new Observation();
         internal static string NewObservation_ToString = "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]";
         internal static string NewObservation_ToStringOnlyDates = "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]";
@@ -334,7 +336,8 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static string NewSlidingWindow_ToStringRolloutItems = NewSlidingWindow_ToString;
 
         // SlidingWindowItemTests
-        internal static string SlidingWindow1_Item1_ToString = "[ Id: '1', Interval: '20190131:20190228:20190331', X_Actual: '58,5', Y_Forecasted: '615,26' ]";
+        internal static string SlidingWindow1_Item1_ToString 
+            = $"[ Id: '1', Interval: '20190131:20190228:20190331', X_Actual: '{58.5.ToString()}', Y_Forecasted: '{615.26.ToString()}' ]";
         internal static SlidingWindowItem NewSlidingWindowItem = new SlidingWindowItem();
         internal static string NewSlidingWindowItem_ToString = "[ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]";
 
