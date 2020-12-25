@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore -s https://api.nuget.org/ --verbosity n
     - name: Build
       run: dotnet build --no-restore
     - name: Test
