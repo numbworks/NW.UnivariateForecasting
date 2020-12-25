@@ -36,6 +36,10 @@ jobs:
       working-directory: ./
       run: dotnet test --no-build --verbosity normal
       
-    - name: Display directory content
-      working-directory: ./
-      run: Get-ChildItem -Recurse
+    - name: Pack
+      working-directory: ./src/NW.TimeSeriesForecaster/
+      run: dotnet pack --configuration Release NW.UnivariateForecasting.csproj
+
+    - name: Push to NuGet.org
+      working-directory: ./src/NW.TimeSeriesForecaster/bin/Release/
+      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate 
