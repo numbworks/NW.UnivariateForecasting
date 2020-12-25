@@ -17,6 +17,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+    - run:  dotnet --info
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.0
+    - run:  dotnet --info      
     - name: Restore dependencies
       run: dotnet restore -s https://api.nuget.org/v3/index.json --verbosity n
     - name: Build
