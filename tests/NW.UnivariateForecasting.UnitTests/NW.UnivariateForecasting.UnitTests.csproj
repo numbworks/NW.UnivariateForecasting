@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\NW.TimeSeriesForecaster\NW.UnivariateForecasting.csproj" />
+    <ProjectReference Include="..\..\src\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
   </ItemGroup>
 
   <ItemGroup>
