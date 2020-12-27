@@ -1,4 +1,6 @@
 # NW.UnivariateForecasting
+
+![codecoverage.svg](codecoverage.svg)
 Contact: numbworks@gmail.com
 
 ## Revision History
@@ -8,6 +10,7 @@ Contact: numbworks@gmail.com
 | 2020-12-06 | numbworks | Created. |
 | 2020-12-22 | numbworks | Added Revision History. |
 | 2020-12-26 | numbworks | Added Download* paragraphs. |
+| 2020-12-27 | numbworks | Added code coverage badge. |
 
 ## In Short
 
