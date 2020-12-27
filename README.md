@@ -1,6 +1,6 @@
 # NW.UnivariateForecasting
 
-![codecoverage.svg](codecoverage.svg)
+![codecoverage.svg](codecoverage.svg)<br>
 Contact: numbworks@gmail.com
 
 ## Revision History
