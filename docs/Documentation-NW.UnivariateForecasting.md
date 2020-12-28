@@ -13,6 +13,8 @@ Contact: numbworks@gmail.com
 
 ## Introduction
 
+`NW.UnivariateForecasting` is a `.NET Standard 2.0` library written in `C#` to perform `Univariate Forecasting` on your own values. 
+
 *Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
 
 For example, given the last six months of "*Total Monthly Sales USD*" of your company, you would like the machine to predict the amounts for the next x months. 
