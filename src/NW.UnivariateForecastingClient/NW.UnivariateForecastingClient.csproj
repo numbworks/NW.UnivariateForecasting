@@ -15,6 +15,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <Version>1.0.1</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>		
   </PropertyGroup>
 
   <ItemGroup>
