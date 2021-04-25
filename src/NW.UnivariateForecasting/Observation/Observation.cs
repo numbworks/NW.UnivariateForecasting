@@ -1,5 +1,8 @@
 ﻿namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// A data structure representing the next value of a certain <see cref="SlidingWindow"/> according to Univariate Forecasting.
+    /// </summary>
     public class Observation
     {
 
