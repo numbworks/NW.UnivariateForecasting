@@ -2,6 +2,9 @@
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// Collects all the global settings required by the library.
+    /// </summary>
     public class UnivariateForecastingSettings
     {
 
@@ -24,7 +27,7 @@ namespace NW.UnivariateForecasting
 
         // Constructors
         /// <summary>
-        /// If not provided, pre-definited functions and values are assigned. Hover the mouse over the parameters for details.
+        /// Initializes an instance of <see cref="UnivariateForecastingSettings"/>. Hover the mouse over the parameters for details.
         /// </summary>
         /// <param name="forecastingDenominator">Y_Forecasted = 0 in a <see cref="SlidingWindowItem"/> is a totally legit value. To avoid "divide-by-zero" error, we replace it with a comparably small amount while forecasting. Default: 0.001.</param>
         /// <param name="dummyId">For <see cref="SlidingWindow"/>. Default: "Dummy Id".</param>
@@ -53,6 +56,10 @@ namespace NW.UnivariateForecasting
             DummyIntervalUnit = dummyIntervalUnit;
 
         }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="UnivariateForecastingSettings"/> using default values.
+        /// </summary>
         public UnivariateForecastingSettings()
             : this(
                   DefaultForecastingDenominator,
