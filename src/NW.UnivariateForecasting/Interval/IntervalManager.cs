@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// Collects all the methods useful to manipulate an <see cref="Interval"/>.
+    /// </summary>
     public class IntervalManager : IIntervalManager
     {
 
@@ -130,6 +133,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 09.09.2020
+    Last Update: 25.04.2021
 
 */

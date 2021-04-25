@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// Collects all the methods useful to manipulate an <see cref="Interval"/>.
+    /// </summary>
     public interface IIntervalManager
     {
         DateTime CalculateNext(DateTime date, IntervalUnits unit, uint steps);
@@ -17,6 +20,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 20.08.2020
+    Last Update: 25.04.2021
 
 */
