@@ -286,6 +286,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 30.09.2020    
+    Last Update: 25.04.2021   
 
 */
