@@ -2,6 +2,10 @@
 
 namespace NW.UnivariateForecasting
 {
+
+    /// <summary>
+    /// Collects all the dependencies required by the library.
+    /// </summary>
     public class UnivariateForecastingComponents
     {
 
@@ -25,7 +29,9 @@ namespace NW.UnivariateForecasting
         public Action<string> LoggingAction { get; private set; }
 
         // Constructors
-        /// <summary></summary>
+        /// <summary>
+        /// Initializes an instance of <see cref="UnivariateForecastingComponents"/>. Hover the mouse over the parameters for details.
+        /// </summary>
         /// <param name="slidingWindowManager"></param>
         /// <param name="slidingWindowItemManager"></param>
         /// <param name="observationManager"></param>
@@ -73,6 +79,10 @@ namespace NW.UnivariateForecasting
             LoggingAction = loggingAction;
 
         }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="UnivariateForecastingComponents"/> using default values.
+        /// </summary>
         public UnivariateForecastingComponents()
             : this(
                   new SlidingWindowManager(),
@@ -93,6 +103,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.12.2020
+    Last Update: 25.04.2021
 
 */
