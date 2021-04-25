@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// A data structure representing a collection of values taken at successive equally spaced points in time.
+    /// </summary>
     public class SlidingWindow
     {
 
