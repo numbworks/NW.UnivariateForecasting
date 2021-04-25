@@ -5,22 +5,47 @@ using System.IO;
 namespace NW.UnivariateForecasting
 {
     /// <summary>
-    /// Forecasts the next value for the provided <see cref="SlidingWindow"/> according to Univariate Forecasting.
-    /// <para>Explaination: "[...] univariate refers to an expression, equation, function or polynomial of only one variable [...]
-    /// which consists of observations on only a single characteristic or attribute.".</para>     
+    /// Represents the library's entry-point.
     /// </summary>
     public interface IUnivariateForecaster
     {
 
+        /// <summary>
+        /// Forecasts the next value for the provided <see cref="SlidingWindow"/>.
+        /// </summary>
         Observation Forecast(SlidingWindow objSlidingWindow, double? C = null, double? E = null);
+
+        /// <summary>
+        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
+        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
+        /// </summary>
         SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null);
+
+        /// <summary>
+        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
+        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
+        /// </summary>
         SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null);
+
+        /// <summary>
+        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
+        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
+        /// </summary>
         SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, double? C = null, double? E = null);
+
+        /// <summary>
+        /// Forecasts the next value for the provided list of values.
+        /// </summary>
         double ForecastNextValue(List<double> values, double? C = null, double? E = null);
+
+        /// <summary>
+        /// Add the provided <see cref="Observation"/> to the provided <see cref="SlidingWindow"/> object.
+        /// </summary>
         SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation);
+
         List<double> ExtractXActualValues(SlidingWindow slidingWindow);
         List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
 
@@ -44,6 +69,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 06.12.2020
+    Last Update: 25.04.2021
 
 */
