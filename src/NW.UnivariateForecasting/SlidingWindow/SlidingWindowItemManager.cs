@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// Collects all the methods useful to manipulate an <see cref="SlidingWindowItem"/>.
+    /// </summary>
     public class SlidingWindowItemManager : ISlidingWindowItemManager
     {
 
@@ -11,6 +14,9 @@ namespace NW.UnivariateForecasting
 
         // Properties
         // Constructors
+        /// <summary>
+        /// Initializes an instance of <see cref="SlidingWindowItemManager"/>.
+        /// </summary>
         public SlidingWindowItemManager(IIntervalManager intervalManager)
         {
 
@@ -20,10 +26,17 @@ namespace NW.UnivariateForecasting
             _intervalManager = intervalManager;
 
         }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="SlidingWindowItemManager"/> using default values.
+        /// </summary>
         public SlidingWindowItemManager()
             : this(new IntervalManager()) { }
 
         // Methods (public)
+        /// <summary>
+        /// Creates a <seealso cref="SlidingWindowItem"/> object.
+        /// </summary>
         public SlidingWindowItem CreateItem(
             uint id, Interval interval, double X_Actual, double? Y_Forecasted)
         {
@@ -41,6 +54,10 @@ namespace NW.UnivariateForecasting
             };
 
         }
+
+        /// <summary>
+        /// Creates a <seealso cref="SlidingWindowItem"/> object.
+        /// </summary>
         public SlidingWindowItem CreateItem(
             uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted)
         {
@@ -63,6 +80,10 @@ namespace NW.UnivariateForecasting
             return CreateItem(id, interval, X_Actual, Y_Forecasted);
 
         }
+
+        /// <summary>
+        /// Creates a collection of <seealso cref="SlidingWindowItem"/> objects.
+        /// </summary>
         public List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, IntervalUnits intervalUnit)
         {
 
@@ -76,6 +97,10 @@ namespace NW.UnivariateForecasting
             return CreateItemsIfMonths(startDate, values);
 
         }
+
+        /// <summary>
+        /// Checks the properties of the provided <seealso cref="SlidingWindowItem"/> object for validity.
+        /// </summary>
         public bool IsValid(SlidingWindowItem slidingWindowItem)
         {
 
@@ -167,6 +192,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 27.09.2020
+    Last Update: 25.04.2021
 
 */
