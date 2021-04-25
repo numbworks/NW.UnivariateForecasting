@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// Collects all the methods useful to manipulate an <see cref="Observation"/>.
+    /// </summary>
     public class ObservationManager : IObservationManager
     {
 
@@ -15,6 +18,9 @@ namespace NW.UnivariateForecasting
         private Action<string> _loggingAction;
 
         // Constructors
+        /// <summary>
+        /// Initializes an instance of <see cref="ObservationManager"/>.
+        /// </summary>
         public ObservationManager(
             UnivariateForecastingSettings settings,
             IIntervalManager intervalManager,
@@ -41,6 +47,10 @@ namespace NW.UnivariateForecasting
             _loggingAction = loggingAction;
 
         }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="ObservationManager"/> using default values.
+        /// </summary>
         public ObservationManager()
             : this(
                   new UnivariateForecastingSettings(),
@@ -51,6 +61,10 @@ namespace NW.UnivariateForecasting
                   ) { }
 
         // Methods (public)
+
+        /// <summary>
+        /// Calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
+        /// </summary>
         public Observation Create(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 
@@ -83,6 +97,10 @@ namespace NW.UnivariateForecasting
             return observation;
 
         }
+
+        /// <summary>
+        /// Checks the properties of the provided <seealso cref="Observation"/> object for validity.
+        /// </summary>
         public bool IsValid(Observation observation)
         {
 
