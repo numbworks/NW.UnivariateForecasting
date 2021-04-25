@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace NW.UnivariateForecasting
 {
+    /// <summary>
+    /// Collects all the methods useful to manipulate an <see cref="SlidingWindow"/>.
+    /// </summary>
     public class SlidingWindowManager : ISlidingWindowManager
     {
 
@@ -16,6 +19,9 @@ namespace NW.UnivariateForecasting
 
         // Properties
         // Constructors
+        /// <summary>
+        /// Initializes an instance of <see cref="SlidingWindowManager"/>.
+        /// </summary>
         public SlidingWindowManager(
             UnivariateForecastingSettings settings,
             IIntervalManager intervalManager,
@@ -42,6 +48,10 @@ namespace NW.UnivariateForecasting
             _loggingAction = loggingAction;
 
         }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="SlidingWindowManager"/> using default values.
+        /// </summary>
         public SlidingWindowManager()
             : this(
                   new UnivariateForecastingSettings(),
@@ -52,6 +62,9 @@ namespace NW.UnivariateForecasting
                   ) { }
 
         // Methods (public)
+        /// <summary>
+        /// Creates a <seealso cref="SlidingWindow"/> object.
+        /// </summary>
         public SlidingWindow Create
             (string id, string observationName, Interval interval, List<SlidingWindowItem> items)
         {
@@ -90,6 +103,10 @@ namespace NW.UnivariateForecasting
             return slidingWindow;
 
         }
+
+        /// <summary>
+        /// Creates a <seealso cref="SlidingWindow"/> object.
+        /// </summary>
         public SlidingWindow Create
             (string id, string observationName, List<double> values, uint steps, IntervalUnits intervalUnit, DateTime startDate)
         {
@@ -110,6 +127,10 @@ namespace NW.UnivariateForecasting
             return Create(id, observationName, interval, items);
 
         }
+
+        /// <summary>
+        /// Creates a <seealso cref="SlidingWindow"/> object out of the <seealso cref="UnivariateForecastingSettings"/> properties.
+        /// </summary>
         public SlidingWindow Create(List<double> values)
         {
 
@@ -123,6 +144,10 @@ namespace NW.UnivariateForecasting
                 );
 
         }
+
+        /// <summary>
+        /// Checks the properties of the provided <seealso cref="SlidingWindow"/> object for validity.
+        /// </summary>
         public bool IsValid(SlidingWindow slidingWindow)
         {
 
@@ -192,6 +217,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
+    Last Update: 25.04.2021
 
 */
