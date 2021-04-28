@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 
 namespace NW.UnivariateForecasting
 {
     public static class MessageCollection
     {
+
+        // Validator
+        public static Func<string, string, string> Validator_FirstValueIsGreaterOrEqualThanSecondValue
+            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater or equal than '{variableName2}''s value.";
+        public static Func<string, string, string> Validator_FirstValueIsGreaterThanSecondValue
+            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater than '{variableName2}''s value.";
+        public static Func<string, string> Validator_VariableContainsZeroItems
+            = (variableName) => $"'{variableName}' contains zero items.";
+        public static Func<string, string> Validator_VariableCantBeLessThanOne
+            = (variableName) => $"'{variableName}' can't be less than one.";
 
         // ObservationManager
         public static Func<Type, string> ProvidedTypeObjectNotValid { get; } 

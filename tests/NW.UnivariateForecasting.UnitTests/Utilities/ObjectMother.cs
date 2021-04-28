@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -709,6 +710,25 @@ namespace NW.UnivariateForecasting.UnitTests
                     fakeWriteAllText: () => { }
                 );
 
+        // ValidatorTests
+        internal static string[] Validator_Array1 = new[] { "Dodge", "Datsun", "Jaguar", "DeLorean" };
+        internal static Car Validator_Object1 = new Car()
+        {
+            Brand = "Dodge",
+            Model = "Charger",
+            Year = 1966,
+            Price = 13500,
+            Currency = "USD"
+        };
+        internal static uint Validator_Length1 = 3;
+        internal static string Validator_VariableName_Variable = "variable";
+        internal static string Validator_VariableName_Length = "length";
+        internal static string Validator_VariableName_N = "n";
+        internal static List<string> List1 = Validator_Array1.ToList();
+        internal static ushort N1 = (ushort)Validator_Length1;
+        internal static string Validator_String1 = "Dodge";
+        internal static string Validator_StringOnlyWhiteSpaces = "   ";
+
         // Methods
         internal static bool AreEqual(Interval obj1, Interval obj2)
         {
@@ -804,6 +824,17 @@ namespace NW.UnivariateForecasting.UnitTests
                         && string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
                         && AreEqual(obj1.Interval, obj2.Interval)
                         && AreEqual(obj1.Items, obj2.Items);
+
+        }
+        internal static void Method_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+        {
+
+            // Arrange
+            // Act
+            // Assert
+            Exception actual = Assert.Throws(expectedType, del);
+            Assert.AreEqual(expectedMessage, actual.Message);
 
         }
 
