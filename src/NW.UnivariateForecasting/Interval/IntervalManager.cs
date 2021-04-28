@@ -18,10 +18,8 @@ namespace NW.UnivariateForecasting
         public Interval Create(uint size, IntervalUnits unit, DateTime startDate, uint steps)
         {
 
-            if (size < 1)
-                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(size)));
-            if (steps < 1)
-                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
+            Validator.ThrowIfLessThanOne(size, nameof(size));
+            Validator.ThrowIfLessThanOne(steps, nameof(steps));
             if (size % steps != 0)
                 throw new ArgumentException(MessageCollection.DividingSizeByStepsMustReturnWholeNumber);
 
@@ -40,8 +38,7 @@ namespace NW.UnivariateForecasting
         public DateTime CalculateNext(DateTime date, IntervalUnits unit, uint steps)
         {
 
-            if (steps < 1)
-                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
+            Validator.ThrowIfLessThanOne(steps, nameof(steps));
             if (unit != IntervalUnits.Months)
                 throw new ArgumentException(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
 

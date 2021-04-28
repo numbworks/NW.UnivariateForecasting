@@ -107,28 +107,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(validateListExceptionTestCases)}_02"),
 
         };
-        private static TestCaseData[] validateNExceptionTestCases =
-        {
-
-            // ValidateN<T>
-            new TestCaseData(
-                new TestDelegate(
-                        () => Validator.ValidateN<Exception>(0)
-                    ),
-                typeof(Exception),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N)
-                ).SetArgDisplayNames($"{nameof(validateNExceptionTestCases)}_01"),
-
-            // ValidateN
-            new TestCaseData(
-                new TestDelegate(
-                        () => Validator.ValidateN(0)
-                    ),
-                typeof(ArgumentException),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N)
-                ).SetArgDisplayNames($"{nameof(validateNExceptionTestCases)}_02")
-
-        };
         private static TestCaseData[] validateStringNullOrWhiteSpaceExceptionTestCases =
         {
 
@@ -226,6 +204,28 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrEmptyTestCases)}_02")
 
         };
+        private static TestCaseData[] throwIfLessThanOneExceptionTestCases =
+        {
+
+            // ValidateN<T>
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfLessThanOne<Exception>(0, ObjectMother.Validator_VariableName_N)
+                    ),
+                typeof(Exception),
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N)
+                ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_01"),
+
+            // ValidateN
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfLessThanOne(0, ObjectMother.Validator_VariableName_N)
+                    ),
+                typeof(ArgumentException),
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N)
+                ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_02")
+
+        };
 
         // SetUp
         // Tests
@@ -245,16 +245,16 @@ namespace NW.UnivariateForecasting.UnitTests
         public void ValidateList_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
-        [TestCaseSource(nameof(validateNExceptionTestCases))]
-        public void ValidateN_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [TestCaseSource(nameof(validateStringNullOrWhiteSpaceExceptionTestCases))]
         public void ValidateStringNullOrWhiteSpace_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [TestCaseSource(nameof(validateStringNullOrEmptyExceptionTestCases))]
         public void ValidateStringNullOrEmpty_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+        [TestCaseSource(nameof(throwIfLessThanOneExceptionTestCases))]
+        public void ThrowIfLessThanOne_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
@@ -289,13 +289,6 @@ namespace NW.UnivariateForecasting.UnitTests
                     });
 
         [Test]
-        public void ValidateN_ShouldDoNothing_WhenProperArgument()
-            => Method_ShouldDoNothing_WhenProperArgument(
-                    new Action[] {
-                        () => Validator.ValidateN(ObjectMother.N1)
-                    });
-
-        [Test]
         public void ValidateStringNullOrWhiteSpace_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
@@ -321,6 +314,13 @@ namespace NW.UnivariateForecasting.UnitTests
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
                         () => Validator.ThrowIfFirstIsGreater(3, "n1", 4, "n2")
+                    });
+
+        [Test]
+        public void ThrowIfLessThanOne_ShouldDoNothing_WhenProperArgument()
+            => Method_ShouldDoNothing_WhenProperArgument(
+                    new Action[] {
+                        () => Validator.ThrowIfLessThanOne(ObjectMother.Validator_Value, nameof(ObjectMother.Validator_Value))
                     });
 
         // TearDown
@@ -353,6 +353,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 08.01.2021
+    Last Update: 28.04.2021
 
 */

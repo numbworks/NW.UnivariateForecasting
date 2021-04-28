@@ -73,16 +73,6 @@ namespace NW.UnivariateForecasting
 
         }
 
-        public static void ValidateN<T>(ushort n) where T : Exception
-        {
-
-            if (n < 1)
-                throw CreateException<T>(MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(nameof(n)));
-
-        }
-        public static void ValidateN(ushort n)
-            => ValidateN<ArgumentException>(n);
-
         public static void ValidateStringNullOrWhiteSpace<T>(string str, string variableName) where T : Exception
         {
 
@@ -120,6 +110,15 @@ namespace NW.UnivariateForecasting
         }
         public static void ThrowIfFirstIsGreater(int value1, string variableName1, int value2, string variableName2)
             => ThrowIfFirstIsGreater<ArgumentException>(value1, variableName1, value2, variableName2);
+        public static void ThrowIfLessThanOne<T>(uint value, string variableName) where T : Exception
+        {
+
+            if (value < 1)
+                throw CreateException<T>(MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(variableName));
+
+        }
+        public static void ThrowIfLessThanOne(uint value, string variableName)
+            => ThrowIfLessThanOne<ArgumentException>(value, variableName);
 
         // Methods (private)
         private static T CreateException<T>(string message) where T : Exception
@@ -131,6 +130,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 01.01.2020
+    Last Update: 28.04.2021
 
 */

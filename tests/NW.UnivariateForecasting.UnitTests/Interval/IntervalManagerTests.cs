@@ -22,9 +22,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_StartDate,
                                 1)),
                 typeof(ArgumentException),
-                MessageCollection.VariableCantBeLessThanOne.Invoke("size")
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("size")
                 ).SetDescription(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke("size")),
+                        MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("size")),
 
             new TestCaseData(
                 new TestDelegate(
@@ -35,9 +35,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_StartDate,
                                 0)),
                 typeof(ArgumentException),
-                MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke("steps")),
+                        MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")),
 
             new TestCaseData(
                 new TestDelegate(
@@ -65,9 +65,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_IntervalUnit,
                                 0)),
                 typeof(ArgumentException),
-                MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke("steps")),
+                        MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")),
 
             new TestCaseData(
                 new TestDelegate(

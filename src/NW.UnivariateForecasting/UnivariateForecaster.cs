@@ -69,8 +69,7 @@ namespace NW.UnivariateForecasting
 
             if (!_components.SlidingWindowManager.IsValid(slidingWindow))
                 throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
-            if (steps < 1)
-                throw new ArgumentException(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(steps)));
+            Validator.ThrowIfLessThanOne(steps, nameof(steps));
 
             _components.LoggingAction.Invoke(MessageCollection.RunningForecastAndCombineForSteps.Invoke(steps));
 

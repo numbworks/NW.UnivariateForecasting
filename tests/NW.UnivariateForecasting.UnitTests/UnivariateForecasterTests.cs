@@ -115,7 +115,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             0
                         )),
                 typeof(ArgumentException),
-                MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
                 )
 
         };
