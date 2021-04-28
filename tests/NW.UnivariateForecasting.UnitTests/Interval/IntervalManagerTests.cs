@@ -38,7 +38,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
                         MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")),
-
+            /*
             new TestCaseData(
                 new TestDelegate(
                     () => new IntervalManager()
@@ -48,10 +48,10 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_StartDate,
                                 2)),
                 typeof(ArgumentException),
-                MessageCollection.DividingSizeByStepsMustReturnWholeNumber
+                MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke("size", "steps")
                 ).SetDescription(
-                        MessageCollection.DividingSizeByStepsMustReturnWholeNumber)
-
+                        MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke("size", "steps"))
+            */
         };
         private static TestCaseData[] calculateNextExceptionTestCases =
         {

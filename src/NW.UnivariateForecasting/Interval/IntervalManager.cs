@@ -20,8 +20,7 @@ namespace NW.UnivariateForecasting
 
             Validator.ThrowIfLessThanOne(size, nameof(size));
             Validator.ThrowIfLessThanOne(steps, nameof(steps));
-            if (size % steps != 0)
-                throw new ArgumentException(MessageCollection.DividingSizeByStepsMustReturnWholeNumber);
+            Validator.ThrowIfModuloIsNotZero(size, nameof(size), steps, nameof(steps));
 
             Interval interval = new Interval();
             interval.Size = size;
@@ -130,6 +129,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021
+    Last Update: 28.04.2021
 
 */

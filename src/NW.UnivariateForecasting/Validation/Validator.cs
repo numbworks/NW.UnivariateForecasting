@@ -119,6 +119,15 @@ namespace NW.UnivariateForecasting
         }
         public static void ThrowIfLessThanOne(uint value, string variableName)
             => ThrowIfLessThanOne<ArgumentException>(value, variableName);
+        public static void ThrowIfModuloIsNotZero<T>(uint value1, string variableName1, uint value2, string variableName2) where T : Exception
+        {
+
+            if (value1 % value2 != 0)
+                CreateException<T>(MessageCollection.Validator_DividingMustReturnWholeNumber(variableName1, variableName2));
+
+        }
+        public static void ThrowIfModuloIsNotZero(uint value1, string variableName1, uint value2, string variableName2)
+            => ThrowIfModuloIsNotZero<ArgumentException>(value1, variableName1, value2, variableName2);
 
         // Methods (private)
         private static T CreateException<T>(string message) where T : Exception

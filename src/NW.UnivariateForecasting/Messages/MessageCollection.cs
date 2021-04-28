@@ -16,6 +16,8 @@ namespace NW.UnivariateForecasting
             = (variableName) => $"'{variableName}' contains zero items.";
         public static Func<string, string> Validator_VariableCantBeLessThanOne
             = (variableName) => $"'{variableName}' can't be less than one.";
+        public static Func<string, string, string> Validator_DividingMustReturnWholeNumber { get; }
+            = (variableName1, variableName2) => $"Dividing '{variableName1}' by '{variableName2}' must return a whole number.";
 
         // ObservationManager
         public static Func<Type, string> ProvidedTypeObjectNotValid { get; } 
@@ -32,8 +34,6 @@ namespace NW.UnivariateForecasting
         // IntervalManager
         public static Func<string, string> VariableCantBeEmptyOrNull { get; }
             = (variableName) => $"'{variableName}' can't be empty or null.";
-        public static string DividingSizeByStepsMustReturnWholeNumber { get; }
-            = "Dividing size by steps must return a whole number.";
         public static Func<string, string> ProvidedIntervalUnitNotSupported { get; }
             = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
         public static string SubIntervalsCantBeLessThanTwo { get; }
