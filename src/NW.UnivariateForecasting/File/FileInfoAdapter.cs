@@ -69,8 +69,7 @@ namespace NW.UnivariateForecasting
         public FileInfoAdapter(FileInfo fileInfo)
         {
 
-            if (fileInfo == null)
-                throw new ArgumentNullException(nameof(fileInfo));
+            Validator.ValidateObject(fileInfo, nameof(fileInfo));
 
             _fileInfo = fileInfo;
 
@@ -132,6 +131,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 23.11.2020
+    Last Update: 28.04.2021
 
 */
