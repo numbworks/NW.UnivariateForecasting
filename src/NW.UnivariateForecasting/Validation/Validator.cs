@@ -147,6 +147,15 @@ namespace NW.UnivariateForecasting
         }
         public static void ValidateSubIntervals(Interval interval)
             => ValidateSubIntervals<ArgumentException>(interval);
+        public static void ValidateFileExistance<T>(IFileInfoAdapter file) where T : Exception
+        {
+
+            if (!file.Exists)
+                throw CreateException<T>(MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(file));
+
+        }
+        public static void ValidateFileExistance(IFileInfoAdapter file)
+            => ValidateFileExistance<ArgumentException>(file);
 
         // Methods (private)
         private static T CreateException<T>(string message) where T : Exception

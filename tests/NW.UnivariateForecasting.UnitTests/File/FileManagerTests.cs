@@ -35,7 +35,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         () => new FileManager().ReadAllLines(ObjectMother.FileInfoAdapter_DoesntExist)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
                 ),
 
             new TestCaseData(
@@ -66,7 +66,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         () => new FileManager().ReadAllText(ObjectMother.FileInfoAdapter_DoesntExist)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
                 ),
 
             new TestCaseData(

@@ -22,6 +22,8 @@ namespace NW.UnivariateForecasting
             = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
         public static string Validator_SubIntervalsCantBeLessThanTwo { get; }
             = "Subintervals can't be less than two";
+        public static Func<IFileInfoAdapter, string> Validator_ProvidedPathDoesntExist
+            = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
 
         // ObservationManager
         public static Func<Type, string> ProvidedTypeObjectNotValid { get; } 
@@ -108,8 +110,6 @@ namespace NW.UnivariateForecasting
             = "The provided file has been successfully deserialized.";
 
         // FileManager
-        public static Func<IFileInfoAdapter, string> ProvidedPathDoesntExist
-            = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
         public static Func<IFileInfoAdapter, Exception, string> NotPossibleToRead
             = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
         public static Func<IFileInfoAdapter, Exception, string> NotPossibleToWrite

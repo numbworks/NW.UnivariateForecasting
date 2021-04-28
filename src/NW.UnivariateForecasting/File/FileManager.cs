@@ -15,8 +15,7 @@ namespace NW.UnivariateForecasting
         public FileManager(IFileAdapter fileAdapter)
         {
 
-            if (fileAdapter == null)
-                throw new ArgumentNullException(nameof(fileAdapter));
+            Validator.ValidateObject(fileAdapter, nameof(fileAdapter));
 
             _fileAdapter = fileAdapter;
 
@@ -32,10 +31,8 @@ namespace NW.UnivariateForecasting
         public IEnumerable<string> ReadAllLines(IFileInfoAdapter file)
         {
 
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
-            if (!file.Exists)
-                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
+            Validator.ValidateObject(file, nameof(file));
+            Validator.ValidateFileExistance(file);
 
             try
             {
@@ -54,10 +51,8 @@ namespace NW.UnivariateForecasting
         public string ReadAllText(IFileInfoAdapter file)
         {
 
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
-            if (!file.Exists)
-                throw new ArgumentException(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
+            Validator.ValidateObject(file, nameof(file));
+            Validator.ValidateFileExistance(file);
 
             try
             {
@@ -76,8 +71,7 @@ namespace NW.UnivariateForecasting
         public void WriteAllLines(IFileInfoAdapter file, IEnumerable<string> content)
         {
 
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
+            Validator.ValidateObject(file, nameof(file));
 
             try
             {
@@ -96,8 +90,7 @@ namespace NW.UnivariateForecasting
         public void WriteAllText(IFileInfoAdapter file, string content)
         {
 
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
+            Validator.ValidateObject(file, nameof(file));
 
             try
             {
@@ -126,6 +119,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 06.12.2020
+    Last Update: 28.04.2021
 
 */
