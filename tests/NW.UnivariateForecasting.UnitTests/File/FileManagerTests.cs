@@ -136,68 +136,28 @@ namespace NW.UnivariateForecasting.UnitTests
         // Tests
         [TestCaseSource(nameof(fileManagerExceptionTestCases))]
         public void FileManager_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expected, string nessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception actual = Assert.Throws(expected, del);
-            Assert.AreEqual(nessage, actual.Message);
-
-        }
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(readAllLinesExceptionTestCases))]
         public void ReadAllLines_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expected, string message)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception actual = Assert.Throws(expected, del);
-            Assert.AreEqual(message, actual.Message);
-
-        }
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(readAllTextExceptionTestCases))]
         public void ReadAllText_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expected, string message)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception actual = Assert.Throws(expected, del);
-            Assert.AreEqual(message, actual.Message);
-
-        }
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(writeAllLinesExceptionTestCases))]
         public void WriteAllLines_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expected, string message)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception actual = Assert.Throws(expected, del);
-            Assert.AreEqual(message, actual.Message);
-
-        }
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(writeAllTextExceptionTestCases))]
         public void WriteAllText_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expected, string message)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception actual = Assert.Throws(expected, del);
-            Assert.AreEqual(message, actual.Message);
-
-        }
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
         public void ReadAllLines_ShouldReturnStrings_WhenFileExists()
@@ -286,6 +246,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 06.12.2020
+    Last Update: 28.04.2021
 
 */
