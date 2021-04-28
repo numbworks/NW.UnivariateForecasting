@@ -38,7 +38,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
                 ).SetDescription(
                         MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")),
-            /*
+
             new TestCaseData(
                 new TestDelegate(
                     () => new IntervalManager()
@@ -51,7 +51,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke("size", "steps")
                 ).SetDescription(
                         MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke("size", "steps"))
-            */
+
         };
         private static TestCaseData[] calculateNextExceptionTestCases =
         {
@@ -77,11 +77,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.NonExistantIntervalUnit,
                                 1)),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
+                MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(
                             ObjectMother.NonExistantIntervalUnit.ToString())
                 ).SetDescription(
-                        MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
-                            ObjectMother.NonExistantIntervalUnit.ToString())),
+                        MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(
+                            ObjectMother.NonExistantIntervalUnit.ToString()))
 
         };
         private static TestCaseData[] calculateSubIntervalsExceptionTestCases =
@@ -104,9 +104,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 .CalculateSubIntervals(
                                         ObjectMother.SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
                 typeof(ArgumentException),
-                MessageCollection.SubIntervalsCantBeLessThanTwo
+                MessageCollection.Validator_SubIntervalsCantBeLessThanTwo
                 ).SetDescription(
-                        MessageCollection.SubIntervalsCantBeLessThanTwo)
+                        MessageCollection.Validator_SubIntervalsCantBeLessThanTwo)
 
         };
         private static TestCaseData[] createTestCases =

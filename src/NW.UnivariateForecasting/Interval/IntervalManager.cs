@@ -38,10 +38,9 @@ namespace NW.UnivariateForecasting
         {
 
             Validator.ThrowIfLessThanOne(steps, nameof(steps));
-            if (unit != IntervalUnits.Months)
-                throw new ArgumentException(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
+            Validator.ValidateIntervalUnit(unit);
 
-            return AddMonths(date, steps);           
+            return AddMonths(date, steps);
 
         }
         public bool IsEndOfTheMonth(DateTime datetime)
@@ -74,8 +73,7 @@ namespace NW.UnivariateForecasting
 
             if (!IsValid(interval))
                 throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
-            if (interval.SubIntervals < 2)
-                throw new ArgumentException(MessageCollection.SubIntervalsCantBeLessThanTwo);
+            Validator.ValidateSubIntervals(interval);
 
             List<Interval> subIntervals = new List<Interval>();
             for (int i = 0; i < interval.Size; i++)

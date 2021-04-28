@@ -84,7 +84,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.NonExistantIntervalUnit
                         )),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString())
+                MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString())
                 )
 
         };
@@ -160,7 +160,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                                     ObjectMother.SlidingWindow1_Item1.Y_Forecasted);
             Type expectedType = typeof(ArgumentException);
             string expectedMessage 
-                = MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString());
+                = MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString());
 
             // Act
             // Assert

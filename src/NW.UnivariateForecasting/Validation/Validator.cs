@@ -123,11 +123,30 @@ namespace NW.UnivariateForecasting
         {
 
             if (value1 % value2 != 0)
-                CreateException<T>(MessageCollection.Validator_DividingMustReturnWholeNumber(variableName1, variableName2));
+                throw CreateException<T>(MessageCollection.Validator_DividingMustReturnWholeNumber(variableName1, variableName2));
 
         }
         public static void ThrowIfModuloIsNotZero(uint value1, string variableName1, uint value2, string variableName2)
             => ThrowIfModuloIsNotZero<ArgumentException>(value1, variableName1, value2, variableName2);
+
+        public static void ValidateIntervalUnit<T>(IntervalUnits unit) where T : Exception
+        {
+
+            if (unit != IntervalUnits.Months)
+                throw CreateException<T>(MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
+
+        }
+        public static void ValidateIntervalUnit(IntervalUnits unit)
+            => ValidateIntervalUnit<ArgumentException>(unit);
+        public static void ValidateSubIntervals<T>(Interval interval) where T : Exception
+        {
+
+            if (interval.SubIntervals < 2)
+                throw CreateException<T>(MessageCollection.Validator_SubIntervalsCantBeLessThanTwo);
+
+        }
+        public static void ValidateSubIntervals(Interval interval)
+            => ValidateSubIntervals<ArgumentException>(interval);
 
         // Methods (private)
         private static T CreateException<T>(string message) where T : Exception
