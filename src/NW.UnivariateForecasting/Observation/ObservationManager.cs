@@ -29,16 +29,11 @@ namespace NW.UnivariateForecasting
             Action<string> loggingAction)
         {
 
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-            if (intervalManager == null)
-                throw new ArgumentNullException(nameof(intervalManager));
-            if (slidingWindowManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowManager));
-            if (roundingFunction == null)
-                throw new ArgumentNullException(nameof(roundingFunction));
-            if (loggingAction == null)
-                throw new ArgumentNullException(nameof(loggingAction));
+            Validator.ValidateObject(settings, nameof(settings));
+            Validator.ValidateObject(intervalManager, nameof(intervalManager));
+            Validator.ValidateObject(slidingWindowManager, nameof(slidingWindowManager));
+            Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
+            Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
             _settings = settings;
             _intervalManager = intervalManager;
@@ -286,6 +281,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021   
+    Last Update: 28.04.2021  
 
 */
