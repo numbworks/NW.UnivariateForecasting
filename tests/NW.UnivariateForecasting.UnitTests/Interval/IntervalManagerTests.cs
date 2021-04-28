@@ -206,48 +206,24 @@ namespace NW.UnivariateForecasting.UnitTests
                     }
                 )
 
-        }; 
+        };
 
         // SetUp
         // Tests
         [TestCaseSource(nameof(createExceptionTestCases))]
         public void Create_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(calculateNextExceptionTestCases))]
         public void CalculateNext_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(calculateSubIntervalsExceptionTestCases))]
         public void CalculateSubIntervals_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedInterval_WhenProperArguments
@@ -342,6 +318,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 09.09.2020
+    Last Update: 28.04.2021
 
 */
