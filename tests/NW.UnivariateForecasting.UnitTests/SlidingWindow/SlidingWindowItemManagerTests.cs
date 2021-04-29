@@ -12,9 +12,20 @@ namespace NW.UnivariateForecasting.UnitTests
         private static TestCaseData[] isValidTestCases =
         {
 
-            new TestCaseData(null, false),
-            new TestCaseData(ObjectMother.SlidingWindowItem_InvalidDueOfSize, false),
-            new TestCaseData(ObjectMother.SlidingWindow1_Item1, true)
+            new TestCaseData(
+                null, 
+                false
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
+
+            new TestCaseData(
+                ObjectMother.SlidingWindowItem_InvalidDueOfSize, 
+                false
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
+
+            new TestCaseData(
+                ObjectMother.SlidingWindow1_Item1, 
+                true
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03")
 
         };
         private static TestCaseData[] slidingWindowItemManagerExceptionTestCases =
@@ -25,7 +36,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new SlidingWindowItemManager(null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("intervalManager").Message
-                )
+                ).SetArgDisplayNames($"{nameof(slidingWindowItemManagerExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] createItemExceptionTestCases =
@@ -36,7 +47,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
                 typeof(ArgumentException),
                 MessageCollection.IntervalManager_IntervalNullOrInvalid
-                )
+                ).SetArgDisplayNames($"{nameof(createItemExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] createItemTestCases =
@@ -48,7 +59,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.SlidingWindow1_Item1_XActual,
                 ObjectMother.SlidingWindow1_Item1_YForecasted,
                 ObjectMother.SlidingWindow1_Item1
-                )
+                ).SetArgDisplayNames($"{nameof(createItemTestCases)}_01")
 
         };
         private static TestCaseData[] createItemsExceptionTestCases =
@@ -63,7 +74,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -74,7 +85,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
-                ),
+                ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -85,7 +96,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.NonExistantIntervalUnit.ToString())
-                )
+                ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_03")
 
         };
 
