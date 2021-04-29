@@ -723,7 +723,8 @@ namespace NW.UnivariateForecasting.UnitTests
         internal static uint Validator_Length1 = 3;
         internal static string Validator_VariableName_Variable = "variable";
         internal static string Validator_VariableName_Length = "length";
-        internal static string Validator_VariableName_N = "n";
+        internal static string Validator_VariableName_N1 = "n1";
+        internal static string Validator_VariableName_N2 = "n2";
         internal static List<string> List1 = Validator_Array1.ToList();
         internal static uint Validator_Value = Validator_Length1;
         internal static string Validator_String1 = "Dodge";

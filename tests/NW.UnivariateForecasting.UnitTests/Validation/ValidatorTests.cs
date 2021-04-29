@@ -207,23 +207,96 @@ namespace NW.UnivariateForecasting.UnitTests
         private static TestCaseData[] throwIfLessThanOneExceptionTestCases =
         {
 
-            // ValidateN<T>
+            // ThrowIfLessThanOne<T>
             new TestCaseData(
                 new TestDelegate(
-                        () => Validator.ThrowIfLessThanOne<Exception>(0, ObjectMother.Validator_VariableName_N)
+                        () => Validator.ThrowIfLessThanOne<Exception>(0, ObjectMother.Validator_VariableName_N1)
                     ),
                 typeof(Exception),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N)
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_01"),
 
-            // ValidateN
+            // ThrowIfLessThanOne
             new TestCaseData(
                 new TestDelegate(
-                        () => Validator.ThrowIfLessThanOne(0, ObjectMother.Validator_VariableName_N)
+                        () => Validator.ThrowIfLessThanOne(0, ObjectMother.Validator_VariableName_N1)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N)
+                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(ObjectMother.Validator_VariableName_N1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_02")
+
+        };
+        private static TestCaseData[] throwIfFirstIsGreaterExceptionTestCases =
+        {
+
+            // ThrowIfFirstIsGreater<T>
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfFirstIsGreater<Exception>(
+                                4, 
+                                ObjectMother.Validator_VariableName_N1,
+                                1,
+                                ObjectMother.Validator_VariableName_N2)
+                    ),
+                typeof(Exception),
+                MessageCollection.Validator_FirstValueIsGreaterThanSecondValue.Invoke(
+                                        ObjectMother.Validator_VariableName_N1,
+                                        ObjectMother.Validator_VariableName_N2
+                                    )
+                ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterExceptionTestCases)}_01"),
+
+            // ThrowIfFirstIsGreater
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfFirstIsGreater(
+                                4,
+                                ObjectMother.Validator_VariableName_N1,
+                                1,
+                                ObjectMother.Validator_VariableName_N2)
+                    ),
+                typeof(ArgumentException),
+                MessageCollection.Validator_FirstValueIsGreaterThanSecondValue.Invoke(
+                                        ObjectMother.Validator_VariableName_N1,
+                                        ObjectMother.Validator_VariableName_N2
+                                    )
+                ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterExceptionTestCases)}_02")
+
+        };
+
+        private static TestCaseData[] throwIfFirstIsGreaterOrEqualExceptionTestCases =
+                {
+
+            // ThrowIfFirstIsGreater<T>
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfFirstIsGreaterOrEqual<Exception>(
+                                4,
+                                ObjectMother.Validator_VariableName_N1,
+                                1,
+                                ObjectMother.Validator_VariableName_N2)
+                    ),
+                typeof(Exception),
+                MessageCollection.Validator_FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
+                                        ObjectMother.Validator_VariableName_N1,
+                                        ObjectMother.Validator_VariableName_N2
+                                    )
+                ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterOrEqualExceptionTestCases)}_01"),
+
+            // ThrowIfFirstIsGreater
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfFirstIsGreaterOrEqual(
+                                4,
+                                ObjectMother.Validator_VariableName_N1,
+                                1,
+                                ObjectMother.Validator_VariableName_N2)
+                    ),
+                typeof(ArgumentException),
+                MessageCollection.Validator_FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
+                                        ObjectMother.Validator_VariableName_N1,
+                                        ObjectMother.Validator_VariableName_N2
+                                    )
+                ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterOrEqualExceptionTestCases)}_02")
 
         };
 
@@ -233,28 +306,44 @@ namespace NW.UnivariateForecasting.UnitTests
         public void ValidateLength_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
         [TestCaseSource(nameof(validateObjectExceptionTestCases))]
         public void ValidateObject_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
         [TestCaseSource(nameof(validateArrayExceptionTestCases))]
         public void ValidateArray_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
         [TestCaseSource(nameof(validateListExceptionTestCases))]
         public void ValidateList_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
         [TestCaseSource(nameof(validateStringNullOrWhiteSpaceExceptionTestCases))]
         public void ValidateStringNullOrWhiteSpace_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
         [TestCaseSource(nameof(validateStringNullOrEmptyExceptionTestCases))]
         public void ValidateStringNullOrEmpty_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
         [TestCaseSource(nameof(throwIfLessThanOneExceptionTestCases))]
         public void ThrowIfLessThanOne_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
+        [TestCaseSource(nameof(throwIfFirstIsGreaterExceptionTestCases))]
+        public void ThrowIfFirstIsGreater_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
+        [TestCaseSource(nameof(throwIfFirstIsGreaterOrEqualExceptionTestCases))]
+        public void ThrowIfFirstIsGreaterOrEqual_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
