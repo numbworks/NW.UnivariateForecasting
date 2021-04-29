@@ -90,8 +90,6 @@ namespace NW.UnivariateForecasting
             = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
         public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
             = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
-        public static Func<IFileInfoAdapter, string> ProvidedFileDoesntExist
-            = (fileInfoAdapter) => $"The provided file doesn't exist: '{nameof(fileInfoAdapter.FullName)}'.";
         public static Func<IFileInfoAdapter, string> SerializingProvidedSlidingWindowAsJsonAndSavingItTo
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(SlidingWindow).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
         public static Func<IFileInfoAdapter, string> SerializingProvidedObservationAsJsonAndSavingItTo

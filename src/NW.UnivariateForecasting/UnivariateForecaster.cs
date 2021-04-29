@@ -27,10 +27,8 @@ namespace NW.UnivariateForecasting
             UnivariateForecastingComponents components)
         {
 
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-            if (components == null)
-                throw new ArgumentNullException(nameof(components));
+            Validator.ValidateObject(settings, nameof(settings));
+            Validator.ValidateObject(components, nameof(components));
 
             _settings = settings;
             _components = components;
@@ -216,10 +214,8 @@ namespace NW.UnivariateForecasting
         public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, IFileInfoAdapter fileInfoAdapter)
         {
 
-            if (slidingWindow == null)
-                throw new ArgumentNullException(nameof(slidingWindow));
-            if (fileInfoAdapter == null)
-                throw new ArgumentNullException(nameof(fileInfoAdapter));
+            Validator.ValidateObject(slidingWindow, nameof(slidingWindow));
+            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
 
             _components.LoggingAction.Invoke(MessageCollection.SerializingProvidedSlidingWindowAsJsonAndSavingItTo.Invoke(fileInfoAdapter));
 
@@ -235,10 +231,8 @@ namespace NW.UnivariateForecasting
         public void SaveObservationAsJson(Observation observation, IFileInfoAdapter fileInfoAdapter)
         {
 
-            if (observation == null)
-                throw new ArgumentNullException(nameof(observation));
-            if (fileInfoAdapter == null)
-                throw new ArgumentNullException(nameof(fileInfoAdapter));
+            Validator.ValidateObject(observation, nameof(observation));
+            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
 
             _components.LoggingAction.Invoke(MessageCollection.SerializingProvidedObservationAsJsonAndSavingItTo.Invoke(fileInfoAdapter));
 
@@ -255,10 +249,8 @@ namespace NW.UnivariateForecasting
         public SlidingWindow LoadSlidingWindowFromJson(IFileInfoAdapter fileInfoAdapter)
         {
 
-            if (fileInfoAdapter == null)
-                throw new ArgumentNullException(nameof(fileInfoAdapter));
-            if (!fileInfoAdapter.Exists)
-                throw new ArgumentException(MessageCollection.ProvidedFileDoesntExist.Invoke(fileInfoAdapter));
+            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
+            Validator.ValidateFileExistance(fileInfoAdapter);
 
             _components.LoggingAction.Invoke(MessageCollection.DeserializingProvidedFileAsSlidingWindowObject.Invoke(fileInfoAdapter));
 
@@ -275,10 +267,8 @@ namespace NW.UnivariateForecasting
         public Observation LoadObservationFromJson(IFileInfoAdapter fileInfoAdapter)
         {
 
-            if (fileInfoAdapter == null)
-                throw new ArgumentNullException(nameof(fileInfoAdapter));
-            if (!fileInfoAdapter.Exists)
-                throw new ArgumentException(MessageCollection.ProvidedFileDoesntExist.Invoke(fileInfoAdapter));
+            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
+            Validator.ValidateFileExistance(fileInfoAdapter);
 
             _components.LoggingAction.Invoke(MessageCollection.DeserializingProvidedFileAsObservationObject.Invoke(fileInfoAdapter));
 
@@ -398,6 +388,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021
+    Last Update: 29.04.2021
 
 */

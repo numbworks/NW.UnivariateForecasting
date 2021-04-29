@@ -457,7 +457,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .LoadSlidingWindowFromJson(
                                 ObjectMother.FileInfoAdapter_DoesntExist)),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedFileDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
                 )
 
         };
@@ -479,7 +479,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .LoadObservationFromJson(
                                 ObjectMother.FileInfoAdapter_DoesntExist)),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedFileDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
                 )
 
         };
