@@ -145,8 +145,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 new List<SlidingWindowItem>()
                                 )),
                 typeof(ArgumentException),
-                MessageCollection.VariableContainsZeroItems.Invoke("items")
-                ).SetDescription(MessageCollection.VariableContainsZeroItems.Invoke("items")),
+                MessageCollection.Validator_VariableContainsZeroItems.Invoke("items")
+                ).SetDescription(MessageCollection.Validator_VariableContainsZeroItems.Invoke("items")),
 
             new TestCaseData(
                 new TestDelegate(
@@ -189,8 +189,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_StartDate
                                 )),
                 typeof(ArgumentException),
-                MessageCollection.VariableContainsZeroItems.Invoke("values")
-                ).SetDescription(MessageCollection.VariableContainsZeroItems.Invoke("values"))
+                MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
+                ).SetDescription(MessageCollection.Validator_VariableContainsZeroItems.Invoke("values"))
 
         };
         private static TestCaseData[] isValidTestCases =

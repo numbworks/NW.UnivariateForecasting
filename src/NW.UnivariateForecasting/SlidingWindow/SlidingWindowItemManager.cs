@@ -20,8 +20,7 @@ namespace NW.UnivariateForecasting
         public SlidingWindowItemManager(IIntervalManager intervalManager)
         {
 
-            if (intervalManager == null)
-                throw new ArgumentNullException(nameof(intervalManager));
+            Validator.ValidateObject(intervalManager, nameof(intervalManager));
 
             _intervalManager = intervalManager;
 
@@ -61,6 +60,7 @@ namespace NW.UnivariateForecasting
         public SlidingWindowItem CreateItem(
             uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted)
         {
+
             if (intervalUnit != IntervalUnits.Months)
                 throw new ArgumentException(MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
@@ -87,12 +87,8 @@ namespace NW.UnivariateForecasting
         public List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, IntervalUnits intervalUnit)
         {
 
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-            if (values.Count == 0)
-                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
-            if (intervalUnit != IntervalUnits.Months)
-                throw new ArgumentException(MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
+            Validator.ValidateList(values, nameof(values));
+            Validator.ValidateIntervalUnit(intervalUnit);
 
             return CreateItemsIfMonths(startDate, values);
 
@@ -192,6 +188,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021
+    Last Update: 29.04.2021
 
 */

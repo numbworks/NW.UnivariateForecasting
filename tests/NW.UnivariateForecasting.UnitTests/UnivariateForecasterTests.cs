@@ -133,7 +133,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.UnivariateForecaster_Default.ForecastNextValue(new List<double>() { })),
                 typeof(ArgumentException),
-                MessageCollection.VariableContainsZeroItems.Invoke("values")
+                MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
                 )
 
         };

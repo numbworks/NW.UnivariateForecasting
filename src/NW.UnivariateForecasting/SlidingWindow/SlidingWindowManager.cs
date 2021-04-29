@@ -75,10 +75,7 @@ namespace NW.UnivariateForecasting
                 throw new ArgumentException(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(observationName)));
             if (!_intervalManager.IsValid(interval))
                 throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
-            if (items.Count == 0)
-                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(items)));
+            Validator.ValidateList(items, nameof(items));
             if (items.Count != interval.SubIntervals)
                 throw new ArgumentException(MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
 
@@ -111,10 +108,7 @@ namespace NW.UnivariateForecasting
             (string id, string observationName, List<double> values, uint steps, IntervalUnits intervalUnit, DateTime startDate)
         {
 
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-            if (values.Count == 0)
-                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
+            Validator.ValidateList(values, nameof(values));
 
             _loggingAction.Invoke(MessageCollection.CreatingIntervalOutOfFollowingArguments);
             _loggingAction.Invoke(MessageCollection.ProvidedValuesAre.Invoke(values));

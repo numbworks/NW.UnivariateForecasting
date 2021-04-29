@@ -42,8 +42,6 @@ namespace NW.UnivariateForecasting
             = (variableName) => $"'{variableName}' can't be empty or null.";
         public static string IntervalNullOrInvalid { get; }
             = "The provided interval is null or invalid.";
-        public static Func<string, string> VariableContainsZeroItems{ get; }
-            = (variableName) => $"'{variableName}' contains zero items.";
         public static Func<int, Interval, string> ItemsDontMatchSubintervals { get; }
             = (items, interval) => $"The number of items ('{items.ToString()}') doesn't match with the expected number of subintervals ('{interval.SubIntervals.ToString()}').";
 

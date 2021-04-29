@@ -73,7 +73,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.SlidingWindow1_Item1.Interval.Unit
                         )),
                 typeof(ArgumentException),
-                MessageCollection.VariableContainsZeroItems.Invoke("values")
+                MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
                 ),
 
             new TestCaseData(

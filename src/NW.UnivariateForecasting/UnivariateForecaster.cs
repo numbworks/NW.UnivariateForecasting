@@ -123,10 +123,7 @@ namespace NW.UnivariateForecasting
         public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
         {
 
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-            if (values.Count == 0)
-                throw new ArgumentException(MessageCollection.VariableContainsZeroItems.Invoke(nameof(values)));
+            Validator.ValidateList(values, nameof(values));
 
             _components.LoggingAction.Invoke(MessageCollection.ForecastNextValueRunningForProvidedValues.Invoke(values));
 
