@@ -20,7 +20,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             components: new UnivariateForecastingComponents())),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("settings").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecasterExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -29,7 +29,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             components: null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("components").Message
-                )
+                ).SetArgDisplayNames($"{nameof(univariateForecasterExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] forecastExceptionTestCases =
@@ -42,7 +42,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                )
+                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] extractXActualValuesExceptionTestCases =
@@ -55,7 +55,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                )
+                ).SetArgDisplayNames($"{nameof(extractXActualValuesExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] extractStartDatesExceptionTestCases =
@@ -68,7 +68,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                )
+                ).SetArgDisplayNames($"{nameof(extractStartDatesExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] combineExceptionTestCases =
@@ -82,7 +82,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(Observation))
-                ),
+                ).SetArgDisplayNames($"{nameof(combineExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -92,7 +92,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                )
+                ).SetArgDisplayNames($"{nameof(combineExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] forecastAndCombineExceptionTestCases =
@@ -106,7 +106,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastAndCombineExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -116,7 +116,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentException),
                 MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
-                )
+                ).SetArgDisplayNames($"{nameof(forecastAndCombineExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] forecastNextValueExceptionTestCases =
@@ -127,14 +127,14 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.UnivariateForecaster_Default.ForecastNextValue(null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => ObjectMother.UnivariateForecaster_Default.ForecastNextValue(new List<double>() { })),
                 typeof(ArgumentException),
                 MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
-                )
+                ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] forecastTestCases =
@@ -149,7 +149,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
                     }
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastTestCases)}_01"),
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
@@ -160,7 +160,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
                     }
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastTestCases)}_02")
 
         };
         private static TestCaseData[] extractXActualValuesTestCases =
@@ -173,7 +173,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.UnivariateForecaster_ExtractingValuesOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.UnivariateForecaster_ValuesHaveBeenSuccessfullyExtracted.Invoke(ObjectMother.SlidingWindow1_Values)
                     }
-                )
+                ).SetArgDisplayNames($"{nameof(extractXActualValuesTestCases)}_01")
 
         };
         private static TestCaseData[] extractStartDatesTestCases =
@@ -186,7 +186,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.UnivariateForecaster_ExtractingStartDatesOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.UnivariateForecaster_StartDatesHaveBeenSuccessfullyExtracted.Invoke(ObjectMother.SlidingWindow1_StartDates)
                     }
-                )
+                ).SetArgDisplayNames($"{nameof(extractStartDatesTestCases)}_01")
 
         };
         private static TestCaseData[] combineTestCases =
@@ -202,7 +202,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.UnivariateForecaster_ProvidedObservationIs.Invoke(ObjectMother.Observation1),
                     MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final)
                     }
-                )
+                ).SetArgDisplayNames($"{nameof(combineTestCases)}_01")
 
         };
         private static TestCaseData[] forecastAndCombineTestCases =
@@ -230,7 +230,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.UnivariateForecaster_ForecastAndCombineSuccessfullyRunForSteps.Invoke(1),
                     MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final)
                     }
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastAndCombineTestCases)}_01"),
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
@@ -254,7 +254,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.UnivariateForecaster_ForecastAndCombineSuccessfullyRunForSteps.Invoke(1),
                     MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps1_Final)
                     }
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastAndCombineTestCases)}_02"),
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
@@ -298,7 +298,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.UnivariateForecaster_ForecastAndCombineSuccessfullyRunForSteps.Invoke(3),
                     MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.FaCSteps3_Final)
                     }
-                )
+                ).SetArgDisplayNames($"{nameof(forecastAndCombineTestCases)}_03")
 
         };
         private static TestCaseData[] forecastNextValueTestCases =
@@ -325,7 +325,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1_WithDefaultDummyFields),
                     MessageCollection.UnivariateForecaster_ForecastNextValueSuccessfullyRun.Invoke(ObjectMother.Observation1.Y_Forecasted)
                     }
-                ),
+                ).SetArgDisplayNames($"{nameof(forecastNextValueTestCases)}_01"),
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1_Values,
@@ -348,7 +348,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1_WithDefaultDummyFields),
                     MessageCollection.UnivariateForecaster_ForecastNextValueSuccessfullyRun.Invoke(ObjectMother.Observation1.Y_Forecasted)
                     }
-                )
+                ).SetArgDisplayNames($"{nameof(forecastNextValueTestCases)}_02")
 
         };
         private static TestCaseData[] saveSlidingWindowAsJsonExceptionTestCases =
@@ -362,7 +362,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.FileInfoAdapter_DoesntExist)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindow").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(saveSlidingWindowAsJsonExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -372,7 +372,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (IFileInfoAdapter)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileInfoAdapter").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(saveSlidingWindowAsJsonExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -382,7 +382,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (FileInfo)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileInfo").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(saveSlidingWindowAsJsonExceptionTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -392,7 +392,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (string)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileName").Message
-                )
+                ).SetArgDisplayNames($"{nameof(saveSlidingWindowAsJsonExceptionTestCases)}_04")
 
         };
         private static TestCaseData[] saveObservationAsJsonExceptionTestCases =
@@ -406,7 +406,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.FileInfoAdapter_DoesntExist)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("observation").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(saveObservationAsJsonExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -416,7 +416,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (IFileInfoAdapter)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileInfoAdapter").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(saveObservationAsJsonExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -426,7 +426,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (FileInfo)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileInfo").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(saveObservationAsJsonExceptionTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -436,7 +436,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (string)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileName").Message
-                )
+                ).SetArgDisplayNames($"{nameof(saveObservationAsJsonExceptionTestCases)}_04")
 
         };
         private static TestCaseData[] loadSlidingWindowFromJsonExceptionTestCases =
@@ -449,7 +449,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (IFileInfoAdapter)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileInfoAdapter").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(loadSlidingWindowFromJsonExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -458,7 +458,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.FileInfoAdapter_DoesntExist)),
                 typeof(ArgumentException),
                 MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
-                )
+                ).SetArgDisplayNames($"{nameof(loadSlidingWindowFromJsonExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] loadObservationFromJsonExceptionTestCases =
@@ -471,7 +471,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 (IFileInfoAdapter)null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileInfoAdapter").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(loadObservationFromJsonExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -480,7 +480,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.FileInfoAdapter_DoesntExist)),
                 typeof(ArgumentException),
                 MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
-                )
+                ).SetArgDisplayNames($"{nameof(loadObservationFromJsonExceptionTestCases)}_02")
 
         };
 
