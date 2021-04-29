@@ -23,7 +23,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("settings").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -36,7 +36,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("intervalManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -49,7 +49,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindowManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -62,7 +62,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_04"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -75,7 +75,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                )
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_05")
 
         };
         private static TestCaseData[] createExceptionTestCases =
@@ -87,17 +87,36 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                ).SetDescription(MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)))
+                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] isValidTestCases =
         {
 
-            new TestCaseData(null, false),
-            new TestCaseData(ObjectMother.Observation_InvalidDueOfNullName, false),
-            new TestCaseData(ObjectMother.Observation_InvalidDueOfNullInterval, false),
-            new TestCaseData(ObjectMother.Observation_InvalidDueOfNullSlidingWindow, false),
-            new TestCaseData(ObjectMother.Observation1, true)
+            new TestCaseData(
+                null, 
+                false
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
+
+            new TestCaseData(
+                ObjectMother.Observation_InvalidDueOfNullName, 
+                false
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
+
+            new TestCaseData(
+                ObjectMother.Observation_InvalidDueOfNullInterval, 
+                false
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
+
+            new TestCaseData(
+                ObjectMother.Observation_InvalidDueOfNullSlidingWindow, 
+                false
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
+
+            new TestCaseData(
+                ObjectMother.Observation1, 
+                true
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05")
 
         };
         private static TestCaseData[] createTestCases =
@@ -112,7 +131,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
                     }
-                ),
+                ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
@@ -123,7 +142,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
                     MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1withCustomCE)
                     }
-                )
+                ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
         };
 
@@ -188,6 +207,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 28.04.2021
+    Last Update: 29.04.2021
 
 */
