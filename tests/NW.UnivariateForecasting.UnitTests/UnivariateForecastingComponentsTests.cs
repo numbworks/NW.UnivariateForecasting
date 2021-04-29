@@ -153,16 +153,8 @@ namespace NW.UnivariateForecasting.UnitTests
         // Tests
         [TestCaseSource(nameof(univariateForecastingComponentsExceptionsTestCases))]
         public void UnivariateForecastingComponents_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type tyExpected, string strMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(tyExpected, del);
-            Assert.AreEqual(strMessage, objActual.Message);
-
-        }
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         // TearDown
         // Support methods
@@ -173,6 +165,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 04.12.2020
+    Last Update: 29.04.2021
 
 */
