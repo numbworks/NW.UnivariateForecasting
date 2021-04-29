@@ -16,7 +16,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate( () => new FileManager(null) ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileAdapter").Message
-                )
+                ).SetArgDisplayNames($"{nameof(fileManagerExceptionTestCases)}_01"),
 
         };
         private static TestCaseData[] readAllLinesExceptionTestCases =
@@ -28,7 +28,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -36,7 +36,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
-                ),
+                ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -47,7 +47,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.FileManager_NotPossibleToRead.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
-                )
+                ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_03")
 
         };
         private static TestCaseData[] readAllTextExceptionTestCases =
@@ -59,7 +59,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -67,7 +67,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
-                ),
+                ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -78,7 +78,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.FileManager_NotPossibleToRead.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
-                )
+                ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_03")
 
         };
         private static TestCaseData[] writeAllLinesExceptionTestCases =
@@ -90,7 +90,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(writeAllLinesExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -103,7 +103,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.FileManager_NotPossibleToWrite.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
-                )
+                ).SetArgDisplayNames($"{nameof(writeAllLinesExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] writeAllTextExceptionTestCases =
@@ -115,7 +115,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(writeAllTextExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -128,7 +128,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.FileManager_NotPossibleToWrite.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
-                )
+                ).SetArgDisplayNames($"{nameof(writeAllTextExceptionTestCases)}_02")
 
         };
 
