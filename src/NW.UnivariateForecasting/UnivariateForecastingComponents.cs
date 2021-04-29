@@ -52,22 +52,14 @@ namespace NW.UnivariateForecasting
             )
         {
 
-            if (slidingWindowManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowManager));
-            if (slidingWindowItemManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowItemManager));
-            if (observationManager == null)
-                throw new ArgumentNullException(nameof(observationManager));
-            if (intervalManager == null)
-                throw new ArgumentNullException(nameof(intervalManager));
-            if (fileManager == null)
-                throw new ArgumentNullException(nameof(fileManager));
-            if (idCreationFunction == null)
-                throw new ArgumentNullException(nameof(idCreationFunction));
-            if (roundingFunction == null)
-                throw new ArgumentNullException(nameof(roundingFunction));
-            if (loggingAction == null)
-                throw new ArgumentNullException(nameof(loggingAction));
+            Validator.ValidateObject(slidingWindowManager, nameof(slidingWindowManager));
+            Validator.ValidateObject(slidingWindowItemManager, nameof(slidingWindowItemManager));
+            Validator.ValidateObject(observationManager, nameof(observationManager));
+            Validator.ValidateObject(intervalManager, nameof(intervalManager));
+            Validator.ValidateObject(fileManager, nameof(fileManager));
+            Validator.ValidateObject(idCreationFunction, nameof(idCreationFunction));
+            Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
+            Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
             ObservationManager = observationManager;
             SlidingWindowManager = slidingWindowManager;
@@ -103,6 +95,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021
+    Last Update: 29.04.2021
 
 */
