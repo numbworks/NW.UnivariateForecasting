@@ -34,15 +34,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(univariateForecastingSettingsExceptionTestCases))]
         public void UnivariateForecastingSettings_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         // TearDown
         // Support methods
@@ -53,6 +45,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
+    Last Update: 29.04.2021
 
 */
