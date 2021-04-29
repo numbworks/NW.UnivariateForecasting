@@ -1,3 +1,9 @@
+v1.1.1
+- Only internal refactorings, no changes to the public API.
+- Removed validation logic from single classes and delegated to Validator class.
+- *Tests classes: reduced cyclomatic complexity by using Method_ShouldThrowACertainException_WhenUnproperArguments().
+- *Tests classes: added SetArgDisplayNames() to TestCaseData objects.
+
 v1.1.0
 - Added/updated XML documentation for all the classes.
 
