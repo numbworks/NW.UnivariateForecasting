@@ -26,87 +26,87 @@ namespace NW.UnivariateForecasting
             = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
 
         // ObservationManager
-        public static Func<Type, string> ProvidedTypeObjectNotValid { get; } 
+        public static Func<Type, string> ObservationManager_ProvidedTypeObjectNotValid { get; } 
             = (type) => $"The provided {type.Name} object is not valid.";
-        public static Func<SlidingWindow, string> CreatingObservationOutOfProvidedSlidingWindow { get; }
+        public static Func<SlidingWindow, string> ObservationManager_CreatingObservationOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Creating an {typeof(Observation).Name} out of the provided {typeof(SlidingWindow).Name}: '{slidingWindow.ToString(false)}'...";
-        public static Func<Observation, string> FollowingObservationHasBeenCreated { get; }
+        public static Func<Observation, string> ObservationManager_FollowingObservationHasBeenCreated { get; }
             = (observation) => $"The following {typeof(Observation).Name} has been created: '{observation.ToString(false)}'.";
 
         // UnivariateForecastingSettings
-        public static Func<string, double, string> DenominatorCantBeLessThan { get; } 
+        public static Func<string, double, string> UnivariateForecastingSettings_DenominatorCantBeLessThan { get; } 
             = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
 
         // IntervalManager
-        public static string IntervalNullOrInvalid { get; }
+        public static string IntervalManager_IntervalNullOrInvalid { get; }
             = "The provided interval is null or invalid.";
-        public static Func<int, Interval, string> ItemsDontMatchSubintervals { get; }
+        public static Func<int, Interval, string> IntervalManager_ItemsDontMatchSubintervals { get; }
             = (items, interval) => $"The number of items ('{items.ToString()}') doesn't match with the expected number of subintervals ('{interval.SubIntervals.ToString()}').";
 
         // SlidingWindowManager
-        public static string CreatingSlidingWindowOutOfFollowingArguments { get; }
+        public static string SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments { get; }
             = $"Creating a {typeof(SlidingWindow).Name} out of the provided arguments...";
-        public static Func<string, string> ProvidedIdIs { get; }
+        public static Func<string, string> SlidingWindowManager_ProvidedIdIs { get; }
             = (id) => $"The provided {nameof(SlidingWindow.Id)} is: '{id}'.";
-        public static Func<string, string> ProvidedObservationNameIs { get; }
+        public static Func<string, string> SlidingWindowManager_ProvidedObservationNameIs { get; }
             = (observationName) => $"The provided {nameof(SlidingWindow.ObservationName)} is: '{observationName}'.";
-        public static Func<Interval, string> ProvidedIntervalIs { get; }
+        public static Func<Interval, string> SlidingWindowManager_ProvidedIntervalIs { get; }
             = (interval) => $"The provided {nameof(SlidingWindow.Interval)} is: '{interval.ToString()}'.";
-        public static Func<List<SlidingWindowItem>, string> ProvidedItemsCountIs { get; }
+        public static Func<List<SlidingWindowItem>, string> SlidingWindowManager_ProvidedItemsCountIs { get; }
             = (items) => $"The provided {nameof(SlidingWindow.Items)} count is: '{items.Count.ToString()}'.";
-        public static string CreatingIntervalOutOfFollowingArguments { get; }
+        public static string SlidingWindowManager_CreatingIntervalOutOfFollowingArguments { get; }
             = $"Creating a {typeof(Interval).Name} out of the provided arguments...";
-        public static Func<List<double>, string> ProvidedValuesAre { get; }
+        public static Func<List<double>, string> SlidingWindowManager_ProvidedValuesAre { get; }
             = (values) => $"The provided values are: '{RollOutCollection(values)}'.";
-        public static Func<uint, string> ProvidedStepsAre { get; }
+        public static Func<uint, string> SlidingWindowManager_ProvidedStepsAre { get; }
             = (steps) => $"The provided steps are: '{steps.ToString()}'.";
-        public static Func<IntervalUnits, string> ProvidedIntervalUnitsIs { get; }
+        public static Func<IntervalUnits, string> SlidingWindowManager_ProvidedIntervalUnitsIs { get; }
             = (intervalUnits) => $"The provided {typeof(IntervalUnits).Name} is: '{intervalUnits}'.";
-        public static Func<SlidingWindow, string> FollowingSlidingWindowHasBeenCreated { get; }
+        public static Func<SlidingWindow, string> SlidingWindowManager_FollowingSlidingWindowHasBeenCreated { get; }
             = (slidingWindow) => $"The following {typeof(SlidingWindow).Name} has been created: '{slidingWindow.ToString(true)}'.";
 
         // UnivariateForecaster
-        public static Func<SlidingWindow, string> ExtractingValuesOutOfProvidedSlidingWindow { get; }
+        public static Func<SlidingWindow, string> UnivariateForecaster_ExtractingValuesOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Extracting X_Values out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
-        public static Func<List<double>, string> ValuesHaveBeenSuccessfullyExtracted { get; }
+        public static Func<List<double>, string> UnivariateForecaster_ValuesHaveBeenSuccessfullyExtracted { get; }
             = (values) => $"X_Values have been successfully extracted: '{RollOutCollection(values)}'.";
-        public static Func<SlidingWindow, string> ExtractingStartDatesOutOfProvidedSlidingWindow { get; }
+        public static Func<SlidingWindow, string> UnivariateForecaster_ExtractingStartDatesOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Extracting StartDates out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
-        public static Func<List<DateTime>, string> StartDatesHaveBeenSuccessfullyExtracted { get; }
+        public static Func<List<DateTime>, string> UnivariateForecaster_StartDatesHaveBeenSuccessfullyExtracted { get; }
             = (startDates) => $"StartDates have been successfully extracted: '{startDates.Count.ToString()}'.";
-        public static Func<uint, string> RunningForecastAndCombineForSteps { get; }
+        public static Func<uint, string> UnivariateForecaster_RunningForecastAndCombineForSteps { get; }
             = (steps) => $"Running '{nameof(UnivariateForecaster.ForecastAndCombine)}' for '{steps}' steps...";
-        public static Func<uint, string> ForecastingAndCombineForStepNr { get; }
+        public static Func<uint, string> UnivariateForecaster_ForecastingAndCombineForStepNr { get; }
             = (steps) => $"Forecasting and combine for step nr. '{steps}'...";
-        public static Func<uint, string> ForecastAndCombineSuccessfullyRunForSteps { get; }
+        public static Func<uint, string> UnivariateForecaster_ForecastAndCombineSuccessfullyRunForSteps { get; }
             = (steps) => $"'{nameof(UnivariateForecaster.ForecastAndCombine)}' has been successfully run for '{steps}' steps.";
-        public static string CombiningProvidedSlidingWindowWithObservation { get; }
+        public static string UnivariateForecaster_CombiningProvidedSlidingWindowWithObservation { get; }
             = $"Combining the provided '{nameof(SlidingWindow)}' with the provided '{nameof(Observation)}'...";
-        public static Func<SlidingWindow, string> ProvidedSlidingWindowIs { get; }
+        public static Func<SlidingWindow, string> UnivariateForecaster_ProvidedSlidingWindowIs { get; }
             = (slidingWindow) => $"The provided '{nameof(SlidingWindow)}' is: '{slidingWindow.ToString(false)}'.";
-        public static Func<Observation, string> ProvidedObservationIs { get; }
+        public static Func<Observation, string> UnivariateForecaster_ProvidedObservationIs { get; }
             = (observation) => $"The provided '{nameof(Observation)}' is: '{observation.ToString(true)}'.";
-        public static Func<List<double>, string> ForecastNextValueRunningForProvidedValues { get; }
+        public static Func<List<double>, string> UnivariateForecaster_ForecastNextValueRunningForProvidedValues { get; }
             = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
-        public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
+        public static Func<double, string> UnivariateForecaster_ForecastNextValueSuccessfullyRun { get; }
             = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue.ToString()}'.";
-        public static Func<IFileInfoAdapter, string> SerializingProvidedSlidingWindowAsJsonAndSavingItTo
+        public static Func<IFileInfoAdapter, string> UnivariateForecaster_SerializingProvidedSlidingWindowAsJsonAndSavingItTo
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(SlidingWindow).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
-        public static Func<IFileInfoAdapter, string> SerializingProvidedObservationAsJsonAndSavingItTo
+        public static Func<IFileInfoAdapter, string> UnivariateForecaster_SerializingProvidedObservationAsJsonAndSavingItTo
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(Observation).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
-        public static string ProvidedObjectHasBeenSuccessfullySavedAsJson 
+        public static string UnivariateForecaster_ProvidedObjectHasBeenSuccessfullySavedAsJson 
             = "The provided object has been successfully saved as JSON.";
-        public static Func<IFileInfoAdapter, string> DeserializingProvidedFileAsSlidingWindowObject
+        public static Func<IFileInfoAdapter, string> UnivariateForecaster_DeserializingProvidedFileAsSlidingWindowObject
             = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(SlidingWindow).Name}' object...";
-        public static Func<IFileInfoAdapter, string> DeserializingProvidedFileAsObservationObject
+        public static Func<IFileInfoAdapter, string> UnivariateForecaster_DeserializingProvidedFileAsObservationObject
             = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(Observation).Name}' object...";
-        public static string ProvidedFileHasBeenSuccessfullyDeserialized
+        public static string UnivariateForecaster_ProvidedFileHasBeenSuccessfullyDeserialized
             = "The provided file has been successfully deserialized.";
 
         // FileManager
-        public static Func<IFileInfoAdapter, Exception, string> NotPossibleToRead
+        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToRead
             = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
-        public static Func<IFileInfoAdapter, Exception, string> NotPossibleToWrite
+        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToWrite
             = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
 
         private static string RollOutCollection(List<double> coll)
@@ -129,6 +129,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 06.12.2020
+    Last Update: 29.04.2021
 
 */

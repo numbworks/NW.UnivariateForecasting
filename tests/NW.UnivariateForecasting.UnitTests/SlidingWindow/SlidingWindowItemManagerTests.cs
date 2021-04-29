@@ -35,7 +35,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
                 typeof(ArgumentException),
-                MessageCollection.IntervalNullOrInvalid
+                MessageCollection.IntervalManager_IntervalNullOrInvalid
                 )
 
         };

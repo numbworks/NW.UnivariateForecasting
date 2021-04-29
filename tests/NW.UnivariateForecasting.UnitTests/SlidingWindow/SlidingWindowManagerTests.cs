@@ -119,8 +119,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Items
                                 )),
                 typeof(ArgumentException),
-                MessageCollection.IntervalNullOrInvalid
-                ).SetDescription(MessageCollection.IntervalNullOrInvalid),
+                MessageCollection.IntervalManager_IntervalNullOrInvalid
+                ).SetDescription(MessageCollection.IntervalManager_IntervalNullOrInvalid),
 
             new TestCaseData(
                 new TestDelegate(
@@ -158,8 +158,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
                                 )),
                 typeof(ArgumentException),
-                MessageCollection.ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)
-                ).SetDescription(MessageCollection.ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)),
+                MessageCollection.IntervalManager_ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)
+                ).SetDescription(MessageCollection.IntervalManager_ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)),
 
             // Second Create()
             new TestCaseData(
@@ -218,16 +218,16 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.SlidingWindow1_StartDate,
                 ObjectMother.SlidingWindow1,
                 new List<string>() {
-                    MessageCollection.CreatingIntervalOutOfFollowingArguments,
-                    MessageCollection.ProvidedValuesAre.Invoke(ObjectMother.SlidingWindow1_Values),
-                    MessageCollection.ProvidedStepsAre.Invoke(ObjectMother.SlidingWindow1_Steps),
-                    MessageCollection.ProvidedIntervalUnitsIs.Invoke(ObjectMother.SlidingWindow1_IntervalUnit),
-                    MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
-                    MessageCollection.ProvidedIdIs.Invoke(ObjectMother.SlidingWindow1_Id),
-                    MessageCollection.ProvidedObservationNameIs.Invoke(ObjectMother.SlidingWindow1_ObservationName),
-                    MessageCollection.ProvidedIntervalIs.Invoke(ObjectMother.SlidingWindow1_Interval),
-                    MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_Items),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1)
+                    MessageCollection.SlidingWindowManager_CreatingIntervalOutOfFollowingArguments,
+                    MessageCollection.SlidingWindowManager_ProvidedValuesAre.Invoke(ObjectMother.SlidingWindow1_Values),
+                    MessageCollection.SlidingWindowManager_ProvidedStepsAre.Invoke(ObjectMother.SlidingWindow1_Steps),
+                    MessageCollection.SlidingWindowManager_ProvidedIntervalUnitsIs.Invoke(ObjectMother.SlidingWindow1_IntervalUnit),
+                    MessageCollection.SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments,
+                    MessageCollection.SlidingWindowManager_ProvidedIdIs.Invoke(ObjectMother.SlidingWindow1_Id),
+                    MessageCollection.SlidingWindowManager_ProvidedObservationNameIs.Invoke(ObjectMother.SlidingWindow1_ObservationName),
+                    MessageCollection.SlidingWindowManager_ProvidedIntervalIs.Invoke(ObjectMother.SlidingWindow1_Interval),
+                    MessageCollection.SlidingWindowManager_ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_Items),
+                    MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1)
                     }
                 )
 

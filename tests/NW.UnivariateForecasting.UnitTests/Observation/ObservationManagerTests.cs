@@ -86,8 +86,8 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
-                MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
-                ).SetDescription(MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)))
+                MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                ).SetDescription(MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)))
 
         };
         private static TestCaseData[] isValidTestCases =
@@ -109,8 +109,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 null,
                 ObjectMother.Observation1,
                 new List<string>() {
-                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
-                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
+                    MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1)
                     }
                 ),
 
@@ -120,8 +120,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.Observation1withCustomCE_E,
                 ObjectMother.Observation1withCustomCE,
                 new List<string>() {
-                    MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
-                    MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1withCustomCE)
+                    MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.SlidingWindow1),
+                    MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation1withCustomCE)
                     }
                 )
 

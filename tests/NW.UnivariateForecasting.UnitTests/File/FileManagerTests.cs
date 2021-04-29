@@ -44,7 +44,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     .ReadAllLines(ObjectMother.FileInfoAdapter_Exists)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToRead.Invoke(
+                MessageCollection.FileManager_NotPossibleToRead.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
                 )
@@ -75,7 +75,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     .ReadAllText(ObjectMother.FileInfoAdapter_Exists)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToRead.Invoke(
+                MessageCollection.FileManager_NotPossibleToRead.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
                 )
@@ -100,7 +100,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                         ObjectMother.Content_MultipleLines)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToWrite.Invoke(
+                MessageCollection.FileManager_NotPossibleToWrite.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
                 )
@@ -125,7 +125,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                         ObjectMother.Content_SingleLine)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToWrite.Invoke(
+                MessageCollection.FileManager_NotPossibleToWrite.Invoke(
                                     ObjectMother.FileInfoAdapter_Exists,
                                     ObjectMother.FileAdapter_IOException)
                 )

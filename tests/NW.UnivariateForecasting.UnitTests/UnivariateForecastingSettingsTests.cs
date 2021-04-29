@@ -22,7 +22,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     dummyIntervalUnit: UnivariateForecastingSettings.DefaultDummyIntervalUnit
                                     )),
                 typeof(ArgumentException),
-                MessageCollection.DenominatorCantBeLessThan(
+                MessageCollection.UnivariateForecastingSettings_DenominatorCantBeLessThan(
                                     "forecastingDenominator", 
                                     UnivariateForecastingSettings.DefaultForecastingDenominator)
                 )

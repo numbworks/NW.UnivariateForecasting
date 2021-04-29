@@ -46,7 +46,7 @@ namespace NW.UnivariateForecasting
         {
 
             if (forecastingDenominator < DefaultForecastingDenominator)
-                throw new ArgumentException(MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
+                throw new ArgumentException(MessageCollection.UnivariateForecastingSettings_DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
 
             ForecastingDenominator = forecastingDenominator;
             DummyId = dummyId;

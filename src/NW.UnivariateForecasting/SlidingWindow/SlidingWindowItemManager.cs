@@ -41,7 +41,7 @@ namespace NW.UnivariateForecasting
         {
 
             if (!_intervalManager.IsValid(interval))
-                throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
+                throw new ArgumentException(MessageCollection.IntervalManager_IntervalNullOrInvalid);
 
             return new SlidingWindowItem()
             {

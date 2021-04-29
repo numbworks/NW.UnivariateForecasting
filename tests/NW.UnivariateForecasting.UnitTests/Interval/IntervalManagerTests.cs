@@ -94,9 +94,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 .CalculateSubIntervals(
                                     ObjectMother.Interval_InvalidDueOfSize)),
                 typeof(ArgumentException),
-                MessageCollection.IntervalNullOrInvalid
+                MessageCollection.IntervalManager_IntervalNullOrInvalid
                 ).SetDescription(
-                        MessageCollection.IntervalNullOrInvalid),
+                        MessageCollection.IntervalManager_IntervalNullOrInvalid),
 
             new TestCaseData(
                 new TestDelegate(
