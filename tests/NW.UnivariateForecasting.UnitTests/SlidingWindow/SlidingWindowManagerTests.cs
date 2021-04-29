@@ -92,9 +92,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Interval,
                                 ObjectMother.SlidingWindow1_Items
                                 )),
-                typeof(ArgumentException),
-                MessageCollection.VariableCantBeEmptyOrNull.Invoke("id")
-                ).SetDescription(MessageCollection.VariableCantBeEmptyOrNull.Invoke("id")),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("id").Message
+                ).SetDescription(new ArgumentNullException("id").Message),
 
             new TestCaseData(
                 new TestDelegate(
@@ -105,9 +105,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1_Interval,
                                 ObjectMother.SlidingWindow1_Items
                                 )),
-                typeof(ArgumentException),
-                MessageCollection.VariableCantBeEmptyOrNull.Invoke("observationName")
-                ).SetDescription(MessageCollection.VariableCantBeEmptyOrNull.Invoke("observationName")),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("observationName").Message
+                ).SetDescription(new ArgumentNullException("observationName").Message),
 
             new TestCaseData(
                 new TestDelegate(
@@ -334,7 +334,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
 
-    Author: rua@sitecore.net
-    Last Update: 04.10.2020
+    Author: numbworks@gmail.com
+    Last Update: 29.04.2021
 
 */

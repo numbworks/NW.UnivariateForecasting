@@ -30,16 +30,11 @@ namespace NW.UnivariateForecasting
             Action<string> loggingAction)
         {
 
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
-            if (intervalManager == null)
-                throw new ArgumentNullException(nameof(intervalManager));
-            if (slidingWindowItemManager == null)
-                throw new ArgumentNullException(nameof(slidingWindowItemManager));
-            if (roundingFunction == null)
-                throw new ArgumentNullException(nameof(roundingFunction));
-            if (loggingAction == null)
-                throw new ArgumentNullException(nameof(loggingAction));
+            Validator.ValidateObject(settings, nameof(settings));
+            Validator.ValidateObject(intervalManager, nameof(intervalManager));
+            Validator.ValidateObject(slidingWindowItemManager, nameof(slidingWindowItemManager));
+            Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
+            Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
             _settings = settings;
             _intervalManager = intervalManager;
@@ -69,10 +64,8 @@ namespace NW.UnivariateForecasting
             (string id, string observationName, Interval interval, List<SlidingWindowItem> items)
         {
 
-            if (string.IsNullOrWhiteSpace(id))
-                throw new ArgumentException(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(id)));
-            if (string.IsNullOrWhiteSpace(observationName))
-                throw new ArgumentException(MessageCollection.VariableCantBeEmptyOrNull.Invoke(nameof(observationName)));
+            Validator.ValidateStringNullOrWhiteSpace(id, nameof(id));
+            Validator.ValidateStringNullOrWhiteSpace(observationName, nameof(observationName));
             if (!_intervalManager.IsValid(interval))
                 throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
             Validator.ValidateList(items, nameof(items));
@@ -211,6 +204,6 @@ namespace NW.UnivariateForecasting
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021
+    Last Update: 29.04.2021
 
 */

@@ -38,8 +38,6 @@ namespace NW.UnivariateForecasting
             = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
 
         // IntervalManager
-        public static Func<string, string> VariableCantBeEmptyOrNull { get; }
-            = (variableName) => $"'{variableName}' can't be empty or null.";
         public static string IntervalNullOrInvalid { get; }
             = "The provided interval is null or invalid.";
         public static Func<int, Interval, string> ItemsDontMatchSubintervals { get; }
