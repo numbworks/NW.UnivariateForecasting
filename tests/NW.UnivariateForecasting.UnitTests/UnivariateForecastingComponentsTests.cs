@@ -26,7 +26,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindowManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -43,7 +43,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindowItemManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -60,7 +60,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("observationManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -77,7 +77,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("intervalManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_04"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -94,7 +94,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileManager").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_05"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -111,7 +111,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("idCreationFunction").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_06"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -128,7 +128,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
-                ),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_07"),
 
             new TestCaseData(
                 new TestDelegate(
@@ -145,7 +145,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                )
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_08")
 
         };
 
