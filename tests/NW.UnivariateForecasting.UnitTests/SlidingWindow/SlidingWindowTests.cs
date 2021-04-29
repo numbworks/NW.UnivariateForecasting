@@ -14,12 +14,13 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.NewSlidingWindow,
                 ObjectMother.NewSlidingWindow_ToString,
                 ObjectMother.NewSlidingWindow_ToStringRolloutItems
-                ),
+                ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
+
             new TestCaseData(
                 ObjectMother.SlidingWindow1,
                 ObjectMother.SlidingWindow1_ToString,
                 ObjectMother.SlidingWindow1_ToStringRolloutItems
-                )
+                ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
 
