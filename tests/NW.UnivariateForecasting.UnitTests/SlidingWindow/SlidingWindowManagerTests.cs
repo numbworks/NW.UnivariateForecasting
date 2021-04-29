@@ -238,28 +238,12 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(slidingWindowManagerExceptionTestCases))]
         public void SlidingWindowManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createExceptionTestCases))]
         public void Create_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(isValidTestCases))]
         public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
