@@ -108,28 +108,12 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(slidingWindowItemManagerExceptionTestCases))]
         public void SlidingWindowItemManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createItemExceptionTestCases))]
         public void CreateItem_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createItemTestCases))]
         public void CreateItem_ShouldReturnExpectedSlidingWindowItem_WhenProperArguments
@@ -191,15 +175,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(createItemsExceptionTestCases))]
         public void CreateItems_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-        {
-
-            // Arrange
-            // Act
-            // Assert
-            Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
-
-        }
+                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
         public void CreateItems_ShouldReturnExpectedListSlidingWindowItem_WhenProperStartDateEtc()
@@ -228,6 +204,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: rua@sitecore.net
-    Last Update: 28.09.2020
+    Last Update: 29.04.2021
 
 */
