@@ -25,7 +25,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 MessageCollection.UnivariateForecastingSettings_DenominatorCantBeLessThan(
                                     "forecastingDenominator", 
                                     UnivariateForecastingSettings.DefaultForecastingDenominator)
-                )
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01")
 
         };
 
