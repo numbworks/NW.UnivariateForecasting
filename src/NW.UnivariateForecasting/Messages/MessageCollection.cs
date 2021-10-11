@@ -8,6 +8,7 @@ using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.Messages
 {
+    ///<summary>Collects all the messages used for logging and exceptions.</summary>
     public static class MessageCollection
     {
 
