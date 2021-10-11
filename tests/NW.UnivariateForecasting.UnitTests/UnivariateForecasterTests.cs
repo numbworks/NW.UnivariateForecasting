@@ -396,7 +396,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.SlidingWindow1,
                                 (string)null)),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("fileName").Message
+                new ArgumentNullException("filePath").Message
                 ).SetArgDisplayNames($"{nameof(saveSlidingWindowAsJsonExceptionTestCases)}_04")
 
         };
@@ -440,7 +440,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Observation1,
                                 (string)null)),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("fileName").Message
+                new ArgumentNullException("filePath").Message
                 ).SetArgDisplayNames($"{nameof(saveObservationAsJsonExceptionTestCases)}_04")
 
         };
