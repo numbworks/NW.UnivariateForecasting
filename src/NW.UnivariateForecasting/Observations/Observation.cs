@@ -8,8 +8,8 @@ namespace NW.UnivariateForecasting.Observations
     public class Observation
     {
 
-        // Fields
-        // Properties
+        #region Fields
+
         public string Name { get; set; }
         public Interval Interval { get; set; }
         public double X_Actual { get; set; }
@@ -18,10 +18,19 @@ namespace NW.UnivariateForecasting.Observations
         public double Y_Forecasted { get; set; }
         public string SlidingWindowId { get; set; }
 
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         public Observation() { }
 
-        // Methods
+        #endregion
+
+        #region Methods_public
+
         public override string ToString()
             => ToString(true);
         public string ToString(bool onlyDates)
@@ -37,10 +46,10 @@ namespace NW.UnivariateForecasting.Observations
                     ", ",
                     $"{nameof(Name)}: '{Name ?? "null"}'",
                     $"{nameof(Interval)}: '{Interval?.ToString(onlyDates) ?? "null"}'",
-                    $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
-                    $"{nameof(C)}: '{C.ToString()}'",
-                    $"{nameof(E)}: '{E.ToString()}'",
-                    $"{nameof(Y_Forecasted)}: '{Y_Forecasted.ToString()}'",
+                    $"{nameof(X_Actual)}: '{X_Actual}'",
+                    $"{nameof(C)}: '{C}'",
+                    $"{nameof(E)}: '{E}'",
+                    $"{nameof(Y_Forecasted)}: '{Y_Forecasted}'",
                     $"{nameof(SlidingWindowId)}: '{SlidingWindowId ?? "null"}'"
                     );
 
@@ -48,12 +57,12 @@ namespace NW.UnivariateForecasting.Observations
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 28.04.2020
-
+    Last Update: 11.10.2021
 */
