@@ -4,9 +4,7 @@ using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
-    /// <summary>
-    /// A data structure representing a collection of values taken at successive equally spaced points in time.
-    /// </summary>
+    /// <summary>A data structure representing a collection of values taken at successive equally spaced points in time.</summary>
     public class SlidingWindow
     {
 
@@ -24,6 +22,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Constructors
 
+        /// <summary>Initializes an <see cref="SlidingWindow"/> instance.</summary>
         public SlidingWindow() { }
 
         #endregion
@@ -32,6 +31,8 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         public override string ToString()
             => ToString(true);
+
+        /// <inheritdoc cref="object.ToString"/>
         public string ToString(bool rolloutItems)
         {
 
