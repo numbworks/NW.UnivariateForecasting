@@ -13,15 +13,21 @@ namespace NW.UnivariateForecasting.SlidingWindows
     public class SlidingWindowManager : ISlidingWindowManager
     {
 
-        // Fields
+        #region Fields
+
         private UnivariateForecastingSettings _settings;
         private IIntervalManager _intervalManager;
         private ISlidingWindowItemManager _slidingWindowItemManager;
         private Func<double, double> _roundingFunction;
         private Action<string> _loggingAction;
 
-        // Properties
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes an instance of <see cref="SlidingWindowManager"/>.
         /// </summary>
@@ -59,7 +65,10 @@ namespace NW.UnivariateForecasting.SlidingWindows
                   UnivariateForecastingComponents.DefaultLoggingAction
                   ) { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         /// <summary>
         /// Creates a <seealso cref="SlidingWindow"/> object.
         /// </summary>
@@ -160,7 +169,10 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
-        // Methods (private)
+        #endregion
+
+        #region Methods_private
+
         private List<double> Round(List<double> values)
         {
 
@@ -201,12 +213,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
