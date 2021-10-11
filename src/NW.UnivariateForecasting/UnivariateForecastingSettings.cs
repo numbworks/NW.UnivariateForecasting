@@ -10,8 +10,11 @@ namespace NW.UnivariateForecasting
     public class UnivariateForecastingSettings
     {
 
-        // Fields
-        // Properties (static)
+        #region Fields
+        #endregion
+
+        #region Properties
+
         public const double DefaultForecastingDenominator = 0.001;
         public const string DefaultDummyId = "Dummy Id";
         public const string DefaultDummyObservationName = "Dummy Observation";
@@ -19,15 +22,17 @@ namespace NW.UnivariateForecasting
         public const uint DefaultDummySteps = 1;
         public const IntervalUnits DefaultDummyIntervalUnit = IntervalUnits.Months;
 
-        // Properties
         public double ForecastingDenominator { get; private set; }
-        public string DummyId{ get; private set; }
+        public string DummyId { get; private set; }
         public string DummyObservationName { get; private set; }
         public DateTime DummyStartDate { get; private set; }
         public uint DummySteps { get; private set; }
         public IntervalUnits DummyIntervalUnit { get; private set; }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes an instance of <see cref="UnivariateForecastingSettings"/>. Hover the mouse over the parameters for details.
         /// </summary>
@@ -70,16 +75,16 @@ namespace NW.UnivariateForecasting
                   DefaultDummyStartDate,
                   DefaultDummySteps,
                   DefaultDummyIntervalUnit) { }
+        
+        #endregion
 
-        // Methods (public)
-        // Methods (private)
+        #region Methods_public
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021
-
+    Last Update: 11.10.2021
 */
