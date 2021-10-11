@@ -7,7 +7,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class IntervalTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] toStringTestCases =
         {
 
@@ -31,8 +32,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(toStringTestCases))]
         public void ToString_ShouldReturnExpectedString_WhenInvoked
             (Interval interval, string expected1, string expected2)
@@ -49,15 +55,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
