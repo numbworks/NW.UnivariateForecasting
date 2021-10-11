@@ -7,15 +7,17 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting
 {
-
     /// <summary>
     /// Collects all the dependencies required by the library.
     /// </summary>
     public class UnivariateForecastingComponents
     {
 
-        // Fields
-        // Properties (static)
+        #region Fields
+        #endregion
+
+        #region Properties
+
         public static Func<string> DefaultIdCreationFunction { get; } = () 
             => $"SW{DateTime.Now.ToString("yyyyMMddhhmmsss")}";
         public static Func<double, double> DefaultRoundingFunction { get; }
@@ -23,7 +25,6 @@ namespace NW.UnivariateForecasting
         public static Action<string> DefaultLoggingAction { get; }
             = (message) => Console.WriteLine(message);
 
-        // Properties
         public IObservationManager ObservationManager { get; private set; }
         public ISlidingWindowManager SlidingWindowManager { get; private set; }
         public ISlidingWindowItemManager SlidingWindowItemManager { get; private set; }
@@ -33,7 +34,10 @@ namespace NW.UnivariateForecasting
         public Func<double, double> RoundingFunction { get; private set; }
         public Action<string> LoggingAction { get; private set; }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes an instance of <see cref="UnivariateForecastingComponents"/>. Hover the mouse over the parameters for details.
         /// </summary>
@@ -89,17 +93,17 @@ namespace NW.UnivariateForecasting
                   new FileManager(),
                   DefaultIdCreationFunction,
                   DefaultRoundingFunction,
-                  DefaultLoggingAction) { } 
+                  DefaultLoggingAction) { }
 
-        // Methods (public)
-        // Methods (private)
+        #endregion
+
+        #region Methods_public
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
