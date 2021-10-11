@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -359,7 +362,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new UnivariateForecaster()
                             .SaveSlidingWindowAsJson(
                                 null,
-                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                                ObjectMother.FileManager_FileInfoAdapterDoesntExist)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindow").Message
                 ).SetArgDisplayNames($"{nameof(saveSlidingWindowAsJsonExceptionTestCases)}_01"),
@@ -403,7 +406,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new UnivariateForecaster()
                             .SaveObservationAsJson(
                                 null,
-                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                                ObjectMother.FileManager_FileInfoAdapterDoesntExist)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("observation").Message
                 ).SetArgDisplayNames($"{nameof(saveObservationAsJsonExceptionTestCases)}_01"),
@@ -455,9 +458,9 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new UnivariateForecaster()
                             .LoadSlidingWindowFromJson(
-                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                                ObjectMother.FileManager_FileInfoAdapterDoesntExist)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(loadSlidingWindowFromJsonExceptionTestCases)}_02")
 
         };
@@ -477,9 +480,9 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new UnivariateForecaster()
                             .LoadObservationFromJson(
-                                ObjectMother.FileInfoAdapter_DoesntExist)),
+                                ObjectMother.FileManager_FileInfoAdapterDoesntExist)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapter_DoesntExist)
+                MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(loadObservationFromJsonExceptionTestCases)}_02")
 
         };
@@ -832,14 +835,14 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> expectedMessages = new List<string>()
             {
 
-                MessageCollection.UnivariateForecaster_DeserializingProvidedFileAsSlidingWindowObject.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.UnivariateForecaster_DeserializingProvidedFileAsSlidingWindowObject.Invoke(ObjectMother.FileManager_FileInfoAdapterExists),
                 MessageCollection.UnivariateForecaster_ProvidedFileHasBeenSuccessfullyDeserialized
 
             };
 
             // Act
             SlidingWindow actual 
-                = univariateForecaster.LoadSlidingWindowFromJson(ObjectMother.FileInfoAdapter_Exists);
+                = univariateForecaster.LoadSlidingWindowFromJson(ObjectMother.FileManager_FileInfoAdapterExists);
 
             // Assert
             Assert.IsTrue(
@@ -892,14 +895,14 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> expectedMessages = new List<string>()
             {
 
-                MessageCollection.UnivariateForecaster_DeserializingProvidedFileAsObservationObject.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.UnivariateForecaster_DeserializingProvidedFileAsObservationObject.Invoke(ObjectMother.FileManager_FileInfoAdapterExists),
                 MessageCollection.UnivariateForecaster_ProvidedFileHasBeenSuccessfullyDeserialized
 
             };
 
             // Act
             Observation actual
-                = univariateForecaster.LoadObservationFromJson(ObjectMother.FileInfoAdapter_Exists);
+                = univariateForecaster.LoadObservationFromJson(ObjectMother.FileManager_FileInfoAdapterExists);
 
             // Assert
             Assert.IsTrue(
@@ -952,7 +955,7 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> expectedMessages = new List<string>()
             {
 
-                MessageCollection.UnivariateForecaster_SerializingProvidedSlidingWindowAsJsonAndSavingItTo.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.UnivariateForecaster_SerializingProvidedSlidingWindowAsJsonAndSavingItTo.Invoke(ObjectMother.FileManager_FileInfoAdapterExists),
                 MessageCollection.UnivariateForecaster_ProvidedObjectHasBeenSuccessfullySavedAsJson
 
             };
@@ -960,12 +963,12 @@ namespace NW.UnivariateForecasting.UnitTests
             // Act
             univariateForecaster.SaveSlidingWindowAsJson(
                                     ObjectMother.SlidingWindow1_WithDefaultDummyFields,
-                                    ObjectMother.FileInfoAdapter_Exists);
+                                    ObjectMother.FileManager_FileInfoAdapterExists);
 
             // Assert
             Assert.AreEqual(
                     Properties.Resources.SlidingWindowWithDummyValues,
-                    fakeFileAdapter.ReadAllText(ObjectMother.FileInfoAdapter_Exists.FullName)); // whatever argument will work
+                    fakeFileAdapter.ReadAllText(ObjectMother.FileManager_FileInfoAdapterExists.FullName)); // whatever argument will work
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
@@ -1012,7 +1015,7 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> expectedMessages = new List<string>()
             {
 
-                MessageCollection.UnivariateForecaster_SerializingProvidedObservationAsJsonAndSavingItTo.Invoke(ObjectMother.FileInfoAdapter_Exists),
+                MessageCollection.UnivariateForecaster_SerializingProvidedObservationAsJsonAndSavingItTo.Invoke(ObjectMother.FileManager_FileInfoAdapterExists),
                 MessageCollection.UnivariateForecaster_ProvidedObjectHasBeenSuccessfullySavedAsJson
 
             };
@@ -1020,12 +1023,12 @@ namespace NW.UnivariateForecasting.UnitTests
             // Act
             univariateForecaster.SaveObservationAsJson(
                                     ObjectMother.Observation1_WithDefaultDummyFields,
-                                    ObjectMother.FileInfoAdapter_Exists);
+                                    ObjectMother.FileManager_FileInfoAdapterExists);
 
             // Assert
             Assert.AreEqual(
                     Properties.Resources.ObservationWithDummyValues,
-                    fakeFileAdapter.ReadAllText(ObjectMother.FileInfoAdapter_Exists.FullName)); // whatever argument will work
+                    fakeFileAdapter.ReadAllText(ObjectMother.FileManager_FileInfoAdapterExists.FullName)); // whatever argument will work
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }

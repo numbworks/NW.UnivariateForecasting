@@ -4,7 +4,7 @@ using System.Linq;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Messages
 {
     public static class MessageCollection
     {

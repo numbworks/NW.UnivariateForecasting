@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Messages;
+using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.UnitTests
 {

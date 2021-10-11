@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting.UnitTests
 {

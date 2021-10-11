@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.Messages;
+using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting
 {

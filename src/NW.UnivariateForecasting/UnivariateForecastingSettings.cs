@@ -1,5 +1,6 @@
 ﻿using System;
 using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting
 {
