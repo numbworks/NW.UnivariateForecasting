@@ -10,10 +10,11 @@ Contact: numbworks@gmail.com
 | 2020-12-04 | numbworks | Added examples of user-provided C and E. |
 | 2020-12-06 | numbworks | Added "Saving and Loading" paragraph. |
 | 2020-12-22 | numbworks | Changed font size and date format in Revision History. |
+| 2021-10-11 | numbworks | Version numbers removed. |
 
 ## Introduction
 
-`NW.UnivariateForecasting` is a `.NET Standard 2.0` library written in `C#` to perform `Univariate Forecasting` on your own values. 
+`NW.UnivariateForecasting` is a `.NET Standard` library written in `C#` to perform `Univariate Forecasting` on your own values. 
 
 *Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
 
@@ -34,6 +35,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.SlidingWindows;
 
 /* ... */
 
