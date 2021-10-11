@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Intervals;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.SlidingWindows
 {
     /// <summary>
     /// A data structure representing a collection of values taken at successive equally spaced points in time.

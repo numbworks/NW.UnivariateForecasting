@@ -1,4 +1,6 @@
-﻿namespace NW.UnivariateForecasting.Observations
+﻿using NW.UnivariateForecasting.SlidingWindows;
+
+namespace NW.UnivariateForecasting.Observations
 {
     /// <summary>
     /// Collects all the methods useful to manipulate an <see cref="Observation"/>.

@@ -6,6 +6,7 @@ using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.UnitTests
 {

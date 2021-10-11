@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Messages;
+using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.Observations

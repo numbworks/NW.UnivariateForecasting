@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.UnitTests
 {

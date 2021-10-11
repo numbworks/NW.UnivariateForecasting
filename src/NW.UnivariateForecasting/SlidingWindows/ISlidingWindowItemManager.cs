@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Intervals;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.SlidingWindows
 {
     /// <summary>
     /// Collects all the methods useful to manipulate an <see cref="SlidingWindowItem"/>.

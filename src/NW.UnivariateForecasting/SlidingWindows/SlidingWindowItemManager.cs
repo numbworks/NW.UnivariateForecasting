@@ -4,7 +4,7 @@ using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Validation;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.SlidingWindows
 {
     /// <summary>
     /// Collects all the methods useful to manipulate an <see cref="SlidingWindowItem"/>.

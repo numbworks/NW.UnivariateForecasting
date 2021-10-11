@@ -1,6 +1,6 @@
 ﻿using NW.UnivariateForecasting.Intervals;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.SlidingWindows
 {
     public class SlidingWindowItem
     {
