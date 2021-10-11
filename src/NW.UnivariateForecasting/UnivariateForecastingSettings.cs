@@ -4,9 +4,7 @@ using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting
 {
-    /// <summary>
-    /// Collects all the global settings required by the library.
-    /// </summary>
+    /// <summary>Collects all the global settings required by the library.</summary>
     public class UnivariateForecastingSettings
     {
 
@@ -42,6 +40,7 @@ namespace NW.UnivariateForecasting
         /// <param name="dummyStartDate">For <see cref="SlidingWindow"/>. Default: 2020-01-01.</param>
         /// <param name="dummySteps">For <see cref="SlidingWindow"/>. Default: 1.</param>
         /// <param name="dummyIntervalUnit">For <see cref="SlidingWindow"/>. Default: <see cref="IntervalUnits.Months"/>.</param>
+        /// <exception cref="ArgumentException"/> 
         public UnivariateForecastingSettings(
                 double forecastingDenominator,
                 string dummyId,
