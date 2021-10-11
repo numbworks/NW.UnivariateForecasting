@@ -10,7 +10,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class ValidatorTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] validateLengthExceptionTestCases =
         {
 
@@ -264,7 +265,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterExceptionTestCases)}_02")
 
         };
-
         private static TestCaseData[] throwIfFirstIsGreaterOrEqualExceptionTestCases =
                 {
 
@@ -302,8 +302,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(validateLengthExceptionTestCases))]
         public void ValidateLength_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
@@ -414,8 +419,13 @@ namespace NW.UnivariateForecasting.UnitTests
                         () => Validator.ThrowIfLessThanOne(ObjectMother.Validator_Value, nameof(ObjectMother.Validator_Value))
                     });
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
+
+        #region Support_methods
+
         public void Method_ShouldDoNothing_WhenProperArgument(Action[] actions)
         {
 
@@ -438,12 +448,12 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 28.04.2021
-
+    Last Update: 11.10.2021
 */
