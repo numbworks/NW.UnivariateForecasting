@@ -34,7 +34,7 @@ namespace NW.UnivariateForecasting.Observations
         #region Constructors
 
         /// <summary>Initializes an instance of <see cref="ObservationManager"/>.</summary>
-        /// /// <exception cref="ArgumentNullException"/> 
+        /// <exception cref="ArgumentNullException"/> 
         public ObservationManager(
             UnivariateForecastingSettings settings,
             IIntervalManager intervalManager,

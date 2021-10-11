@@ -7,9 +7,7 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
-    /// <summary>
-    /// Collects all the methods useful to manipulate an <see cref="SlidingWindow"/>.
-    /// </summary>
+    /// <inheritdoc cref="ISlidingWindowManager"/>
     public class SlidingWindowManager : ISlidingWindowManager
     {
 
@@ -24,13 +22,18 @@ namespace NW.UnivariateForecasting.SlidingWindows
         #endregion
 
         #region Properties
+
+        public static Func<double, double> DefaultRoundingFunction { get; }
+            = UnivariateForecastingComponents.DefaultRoundingFunction;
+        public static Action<string> DefaultLoggingAction { get; }
+            = UnivariateForecastingComponents.DefaultLoggingAction;
+
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes an instance of <see cref="SlidingWindowManager"/>.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/>.</summary>
+        /// <exception cref="ArgumentNullException"/>
         public SlidingWindowManager(
             UnivariateForecastingSettings settings,
             IIntervalManager intervalManager,
@@ -53,27 +56,21 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
-        /// <summary>
-        /// Initializes an instance of <see cref="SlidingWindowManager"/> using default values.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/> using default values.</summary>
         public SlidingWindowManager()
             : this(
                   new UnivariateForecastingSettings(),
                   new IntervalManager(),
                   new SlidingWindowItemManager(),
-                  UnivariateForecastingComponents.DefaultRoundingFunction,
-                  UnivariateForecastingComponents.DefaultLoggingAction
+                  DefaultRoundingFunction,
+                  DefaultLoggingAction
                   ) { }
 
         #endregion
 
         #region Methods_public
 
-        /// <summary>
-        /// Creates a <seealso cref="SlidingWindow"/> object.
-        /// </summary>
-        public SlidingWindow Create
-            (string id, string observationName, Interval interval, List<SlidingWindowItem> items)
+        public SlidingWindow Create(string id, string observationName, Interval interval, List<SlidingWindowItem> items)
         {
 
             Validator.ValidateStringNullOrWhiteSpace(id, nameof(id));
@@ -105,12 +102,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
             return slidingWindow;
 
         }
-
-        /// <summary>
-        /// Creates a <seealso cref="SlidingWindow"/> object.
-        /// </summary>
-        public SlidingWindow Create
-            (string id, string observationName, List<double> values, uint steps, IntervalUnits intervalUnit, DateTime startDate)
+        public SlidingWindow Create(string id, string observationName, List<double> values, uint steps, IntervalUnits intervalUnit, DateTime startDate)
         {
 
             Validator.ValidateList(values, nameof(values));
@@ -126,10 +118,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
             return Create(id, observationName, interval, items);
 
         }
-
-        /// <summary>
-        /// Creates a <seealso cref="SlidingWindow"/> object out of the <seealso cref="UnivariateForecastingSettings"/> properties.
-        /// </summary>
         public SlidingWindow Create(List<double> values)
         {
 
@@ -144,9 +132,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
-        /// <summary>
-        /// Checks the properties of the provided <seealso cref="SlidingWindow"/> object for validity.
-        /// </summary>
         public bool IsValid(SlidingWindow slidingWindow)
         {
 
