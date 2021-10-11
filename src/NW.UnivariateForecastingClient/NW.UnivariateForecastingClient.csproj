@@ -11,17 +11,25 @@
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/numbworks/numbworks/master/numbworks_logo_128x128px.png</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Version>2.0.0</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<AssemblyVersion>2.0.0.0</AssemblyVersion>
-	<FileVersion>2.0.0.0</FileVersion>		
+	<FileVersion>2.0.0.0</FileVersion>
+	<PackageIcon>numbworks_logo_128x128px.png</PackageIcon>		
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\numbworks_logo_128x128px.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
