@@ -11,7 +11,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class UnivariateForecastingComponentsTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] univariateForecastingComponentsExceptionsTestCases =
         {
 
@@ -153,22 +154,27 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(univariateForecastingComponentsExceptionsTestCases))]
         public void UnivariateForecastingComponents_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: rua@sitecore.net
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
