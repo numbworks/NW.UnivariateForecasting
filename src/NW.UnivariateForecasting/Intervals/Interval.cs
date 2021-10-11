@@ -5,8 +5,11 @@ namespace NW.UnivariateForecasting.Intervals
     public class Interval
     {
 
-        // Fields
-        // Properties
+        #region Fields
+        #endregion
+
+        #region Properties
+
         public uint Size { get; set; }
         public IntervalUnits Unit { get; set; }
         public DateTime StartDate { get; set; }
@@ -15,10 +18,16 @@ namespace NW.UnivariateForecasting.Intervals
         public uint Steps { get; set; }
         public uint SubIntervals { get; set; }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
         public Interval() { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public override string ToString()
         {
 
@@ -55,14 +64,12 @@ namespace NW.UnivariateForecasting.Intervals
 
         }
 
-        // Methods (private)
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 18.08.2020
-
+    Last Update: 11.10.2021
 */
