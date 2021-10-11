@@ -7,9 +7,7 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting
 {
-    /// <summary>
-    /// Collects all the dependencies required by the library.
-    /// </summary>
+    /// <summary>Collects all the dependencies required by the library.</summary>
     public class UnivariateForecastingComponents
     {
 
@@ -49,6 +47,7 @@ namespace NW.UnivariateForecasting
         /// <param name="idCreationFunction">The <see cref="SlidingWindow.Id"/> will be generated according to this. Default: "SW{yyyyMMddhhmmsss}" using current datetime.</param>
         /// <param name="roundingFunction">All the values processed by <see cref="NW.UnivariateForecasting"/> will be rounded according to this function. Default: two decimal digits.</param>
         /// <param name="loggingAction">Default: Console.WriteLine(message).</param>
+        /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecastingComponents(
                 ISlidingWindowManager slidingWindowManager,
                 ISlidingWindowItemManager slidingWindowItemManager,
