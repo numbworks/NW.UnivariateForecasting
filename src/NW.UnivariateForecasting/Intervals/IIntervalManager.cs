@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Intervals
 {
     /// <summary>
     /// Collects all the methods useful to manipulate an <see cref="Interval"/>.

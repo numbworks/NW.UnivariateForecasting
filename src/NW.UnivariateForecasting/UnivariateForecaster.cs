@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting
 {

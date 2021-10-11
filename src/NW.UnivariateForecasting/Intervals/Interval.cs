@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Intervals
 {
     public class Interval
     {

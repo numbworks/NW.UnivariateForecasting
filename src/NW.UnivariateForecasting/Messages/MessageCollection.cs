@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting
 {

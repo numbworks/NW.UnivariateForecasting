@@ -1,4 +1,4 @@
-﻿namespace NW.UnivariateForecasting
+﻿namespace NW.UnivariateForecasting.Intervals
 {
     public enum IntervalUnits
     {

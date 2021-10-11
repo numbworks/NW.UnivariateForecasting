@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting
 {
