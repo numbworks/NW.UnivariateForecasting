@@ -18,18 +18,12 @@
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<AssemblyVersion>2.0.0.0</AssemblyVersion>
 	<FileVersion>2.0.0.0</FileVersion>
-	<PackageIcon>numbworks_logo_128x128px.png</PackageIcon>		
+	<PackageIcon></PackageIcon>
+	<ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>		
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\numbworks_logo_128x128px.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>
