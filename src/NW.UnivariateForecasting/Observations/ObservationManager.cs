@@ -14,14 +14,21 @@ namespace NW.UnivariateForecasting.Observations
     public class ObservationManager : IObservationManager
     {
 
-        // Fields
+        #region Fields
+
         private UnivariateForecastingSettings _settings;
         private IIntervalManager _intervalManager;
         private ISlidingWindowManager _slidingWindowManager;
         private Func<double, double> _roundingFunction;
         private Action<string> _loggingAction;
 
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes an instance of <see cref="ObservationManager"/>.
         /// </summary>
@@ -59,7 +66,9 @@ namespace NW.UnivariateForecasting.Observations
                   UnivariateForecastingComponents.DefaultLoggingAction
                   ) { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
 
         /// <summary>
         /// Calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
@@ -116,7 +125,10 @@ namespace NW.UnivariateForecasting.Observations
 
         }
 
-        // Methods (private)
+        #endregion
+
+        #region Methods_private
+
         private DateTime GetObservationStartDate(SlidingWindow slidingWindow)
             => slidingWindow.Items.OrderBy(item => item.Interval.EndDate).Last().Interval.EndDate;
         private double GetTargetXActual(List<SlidingWindowItem> items)
@@ -279,12 +291,12 @@ namespace NW.UnivariateForecasting.Observations
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 28.04.2021  
-
+    Last Update: 11.10.2021
 */
