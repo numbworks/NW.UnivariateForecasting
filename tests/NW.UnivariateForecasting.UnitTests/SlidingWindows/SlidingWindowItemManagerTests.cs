@@ -11,7 +11,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class SlidingWindowItemManagerTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] isValidTestCases =
         {
 
@@ -103,8 +104,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(isValidTestCases))]
         public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
             (SlidingWindowItem slidingWindowItem, bool expected)
@@ -209,15 +215,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: rua@sitecore.net
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
