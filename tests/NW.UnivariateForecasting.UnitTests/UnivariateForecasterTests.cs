@@ -14,7 +14,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class UnivariateForecasterTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] univariateForecasterExceptionTestCases =
         {
 
@@ -489,8 +490,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(univariateForecasterExceptionTestCases))]
         public void UnivariateForecaster_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
@@ -1035,15 +1041,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 06.12.2020
-
+    Last Update: 11.10.2021
 */
