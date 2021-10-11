@@ -10,17 +10,26 @@ namespace NW.UnivariateForecasting.SlidingWindows
     public class SlidingWindow
     {
 
-        // Fields
-        // Properties
+        #region Fields
+        #endregion
+
+        #region Properties
+
         public string Id { get; set; }
         public string ObservationName { get; set; }
         public Interval Interval { get; set; }
         public List<SlidingWindowItem> Items { get; set; }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
         public SlidingWindow() { }
 
-        // Methods
+        #endregion
+
+        #region Methods_public
+
         public override string ToString()
             => ToString(true);
         public string ToString(bool rolloutItems)
@@ -56,12 +65,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 20.09.2020
-
+    Last Update: 11.10.2021
 */
