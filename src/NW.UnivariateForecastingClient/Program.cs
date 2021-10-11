@@ -99,3 +99,8 @@ namespace NW.UnivariateForecastingClient
 
     }
 }
+
+/*
+    Author: numbworks@gmail.com
+    Last Update: 11.10.2021
+*/
