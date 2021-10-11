@@ -5,9 +5,7 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.Intervals
 {
-    /// <summary>
-    /// Collects all the methods useful to manipulate an <see cref="Interval"/>.
-    /// </summary>
+    /// <inheritdoc cref="IIntervalManager"/>
     public class IntervalManager : IIntervalManager
     {
 
@@ -19,6 +17,7 @@ namespace NW.UnivariateForecasting.Intervals
 
         #region Constructors
 
+        /// <summary>Initializes a <see cref="IntervalManager"/> instance.</summary>
         public IntervalManager() { }
 
         #endregion
