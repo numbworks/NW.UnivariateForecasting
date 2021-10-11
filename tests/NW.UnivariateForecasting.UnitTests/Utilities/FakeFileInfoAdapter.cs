@@ -1,14 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
+using NW.UnivariateForecasting.Files;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
     public class FakeFileInfoAdapter : IFileInfoAdapter
     {
 
-        // Fields
-        // Properties
+        #region Fields
+        #endregion
+
+        #region Properties
+
         public FileAttributes Attributes
         {
             get => throw new NotImplementedException();
@@ -27,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests
         public DirectoryInfo Directory
             => throw new NotImplementedException();
         public string DirectoryName
-            => throw new NotImplementedException();
+            => new FileInfo(FullName).DirectoryName;
         public string Extension
             => throw new NotImplementedException();
         public bool IsReadOnly
@@ -58,12 +62,15 @@ namespace NW.UnivariateForecasting.UnitTests
         public long Length
             => throw new NotImplementedException();
         public string Name
-            => throw new NotImplementedException();
+            => new FileInfo(FullName).Name;
 
         public bool Exists { get; }
         public string FullName { get; }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
         public FakeFileInfoAdapter(bool exists, string fullName)
         {
 
@@ -72,7 +79,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public StreamWriter AppendText()
             => throw new NotImplementedException();
         public FileInfo CopyTo(string destFileName)
@@ -112,14 +122,12 @@ namespace NW.UnivariateForecasting.UnitTests
         public FileInfo Replace(string destinationFileName, string destinationBackupFileName, bool ignoreMetadataErrors)
             => throw new NotImplementedException();
 
-        // Methods (private)
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 23.11.2020
-
+    Last Update: 08.10.2021
 */

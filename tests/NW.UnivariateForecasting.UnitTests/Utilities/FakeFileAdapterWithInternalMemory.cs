@@ -2,21 +2,31 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using NW.UnivariateForecasting.Files;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
     public class FakeFileAdapterWithInternalMemory : IFileAdapter
     {
 
-        // Fields
+        #region Fields
+
         private string[] _AllLines;
         private string _AllText;
 
-        // Properties
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         public FakeFileAdapterWithInternalMemory() { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public string[] ReadAllLines(string path)
             => _AllLines;
         public string ReadAllText(string path)
@@ -43,14 +53,12 @@ namespace NW.UnivariateForecasting.UnitTests
         public void WriteAllText(string path, string contents, Encoding encoding)
             => throw new NotImplementedException();
 
-        // Methods (private)
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 06.12.2020
-
+    Last Update: 08.10.2021
 */

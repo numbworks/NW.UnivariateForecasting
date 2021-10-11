@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Files;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -670,45 +671,48 @@ namespace NW.UnivariateForecasting.UnitTests
         };
         internal static IFileAdapter FileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
             => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw FileAdapter_IOException,
+                    fakeReadAllLines: () => throw FileManager_FileAdapterIOException,
                     fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
                 );
         internal static IFileAdapter FileAdapter_ReadAllTextReturnsObservationWithDummyValues
             => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw FileAdapter_IOException,
+                    fakeReadAllLines: () => throw FileManager_FileAdapterIOException,
                     fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
                 );
 
-        // FileManager
-        internal static string Content_SingleLine = "First line";
-        internal static IEnumerable<string> Content_MultipleLines =
+        #region FileManagerTests
+
+        public static string FileManager_ContentSingleLine = "First line";
+        public static IEnumerable<string> FileManager_ContentMultipleLines =
             new List<string>() {
                 "First line",
                 "Second line"
             };
-        internal static string FileInfoAdapter_FullName = @"C:\somefile.txt";
-        internal static IFileInfoAdapter FileInfoAdapter_DoesntExist
-            => new FakeFileInfoAdapter(false, FileInfoAdapter_FullName);
-        internal static IFileInfoAdapter FileInfoAdapter_Exists
-            => new FakeFileInfoAdapter(true, FileInfoAdapter_FullName);
-        internal static IOException FileAdapter_IOException = new IOException("Impossible to access the file.");
-        internal static IFileAdapter FileAdapter_ReadAllMethodsThrowIOException
+        public static string FileManager_FileInfoAdapterFullName = @"C:\somefile.txt";
+        public static IFileInfoAdapter FileManager_FileInfoAdapterDoesntExist
+            => new FakeFileInfoAdapter(false, FileManager_FileInfoAdapterFullName);
+        public static IFileInfoAdapter FileManager_FileInfoAdapterExists
+            => new FakeFileInfoAdapter(true, FileManager_FileInfoAdapterFullName);
+        public static IOException FileManager_FileAdapterIOException = new IOException("Impossible to access the file.");
+        public static IFileAdapter FileManager_FileAdapterReadAllMethodsThrowIOException
             => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw FileAdapter_IOException,
-                    fakeReadAllText: () => throw FileAdapter_IOException
+                    fakeReadAllLines: () => throw FileManager_FileAdapterIOException,
+                    fakeReadAllText: () => throw FileManager_FileAdapterIOException
                 );
-        internal static IFileAdapter FileAdapter_WriteAllMethodsThrowIOException
+        public static IFileAdapter FileManager_FileAdapterWriteAllMethodsThrowIOException
             => new FakeFileAdapter(
-                    fakeWriteAllLines: () => throw FileAdapter_IOException,
-                    fakeWriteAllText: () => throw FileAdapter_IOException
+                    fakeWriteAllLines: () => throw FileManager_FileAdapterIOException,
+                    fakeWriteAllText: () => throw FileManager_FileAdapterIOException
                 );
-        internal static IFileAdapter FileAdapter_AllMethodsWork
+        public static IFileAdapter FileManager_FileAdapterAllMethodsWork
             => new FakeFileAdapter(
-                    fakeReadAllLines: () => Content_MultipleLines.ToArray(),
-                    fakeReadAllText: () => Content_SingleLine,
+                    fakeReadAllLines: () => FileManager_ContentMultipleLines.ToArray(),
+                    fakeReadAllText: () => FileManager_ContentSingleLine,
                     fakeWriteAllLines: () => { },
                     fakeWriteAllText: () => { }
                 );
+
+        #endregion
 
         // ValidatorTests
         internal static string[] Validator_Array1 = new[] { "Dodge", "Datsun", "Jaguar", "DeLorean" };

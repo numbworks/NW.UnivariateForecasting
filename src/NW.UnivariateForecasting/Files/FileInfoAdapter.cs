@@ -1,71 +1,97 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
+using NW.UnivariateForecasting.Validation;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Files
 {
+    /// <inheritdoc cref="IFileInfoAdapter"/>
     public class FileInfoAdapter : IFileInfoAdapter
     {
 
-        // Fields
+        #region Fields
+
         private FileInfo _fileInfo;
 
-        // Properties
-        public bool IsReadOnly {
+        #endregion
+
+        #region Properties
+
+        public bool IsReadOnly
+        {
             get { return _fileInfo.IsReadOnly; }
             set { _fileInfo.IsReadOnly = value; }
         }
-        public bool Exists {
+        public bool Exists
+        {
             get { return _fileInfo.Exists; }
         }
-        public string DirectoryName {
+        public string DirectoryName
+        {
             get { return _fileInfo.DirectoryName; }
         }
-        public DirectoryInfo Directory {
+        public DirectoryInfo Directory
+        {
             get { return _fileInfo.Directory; }
         }
-        public long Length {
+        public long Length
+        {
             get { return _fileInfo.Length; }
         }
-        public string Name {
+        public string Name
+        {
             get { return _fileInfo.Name; }
         }
-        public DateTime LastWriteTime {
+        public DateTime LastWriteTime
+        {
             get { return _fileInfo.LastWriteTime; }
             set { _fileInfo.LastWriteTime = value; }
         }
-        public DateTime LastAccessTimeUtc {
+        public DateTime LastAccessTimeUtc
+        {
             get { return _fileInfo.LastAccessTimeUtc; }
             set { _fileInfo.LastAccessTimeUtc = value; }
         }
-        public DateTime LastAccessTime {
+        public DateTime LastAccessTime
+        {
             get { return _fileInfo.LastAccessTime; }
             set { _fileInfo.LastAccessTime = value; }
         }
-        public string FullName {
+        public string FullName
+        {
             get { return _fileInfo.FullName; }
         }
-        public string Extension {
+        public string Extension
+        {
             get { return _fileInfo.Extension; }
         }
-        public DateTime CreationTime {
+        public DateTime CreationTime
+        {
             get { return _fileInfo.CreationTime; }
             set { _fileInfo.CreationTime = value; }
         }
-        public DateTime LastWriteTimeUtc {
+        public DateTime LastWriteTimeUtc
+        {
             get { return _fileInfo.LastWriteTimeUtc; }
             set { _fileInfo.LastWriteTimeUtc = value; }
         }
-        public FileAttributes Attributes {
+        public FileAttributes Attributes
+        {
             get { return _fileInfo.Attributes; }
             set { _fileInfo.Attributes = value; }
         }
-        public DateTime CreationTimeUtc {
+        public DateTime CreationTimeUtc
+        {
             get { return _fileInfo.CreationTimeUtc; }
             set { _fileInfo.CreationTimeUtc = value; }
         }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Initializes a <see cref="FileInfoAdapter"/> instance.</summary>
+        /// <exception cref="ArgumentNullException"/>
         public FileInfoAdapter(FileInfo fileInfo)
         {
 
@@ -74,6 +100,13 @@ namespace NW.UnivariateForecasting
             _fileInfo = fileInfo;
 
         }
+
+        /// <summary>Initializes a <see cref="FileInfoAdapter"/> instance.</summary>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="NotSupportedException"/>
         public FileInfoAdapter(string fileName)
         {
 
@@ -81,7 +114,10 @@ namespace NW.UnivariateForecasting
 
         }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public StreamWriter AppendText()
             => _fileInfo.AppendText();
         public FileInfo CopyTo(string destFileName)
@@ -123,14 +159,12 @@ namespace NW.UnivariateForecasting
         public void Refresh()
             => _fileInfo.Refresh();
 
-        // Methods (private)
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 28.04.2021
-
+    Last Update: 08.10.2021
 */

@@ -1,17 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
+using NW.UnivariateForecasting.Messages;
+using NW.UnivariateForecasting.Validation;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Files
 {
+    /// <summary><inheritdoc cref="IFileManager"/></summary>
     public class FileManager : IFileManager
     {
 
-        // Fields
+        #region Fields
+
         private IFileAdapter _fileAdapter;
 
-        // Properties
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Initializes a <see cref="FileManager"/> instance using <paramref name="fileAdapter"/></summary>
+        /// <exception cref="ArgumentNullException"/>
         public FileManager(IFileAdapter fileAdapter)
         {
 
@@ -20,6 +31,8 @@ namespace NW.UnivariateForecasting
             _fileAdapter = fileAdapter;
 
         }
+
+        /// <summary>Initializes a <see cref="FileManager"/> instance using default parameters.</summary>        
         public FileManager()
         {
 
@@ -27,7 +40,10 @@ namespace NW.UnivariateForecasting
 
         }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public IEnumerable<string> ReadAllLines(IFileInfoAdapter file)
         {
 
@@ -98,7 +114,7 @@ namespace NW.UnivariateForecasting
                 _fileAdapter.WriteAllText(file.FullName, content);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
                 throw new Exception(MessageCollection.FileManager_NotPossibleToWrite.Invoke(file, e), e);
@@ -106,19 +122,29 @@ namespace NW.UnivariateForecasting
             }
 
         }
-        public FileInfoAdapter Create(string filePath)
-            => Create(new FileInfo(filePath));
-        public FileInfoAdapter Create(FileInfo fileInfo)
-            => new FileInfoAdapter(fileInfo);
+        public IFileInfoAdapter Create(string filePath)
+        {
 
-        // Methods (private)
+            Validator.ValidateStringNullOrWhiteSpace(filePath, nameof(filePath));
+
+            return Create(new FileInfo(filePath));
+        
+        }
+        public IFileInfoAdapter Create(FileInfo fileInfo)
+        {
+
+            Validator.ValidateObject(fileInfo, nameof(fileInfo));
+
+            return new FileInfoAdapter(fileInfo);
+
+        }
+
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 28.04.2021
-
+    Last Update: 08.10.2021
 */

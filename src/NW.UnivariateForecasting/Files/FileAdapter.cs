@@ -2,17 +2,27 @@
 using System.IO;
 using System.Text;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Files
 {
+    /// <inheritdoc cref="IFileAdapter"/>
     public class FileAdapter : IFileAdapter
     {
 
-        // Fields
-        // Properties
-        // Constructors
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Initializes a <see cref="FileAdapter"/> instance.</summary>
         public FileAdapter() { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public void AppendAllLines(string path, IEnumerable<string> contents)
             => File.AppendAllLines(path, contents);
         public void AppendAllLines(string path, IEnumerable<string> contents, Encoding encoding)
@@ -38,14 +48,12 @@ namespace NW.UnivariateForecasting
         public void WriteAllText(string path, string contents, Encoding encoding)
             => File.WriteAllText(path, contents, encoding);
 
-        // Methods (private)
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 04.10.2020
-
+    Last Update: 30.05.2021
 */

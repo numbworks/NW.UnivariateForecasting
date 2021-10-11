@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NW.UnivariateForecasting.Files;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
     public class FakeFileAdapter : IFileAdapter
     {
 
-        // Fields
+        #region Fields
+
         private Func<string[]> _fakeReadAllLines;
         private Func<string> _fakeReadAllText;
         private Action _fakeWriteAllLines;
         private Action _fakeWriteAllText;
 
-        // Properties
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         public FakeFileAdapter(
                 Func<string[]> fakeReadAllLines = null,
                 Func<string> fakeReadAllText = null,
@@ -30,7 +37,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public string[] ReadAllLines(string path)
         {
 
@@ -55,7 +65,7 @@ namespace NW.UnivariateForecasting.UnitTests
             if (_fakeWriteAllLines == null)
                 throw new NotImplementedException();
 
-            _fakeWriteAllLines.Invoke();          
+            _fakeWriteAllLines.Invoke();
 
         }
         public void WriteAllText(string path, string contents)
@@ -64,7 +74,7 @@ namespace NW.UnivariateForecasting.UnitTests
             if (_fakeWriteAllText == null)
                 throw new NotImplementedException();
 
-            _fakeWriteAllText.Invoke();           
+            _fakeWriteAllText.Invoke();
 
         }
 
@@ -85,7 +95,7 @@ namespace NW.UnivariateForecasting.UnitTests
         public void WriteAllText(string path, string contents, Encoding encoding)
             => throw new NotImplementedException();
 
-        // Methods (private)
+        #endregion
 
     }
 }
@@ -93,6 +103,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 23.11.2020
+    Last Update: 08.10.2021
 
 */
