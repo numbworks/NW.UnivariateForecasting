@@ -5,17 +5,26 @@ namespace NW.UnivariateForecasting.SlidingWindows
     public class SlidingWindowItem
     {
 
-        // Fields
-        // Properties
+        #region Fields
+        #endregion
+
+        #region Properties
+
         public uint Id { get; set; }
         public Interval Interval { get; set; }
         public double X_Actual { get; set; }
         public double? Y_Forecasted { get; set; }
 
-        // Constructors
+        #endregion
+
+        #region Constructors
+
         public SlidingWindowItem() { }
 
-        // Methods
+        #endregion
+
+        #region Methods_public
+
         public override string ToString()
         {
 
@@ -25,9 +34,9 @@ namespace NW.UnivariateForecasting.SlidingWindows
             string content
                 = string.Join(
                     ", ",
-                    $"{nameof(Id)}: '{Id.ToString()}'",
+                    $"{nameof(Id)}: '{Id}'",
                     $"{nameof(Interval)}: '{Interval?.ToString(true) ?? "null"}'",
-                    $"{nameof(X_Actual)}: '{X_Actual.ToString()}'",
+                    $"{nameof(X_Actual)}: '{X_Actual}'",
                     $"{nameof(Y_Forecasted)}: '{Y_Forecasted?.ToString() ?? "null"}'"
                     );
 
@@ -35,12 +44,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 20.09.2020
-
+    Last Update: 11.10.2021
 */
