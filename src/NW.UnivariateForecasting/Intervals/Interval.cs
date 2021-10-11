@@ -10,6 +10,10 @@ namespace NW.UnivariateForecasting.Intervals
 
         #region Properties
 
+        public static string Format { get; } = "{0}:{1}:{2}:{3}:{4}:{5}:{6}";
+        public static string FormatOnlyDates { get; } = "{0}:{1}:{2}";
+        public static string DateFormat { get; } = "yyyyMMdd";
+
         public uint Size { get; set; }
         public IntervalUnits Unit { get; set; }
         public DateTime StartDate { get; set; }
@@ -35,12 +39,12 @@ namespace NW.UnivariateForecasting.Intervals
 
             return
                 string.Format(
-                    "{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                    Format,
                     Size.ToString(),
                     Unit.ToString(),
-                    StartDate.ToString("yyyyMMdd"),
-                    EndDate.ToString("yyyyMMdd"),
-                    TargetDate.ToString("yyyyMMdd"),
+                    StartDate.ToString(DateFormat),
+                    EndDate.ToString(DateFormat),
+                    TargetDate.ToString(DateFormat),
                     Steps.ToString(),
                     SubIntervals.ToString()
                     );
@@ -54,10 +58,10 @@ namespace NW.UnivariateForecasting.Intervals
             if (onlyDates)
                 return
                     string.Format(
-                        "{0}:{1}:{2}",
-                        StartDate.ToString("yyyyMMdd"),
-                        EndDate.ToString("yyyyMMdd"),
-                        TargetDate.ToString("yyyyMMdd")
+                        FormatOnlyDates,
+                        StartDate.ToString(DateFormat),
+                        EndDate.ToString(DateFormat),
+                        TargetDate.ToString(DateFormat)
                         );
 
             return ToString();
