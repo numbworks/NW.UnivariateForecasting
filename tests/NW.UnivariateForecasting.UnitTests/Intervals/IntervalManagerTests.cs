@@ -10,7 +10,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class IntervalManagerTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] createExceptionTestCases =
         {
 
@@ -274,8 +275,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(createExceptionTestCases))]
         public void Create_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
@@ -376,14 +382,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
