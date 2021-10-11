@@ -7,7 +7,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class SlidingWindowTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] toStringTestCases =
         {
 
@@ -24,9 +25,14 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
+        
+        #endregion
 
-        // SetUp
-        // Tests
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(toStringTestCases))]
         public void ToString_ShouldReturnExpectedString_WhenInvoked
             (SlidingWindow slidingWindow, string expected1, string expected2)
@@ -43,15 +49,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 20.09.2020
-
+    Last Update: 11.10.2021
 */
