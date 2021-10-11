@@ -2,6 +2,7 @@
 
 namespace NW.UnivariateForecasting.Intervals
 {
+    /// <summary>Represents an interval of time.</summary>
     public class Interval
     {
 
@@ -26,6 +27,7 @@ namespace NW.UnivariateForecasting.Intervals
 
         #region Constructors
 
+        /// <summary>Initializes an <see cref="Interval"/> instance.</summary>
         public Interval() { }
 
         #endregion
@@ -50,6 +52,8 @@ namespace NW.UnivariateForecasting.Intervals
                     );
 
         }
+
+        /// <inheritdoc cref="object.ToString"/>
         public string ToString(bool onlyDates)
         {
 
