@@ -13,15 +13,15 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.Observation1,
-                ObjectMother.Observation1_ToString,
-                ObjectMother.Observation1_ToStringOnlyDates
+                ObjectMother.Shared_Observation1,
+                ObjectMother.Shared_Observation1_String,
+                ObjectMother.Shared_Observation1_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.NewObservation,
-                ObjectMother.NewObservation_ToString,
-                ObjectMother.NewObservation_ToStringOnlyDates
+                ObjectMother.Observation_Empty_Object,
+                ObjectMother.Observation_Empty_String,
+                ObjectMother.Observation_Empty_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };

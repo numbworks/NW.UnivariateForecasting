@@ -13,13 +13,13 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.NewSlidingWindowItem,
-                ObjectMother.NewSlidingWindowItem_ToString
+                ObjectMother.SlidingWindowItem_Empty_Object,
+                ObjectMother.SlidingWindowItem_Empty_String
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.SlidingWindow1_Item1,
-                ObjectMother.SlidingWindow1_Item1_ToString
+                ObjectMother.Shared_SlidingWindow1_Item1,
+                ObjectMother.Shared_SlidingWindow1_Item1_String
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };

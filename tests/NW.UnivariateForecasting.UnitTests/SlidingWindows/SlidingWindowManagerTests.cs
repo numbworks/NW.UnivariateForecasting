@@ -92,9 +92,9 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
                                 null,
-                                ObjectMother.SlidingWindow1_ObservationName,
-                                ObjectMother.SlidingWindow1_Interval,
-                                ObjectMother.SlidingWindow1_Items
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_SlidingWindow1_Interval,
+                                ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("id").Message
@@ -104,10 +104,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_Id,
                                 null,
-                                ObjectMother.SlidingWindow1_Interval,
-                                ObjectMother.SlidingWindow1_Items
+                                ObjectMother.Shared_SlidingWindow1_Interval,
+                                ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("observationName").Message
@@ -117,10 +117,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
-                                ObjectMother.SlidingWindow1_ObservationName,
-                                ObjectMother.Interval_InvalidDueOfEndDate, // Whatever invalid Interval
-                                ObjectMother.SlidingWindow1_Items
+                                ObjectMother.Shared_SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_IntervalDueOfEndDate, // Whatever invalid Interval
+                                ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentException),
                 MessageCollection.IntervalManager_IntervalNullOrInvalid
@@ -130,9 +130,9 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
-                                ObjectMother.SlidingWindow1_ObservationName,
-                                ObjectMother.SlidingWindow1_Interval,
+                                ObjectMother.Shared_SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_SlidingWindow1_Interval,
                                 null
                                 )),
                 typeof(ArgumentNullException),
@@ -143,9 +143,9 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
-                                ObjectMother.SlidingWindow1_ObservationName,
-                                ObjectMother.SlidingWindow1_Interval,
+                                ObjectMother.Shared_SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_SlidingWindow1_Interval,
                                 new List<SlidingWindowItem>()
                                 )),
                 typeof(ArgumentException),
@@ -156,13 +156,13 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
-                                ObjectMother.SlidingWindow1_ObservationName,
-                                ObjectMother.SlidingWindow1_Interval,
-                                ObjectMother.SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
+                                ObjectMother.Shared_SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_SlidingWindow1_Interval,
+                                ObjectMother.Shared_SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
                                 )),
                 typeof(ArgumentException),
-                MessageCollection.IntervalManager_ItemsDontMatchSubintervals.Invoke(5, ObjectMother.SlidingWindow1_Interval)
+                MessageCollection.IntervalManager_ItemsDontMatchSubintervals.Invoke(5, ObjectMother.Shared_SlidingWindow1_Interval)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_06"),
 
             // Second Create()
@@ -170,12 +170,12 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
-                                ObjectMother.SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
                                 null,
-                                ObjectMother.SlidingWindow1_Steps,
-                                ObjectMother.SlidingWindow1_IntervalUnit,
-                                ObjectMother.SlidingWindow1_StartDate
+                                ObjectMother.Shared_SlidingWindow1_Steps,
+                                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                                ObjectMother.Shared_SlidingWindow1_StartDate
                                 )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
@@ -185,12 +185,12 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => ObjectMother.SlidingWindowManager_Default
                             .Create(
-                                ObjectMother.SlidingWindow1_Id,
-                                ObjectMother.SlidingWindow1_ObservationName,
+                                ObjectMother.Shared_SlidingWindow1_Id,
+                                ObjectMother.Shared_SlidingWindow1_ObservationName,
                                 new List<double>(),
-                                ObjectMother.SlidingWindow1_Steps,
-                                ObjectMother.SlidingWindow1_IntervalUnit,
-                                ObjectMother.SlidingWindow1_StartDate
+                                ObjectMother.Shared_SlidingWindow1_Steps,
+                                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                                ObjectMother.Shared_SlidingWindow1_StartDate
                                 )),
                 typeof(ArgumentException),
                 MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
@@ -236,7 +236,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_07"),
 
             new TestCaseData(
-                ObjectMother.SlidingWindow1, 
+                ObjectMother.Shared_SlidingWindow1, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_08")
 
@@ -245,24 +245,24 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.SlidingWindow1_Id,
-                ObjectMother.SlidingWindow1_ObservationName,
-                ObjectMother.SlidingWindow1_Values,
-                ObjectMother.SlidingWindow1_Steps,
-                ObjectMother.SlidingWindow1_IntervalUnit,
-                ObjectMother.SlidingWindow1_StartDate,
-                ObjectMother.SlidingWindow1,
+                ObjectMother.Shared_SlidingWindow1_Id,
+                ObjectMother.Shared_SlidingWindow1_ObservationName,
+                ObjectMother.Shared_SlidingWindow1_Values,
+                ObjectMother.Shared_SlidingWindow1_Steps,
+                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                ObjectMother.Shared_SlidingWindow1_StartDate,
+                ObjectMother.Shared_SlidingWindow1,
                 new List<string>() {
                     MessageCollection.SlidingWindowManager_CreatingIntervalOutOfFollowingArguments,
-                    MessageCollection.SlidingWindowManager_ProvidedValuesAre.Invoke(ObjectMother.SlidingWindow1_Values),
-                    MessageCollection.SlidingWindowManager_ProvidedStepsAre.Invoke(ObjectMother.SlidingWindow1_Steps),
-                    MessageCollection.SlidingWindowManager_ProvidedIntervalUnitsIs.Invoke(ObjectMother.SlidingWindow1_IntervalUnit),
+                    MessageCollection.SlidingWindowManager_ProvidedValuesAre.Invoke(ObjectMother.Shared_SlidingWindow1_Values),
+                    MessageCollection.SlidingWindowManager_ProvidedStepsAre.Invoke(ObjectMother.Shared_SlidingWindow1_Steps),
+                    MessageCollection.SlidingWindowManager_ProvidedIntervalUnitsIs.Invoke(ObjectMother.Shared_SlidingWindow1_IntervalUnit),
                     MessageCollection.SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments,
-                    MessageCollection.SlidingWindowManager_ProvidedIdIs.Invoke(ObjectMother.SlidingWindow1_Id),
-                    MessageCollection.SlidingWindowManager_ProvidedObservationNameIs.Invoke(ObjectMother.SlidingWindow1_ObservationName),
-                    MessageCollection.SlidingWindowManager_ProvidedIntervalIs.Invoke(ObjectMother.SlidingWindow1_Interval),
-                    MessageCollection.SlidingWindowManager_ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow1_Items),
-                    MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow1)
+                    MessageCollection.SlidingWindowManager_ProvidedIdIs.Invoke(ObjectMother.Shared_SlidingWindow1_Id),
+                    MessageCollection.SlidingWindowManager_ProvidedObservationNameIs.Invoke(ObjectMother.Shared_SlidingWindow1_ObservationName),
+                    MessageCollection.SlidingWindowManager_ProvidedIntervalIs.Invoke(ObjectMother.Shared_SlidingWindow1_Interval),
+                    MessageCollection.SlidingWindowManager_ProvidedItemsCountIs.Invoke(ObjectMother.Shared_SlidingWindow1_Items),
+                    MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.Shared_SlidingWindow1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01")
 
@@ -339,12 +339,12 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             SlidingWindow actual 
-                = new SlidingWindowManager().Create(ObjectMother.SlidingWindow1_Values);
+                = new SlidingWindowManager().Create(ObjectMother.Shared_SlidingWindow1_Values);
 
             // Assert
             Assert.True(
                 ObjectMother.AreEqual(
-                    ObjectMother.SlidingWindow1_WithDefaultDummyFields,
+                    ObjectMother.Shared_SlidingWindow1_WithDefaultDummyFields,
                     actual)
                 );
 

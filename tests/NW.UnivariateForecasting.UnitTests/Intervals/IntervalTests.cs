@@ -13,21 +13,21 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData( 
-                ObjectMother.SlidingWindow1_Interval,
-                ObjectMother.SlidingWindow1_Interval_ToString,
-                ObjectMother.SlidingWindow1_Interval_ToStringOnlyDates
+                ObjectMother.Shared_SlidingWindow1_Interval,
+                ObjectMother.Shared_SlidingWindow1_Interval_String,
+                ObjectMother.Shared_SlidingWindow1_Interval_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.SlidingWindow1_SubInterval1,
-                ObjectMother.SlidingWindow1_SubInterval1_ToString,
-                ObjectMother.SlidingWindow1_SubInterval1_ToStringOnlyDates
+                ObjectMother.Shared_SlidingWindow1_SubInterval1,
+                ObjectMother.Shared_SlidingWindow1_SubInterval1_String,
+                ObjectMother.Shared_SlidingWindow1_SubInterval1_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02"),
 
             new TestCaseData(
-                ObjectMother.NewInterval,
-                ObjectMother.NewInterval_ToString,
-                ObjectMother.NewInterval_ToStringOnlyDates
+                ObjectMother.Interval_Empty_Object,
+                ObjectMother.Interval_Empty_String,
+                ObjectMother.Interval_Empty_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_03")
 
         };
