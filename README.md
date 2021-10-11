@@ -11,12 +11,13 @@ Contact: numbworks@gmail.com
 | 2020-12-22 | numbworks | Added Revision History. |
 | 2020-12-26 | numbworks | Added Download* paragraphs. |
 | 2020-12-27 | numbworks | Added code coverage badge. |
+| 2021-10-11 | numbworks | Version numbers removed. |
 
 ## In Short
 
 From the documentation:
 
->`NW.UnivariateForecasting` is a `.NET Standard 2.0` library written in `C#` to perform `Univariate Forecasting` on your own values. 
+>`NW.UnivariateForecasting` is a `.NET Standard` library written in `C#` to perform `Univariate Forecasting` on your own values. 
 
 >*Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
 
@@ -40,7 +41,7 @@ PS C:\> cd .\NW.UnivariateForecasting\
 PS C:\NW.UnivariateForecasting> git clone https://github.com/numbworks/NW.UnivariateForecasting.git
 ```
 
-3. Open `NW.UnivariateForecasting.sln` with `Visual Studio 2017` or other IDE;
+3. Open `NW.UnivariateForecasting.sln` with `Visual Studio` or other IDE;
 4. Done!
 
 ## Download the binary packages
