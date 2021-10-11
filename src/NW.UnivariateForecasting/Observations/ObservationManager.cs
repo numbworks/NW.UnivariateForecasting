@@ -8,9 +8,7 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.Observations
 {
-    /// <summary>
-    /// Collects all the methods useful to manipulate an <see cref="Observation"/>.
-    /// </summary>
+    /// <inheritdoc cref="IObservationManager"/>
     public class ObservationManager : IObservationManager
     {
 
@@ -70,9 +68,6 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Methods_public
 
-        /// <summary>
-        /// Calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
-        /// </summary>
         public Observation Create(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 
@@ -105,10 +100,6 @@ namespace NW.UnivariateForecasting.Observations
             return observation;
 
         }
-
-        /// <summary>
-        /// Checks the properties of the provided <seealso cref="Observation"/> object for validity.
-        /// </summary>
         public bool IsValid(Observation observation)
         {
 

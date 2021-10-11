@@ -1,21 +1,17 @@
-﻿using NW.UnivariateForecasting.SlidingWindows;
+﻿using System;
+using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.Observations
 {
-    /// <summary>
-    /// Collects all the methods useful to manipulate an <see cref="Observation"/>.
-    /// </summary>
+    /// <summary>Collects all the methods useful to manipulate an <see cref="Observation"/>.</summary>
     public interface IObservationManager
     {
 
-        /// <summary>
-        /// Calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.
-        /// </summary>
+        /// <summary>Calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.</summary>
+        /// <exception cref="ArgumentException"/> 
         Observation Create(SlidingWindow slidingWindow, double? C = null, double? E = null);
 
-        /// <summary>
-        /// Checks the properties of the provided <seealso cref="Observation"/> object for validity.
-        /// </summary>
+        /// <summary>Checks the properties of the provided <seealso cref="Observation"/> object for validity.</summary>
         bool IsValid(Observation observation);
 
     }
