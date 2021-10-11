@@ -1,4 +1,4 @@
-﻿namespace NW.UnivariateForecasting
+﻿namespace NW.UnivariateForecasting.Observations
 {
     /// <summary>
     /// Collects all the methods useful to manipulate an <see cref="Observation"/>.

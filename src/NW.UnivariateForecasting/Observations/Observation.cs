@@ -1,6 +1,6 @@
 ﻿using NW.UnivariateForecasting.Intervals;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Observations
 {
     /// <summary>
     /// A data structure representing the next value of a certain <see cref="SlidingWindow"/> according to Univariate Forecasting.

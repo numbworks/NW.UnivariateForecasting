@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NW.UnivariateForecasting.Observations;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
