@@ -19,12 +19,18 @@ namespace NW.UnivariateForecasting
     public class UnivariateForecaster : IUnivariateForecaster
     {
 
-        // Fields
+        #region Fields
+
         private UnivariateForecastingSettings _settings;
         private UnivariateForecastingComponents _components;
 
-        // Properties
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes an instance of <see cref="UnivariateForecaster"/>.
         /// </summary>
@@ -49,7 +55,10 @@ namespace NW.UnivariateForecasting
                   new UnivariateForecastingSettings(), 
                   new UnivariateForecastingComponents()) { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         /// <summary>
         /// Forecasts the next value for the provided <see cref="SlidingWindow"/>.
         /// </summary>
@@ -290,7 +299,10 @@ namespace NW.UnivariateForecasting
         public Observation LoadObservationFromJson(string filePath)
             => LoadObservationFromJson(_components.FileManager.Create(filePath));
 
-        // Methods (private)
+        #endregion
+
+        #region Methods_private
+
         private List<SlidingWindowItem> DeepCloneSlidingWindowItems(List<SlidingWindowItem> slidingWindowItems)
         {
 
@@ -388,12 +400,12 @@ namespace NW.UnivariateForecasting
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
