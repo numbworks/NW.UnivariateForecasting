@@ -2,6 +2,7 @@
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
+    /// <summary>An item within a <see cref="SlidingWindow"/>.</summary>
     public class SlidingWindowItem
     {
 
@@ -19,6 +20,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Constructors
 
+        /// <summary>Initializes an <see cref="SlidingWindowItem"/> instance.</summary>
         public SlidingWindowItem() { }
 
         #endregion
