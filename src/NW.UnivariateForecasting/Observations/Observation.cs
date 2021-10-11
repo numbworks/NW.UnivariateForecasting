@@ -1,10 +1,9 @@
 ﻿using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.Observations
 {
-    /// <summary>
-    /// A data structure representing the next value of a certain <see cref="SlidingWindow"/> according to Univariate Forecasting.
-    /// </summary>
+    /// <summary>A data structure representing the next value of a certain <see cref="SlidingWindow"/> according to Univariate Forecasting.</summary>
     public class Observation
     {
 
@@ -25,6 +24,7 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Constructors
 
+        /// <summary>Initializes an <see cref="Observation"/> instance.</summary>
         public Observation() { }
 
         #endregion
@@ -33,6 +33,8 @@ namespace NW.UnivariateForecasting.Observations
 
         public override string ToString()
             => ToString(true);
+
+        /// <inheritdoc cref="object.ToString"/>
         public string ToString(bool onlyDates)
         {
 
