@@ -5,11 +5,17 @@ namespace NW.UnivariateForecasting.UnitTests
     public class FakeLogger
     {
 
-        // Fields
-        // Properties
+        #region Fields
+
         public List<string> Messages { get; }
 
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         public FakeLogger()
         {
 
@@ -17,18 +23,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public void Log(string message)
             => Messages.Add(message);
 
-        // Methods (private)
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 17.09.2020
-
+    Last Update: 11.10.2021
 */
