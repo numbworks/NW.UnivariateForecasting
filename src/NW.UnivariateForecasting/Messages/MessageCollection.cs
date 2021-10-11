@@ -11,43 +11,37 @@ namespace NW.UnivariateForecasting.Messages
     public static class MessageCollection
     {
 
-        // Validator
-        public static Func<string, string, string> Validator_FirstValueIsGreaterOrEqualThanSecondValue
-            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater or equal than '{variableName2}''s value.";
-        public static Func<string, string, string> Validator_FirstValueIsGreaterThanSecondValue
-            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater than '{variableName2}''s value.";
-        public static Func<string, string> Validator_VariableContainsZeroItems
-            = (variableName) => $"'{variableName}' contains zero items.";
-        public static Func<string, string> Validator_VariableCantBeLessThanOne
-            = (variableName) => $"'{variableName}' can't be less than one.";
-        public static Func<string, string, string> Validator_DividingMustReturnWholeNumber { get; }
-            = (variableName1, variableName2) => $"Dividing '{variableName1}' by '{variableName2}' must return a whole number.";
-        public static Func<string, string> Validator_ProvidedIntervalUnitNotSupported { get; }
-            = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
-        public static string Validator_SubIntervalsCantBeLessThanTwo { get; }
-            = "Subintervals can't be less than two";
-        public static Func<IFileInfoAdapter, string> Validator_ProvidedPathDoesntExist
-            = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
+        #region FileManager
+        
+        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToRead
+            = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
+        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToWrite
+            = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
 
-        // ObservationManager
-        public static Func<Type, string> ObservationManager_ProvidedTypeObjectNotValid { get; } 
+        #endregion
+
+        #region IntervalManager
+
+        public static string IntervalManager_IntervalNullOrInvalid { get; }
+            = "The provided interval is null or invalid.";
+        public static Func<int, Interval, string> IntervalManager_ItemsDontMatchSubintervals { get; }
+            = (items, interval) => $"The number of items ('{items.ToString()}') doesn't match with the expected number of subintervals ('{interval.SubIntervals.ToString()}').";
+
+        #endregion
+
+        #region ObservationManager
+
+        public static Func<Type, string> ObservationManager_ProvidedTypeObjectNotValid { get; }
             = (type) => $"The provided {type.Name} object is not valid.";
         public static Func<SlidingWindow, string> ObservationManager_CreatingObservationOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Creating an {typeof(Observation).Name} out of the provided {typeof(SlidingWindow).Name}: '{slidingWindow.ToString(false)}'...";
         public static Func<Observation, string> ObservationManager_FollowingObservationHasBeenCreated { get; }
             = (observation) => $"The following {typeof(Observation).Name} has been created: '{observation.ToString(false)}'.";
 
-        // UnivariateForecastingSettings
-        public static Func<string, double, string> UnivariateForecastingSettings_DenominatorCantBeLessThan { get; } 
-            = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
+        #endregion 
 
-        // IntervalManager
-        public static string IntervalManager_IntervalNullOrInvalid { get; }
-            = "The provided interval is null or invalid.";
-        public static Func<int, Interval, string> IntervalManager_ItemsDontMatchSubintervals { get; }
-            = (items, interval) => $"The number of items ('{items.ToString()}') doesn't match with the expected number of subintervals ('{interval.SubIntervals.ToString()}').";
+        #region SlidingWindowManager
 
-        // SlidingWindowManager
         public static string SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments { get; }
             = $"Creating a {typeof(SlidingWindow).Name} out of the provided arguments...";
         public static Func<string, string> SlidingWindowManager_ProvidedIdIs { get; }
@@ -69,7 +63,10 @@ namespace NW.UnivariateForecasting.Messages
         public static Func<SlidingWindow, string> SlidingWindowManager_FollowingSlidingWindowHasBeenCreated { get; }
             = (slidingWindow) => $"The following {typeof(SlidingWindow).Name} has been created: '{slidingWindow.ToString(true)}'.";
 
-        // UnivariateForecaster
+        #endregion
+
+        #region  UnivariateForecaster
+
         public static Func<SlidingWindow, string> UnivariateForecaster_ExtractingValuesOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Extracting X_Values out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
         public static Func<List<double>, string> UnivariateForecaster_ValuesHaveBeenSuccessfullyExtracted { get; }
@@ -98,7 +95,7 @@ namespace NW.UnivariateForecasting.Messages
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(SlidingWindow).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
         public static Func<IFileInfoAdapter, string> UnivariateForecaster_SerializingProvidedObservationAsJsonAndSavingItTo
             = (fileInfoAdapter) => $"Serializing the provided '{typeof(Observation).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
-        public static string UnivariateForecaster_ProvidedObjectHasBeenSuccessfullySavedAsJson 
+        public static string UnivariateForecaster_ProvidedObjectHasBeenSuccessfullySavedAsJson
             = "The provided object has been successfully saved as JSON.";
         public static Func<IFileInfoAdapter, string> UnivariateForecaster_DeserializingProvidedFileAsSlidingWindowObject
             = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(SlidingWindow).Name}' object...";
@@ -107,11 +104,37 @@ namespace NW.UnivariateForecasting.Messages
         public static string UnivariateForecaster_ProvidedFileHasBeenSuccessfullyDeserialized
             = "The provided file has been successfully deserialized.";
 
-        // FileManager
-        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToRead
-            = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
-        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToWrite
-            = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
+        #endregion
+
+        #region UnivariateForecastingSettings
+
+        public static Func<string, double, string> UnivariateForecastingSettings_DenominatorCantBeLessThan { get; }
+            = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
+
+        #endregion 
+
+        #region Validator
+
+        public static Func<string, string, string> Validator_FirstValueIsGreaterOrEqualThanSecondValue
+            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater or equal than '{variableName2}''s value.";
+        public static Func<string, string, string> Validator_FirstValueIsGreaterThanSecondValue
+            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater than '{variableName2}''s value.";
+        public static Func<string, string> Validator_VariableContainsZeroItems
+            = (variableName) => $"'{variableName}' contains zero items.";
+        public static Func<string, string> Validator_VariableCantBeLessThanOne
+            = (variableName) => $"'{variableName}' can't be less than one.";
+        public static Func<string, string, string> Validator_DividingMustReturnWholeNumber { get; }
+            = (variableName1, variableName2) => $"Dividing '{variableName1}' by '{variableName2}' must return a whole number.";
+        public static Func<string, string> Validator_ProvidedIntervalUnitNotSupported { get; }
+            = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
+        public static string Validator_SubIntervalsCantBeLessThanTwo { get; }
+            = "Subintervals can't be less than two";
+        public static Func<IFileInfoAdapter, string> Validator_ProvidedPathDoesntExist
+            = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
+
+        #endregion
+
+        #region SupportMethods
 
         private static string RollOutCollection(List<double> coll)
             => RollOutCollection(coll.Cast<object>().ToList());
@@ -127,12 +150,12 @@ namespace NW.UnivariateForecasting.Messages
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
