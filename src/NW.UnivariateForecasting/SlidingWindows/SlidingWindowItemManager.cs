@@ -6,9 +6,7 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
-    /// <summary>
-    /// Collects all the methods useful to manipulate an <see cref="SlidingWindowItem"/>.
-    /// </summary>
+    /// <inheritdoc cref="ISlidingWindowItemManager"/>
     public class SlidingWindowItemManager : ISlidingWindowItemManager
     {
 
@@ -23,9 +21,8 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes an instance of <see cref="SlidingWindowItemManager"/>.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="SlidingWindowItemManager"/>.</summary>
+        /// <exception cref="ArgumentNullException"/> 
         public SlidingWindowItemManager(IIntervalManager intervalManager)
         {
 
@@ -35,9 +32,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
-        /// <summary>
-        /// Initializes an instance of <see cref="SlidingWindowItemManager"/> using default values.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="SlidingWindowItemManager"/> using default values.</summary>
         public SlidingWindowItemManager()
             : this(new IntervalManager()) { }
 
@@ -45,11 +40,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Methods_public
 
-        /// <summary>
-        /// Creates a <seealso cref="SlidingWindowItem"/> object.
-        /// </summary>
-        public SlidingWindowItem CreateItem(
-            uint id, Interval interval, double X_Actual, double? Y_Forecasted)
+        public SlidingWindowItem CreateItem(uint id, Interval interval, double X_Actual, double? Y_Forecasted)
         {
 
             if (!_intervalManager.IsValid(interval))
@@ -65,12 +56,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
             };
 
         }
-
-        /// <summary>
-        /// Creates a <seealso cref="SlidingWindowItem"/> object.
-        /// </summary>
-        public SlidingWindowItem CreateItem(
-            uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted)
+        public SlidingWindowItem CreateItem(uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted)
         {
 
             if (intervalUnit != IntervalUnits.Months)
@@ -92,10 +78,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
             return CreateItem(id, interval, X_Actual, Y_Forecasted);
 
         }
-
-        /// <summary>
-        /// Creates a collection of <seealso cref="SlidingWindowItem"/> objects.
-        /// </summary>
         public List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, IntervalUnits intervalUnit)
         {
 
@@ -106,9 +88,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
-        /// <summary>
-        /// Checks the properties of the provided <seealso cref="SlidingWindowItem"/> object for validity.
-        /// </summary>
         public bool IsValid(SlidingWindowItem slidingWindowItem)
         {
 
@@ -204,5 +183,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
+    Last Update: 11.10.2021
 */
