@@ -11,12 +11,20 @@ namespace NW.UnivariateForecasting.Intervals
     public class IntervalManager : IIntervalManager
     {
 
-        // Fields
-        // Properties
-        // Constructors
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         public IntervalManager() { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         public Interval Create(uint size, IntervalUnits unit, DateTime startDate, uint steps)
         {
 
@@ -104,7 +112,10 @@ namespace NW.UnivariateForecasting.Intervals
 
         }
 
-        // Methods (private)
+        #endregion
+
+        #region Methods_private
+
         private DateTime AddMonths(DateTime datetime, uint months)
         {
 
@@ -123,12 +134,12 @@ namespace NW.UnivariateForecasting.Intervals
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 28.04.2021
-
+    Last Update: 11.10.2021
 */
