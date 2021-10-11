@@ -12,11 +12,17 @@ namespace NW.UnivariateForecasting.SlidingWindows
     public class SlidingWindowItemManager : ISlidingWindowItemManager
     {
 
-        // Fields
+        #region Fields
+
         private IIntervalManager _intervalManager;
 
-        // Properties
-        // Constructors
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes an instance of <see cref="SlidingWindowItemManager"/>.
         /// </summary>
@@ -35,7 +41,10 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public SlidingWindowItemManager()
             : this(new IntervalManager()) { }
 
-        // Methods (public)
+        #endregion
+
+        #region Methods_public
+
         /// <summary>
         /// Creates a <seealso cref="SlidingWindowItem"/> object.
         /// </summary>
@@ -112,7 +121,10 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
-        // Methods (private)
+        #endregion
+
+        #region Methods_private
+
         private List<SlidingWindowItem> CreateItemsIfMonths(DateTime startDate, List<double> values)
         {
 
@@ -185,12 +197,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
 
+        #endregion
+
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
     Last Update: 29.04.2021
-
 */
