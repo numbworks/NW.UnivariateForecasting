@@ -12,7 +12,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class SlidingWindowManagerTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] slidingWindowManagerExceptionTestCases =
         {
 
@@ -267,8 +268,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(slidingWindowManagerExceptionTestCases))]
         public void SlidingWindowManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
@@ -344,15 +350,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 29.04.2021
-
+    Last Update: 11.10.2021
 */
