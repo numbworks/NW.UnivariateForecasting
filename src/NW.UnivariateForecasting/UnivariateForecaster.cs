@@ -13,9 +13,7 @@ using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting
 {
-    /// <summary>
-    /// Represents the library's entry-point.
-    /// </summary>
+    /// <inheritdoc cref="IUnivariateForecaster"/>
     public class UnivariateForecaster : IUnivariateForecaster
     {
 
@@ -31,9 +29,8 @@ namespace NW.UnivariateForecasting
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecaster"/>.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="UnivariateForecaster"/>.</summary>
+        /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecaster(
             UnivariateForecastingSettings settings,
             UnivariateForecastingComponents components)
@@ -47,9 +44,7 @@ namespace NW.UnivariateForecasting
 
         }
 
-        /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecaster"/> using default values.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="UnivariateForecaster"/> using default values.</summary>
         public UnivariateForecaster()
             : this (
                   new UnivariateForecastingSettings(), 
@@ -59,9 +54,6 @@ namespace NW.UnivariateForecasting
 
         #region Methods_public
 
-        /// <summary>
-        /// Forecasts the next value for the provided <see cref="SlidingWindow"/>.
-        /// </summary>
         public Observation Forecast(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 
@@ -71,11 +63,7 @@ namespace NW.UnivariateForecasting
             return _components.ObservationManager.Create(slidingWindow, C, E);
 
         }
-
-        /// <summary>
-        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
-        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
-        /// </summary>
+        
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null)
         {
@@ -108,11 +96,6 @@ namespace NW.UnivariateForecasting
             return newSlidingWindow;
 
         }
-
-        /// <summary>
-        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
-        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
-        /// </summary>
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null)
         {
@@ -121,18 +104,10 @@ namespace NW.UnivariateForecasting
             return ForecastAndCombine(slidingWindow, steps, out observations, C, E);
 
         }
-
-        /// <summary>
-        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
-        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
-        /// </summary>
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, double? C = null, double? E = null)
                 => ForecastAndCombine(slidingWindow, 1, C, E);
 
-        /// <summary>
-        /// Forecasts the next value for the provided list of values.
-        /// </summary>
         public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
         {
 
@@ -148,10 +123,6 @@ namespace NW.UnivariateForecasting
             return nextValue;
 
         }
-
-        /// <summary>
-        /// Add the provided <see cref="Observation"/> to the provided <see cref="SlidingWindow"/> object.
-        /// </summary>
         public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
         {
 
@@ -196,7 +167,6 @@ namespace NW.UnivariateForecasting
             return newSlidingWindow;
 
         }
-
         public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
         {
 
@@ -243,6 +213,7 @@ namespace NW.UnivariateForecasting
             => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(fileInfo));
         public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath)
             => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(filePath));
+        
         public void SaveObservationAsJson(Observation observation, IFileInfoAdapter fileInfoAdapter)
         {
 
@@ -279,6 +250,7 @@ namespace NW.UnivariateForecasting
             => LoadSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
         public SlidingWindow LoadSlidingWindowFromJson(string filePath)
             => LoadSlidingWindowFromJson(_components.FileManager.Create(filePath));
+        
         public Observation LoadObservationFromJson(IFileInfoAdapter fileInfoAdapter)
         {
 
