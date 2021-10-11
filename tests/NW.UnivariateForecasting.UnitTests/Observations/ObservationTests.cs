@@ -7,7 +7,8 @@ namespace NW.UnivariateForecasting.UnitTests
     public class ObservationTests
     {
 
-        // Fields
+        #region Fields
+
         private static TestCaseData[] toStringTestCases =
         {
 
@@ -25,8 +26,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         };
 
-        // SetUp
-        // Tests
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
         [TestCaseSource(nameof(toStringTestCases))]
         public void ToString_ShouldReturnExpectedString_WhenInvoked
             (Observation observation, string expected1, string expected2)
@@ -43,15 +49,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
-        // TearDown
-        // Support methods
+        #endregion
+
+        #region TearDown
+        #endregion
 
     }
 }
 
 /*
-
     Author: numbworks@gmail.com
-    Last Update: 09.09.2020
-
+    Last Update: 11.10.2021
 */
