@@ -23,13 +23,18 @@ namespace NW.UnivariateForecasting.Observations
         #endregion
 
         #region Properties
+
+        public static Func<double, double> DefaultRoundingFunction { get; }
+            = UnivariateForecastingComponents.DefaultRoundingFunction;
+        public static Action<string> DefaultLoggingAction { get; }
+            = UnivariateForecastingComponents.DefaultLoggingAction;
+
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes an instance of <see cref="ObservationManager"/>.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="ObservationManager"/>.</summary>
+        /// /// <exception cref="ArgumentNullException"/> 
         public ObservationManager(
             UnivariateForecastingSettings settings,
             IIntervalManager intervalManager,
@@ -52,16 +57,14 @@ namespace NW.UnivariateForecasting.Observations
 
         }
 
-        /// <summary>
-        /// Initializes an instance of <see cref="ObservationManager"/> using default values.
-        /// </summary>
+        /// <summary>Initializes an instance of <see cref="ObservationManager"/> using default values.</summary>
         public ObservationManager()
             : this(
                   new UnivariateForecastingSettings(),
                   new IntervalManager(), 
                   new SlidingWindowManager(),
-                  UnivariateForecastingComponents.DefaultRoundingFunction,
-                  UnivariateForecastingComponents.DefaultLoggingAction
+                  DefaultRoundingFunction,
+                  DefaultLoggingAction
                   ) { }
 
         #endregion
