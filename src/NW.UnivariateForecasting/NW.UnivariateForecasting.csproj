@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>NW.UnivariateForecasting is a .NET Standard 2.0 library written in C# to perform Univariate Forecasting on your own values. Time Series Forecasting is a machine learning technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("sliding window").</Description>
+    <Description>NW.UnivariateForecasting is a .NET Standard library written in C# to perform Univariate Forecasting on your own values. Time Series Forecasting is a machine learning technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("sliding window").</Description>
     <Copyright>numbworks 2021</Copyright>
     <Authors>numbworks</Authors>
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
