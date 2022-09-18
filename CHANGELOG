@@ -1,3 +1,6 @@
+v2.0.1
+- Updated Newtonsoft.Json to 13.0.1 to solve vulnerability GHSA-5crp-9r3c-p9vr.
+
 v2.0.0 - BREAKING CHANGES
 - Added support for sub-namespaces.
 - Added XML documentation for all the methods and constructors (summaries).
