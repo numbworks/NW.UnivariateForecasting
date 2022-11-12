@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting.Validation
 {

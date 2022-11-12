@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
