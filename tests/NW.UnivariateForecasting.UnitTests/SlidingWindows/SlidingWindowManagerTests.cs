@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
@@ -253,16 +252,16 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.Shared_SlidingWindow1_StartDate,
                 ObjectMother.Shared_SlidingWindow1,
                 new List<string>() {
-                    Messages.MessageCollection.SlidingWindowManager_CreatingIntervalOutOfFollowingArguments,
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedValuesAre.Invoke(ObjectMother.Shared_SlidingWindow1_Values),
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedStepsAre.Invoke(ObjectMother.Shared_SlidingWindow1_Steps),
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedIntervalUnitsIs.Invoke(ObjectMother.Shared_SlidingWindow1_IntervalUnit),
-                    Messages.MessageCollection.SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments,
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedIdIs.Invoke(ObjectMother.Shared_SlidingWindow1_Id),
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedObservationNameIs.Invoke(ObjectMother.Shared_SlidingWindow1_ObservationName),
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedIntervalIs.Invoke(ObjectMother.Shared_SlidingWindow1_Interval),
-                    Messages.MessageCollection.SlidingWindowManager_ProvidedItemsCountIs.Invoke(ObjectMother.Shared_SlidingWindow1_Items),
-                    Messages.MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.Shared_SlidingWindow1)
+                    SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
+                    SlidingWindows.MessageCollection.ProvidedValuesAre.Invoke(ObjectMother.Shared_SlidingWindow1_Values),
+                    SlidingWindows.MessageCollection.ProvidedStepsAre.Invoke(ObjectMother.Shared_SlidingWindow1_Steps),
+                    SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs.Invoke(ObjectMother.Shared_SlidingWindow1_IntervalUnit),
+                    SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
+                    SlidingWindows.MessageCollection.ProvidedIdIs.Invoke(ObjectMother.Shared_SlidingWindow1_Id),
+                    SlidingWindows.MessageCollection.ProvidedObservationNameIs.Invoke(ObjectMother.Shared_SlidingWindow1_ObservationName),
+                    SlidingWindows.MessageCollection.ProvidedIntervalIs.Invoke(ObjectMother.Shared_SlidingWindow1_Interval),
+                    SlidingWindows.MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.Shared_SlidingWindow1_Items),
+                    SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.Shared_SlidingWindow1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01")
 

@@ -89,7 +89,7 @@ namespace NW.UnivariateForecasting
             };
 
             _components.LoggingAction.Invoke(Messages.MessageCollection.UnivariateForecaster_ForecastAndCombineSuccessfullyRunForSteps.Invoke(steps));
-            _components.LoggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+            _components.LoggingAction.Invoke(SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             observations = temp;
             return newSlidingWindow;
@@ -97,12 +97,8 @@ namespace NW.UnivariateForecasting
         }
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null)
-        {
+                => ForecastAndCombine(slidingWindow, steps, out _, C, E);
 
-            List<Observation> observations = null;
-            return ForecastAndCombine(slidingWindow, steps, out observations, C, E);
-
-        }
         public SlidingWindow ForecastAndCombine
             (SlidingWindow slidingWindow, double? C = null, double? E = null)
                 => ForecastAndCombine(slidingWindow, 1, C, E);
@@ -161,7 +157,7 @@ namespace NW.UnivariateForecasting
 
             };
 
-            _components.LoggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
+            _components.LoggingAction.Invoke(SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(newSlidingWindow));
 
             return newSlidingWindow;
 

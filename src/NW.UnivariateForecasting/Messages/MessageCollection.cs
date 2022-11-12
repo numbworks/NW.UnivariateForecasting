@@ -12,31 +12,6 @@ namespace NW.UnivariateForecasting.Messages
     public static class MessageCollection
     {
 
-        #region SlidingWindowManager
-
-        public static string SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments { get; }
-            = $"Creating a {typeof(SlidingWindow).Name} out of the provided arguments...";
-        public static Func<string, string> SlidingWindowManager_ProvidedIdIs { get; }
-            = (id) => $"The provided {nameof(SlidingWindow.Id)} is: '{id}'.";
-        public static Func<string, string> SlidingWindowManager_ProvidedObservationNameIs { get; }
-            = (observationName) => $"The provided {nameof(SlidingWindow.ObservationName)} is: '{observationName}'.";
-        public static Func<Interval, string> SlidingWindowManager_ProvidedIntervalIs { get; }
-            = (interval) => $"The provided {nameof(SlidingWindow.Interval)} is: '{interval.ToString()}'.";
-        public static Func<List<SlidingWindowItem>, string> SlidingWindowManager_ProvidedItemsCountIs { get; }
-            = (items) => $"The provided {nameof(SlidingWindow.Items)} count is: '{items.Count.ToString()}'.";
-        public static string SlidingWindowManager_CreatingIntervalOutOfFollowingArguments { get; }
-            = $"Creating a {typeof(Interval).Name} out of the provided arguments...";
-        public static Func<List<double>, string> SlidingWindowManager_ProvidedValuesAre { get; }
-            = (values) => $"The provided values are: '{RollOutCollection(values)}'.";
-        public static Func<uint, string> SlidingWindowManager_ProvidedStepsAre { get; }
-            = (steps) => $"The provided steps are: '{steps.ToString()}'.";
-        public static Func<IntervalUnits, string> SlidingWindowManager_ProvidedIntervalUnitsIs { get; }
-            = (intervalUnits) => $"The provided {typeof(IntervalUnits).Name} is: '{intervalUnits}'.";
-        public static Func<SlidingWindow, string> SlidingWindowManager_FollowingSlidingWindowHasBeenCreated { get; }
-            = (slidingWindow) => $"The following {typeof(SlidingWindow).Name} has been created: '{slidingWindow.ToString(true)}'.";
-
-        #endregion
-
         #region  UnivariateForecaster
 
         public static Func<SlidingWindow, string> UnivariateForecaster_ExtractingValuesOutOfProvidedSlidingWindow { get; }
@@ -105,6 +80,7 @@ namespace NW.UnivariateForecasting.Messages
             = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
 
         #endregion
+
 
         #region SupportMethods
 
