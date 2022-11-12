@@ -13,11 +13,11 @@
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
     <PackageIconUrl></PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <Version>2.0.1</Version>
+    <Version>2.5.0</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<AssemblyVersion>2.0.1.0</AssemblyVersion>
-	<FileVersion>2.0.1.0</FileVersion>
+	<AssemblyVersion>2.5.0.0</AssemblyVersion>
+	<FileVersion>2.5.0.0</FileVersion>
 	<PackageIcon></PackageIcon>
 	<ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>		
   </PropertyGroup>

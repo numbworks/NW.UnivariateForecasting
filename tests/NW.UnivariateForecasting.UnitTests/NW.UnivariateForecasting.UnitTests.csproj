@@ -17,7 +17,7 @@
 
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
 
-    <Version>2.0.1</Version>
+    <Version>2.5.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
