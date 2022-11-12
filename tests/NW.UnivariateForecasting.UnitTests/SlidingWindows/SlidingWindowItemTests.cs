@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using NW.UnivariateForecasting.SlidingWindows;
+﻿using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -13,13 +13,13 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.SlidingWindowItem_Empty_Object,
-                ObjectMother.SlidingWindowItem_Empty_String
+                Utilities.ObjectMother.SlidingWindowItem_Empty_Object,
+                Utilities.ObjectMother.SlidingWindowItem_Empty_String
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_Item1,
-                ObjectMother.Shared_SlidingWindow1_Item1_String
+                Utilities.ObjectMother.Shared_SlidingWindow1_Item1,
+                Utilities.ObjectMother.Shared_SlidingWindow1_Item1_String
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
@@ -55,5 +55,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

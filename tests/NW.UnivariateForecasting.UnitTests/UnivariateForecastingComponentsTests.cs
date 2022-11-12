@@ -1,9 +1,9 @@
 ﻿using System;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -164,7 +164,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(univariateForecastingComponentsExceptionsTestCases))]
         public void UnivariateForecastingComponents_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         #endregion
 
@@ -176,5 +176,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: rua@sitecore.net
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

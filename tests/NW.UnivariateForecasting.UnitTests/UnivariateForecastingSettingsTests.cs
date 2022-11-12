@@ -1,6 +1,6 @@
 ﻿using System;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Forecasts;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -41,7 +41,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(univariateForecastingSettingsExceptionTestCases))]
         public void UnivariateForecastingSettings_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         #endregion
 
@@ -53,5 +53,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

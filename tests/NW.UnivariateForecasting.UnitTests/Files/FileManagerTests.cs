@@ -4,7 +4,7 @@ using System.IO;
 using NW.UnivariateForecasting.Files;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Files
 {
 
     [TestFixture]
@@ -36,21 +36,21 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager().ReadAllLines(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
+                        () => new FileManager().ReadAllLines(ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
+                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager(ObjectMother.FileManager_FileAdapterReadAllMethodsThrowIOException)
-                                    .ReadAllLines(ObjectMother.FileManager_FileInfoAdapterExists)
+                        () => new FileManager(ObjectMother.FileAdapterReadAllMethodsThrowIOException)
+                                    .ReadAllLines(ObjectMother.FileInfoAdapterExists)
                     ),
                 typeof(Exception),
                 MessageCollection.NotPossibleToRead.Invoke(
-                                    ObjectMother.FileManager_FileInfoAdapterExists,
-                                    ObjectMother.FileManager_FileAdapterIOException)
+                                    ObjectMother.FileInfoAdapterExists,
+                                    ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_03")
 
         };
@@ -67,21 +67,21 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager().ReadAllText(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
+                        () => new FileManager().ReadAllText(ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
+                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager(ObjectMother.FileManager_FileAdapterReadAllMethodsThrowIOException)
-                                    .ReadAllText(ObjectMother.FileManager_FileInfoAdapterExists)
+                        () => new FileManager(ObjectMother.FileAdapterReadAllMethodsThrowIOException)
+                                    .ReadAllText(ObjectMother.FileInfoAdapterExists)
                     ),
                 typeof(Exception),
-                Files.MessageCollection.NotPossibleToRead.Invoke(
-                                    ObjectMother.FileManager_FileInfoAdapterExists,
-                                    ObjectMother.FileManager_FileAdapterIOException)
+                MessageCollection.NotPossibleToRead.Invoke(
+                                    ObjectMother.FileInfoAdapterExists,
+                                    ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_03")
 
         };
@@ -90,7 +90,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager().WriteAllLines(null, ObjectMother.FileManager_ContentMultipleLines)
+                        () => new FileManager().WriteAllLines(null, ObjectMother.ContentMultipleLines)
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
@@ -98,15 +98,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager(ObjectMother.FileManager_FileAdapterWriteAllMethodsThrowIOException)
+                        () => new FileManager(ObjectMother.FileAdapterWriteAllMethodsThrowIOException)
                                     .WriteAllLines(
-                                        ObjectMother.FileManager_FileInfoAdapterExists,
-                                        ObjectMother.FileManager_ContentMultipleLines)
+                                        ObjectMother.FileInfoAdapterExists,
+                                        ObjectMother.ContentMultipleLines)
                     ),
                 typeof(Exception),
-                Files.MessageCollection.NotPossibleToWrite.Invoke(
-                                    ObjectMother.FileManager_FileInfoAdapterExists,
-                                    ObjectMother.FileManager_FileAdapterIOException)
+                MessageCollection.NotPossibleToWrite.Invoke(
+                                    ObjectMother.FileInfoAdapterExists,
+                                    ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(writeAllLinesExceptionTestCases)}_02")
 
         };
@@ -115,7 +115,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager().WriteAllText(null, ObjectMother.FileManager_ContentSingleLine)
+                        () => new FileManager().WriteAllText(null, ObjectMother.ContentSingleLine)
                     ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("file").Message
@@ -123,15 +123,15 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new FileManager(ObjectMother.FileManager_FileAdapterWriteAllMethodsThrowIOException)
+                        () => new FileManager(ObjectMother.FileAdapterWriteAllMethodsThrowIOException)
                                     .WriteAllText(
-                                        ObjectMother.FileManager_FileInfoAdapterExists,
-                                        ObjectMother.FileManager_ContentSingleLine)
+                                        ObjectMother.FileInfoAdapterExists,
+                                        ObjectMother.ContentSingleLine)
                     ),
                 typeof(Exception),
-                Files.MessageCollection.NotPossibleToWrite.Invoke(
-                                    ObjectMother.FileManager_FileInfoAdapterExists,
-                                    ObjectMother.FileManager_FileAdapterIOException)
+                MessageCollection.NotPossibleToWrite.Invoke(
+                                    ObjectMother.FileInfoAdapterExists,
+                                    ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(writeAllTextExceptionTestCases)}_02")
 
         };
@@ -166,12 +166,12 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(fileManagerExceptionTestCases))]
         public void FileManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(readAllLinesExceptionTestCases))]
         public void ReadAllLines_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [Test]
         public void ReadAllLines_ShouldReturnStrings_WhenFileExists()
         {
@@ -179,18 +179,18 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             IEnumerable<string> actual
-                = new FileManager(ObjectMother.FileManager_FileAdapterAllMethodsWork)
-                            .ReadAllLines(ObjectMother.FileManager_FileInfoAdapterExists);
+                = new FileManager(ObjectMother.FileAdapterAllMethodsWork)
+                            .ReadAllLines(ObjectMother.FileInfoAdapterExists);
 
             // Assert
-            Assert.AreEqual(ObjectMother.FileManager_ContentMultipleLines, actual);
+            Assert.AreEqual(ObjectMother.ContentMultipleLines, actual);
 
         }
 
         [TestCaseSource(nameof(readAllTextExceptionTestCases))]
         public void ReadAllText_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [Test]
         public void ReadAllText_ShouldReturnString_WhenFileExists()
         {
@@ -198,18 +198,18 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             // Act
             string actual
-                = new FileManager(ObjectMother.FileManager_FileAdapterAllMethodsWork)
-                            .ReadAllText(ObjectMother.FileManager_FileInfoAdapterExists);
+                = new FileManager(ObjectMother.FileAdapterAllMethodsWork)
+                            .ReadAllText(ObjectMother.FileInfoAdapterExists);
 
             // Assert
-            Assert.AreEqual(ObjectMother.FileManager_ContentSingleLine, actual);
+            Assert.AreEqual(ObjectMother.ContentSingleLine, actual);
 
         }
 
         [TestCaseSource(nameof(writeAllLinesExceptionTestCases))]
         public void WriteAllLines_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [Test]
         public void WriteAllLines_ShouldSuccessfullyWriteToFile_WhenNoIOIssuesArise()
         {
@@ -220,8 +220,8 @@ namespace NW.UnivariateForecasting.UnitTests
             try
             {
 
-                new FileManager(ObjectMother.FileManager_FileAdapterAllMethodsWork)
-                        .WriteAllLines(ObjectMother.FileManager_FileInfoAdapterExists, ObjectMother.FileManager_ContentMultipleLines);
+                new FileManager(ObjectMother.FileAdapterAllMethodsWork)
+                        .WriteAllLines(ObjectMother.FileInfoAdapterExists, ObjectMother.ContentMultipleLines);
                 Assert.IsTrue(true);
 
             }
@@ -237,7 +237,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(writeAllTextExceptionTestCases))]
         public void WriteAllText_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [Test]
         public void WriteAllText_ShouldSuccessfullyWriteToFile_WhenNoIOIssuesArise()
         {
@@ -248,8 +248,8 @@ namespace NW.UnivariateForecasting.UnitTests
             try
             {
 
-                new FileManager(ObjectMother.FileManager_FileAdapterAllMethodsWork)
-                        .WriteAllText(ObjectMother.FileManager_FileInfoAdapterExists, ObjectMother.FileManager_ContentSingleLine);
+                new FileManager(ObjectMother.FileAdapterAllMethodsWork)
+                        .WriteAllText(ObjectMother.FileInfoAdapterExists, ObjectMother.ContentSingleLine);
                 Assert.IsTrue(true);
 
             }
@@ -265,7 +265,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(createExceptionTestCases))]
         public void Create_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
         [Test]
         public void Create_ShouldRetunAIFileInfoAdapterObject_WhenInvoked()
         {

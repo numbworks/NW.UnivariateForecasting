@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
     public static class ObjectMother
     {
@@ -377,47 +376,13 @@ namespace NW.UnivariateForecasting.UnitTests
 
         internal static IFileAdapter Shared_FileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
             => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw FileManager_FileAdapterIOException,
+                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
                     fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
                 );
         internal static IFileAdapter Shared_FileAdapter_ReadAllTextReturnsObservationWithDummyValues
             => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw FileManager_FileAdapterIOException,
+                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
                     fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
-                );
-
-        #endregion
-
-        #region FileManagerTests
-
-        public static string FileManager_ContentSingleLine = "First line";
-        public static IEnumerable<string> FileManager_ContentMultipleLines =
-            new List<string>() {
-                "First line",
-                "Second line"
-            };
-        public static string FileManager_FileInfoAdapterFullName = @"C:\somefile.txt";
-        public static IFileInfoAdapter FileManager_FileInfoAdapterDoesntExist
-            => new FakeFileInfoAdapter(false, FileManager_FileInfoAdapterFullName);
-        public static IFileInfoAdapter FileManager_FileInfoAdapterExists
-            => new FakeFileInfoAdapter(true, FileManager_FileInfoAdapterFullName);
-        public static IOException FileManager_FileAdapterIOException = new IOException("Impossible to access the file.");
-        public static IFileAdapter FileManager_FileAdapterReadAllMethodsThrowIOException
-            => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw FileManager_FileAdapterIOException,
-                    fakeReadAllText: () => throw FileManager_FileAdapterIOException
-                );
-        public static IFileAdapter FileManager_FileAdapterWriteAllMethodsThrowIOException
-            => new FakeFileAdapter(
-                    fakeWriteAllLines: () => throw FileManager_FileAdapterIOException,
-                    fakeWriteAllText: () => throw FileManager_FileAdapterIOException
-                );
-        public static IFileAdapter FileManager_FileAdapterAllMethodsWork
-            => new FakeFileAdapter(
-                    fakeReadAllLines: () => FileManager_ContentMultipleLines.ToArray(),
-                    fakeReadAllText: () => FileManager_ContentSingleLine,
-                    fakeWriteAllLines: () => { },
-                    fakeWriteAllText: () => { }
                 );
 
         #endregion
@@ -900,5 +865,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using NW.UnivariateForecasting.Observations;
+﻿using NW.UnivariateForecasting.Observations;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -13,15 +13,15 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.Shared_Observation1,
-                ObjectMother.Shared_Observation1_String,
-                ObjectMother.Shared_Observation1_StringOnlyDates
+                Utilities.ObjectMother.Shared_Observation1,
+                Utilities.ObjectMother.Shared_Observation1_String,
+                Utilities.ObjectMother.Shared_Observation1_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.Observation_Empty_Object,
-                ObjectMother.Observation_Empty_String,
-                ObjectMother.Observation_Empty_StringOnlyDates
+                Utilities.ObjectMother.Observation_Empty_Object,
+                Utilities.ObjectMother.Observation_Empty_String,
+                Utilities.ObjectMother.Observation_Empty_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
@@ -59,5 +59,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

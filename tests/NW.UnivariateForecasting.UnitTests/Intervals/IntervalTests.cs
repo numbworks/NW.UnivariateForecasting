@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using NW.UnivariateForecasting.Intervals;
+﻿using NW.UnivariateForecasting.Intervals;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -12,22 +12,22 @@ namespace NW.UnivariateForecasting.UnitTests
         private static TestCaseData[] toStringTestCases =
         {
 
-            new TestCaseData( 
-                ObjectMother.Shared_SlidingWindow1_Interval,
-                ObjectMother.Shared_SlidingWindow1_Interval_String,
-                ObjectMother.Shared_SlidingWindow1_Interval_StringOnlyDates
+            new TestCaseData(
+                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+                Utilities.ObjectMother.Shared_SlidingWindow1_Interval_String,
+                Utilities.ObjectMother.Shared_SlidingWindow1_Interval_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval1,
-                ObjectMother.Shared_SlidingWindow1_SubInterval1_String,
-                ObjectMother.Shared_SlidingWindow1_SubInterval1_StringOnlyDates
+                Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1,
+                Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1_String,
+                Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02"),
 
             new TestCaseData(
-                ObjectMother.Interval_Empty_Object,
-                ObjectMother.Interval_Empty_String,
-                ObjectMother.Interval_Empty_StringOnlyDates
+                Utilities.ObjectMother.Interval_Empty_Object,
+                Utilities.ObjectMother.Interval_Empty_String,
+                Utilities.ObjectMother.Interval_Empty_StringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_03")
 
         };
@@ -65,5 +65,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */
