@@ -12,15 +12,6 @@ namespace NW.UnivariateForecasting.Messages
     public static class MessageCollection
     {
 
-        #region FileManager
-        
-        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToRead
-            = (file, e) => $"It hasn't been possible to read from the provided file: '{file.FullName}': '{e.Message}'.";
-        public static Func<IFileInfoAdapter, Exception, string> FileManager_NotPossibleToWrite
-            = (file, e) => $"It hasn't been possible to write to the provided file: '{file.FullName}': '{e.Message}'.";
-
-        #endregion
-
         #region IntervalManager
 
         public static string IntervalManager_IntervalNullOrInvalid { get; }
@@ -158,5 +149,5 @@ namespace NW.UnivariateForecasting.Messages
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

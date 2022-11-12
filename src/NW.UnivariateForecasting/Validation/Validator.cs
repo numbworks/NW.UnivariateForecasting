@@ -24,7 +24,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 >= value2)
-                throw CreateException<TException>(MessageCollection.Validator_FirstValueIsGreaterOrEqualThanSecondValue.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_FirstValueIsGreaterOrEqualThanSecondValue.Invoke(variableName1, variableName2));
 
         }
 
@@ -37,7 +37,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 > value2)
-                throw CreateException<TException>(MessageCollection.Validator_FirstValueIsGreaterThanSecondValue.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_FirstValueIsGreaterThanSecondValue.Invoke(variableName1, variableName2));
 
         }
 
@@ -54,7 +54,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value < 1)
-                throw CreateException<TException>(MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(variableName));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(variableName));
 
         }
 
@@ -71,7 +71,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 % value2 != 0)
-                throw CreateException<TException>(MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke(variableName1, variableName2));
 
         }
 
@@ -106,7 +106,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (arr.Length == 0)
-                throw CreateException<TException>(MessageCollection.Validator_VariableContainsZeroItems.Invoke(variableName));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke(variableName));
 
         }
 
@@ -119,7 +119,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (!file.Exists)
-                throw CreateException<TException>(MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(file));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(file));
 
         }
 
@@ -136,7 +136,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (unit != IntervalUnits.Months)
-                throw CreateException<TException>(MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
 
         }
 
@@ -149,7 +149,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (interval.SubIntervals < 2)
-                throw CreateException<TException>(MessageCollection.Validator_SubIntervalsCantBeLessThanTwo);
+                throw CreateException<TException>(Messages.MessageCollection.Validator_SubIntervalsCantBeLessThanTwo);
 
         }
 
@@ -166,7 +166,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (length < 1)
-                throw CreateException<TException>(MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(nameof(length)));
+                throw CreateException<TException>(Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(nameof(length)));
 
         }
 
@@ -201,7 +201,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (list.Count == 0)
-                throw CreateException<ArgumentException>(MessageCollection.Validator_VariableContainsZeroItems.Invoke(variableName));
+                throw CreateException<ArgumentException>(Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke(variableName));
 
         }
 
@@ -259,5 +259,5 @@ namespace NW.UnivariateForecasting.Validation
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */
