@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -91,7 +90,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
-                MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                Messages.MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
 
         };
@@ -133,8 +132,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 null,
                 ObjectMother.Shared_Observation1,
                 new List<string>() {
-                    MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
-                    MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1)
+                    Messages.MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
+                    Messages.MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
@@ -144,8 +143,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.Shared_Observation1WithCustomCE_E,
                 ObjectMother.Shared_Observation1WithCustomCE,
                 new List<string>() {
-                    MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
-                    MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1WithCustomCE)
+                    Messages.MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
+                    Messages.MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
@@ -218,5 +217,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

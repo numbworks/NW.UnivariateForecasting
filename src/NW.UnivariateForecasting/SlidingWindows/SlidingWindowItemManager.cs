@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
@@ -44,7 +43,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
         {
 
             if (!_intervalManager.IsValid(interval))
-                throw new ArgumentException(MessageCollection.IntervalManager_IntervalNullOrInvalid);
+                throw new ArgumentException(Intervals.MessageCollection.IntervalNullOrInvalid);
 
             return new SlidingWindowItem()
             {
@@ -60,7 +59,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
         {
 
             if (intervalUnit != IntervalUnits.Months)
-                throw new ArgumentException(MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
+                throw new ArgumentException(Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
             Interval interval = new Interval()
             {
@@ -183,5 +182,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

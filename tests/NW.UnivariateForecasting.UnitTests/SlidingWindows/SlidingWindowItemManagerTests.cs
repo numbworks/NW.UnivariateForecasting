@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -50,7 +50,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
                 typeof(ArgumentException),
-                MessageCollection.IntervalManager_IntervalNullOrInvalid
+                Intervals.MessageCollection.IntervalNullOrInvalid
                 ).SetArgDisplayNames($"{nameof(createItemExceptionTestCases)}_01")
 
         };
@@ -88,7 +88,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.Shared_SlidingWindow1_Item1.Interval.Unit
                         )),
                 typeof(ArgumentException),
-                MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
+                Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
                 ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -99,7 +99,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             ObjectMother.Shared_NonExistantIntervalUnit
                         )),
                 typeof(ArgumentException),
-                MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.Shared_NonExistantIntervalUnit.ToString())
+                Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.Shared_NonExistantIntervalUnit.ToString())
                 ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_03")
 
         };
@@ -164,7 +164,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                                     ObjectMother.Shared_SlidingWindow1_Item1.Y_Forecasted);
             Type expectedType = typeof(ArgumentException);
             string expectedMessage 
-                = MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.Shared_NonExistantIntervalUnit.ToString());
+                = Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.Shared_NonExistantIntervalUnit.ToString());
 
             // Act
             // Assert
@@ -225,5 +225,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: rua@sitecore.net
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

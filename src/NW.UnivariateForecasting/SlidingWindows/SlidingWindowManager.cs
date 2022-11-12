@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
@@ -76,16 +75,16 @@ namespace NW.UnivariateForecasting.SlidingWindows
             Validator.ValidateStringNullOrWhiteSpace(id, nameof(id));
             Validator.ValidateStringNullOrWhiteSpace(observationName, nameof(observationName));
             if (!_intervalManager.IsValid(interval))
-                throw new ArgumentException(MessageCollection.IntervalManager_IntervalNullOrInvalid);
+                throw new ArgumentException(Intervals.MessageCollection.IntervalNullOrInvalid);
             Validator.ValidateList(items, nameof(items));
             if (items.Count != interval.SubIntervals)
-                throw new ArgumentException(MessageCollection.IntervalManager_ItemsDontMatchSubintervals.Invoke(items.Count, interval));
+                throw new ArgumentException(Intervals.MessageCollection.ItemsDontMatchSubintervals.Invoke(items.Count, interval));
 
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments);
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedIdIs.Invoke(id));
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedObservationNameIs.Invoke(observationName));
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedIntervalIs.Invoke(interval));
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedItemsCountIs.Invoke(items));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments);
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedIdIs.Invoke(id));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedObservationNameIs.Invoke(observationName));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedIntervalIs.Invoke(interval));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedItemsCountIs.Invoke(items));
 
             SlidingWindow slidingWindow = new SlidingWindow()
             {
@@ -97,7 +96,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
             };
 
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(slidingWindow));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_FollowingSlidingWindowHasBeenCreated.Invoke(slidingWindow));
 
             return slidingWindow;
 
@@ -107,10 +106,10 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
             Validator.ValidateList(values, nameof(values));
 
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_CreatingIntervalOutOfFollowingArguments);
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedValuesAre.Invoke(values));
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedStepsAre.Invoke(steps));
-            _loggingAction.Invoke(MessageCollection.SlidingWindowManager_ProvidedIntervalUnitsIs.Invoke(intervalUnit));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_CreatingIntervalOutOfFollowingArguments);
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedValuesAre.Invoke(values));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedStepsAre.Invoke(steps));
+            _loggingAction.Invoke(Messages.MessageCollection.SlidingWindowManager_ProvidedIntervalUnitsIs.Invoke(intervalUnit));
 
             Interval interval = _intervalManager.Create((uint)values.Count, intervalUnit, startDate, steps);
             List<SlidingWindowItem> items = CreateItems(interval, Round(values));
@@ -205,5 +204,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

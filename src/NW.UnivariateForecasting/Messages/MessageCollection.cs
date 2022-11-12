@@ -12,15 +12,6 @@ namespace NW.UnivariateForecasting.Messages
     public static class MessageCollection
     {
 
-        #region IntervalManager
-
-        public static string IntervalManager_IntervalNullOrInvalid { get; }
-            = "The provided interval is null or invalid.";
-        public static Func<int, Interval, string> IntervalManager_ItemsDontMatchSubintervals { get; }
-            = (items, interval) => $"The number of items ('{items.ToString()}') doesn't match with the expected number of subintervals ('{interval.SubIntervals.ToString()}').";
-
-        #endregion
-
         #region ObservationManager
 
         public static Func<Type, string> ObservationManager_ProvidedTypeObjectNotValid { get; }

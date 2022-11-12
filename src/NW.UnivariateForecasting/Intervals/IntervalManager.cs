@@ -81,7 +81,7 @@ namespace NW.UnivariateForecasting.Intervals
         {
 
             if (!IsValid(interval))
-                throw new ArgumentException(MessageCollection.IntervalManager_IntervalNullOrInvalid);
+                throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
             Validator.ValidateSubIntervals(interval);
 
             List<Interval> subIntervals = new List<Interval>();
