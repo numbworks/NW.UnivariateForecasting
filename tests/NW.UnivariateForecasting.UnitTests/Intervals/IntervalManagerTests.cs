@@ -24,7 +24,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Shared_SlidingWindow1_StartDate,
                                 1)),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("size")
+                Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("size")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01"),
 
             new TestCaseData(
@@ -36,7 +36,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Shared_SlidingWindow1_StartDate,
                                 0)),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
+                Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Shared_SlidingWindow1_StartDate,
                                 2)),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke("size", "steps")
+                Validation.MessageCollection.DividingMustReturnWholeNumber.Invoke("size", "steps")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_03")
 
         };
@@ -64,7 +64,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Shared_SlidingWindow1_IntervalUnit,
                                 0)),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
+                Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetArgDisplayNames($"{nameof(calculateNextExceptionTestCases)}_01"),
 
             new TestCaseData(
@@ -75,7 +75,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Shared_NonExistantIntervalUnit,
                                 1)),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(
+                Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
                             ObjectMother.Shared_NonExistantIntervalUnit.ToString())
                 ).SetArgDisplayNames($"{nameof(calculateNextExceptionTestCases)}_02")
 
@@ -99,7 +99,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 .CalculateSubIntervals(
                                         ObjectMother.Shared_SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_SubIntervalsCantBeLessThanTwo
+                Validation.MessageCollection.SubIntervalsCantBeLessThanTwo
                 ).SetArgDisplayNames($"{nameof(calculateSubIntervalsExceptionTestCases)}_02")
 
         };

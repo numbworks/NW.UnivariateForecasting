@@ -23,7 +23,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 >= value2)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_FirstValueIsGreaterOrEqualThanSecondValue.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(variableName1, variableName2));
 
         }
 
@@ -36,7 +36,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 > value2)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_FirstValueIsGreaterThanSecondValue.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(variableName1, variableName2));
 
         }
 
@@ -53,7 +53,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value < 1)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(variableName));
+                throw CreateException<TException>(Validation.MessageCollection.VariableCantBeLessThanOne.Invoke(variableName));
 
         }
 
@@ -70,7 +70,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 % value2 != 0)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Validation.MessageCollection.DividingMustReturnWholeNumber.Invoke(variableName1, variableName2));
 
         }
 
@@ -105,7 +105,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (arr.Length == 0)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke(variableName));
+                throw CreateException<TException>(Validation.MessageCollection.VariableContainsZeroItems.Invoke(variableName));
 
         }
 
@@ -118,43 +118,13 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (!file.Exists)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(file));
+                throw CreateException<TException>(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
 
         }
 
         /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name="file"/> doesn't exist.</summary>      
         public static void ValidateFileExistance(IFileInfoAdapter file)
             => ValidateFileExistance<ArgumentException>(file);
-
-        #endregion
-
-        #region ValidateInterval
-
-        /// <summary>Throws an exception of type TException when <paramref name="unit"/> is not valid.</summary>
-        public static void ValidateIntervalUnit<TException>(IntervalUnits unit) where TException : Exception
-        {
-
-            if (unit != IntervalUnits.Months)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
-
-        }
-
-        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name="unit"/> is not valid.</summary>
-        public static void ValidateIntervalUnit(IntervalUnits unit)
-            => ValidateIntervalUnit<ArgumentException>(unit);
-
-        /// <summary>Throws an exception of type TException when <see cref="Interval.SubIntervals"/> is not valid.</summary>
-        public static void ValidateSubIntervals<TException>(Interval interval) where TException : Exception
-        {
-
-            if (interval.SubIntervals < 2)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_SubIntervalsCantBeLessThanTwo);
-
-        }
-
-        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <see cref="Interval.SubIntervals"/> is not valid.</summary>
-        public static void ValidateSubIntervals(Interval interval)
-            => ValidateSubIntervals<ArgumentException>(interval);
 
         #endregion
 
@@ -165,7 +135,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (length < 1)
-                throw CreateException<TException>(Messages.MessageCollection.Validator_VariableCantBeLessThanOne.Invoke(nameof(length)));
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(length)));
 
         }
 
@@ -200,7 +170,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (list.Count == 0)
-                throw CreateException<ArgumentException>(Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke(variableName));
+                throw CreateException<ArgumentException>(MessageCollection.VariableContainsZeroItems.Invoke(variableName));
 
         }
 
@@ -250,6 +220,36 @@ namespace NW.UnivariateForecasting.Validation
         /// <summary>Throws an exception of type <see cref="ArgumentNullException"/> when <paramref name="str"/> is null or empty.</summary>  
         public static void ValidateStringNullOrEmpty(string str, string variableName)
             => ValidateStringNullOrEmpty<ArgumentNullException>(str, variableName);
+
+        #endregion
+
+        #region ValidateInterval
+
+        /// <summary>Throws an exception of type TException when <paramref name="unit"/> is not valid.</summary>
+        public static void ValidateIntervalUnit<TException>(IntervalUnits unit) where TException : Exception
+        {
+
+            if (unit != IntervalUnits.Months)
+                throw CreateException<TException>(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
+
+        }
+
+        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name="unit"/> is not valid.</summary>
+        public static void ValidateIntervalUnit(IntervalUnits unit)
+            => ValidateIntervalUnit<ArgumentException>(unit);
+
+        /// <summary>Throws an exception of type TException when <see cref="Interval.SubIntervals"/> is not valid.</summary>
+        public static void ValidateSubIntervals<TException>(Interval interval) where TException : Exception
+        {
+
+            if (interval.SubIntervals < 2)
+                throw CreateException<TException>(MessageCollection.SubIntervalsCantBeLessThanTwo);
+
+        }
+
+        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <see cref="Interval.SubIntervals"/> is not valid.</summary>
+        public static void ValidateSubIntervals(Interval interval)
+            => ValidateSubIntervals<ArgumentException>(interval);
 
         #endregion
 

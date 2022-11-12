@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Files;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -39,7 +39,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         () => new FileManager().ReadAllLines(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
+                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     .ReadAllLines(ObjectMother.FileManager_FileInfoAdapterExists)
                     ),
                 typeof(Exception),
-                Files.MessageCollection.NotPossibleToRead.Invoke(
+                MessageCollection.NotPossibleToRead.Invoke(
                                     ObjectMother.FileManager_FileInfoAdapterExists,
                                     ObjectMother.FileManager_FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_03")
@@ -70,7 +70,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         () => new FileManager().ReadAllText(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
+                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileManager_FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_02"),
 
             new TestCaseData(

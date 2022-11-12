@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
+
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
 
@@ -59,28 +59,6 @@ namespace NW.UnivariateForecasting.Messages
             = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
 
         #endregion 
-
-        #region Validator
-
-        public static Func<string, string, string> Validator_FirstValueIsGreaterOrEqualThanSecondValue
-            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater or equal than '{variableName2}''s value.";
-        public static Func<string, string, string> Validator_FirstValueIsGreaterThanSecondValue
-            = (variableName1, variableName2) => $"The '{variableName1}''s value is greater than '{variableName2}''s value.";
-        public static Func<string, string> Validator_VariableContainsZeroItems
-            = (variableName) => $"'{variableName}' contains zero items.";
-        public static Func<string, string> Validator_VariableCantBeLessThanOne
-            = (variableName) => $"'{variableName}' can't be less than one.";
-        public static Func<string, string, string> Validator_DividingMustReturnWholeNumber { get; }
-            = (variableName1, variableName2) => $"Dividing '{variableName1}' by '{variableName2}' must return a whole number.";
-        public static Func<string, string> Validator_ProvidedIntervalUnitNotSupported { get; }
-            = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
-        public static string Validator_SubIntervalsCantBeLessThanTwo { get; }
-            = "Subintervals can't be less than two";
-        public static Func<IFileInfoAdapter, string> Validator_ProvidedPathDoesntExist
-            = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
-
-        #endregion
-
 
         #region SupportMethods
 

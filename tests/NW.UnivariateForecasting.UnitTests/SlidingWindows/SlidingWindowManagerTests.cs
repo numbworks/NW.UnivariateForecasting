@@ -148,7 +148,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 new List<SlidingWindowItem>()
                                 )),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke("items")
+                Validation.MessageCollection.VariableContainsZeroItems.Invoke("items")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_05"),
 
             new TestCaseData(
@@ -192,7 +192,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 ObjectMother.Shared_SlidingWindow1_StartDate
                                 )),
                 typeof(ArgumentException),
-                Messages.MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
+                Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_08")
 
         };

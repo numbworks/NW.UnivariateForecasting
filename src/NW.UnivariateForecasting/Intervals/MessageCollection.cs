@@ -12,7 +12,7 @@ namespace NW.UnivariateForecasting.Intervals
             = "The provided interval is null or invalid.";
         public static Func<int, Interval, string> ItemsDontMatchSubintervals { get; }
             = (items, interval) => $"The number of items ('{items}') doesn't match with the expected number of subintervals ('{interval.SubIntervals}').";
-
+        
         #endregion
 
     }

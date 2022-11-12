@@ -59,7 +59,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
         {
 
             if (intervalUnit != IntervalUnits.Months)
-                throw new ArgumentException(Messages.MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
+                throw new ArgumentException(Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(intervalUnit.ToString()));
 
             Interval interval = new Interval()
             {
