@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Messages;
+using NW.UnivariateForecasting.Forecasts;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -24,7 +24,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     dummyIntervalUnit: UnivariateForecastingSettings.DefaultDummyIntervalUnit
                                     )),
                 typeof(ArgumentException),
-                MessageCollection.UnivariateForecastingSettings_DenominatorCantBeLessThan(
+                MessageCollection.DenominatorCantBeLessThan(
                                     "forecastingDenominator", 
                                     UnivariateForecastingSettings.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01")

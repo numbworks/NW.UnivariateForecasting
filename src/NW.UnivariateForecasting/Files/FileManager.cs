@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.Files
