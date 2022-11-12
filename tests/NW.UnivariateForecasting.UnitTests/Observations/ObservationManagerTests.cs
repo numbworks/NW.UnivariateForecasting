@@ -90,7 +90,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
-                Messages.MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                Observations.MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
 
         };
@@ -132,8 +132,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 null,
                 ObjectMother.Shared_Observation1,
                 new List<string>() {
-                    Messages.MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
-                    Messages.MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1)
+                    Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
+                    Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
@@ -143,8 +143,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 ObjectMother.Shared_Observation1WithCustomCE_E,
                 ObjectMother.Shared_Observation1WithCustomCE,
                 new List<string>() {
-                    Messages.MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
-                    Messages.MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1WithCustomCE)
+                    Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
+                    Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 

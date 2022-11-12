@@ -12,17 +12,6 @@ namespace NW.UnivariateForecasting.Messages
     public static class MessageCollection
     {
 
-        #region ObservationManager
-
-        public static Func<Type, string> ObservationManager_ProvidedTypeObjectNotValid { get; }
-            = (type) => $"The provided {type.Name} object is not valid.";
-        public static Func<SlidingWindow, string> ObservationManager_CreatingObservationOutOfProvidedSlidingWindow { get; }
-            = (slidingWindow) => $"Creating an {typeof(Observation).Name} out of the provided {typeof(SlidingWindow).Name}: '{slidingWindow.ToString(false)}'...";
-        public static Func<Observation, string> ObservationManager_FollowingObservationHasBeenCreated { get; }
-            = (observation) => $"The following {typeof(Observation).Name} has been created: '{observation.ToString(false)}'.";
-
-        #endregion 
-
         #region SlidingWindowManager
 
         public static string SlidingWindowManager_CreatingSlidingWindowOutOfFollowingArguments { get; }
