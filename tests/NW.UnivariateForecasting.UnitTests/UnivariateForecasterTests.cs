@@ -120,7 +120,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             0
                         )),
                 typeof(ArgumentException),
-                Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
                 ).SetArgDisplayNames($"{nameof(forecastAndCombineExceptionTestCases)}_02")
 
         };
@@ -138,7 +138,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => Utilities.ObjectMother.UnivariateForecaster_Default.ForecastNextValue(new List<double>() { })),
                 typeof(ArgumentException),
-                Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
+                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
                 ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_02")
 
         };
@@ -462,7 +462,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .LoadSlidingWindowFromJson(
                                 Files.ObjectMother.FileInfoAdapterDoesntExist)),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(Files.ObjectMother.FileInfoAdapterDoesntExist)
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(Files.ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(loadSlidingWindowFromJsonExceptionTestCases)}_02")
 
         };
@@ -484,7 +484,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .LoadObservationFromJson(
                                 Files.ObjectMother.FileInfoAdapterDoesntExist)),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(Files.ObjectMother.FileInfoAdapterDoesntExist)
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(Files.ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(loadObservationFromJsonExceptionTestCases)}_02")
 
         };

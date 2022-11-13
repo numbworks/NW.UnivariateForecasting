@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(Exception),
                 new Exception(
-                        Validation.MessageCollection.VariableCantBeLessThanOne.Invoke(Utilities.ObjectMother.Validator_VariableName_Length)).Message
+                        MessageCollection.VariableCantBeLessThanOne.Invoke(Validation.ObjectMother.VariableName_Length)).Message
                 ).SetArgDisplayNames($"{nameof(validateLengthExceptionTestCases)}_01"),
 
             // ValidateLength
@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     ),
                 typeof(ArgumentException),
                 new ArgumentException(
-                        Validation.MessageCollection.VariableCantBeLessThanOne.Invoke(Utilities.ObjectMother.Validator_VariableName_Length)).Message
+                        MessageCollection.VariableCantBeLessThanOne.Invoke(Validation.ObjectMother.VariableName_Length)).Message
                 ).SetArgDisplayNames($"{nameof(validateLengthExceptionTestCases)}_02")
 
         };
@@ -41,19 +41,19 @@ namespace NW.UnivariateForecasting.UnitTests
             // ValidateObject<T>
             new TestCaseData(
                 new TestDelegate(
-                        () => Validator.ValidateObject<ArgumentException>(null, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateObject<ArgumentException>(null, Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentException),
-                new ArgumentException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateObjectExceptionTestCases)}_01"),
 
             // ValidateObject
             new TestCaseData(
                 new TestDelegate(
-                        () => Validator.ValidateObject(null, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateObject(null, Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateObjectExceptionTestCases)}_02")
 
         };
@@ -65,10 +65,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateArray<string>(
                                 null,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateArrayExceptionTestCases)}_01"),
 
             // ValidateArrayEmpty
@@ -76,10 +76,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateArray(
                                 Array.Empty<string>(),
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.VariableContainsZeroItems.Invoke(Utilities.ObjectMother.Validator_VariableName_Variable)
+                MessageCollection.VariableContainsZeroItems.Invoke(Validation.ObjectMother.VariableName_Variable)
                 ).SetArgDisplayNames($"{nameof(validateArrayExceptionTestCases)}_02")
 
         };
@@ -91,10 +91,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateList(
                                 (List<string>)null,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateListExceptionTestCases)}_01"),
 
             // ValidateListEmpty
@@ -102,10 +102,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateList(
                                 new List<string>() { },
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.VariableContainsZeroItems.Invoke(Utilities.ObjectMother.Validator_VariableName_Variable)
+                MessageCollection.VariableContainsZeroItems.Invoke(Validation.ObjectMother.VariableName_Variable)
                 ).SetArgDisplayNames($"{nameof(validateListExceptionTestCases)}_02"),
 
         };
@@ -117,10 +117,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrWhiteSpace<Exception>(
                                 null,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(Exception),
-                new Exception(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new Exception(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrWhiteSpaceExceptionTestCases)}_01"),
 
             // ValidateStringNullOrWhiteSpace
@@ -128,10 +128,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrWhiteSpace(
                                 null,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrWhiteSpaceExceptionTestCases)}_02"),
 
             // ValidateStringNullOrWhiteSpace
@@ -139,21 +139,21 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrWhiteSpace(
                                 string.Empty,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrWhiteSpaceExceptionTestCases)}_03"),
 
             // ValidateStringNullOrWhiteSpace
             new TestCaseData(
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrWhiteSpace(
-                                Utilities.ObjectMother.Validator_StringOnlyWhiteSpaces,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.StringOnlyWhiteSpaces,
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrWhiteSpaceExceptionTestCases)}_04")
 
         };
@@ -165,10 +165,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrEmpty<Exception>(
                                 null,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(Exception),
-                new Exception(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new Exception(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrEmptyExceptionTestCases)}_01"),
 
             // ValidateStringNullOrEmpty
@@ -176,10 +176,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrEmpty(
                                 null,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrEmptyExceptionTestCases)}_02"),
 
             // ValidateStringNullOrEmpty
@@ -187,10 +187,10 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ValidateStringNullOrEmpty(
                                 string.Empty,
-                                Utilities.ObjectMother.Validator_VariableName_Variable)
+                                Validation.ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException(Utilities.ObjectMother.Validator_VariableName_Variable).Message
+                new ArgumentNullException(Validation.ObjectMother.VariableName_Variable).Message
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrEmptyExceptionTestCases)}_03")
 
         };
@@ -198,11 +198,11 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                    Utilities.ObjectMother.Validator_String1
+                    Validation.ObjectMother.String01
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrEmptyTestCases)}_01"),
 
             new TestCaseData(
-                    Utilities.ObjectMother.Validator_StringOnlyWhiteSpaces
+                    Validation.ObjectMother.StringOnlyWhiteSpaces
                 ).SetArgDisplayNames($"{nameof(validateStringNullOrEmptyTestCases)}_02")
 
         };
@@ -212,19 +212,19 @@ namespace NW.UnivariateForecasting.UnitTests
             // ThrowIfLessThanOne<T>
             new TestCaseData(
                 new TestDelegate(
-                        () => Validator.ThrowIfLessThanOne<Exception>(0, Utilities.ObjectMother.Validator_VariableName_N1)
+                        () => Validator.ThrowIfLessThanOne<Exception>(0, Validation.ObjectMother.VariableName_N1)
                     ),
                 typeof(Exception),
-                Validation.MessageCollection.VariableCantBeLessThanOne.Invoke(Utilities.ObjectMother.Validator_VariableName_N1)
+                MessageCollection.VariableCantBeLessThanOne.Invoke(Validation.ObjectMother.VariableName_N1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_01"),
 
             // ThrowIfLessThanOne
             new TestCaseData(
                 new TestDelegate(
-                        () => Validator.ThrowIfLessThanOne(0, Utilities.ObjectMother.Validator_VariableName_N1)
+                        () => Validator.ThrowIfLessThanOne(0, Validation.ObjectMother.VariableName_N1)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.VariableCantBeLessThanOne.Invoke(Utilities.ObjectMother.Validator_VariableName_N1)
+                MessageCollection.VariableCantBeLessThanOne.Invoke(Validation.ObjectMother.VariableName_N1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_02")
 
         };
@@ -236,14 +236,14 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ThrowIfFirstIsGreater<Exception>(
                                 4,
-                                Utilities.ObjectMother.Validator_VariableName_N1,
+                                Validation.ObjectMother.VariableName_N1,
                                 1,
-                                Utilities.ObjectMother.Validator_VariableName_N2)
+                                Validation.ObjectMother.VariableName_N2)
                     ),
                 typeof(Exception),
-                Validation.MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(
-                                        Utilities.ObjectMother.Validator_VariableName_N1,
-                                        Utilities.ObjectMother.Validator_VariableName_N2
+                MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(
+                                        Validation.ObjectMother.VariableName_N1,
+                                        Validation.ObjectMother.VariableName_N2
                                     )
                 ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterExceptionTestCases)}_01"),
 
@@ -252,14 +252,14 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ThrowIfFirstIsGreater(
                                 4,
-                                Utilities.ObjectMother.Validator_VariableName_N1,
+                                Validation.ObjectMother.VariableName_N1,
                                 1,
-                                Utilities.ObjectMother.Validator_VariableName_N2)
+                                Validation.ObjectMother.VariableName_N2)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(
-                                        Utilities.ObjectMother.Validator_VariableName_N1,
-                                        Utilities.ObjectMother.Validator_VariableName_N2
+                MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(
+                                        Validation.ObjectMother.VariableName_N1,
+                                        Validation.ObjectMother.VariableName_N2
                                     )
                 ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterExceptionTestCases)}_02")
 
@@ -272,14 +272,14 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ThrowIfFirstIsGreaterOrEqual<Exception>(
                                 4,
-                                Utilities.ObjectMother.Validator_VariableName_N1,
+                                Validation.ObjectMother.VariableName_N1,
                                 1,
-                                Utilities.ObjectMother.Validator_VariableName_N2)
+                                Validation.ObjectMother.VariableName_N2)
                     ),
                 typeof(Exception),
-                Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
-                                        Utilities.ObjectMother.Validator_VariableName_N1,
-                                        Utilities.ObjectMother.Validator_VariableName_N2
+                MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
+                                        Validation.ObjectMother.VariableName_N1,
+                                        Validation.ObjectMother.VariableName_N2
                                     )
                 ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterOrEqualExceptionTestCases)}_01"),
 
@@ -288,14 +288,14 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => Validator.ThrowIfFirstIsGreaterOrEqual(
                                 4,
-                                Utilities.ObjectMother.Validator_VariableName_N1,
+                                Validation.ObjectMother.VariableName_N1,
                                 1,
-                                Utilities.ObjectMother.Validator_VariableName_N2)
+                                Validation.ObjectMother.VariableName_N2)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
-                                        Utilities.ObjectMother.Validator_VariableName_N1,
-                                        Utilities.ObjectMother.Validator_VariableName_N2
+                MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
+                                        Validation.ObjectMother.VariableName_N1,
+                                        Validation.ObjectMother.VariableName_N2
                                     )
                 ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterOrEqualExceptionTestCases)}_02")
 
@@ -357,44 +357,44 @@ namespace NW.UnivariateForecasting.UnitTests
         public void ValidateLength_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ValidateLength(Utilities.ObjectMother.Validator_Length1),
-                        () => Validator.ValidateLength<ArgumentException>(Utilities.ObjectMother.Validator_Length1)
+                        () => Validator.ValidateLength(Validation.ObjectMother.Length01),
+                        () => Validator.ValidateLength<ArgumentException>(Validation.ObjectMother.Length01)
                     });
 
         [Test]
         public void ValidateObject_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ValidateObject(Utilities.ObjectMother.Validator_Object1, Utilities.ObjectMother.Validator_VariableName_Variable),
-                        () => Validator.ValidateObject<ArgumentException>(Utilities.ObjectMother.Validator_Object1, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateObject(Validation.ObjectMother.Object01, Validation.ObjectMother.VariableName_Variable),
+                        () => Validator.ValidateObject<ArgumentException>(Validation.ObjectMother.Object01, Validation.ObjectMother.VariableName_Variable)
                     });
 
         [Test]
         public void ValidateArray_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ValidateArray(Utilities.ObjectMother.Validator_Array1, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateArray(Validation.ObjectMother.Array01, Validation.ObjectMother.VariableName_Variable)
                     });
 
         [Test]
         public void ValidateList_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ValidateList(Utilities.ObjectMother.List1, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateList(Validation.ObjectMother.List01, Validation.ObjectMother.VariableName_Variable)
                     });
 
         [Test]
         public void ValidateStringNullOrWhiteSpace_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ValidateStringNullOrWhiteSpace(Utilities.ObjectMother.Validator_String1, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateStringNullOrWhiteSpace(Validation.ObjectMother.String01, Validation.ObjectMother.VariableName_Variable)
                     });
 
         [TestCaseSource(nameof(validateStringNullOrEmptyTestCases))]
         public void ValidateStringNullOrEmpty_ShouldDoNothing_WhenProperArgument(string str)
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ValidateStringNullOrEmpty(str, Utilities.ObjectMother.Validator_VariableName_Variable)
+                        () => Validator.ValidateStringNullOrEmpty(str, Validation.ObjectMother.VariableName_Variable)
                     });
 
         [Test]
@@ -415,7 +415,7 @@ namespace NW.UnivariateForecasting.UnitTests
         public void ThrowIfLessThanOne_ShouldDoNothing_WhenProperArgument()
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
-                        () => Validator.ThrowIfLessThanOne(Utilities.ObjectMother.Validator_Value, nameof(Utilities.ObjectMother.Validator_Value))
+                        () => Validator.ThrowIfLessThanOne(Validation.ObjectMother.Value, nameof(Validation.ObjectMother.Value))
                     });
 
         #endregion
@@ -454,5 +454,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */

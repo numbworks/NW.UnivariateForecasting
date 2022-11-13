@@ -87,7 +87,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             Utilities.ObjectMother.Shared_SlidingWindow1_Item1.Interval.Unit
                         )),
                 typeof(ArgumentException),
-                Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
+                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
                 ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -98,7 +98,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             Utilities.ObjectMother.Shared_NonExistantIntervalUnit
                         )),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(Utilities.ObjectMother.Shared_NonExistantIntervalUnit.ToString())
+                UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(Utilities.ObjectMother.Shared_NonExistantIntervalUnit.ToString())
                 ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_03")
 
         };
@@ -163,7 +163,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                                     Utilities.ObjectMother.Shared_SlidingWindow1_Item1.Y_Forecasted);
             Type expectedType = typeof(ArgumentException);
             string expectedMessage 
-                = Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(Utilities.ObjectMother.Shared_NonExistantIntervalUnit.ToString());
+                = UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(Utilities.ObjectMother.Shared_NonExistantIntervalUnit.ToString());
 
             // Act
             // Assert

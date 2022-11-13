@@ -39,7 +39,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                         () => new FileManager().ReadAllLines(ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -70,7 +70,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                         () => new FileManager().ReadAllText(ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -289,5 +289,5 @@ namespace NW.UnivariateForecasting.UnitTests.Files
 }
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */
