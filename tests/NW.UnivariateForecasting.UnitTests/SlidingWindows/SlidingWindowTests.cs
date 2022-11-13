@@ -13,9 +13,9 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_Empty_Object,
-                Utilities.ObjectMother.SlidingWindow_Empty_String,
-                Utilities.ObjectMother.SlidingWindow_Empty_StringRolloutItems
+                SlidingWindows.ObjectMother.SlidingWindow_Empty,
+                SlidingWindows.ObjectMother.SlidingWindow_Empty_AsString,
+                SlidingWindows.ObjectMother.SlidingWindow_Empty_AsStringRolloutItems
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
@@ -59,5 +59,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */

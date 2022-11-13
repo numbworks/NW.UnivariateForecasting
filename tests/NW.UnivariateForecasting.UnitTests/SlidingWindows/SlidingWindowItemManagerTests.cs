@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindowItem_InvalidDueOfSize, 
+                SlidingWindows.ObjectMother.SlidingWindowItem_InvalidDueOfSize, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
@@ -117,7 +117,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = Utilities.ObjectMother.SlidingWindowItemManager_Default.IsValid(slidingWindowItem);
+            bool actual = SlidingWindows.ObjectMother.SlidingWindowItemManager_Empty.IsValid(slidingWindowItem);
 
             // Assert
             Assert.AreEqual(expected, actual);

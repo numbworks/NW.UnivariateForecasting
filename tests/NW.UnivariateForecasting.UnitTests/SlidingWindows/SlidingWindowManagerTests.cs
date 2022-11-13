@@ -88,7 +88,7 @@ namespace NW.UnivariateForecasting.UnitTests
             // First Create()
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 null,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -101,7 +101,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 null,
@@ -114,7 +114,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -127,7 +127,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -140,7 +140,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -153,7 +153,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -167,7 +167,7 @@ namespace NW.UnivariateForecasting.UnitTests
             // Second Create()
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -182,7 +182,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.SlidingWindowManager_Default
+                    () => SlidingWindows.ObjectMother.SlidingWindowManager_Empty
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
@@ -205,32 +205,32 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_InvalidDueOfNullId, 
+                SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfNullId, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_InvalidDueOfNullObservationName, 
+                SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfNullObservationName, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval, 
+                SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_InvalidDueOfNullItems, 
+                SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfNullItems, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_InvalidDueOfItemsCountZero, 
+                SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfItemsCountZero, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_06"),
 
             new TestCaseData(
-                Utilities.ObjectMother.SlidingWindow_InvalidDueOfSubInterval, 
+                SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfSubInterval, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_07"),
 
@@ -252,16 +252,16 @@ namespace NW.UnivariateForecasting.UnitTests
                 Utilities.ObjectMother.Shared_SlidingWindow1_StartDate,
                 Utilities.ObjectMother.Shared_SlidingWindow1,
                 new List<string>() {
-                    SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
-                    SlidingWindows.MessageCollection.ProvidedValuesAre.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Values),
-                    SlidingWindows.MessageCollection.ProvidedStepsAre.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Steps),
-                    SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_IntervalUnit),
-                    SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
-                    SlidingWindows.MessageCollection.ProvidedIdIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Id),
-                    SlidingWindows.MessageCollection.ProvidedObservationNameIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName),
-                    SlidingWindows.MessageCollection.ProvidedIntervalIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Interval),
-                    SlidingWindows.MessageCollection.ProvidedItemsCountIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Items),
-                    SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Values),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedStepsAre.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Steps),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_IntervalUnit),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIdIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Id),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedObservationNameIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Interval),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedItemsCountIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Items),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01")
 
@@ -291,7 +291,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = Utilities.ObjectMother.SlidingWindowManager_Default.IsValid(slidingWindow);
+            bool actual = SlidingWindows.ObjectMother.SlidingWindowManager_Empty.IsValid(slidingWindow);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -359,5 +359,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */

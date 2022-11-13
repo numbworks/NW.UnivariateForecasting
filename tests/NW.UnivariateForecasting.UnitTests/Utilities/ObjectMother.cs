@@ -388,82 +388,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
         #endregion
 
 
-        #region SlidingWindowTests
-
-        internal static SlidingWindow SlidingWindow_Empty_Object = new SlidingWindow();
-        internal static string SlidingWindow_Empty_String = "[ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]";
-        internal static string SlidingWindow_Empty_StringRolloutItems = SlidingWindow_Empty_String;
-
-        #endregion
-
-        #region SlidingWindowItemTests
-
-        internal static SlidingWindowItem SlidingWindowItem_Empty_Object = new SlidingWindowItem();
-        internal static string SlidingWindowItem_Empty_String = "[ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]";
-
-        #endregion
-
-        #region SlidingWindowItemManagerTests
-
-        internal static SlidingWindowItemManager SlidingWindowItemManager_Default = new SlidingWindowItemManager();
-        internal static SlidingWindowItem SlidingWindowItem_InvalidDueOfSize = new SlidingWindowItem()
-        {
-            Id = 2,
-            Interval = Shared_IntervalInvalidDueOfSize,
-            X_Actual = 615.26,
-            Y_Forecasted = 659.84
-        };
-
-        #endregion
-
-        #region SlidingWindowManagerTests
-
-        internal static SlidingWindowManager SlidingWindowManager_Default = new SlidingWindowManager();
-        internal static SlidingWindow SlidingWindow_InvalidDueOfNullId = new SlidingWindow()
-        {
-            Id = null,
-            ObservationName = Shared_SlidingWindow1_ObservationName,
-            Interval = Shared_SlidingWindow1_Interval,
-            Items = Shared_SlidingWindow1_Items
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfNullObservationName = new SlidingWindow()
-        {
-            Id = Shared_SlidingWindow1_Id,
-            ObservationName = null,
-            Interval = Shared_SlidingWindow1_Interval,
-            Items = Shared_SlidingWindow1_Items
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfInvalidInterval = new SlidingWindow()
-        {
-            Id = Shared_SlidingWindow1_Id,
-            ObservationName = Shared_SlidingWindow1_ObservationName,
-            Interval = null, // Whatever other invalid interval would do the trick
-            Items = Shared_SlidingWindow1_Items
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfNullItems = new SlidingWindow()
-        {
-            Id = Shared_SlidingWindow1_Id,
-            ObservationName = Shared_SlidingWindow1_ObservationName,
-            Interval = Shared_SlidingWindow1_Interval,
-            Items = null
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfItemsCountZero = new SlidingWindow()
-        {
-            Id = Shared_SlidingWindow1_Id,
-            ObservationName = Shared_SlidingWindow1_ObservationName,
-            Interval = Shared_SlidingWindow1_Interval,
-            Items = new List<SlidingWindowItem>()
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfSubInterval = new SlidingWindow()
-        {
-            Id = Shared_SlidingWindow1_Id,
-            ObservationName = Shared_SlidingWindow1_ObservationName,
-            Interval = Shared_SlidingWindow1_Interval,
-            Items = Shared_SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
-        };
-
-        #endregion
-
         #region UnivariateForecasterTests
 
         internal static UnivariateForecaster UnivariateForecaster_Default = new UnivariateForecaster();
@@ -794,5 +718,5 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */
