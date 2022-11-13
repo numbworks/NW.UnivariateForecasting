@@ -87,10 +87,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Utilities.ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
+                    () => Observations.ObjectMother.ObservationManager_Empty.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
-                Observations.MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
 
         };
@@ -103,17 +103,17 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Observation_InvalidDueOfNullName, 
+                Observations.ObjectMother.Observation_InvalidDueOfNullName, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Observation_InvalidDueOfNullInterval, 
+                Observations.ObjectMother.Observation_InvalidDueOfNullInterval, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Observation_InvalidDueOfNullSlidingWindow, 
+                Observations.ObjectMother.Observation_InvalidDueOfNullSlidingWindow, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
@@ -132,8 +132,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 null,
                 Utilities.ObjectMother.Shared_Observation1,
                 new List<string>() {
-                    Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1),
-                    Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1)
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
@@ -143,8 +143,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 Utilities.ObjectMother.Shared_Observation1WithCustomCE_E,
                 Utilities.ObjectMother.Shared_Observation1WithCustomCE,
                 new List<string>() {
-                    Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1),
-                    Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1WithCustomCE)
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
@@ -174,7 +174,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = Utilities.ObjectMother.ObservationManager_Default.IsValid(observation);
+            bool actual = Observations.ObjectMother.ObservationManager_Empty.IsValid(observation);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -217,5 +217,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */

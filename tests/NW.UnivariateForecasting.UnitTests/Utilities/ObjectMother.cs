@@ -388,44 +388,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
         #endregion
 
 
-
-        #region ObservationManagerTests
-
-        internal static ObservationManager ObservationManager_Default = new ObservationManager();
-        internal static Observation Observation_InvalidDueOfNullName = new Observation()
-        {
-
-            Name = null
-
-        };
-        internal static Observation Observation_InvalidDueOfNullInterval = new Observation()
-        {
-
-            Name = Shared_SlidingWindow1_ObservationName,
-            Interval = null
-
-        };
-        internal static Observation Observation_InvalidDueOfNullSlidingWindow = new Observation()
-        {
-
-            Name = Shared_SlidingWindow1_ObservationName,
-            Interval = Shared_SlidingWindow1_SubInterval1, // Whatever valid Interval
-            SlidingWindowId = null
-
-        };
-
-        #endregion
-
-        #region ObservationTests
-
-        internal static Observation Observation_Empty_Object = new Observation();
-        internal static string Observation_Empty_String 
-            = "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]";
-        internal static string Observation_Empty_StringOnlyDates 
-            = "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]";
-
-        #endregion
-
         #region SlidingWindowTests
 
         internal static SlidingWindow SlidingWindow_Empty_Object = new SlidingWindow();
