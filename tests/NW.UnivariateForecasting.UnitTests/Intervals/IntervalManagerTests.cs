@@ -307,7 +307,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                    Utilities.ObjectMother.AreEqual(expected, actual));
+                    Intervals.ObjectMother.AreEqual(expected, actual));
 
         }
 
@@ -377,7 +377,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                Utilities.ObjectMother.AreEqual(expected, actual));
+                    Intervals.ObjectMother.AreEqual(expected, actual));
 
         }
 

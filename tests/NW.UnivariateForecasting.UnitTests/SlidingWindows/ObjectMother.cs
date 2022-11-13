@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.SlidingWindows;
 
@@ -71,6 +72,31 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
         #endregion
 
+        #region Methods
+
+        internal static bool AreEqual(SlidingWindowItem obj1, SlidingWindowItem obj2)
+        {
+
+            return Equals(obj1.Id, obj2.Id)
+                        && Intervals.ObjectMother.AreEqual(obj1.Interval, obj2.Interval)
+                        && Equals(obj1.X_Actual, obj2.X_Actual)
+                        && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted);
+
+        }
+        internal static bool AreEqual(List<SlidingWindowItem> list1, List<SlidingWindowItem> list2)
+            => Utilities.ObjectMother.AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
+
+        internal static bool AreEqual(SlidingWindow obj1, SlidingWindow obj2)
+        {
+
+            return string.Equals(obj1.Id, obj2.Id, StringComparison.InvariantCulture)
+                        && string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
+                        && Intervals.ObjectMother.AreEqual(obj1.Interval, obj2.Interval)
+                        && AreEqual(obj1.Items, obj2.Items);
+
+        }
+
+        #endregion
 
     }
 }

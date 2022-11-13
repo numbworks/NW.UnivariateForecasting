@@ -390,55 +390,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #region Methods
         
-        internal static bool AreEqual(Interval obj1, Interval obj2)
-        {
-
-            return Equals(obj1.Size, obj2.Size)
-                        && Equals(obj1.Unit, obj2.Unit)
-                        && Equals(obj1.StartDate, obj2.StartDate)
-                        && Equals(obj1.Steps, obj2.Steps);
-
-        }
-        internal static bool AreEqual(List<Interval> list1, List<Interval> list2)
-            => AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-
-        internal static bool AreEqual(Observation obj1, Observation obj2)
-        {
-
-            return string.Equals(obj1.Name, obj2.Name, StringComparison.InvariantCulture)
-                        && AreEqual(obj1.Interval, obj2.Interval)
-                        && Equals(obj1.X_Actual, obj2.X_Actual)
-                        && Equals(obj1.C, obj2.C)
-                        && Equals(obj1.E, obj2.E)
-                        && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted)
-                        && string.Equals(obj1.SlidingWindowId, obj2.SlidingWindowId, StringComparison.InvariantCulture);
-
-        }
-        internal static bool AreEqual(List<Observation> list1, List<Observation> list2)
-            => AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-
-        internal static bool AreEqual(SlidingWindowItem obj1, SlidingWindowItem obj2)
-        {
-
-            return Equals(obj1.Id, obj2.Id)
-                        && AreEqual(obj1.Interval, obj2.Interval)
-                        && Equals(obj1.X_Actual, obj2.X_Actual)
-                        && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted);
-
-        }
-        internal static bool AreEqual(List<SlidingWindowItem> list1, List<SlidingWindowItem> list2)
-            => AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-        
-        internal static bool AreEqual(SlidingWindow obj1, SlidingWindow obj2)
-        {
-
-            return string.Equals(obj1.Id, obj2.Id, StringComparison.InvariantCulture)
-                        && string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
-                        && AreEqual(obj1.Interval, obj2.Interval)
-                        && AreEqual(obj1.Items, obj2.Items);
-
-        }
-        
         internal static void Method_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
@@ -469,7 +420,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             return true;
 
         }
-
 
         #endregion
 

@@ -575,7 +575,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(expected, actual));
+                    Observations.ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
@@ -669,7 +669,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(expected, actual));
+                    SlidingWindows.ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
@@ -725,9 +725,9 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(expected, actual));
+                    SlidingWindows.ObjectMother.AreEqual(expected, actual));
             Assert.True(
-                Utilities.ObjectMother.AreEqual(expectedObservations, actualObservations));
+                    Observations.ObjectMother.AreEqual(expectedObservations, actualObservations));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
@@ -853,7 +853,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                    Utilities.ObjectMother.AreEqual(
+                    SlidingWindows.ObjectMother.AreEqual(
                         Utilities.ObjectMother.Shared_SlidingWindow1_WithDefaultDummyFields,
                         actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
@@ -913,7 +913,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                    Utilities.ObjectMother.AreEqual(
+                    Observations.ObjectMother.AreEqual(
                         Utilities.ObjectMother.Shared_Observation1_WithDefaultDummyFields,
                         actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);

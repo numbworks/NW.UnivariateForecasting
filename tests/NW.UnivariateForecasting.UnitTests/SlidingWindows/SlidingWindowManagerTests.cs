@@ -326,7 +326,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(expected, actual));
+                    SlidingWindows.ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }
@@ -342,10 +342,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(
-                    Utilities.ObjectMother.Shared_SlidingWindow1_WithDefaultDummyFields,
-                    actual)
-                );
+                    SlidingWindows.ObjectMother.AreEqual(
+                        Utilities.ObjectMother.Shared_SlidingWindow1_WithDefaultDummyFields,
+                        actual)
+                    );
 
         }
 

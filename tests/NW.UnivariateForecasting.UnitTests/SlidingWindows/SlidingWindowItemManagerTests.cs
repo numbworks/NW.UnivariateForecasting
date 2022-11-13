@@ -145,7 +145,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(expected, actual));
+                    SlidingWindows.ObjectMother.AreEqual(expected, actual));
 
         }
 
@@ -187,7 +187,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                                     Utilities.ObjectMother.Shared_SlidingWindow1_Item1.Y_Forecasted);
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(Utilities.ObjectMother.Shared_SlidingWindow1_Item1, actual));
+                    SlidingWindows.ObjectMother.AreEqual(Utilities.ObjectMother.Shared_SlidingWindow1_Item1, actual));
 
         }
 
@@ -210,7 +210,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Utilities.ObjectMother.AreEqual(Utilities.ObjectMother.Shared_SlidingWindow1_Items, actual));
+                    SlidingWindows.ObjectMother.AreEqual(Utilities.ObjectMother.Shared_SlidingWindow1_Items, actual));
 
         }
 
