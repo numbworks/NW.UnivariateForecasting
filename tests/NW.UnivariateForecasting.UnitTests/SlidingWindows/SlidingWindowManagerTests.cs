@@ -122,7 +122,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentException),
-                Intervals.MessageCollection.IntervalNullOrInvalid
+                UnivariateForecasting.Intervals.MessageCollection.IntervalNullOrInvalid
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_03"),
 
             new TestCaseData(
@@ -161,7 +161,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
                                 )),
                 typeof(ArgumentException),
-                Intervals.MessageCollection.ItemsDontMatchSubintervals.Invoke(5, Utilities.ObjectMother.Shared_SlidingWindow1_Interval)
+                UnivariateForecasting.Intervals.MessageCollection.ItemsDontMatchSubintervals.Invoke(5, Utilities.ObjectMother.Shared_SlidingWindow1_Interval)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_06"),
 
             // Second Create()

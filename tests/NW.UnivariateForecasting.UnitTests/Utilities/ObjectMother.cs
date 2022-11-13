@@ -387,13 +387,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #endregion
 
-        #region IntervalTests
 
-        internal static Interval Interval_Empty_Object = new Interval();
-        internal static string Interval_Empty_String = "0:Months:00010101:00010101:00010101:0:0";
-        internal static string Interval_Empty_StringOnlyDates = "00010101:00010101:00010101";
-
-        #endregion
 
         #region ObservationManagerTests
 

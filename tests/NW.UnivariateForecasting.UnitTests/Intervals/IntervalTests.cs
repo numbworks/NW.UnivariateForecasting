@@ -25,9 +25,9 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Interval_Empty_Object,
-                Utilities.ObjectMother.Interval_Empty_String,
-                Utilities.ObjectMother.Interval_Empty_StringOnlyDates
+                Intervals.ObjectMother.Interval_Empty,
+                Intervals.ObjectMother.Interval_Empty_AsString,
+                Intervals.ObjectMother.Interval_Empty_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_03")
 
         };
@@ -65,5 +65,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */

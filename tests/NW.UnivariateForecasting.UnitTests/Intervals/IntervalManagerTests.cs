@@ -90,7 +90,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                 .CalculateSubIntervals(
                                     Utilities.ObjectMother.Shared_IntervalInvalidDueOfSize)),
                 typeof(ArgumentException),
-                Intervals.MessageCollection.IntervalNullOrInvalid
+                MessageCollection.IntervalNullOrInvalid
                 ).SetArgDisplayNames($"{nameof(calculateSubIntervalsExceptionTestCases)}_01"),
 
             new TestCaseData(

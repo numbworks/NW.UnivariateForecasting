@@ -49,7 +49,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
                 typeof(ArgumentException),
-                Intervals.MessageCollection.IntervalNullOrInvalid
+                UnivariateForecasting.Intervals.MessageCollection.IntervalNullOrInvalid
                 ).SetArgDisplayNames($"{nameof(createItemExceptionTestCases)}_01")
 
         };
@@ -224,5 +224,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: rua@sitecore.net
-    Last Update: 12.11.2022
+    Last Update: 13.11.2022
 */
