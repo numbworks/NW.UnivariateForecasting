@@ -1,4 +1,4 @@
-﻿namespace NW.UnivariateForecasting.UnitTests
+﻿namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
     internal class Car
     {
@@ -30,5 +30,5 @@
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.11.2022
 */

@@ -5,6 +5,7 @@ using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests

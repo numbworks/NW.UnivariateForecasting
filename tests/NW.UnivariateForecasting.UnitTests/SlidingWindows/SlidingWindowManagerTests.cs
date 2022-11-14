@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
