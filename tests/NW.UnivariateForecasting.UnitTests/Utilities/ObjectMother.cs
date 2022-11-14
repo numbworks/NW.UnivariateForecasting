@@ -23,7 +23,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #endregion
 
-
         #region Methods
         
         internal static void Method_ShouldThrowACertainException_WhenUnproperArguments
