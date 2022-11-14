@@ -92,7 +92,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .Create(
                                 null,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+                                Intervals.ObjectMother.Interval_SixMonths,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentNullException),
@@ -105,7 +105,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 null,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+                                Intervals.ObjectMother.Interval_SixMonths,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentNullException),
@@ -131,7 +131,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+                                Intervals.ObjectMother.Interval_SixMonths,
                                 null
                                 )),
                 typeof(ArgumentNullException),
@@ -144,7 +144,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+                                Intervals.ObjectMother.Interval_SixMonths,
                                 new List<SlidingWindowItem>()
                                 )),
                 typeof(ArgumentException),
@@ -157,11 +157,11 @@ namespace NW.UnivariateForecasting.UnitTests
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+                                Intervals.ObjectMother.Interval_SixMonths,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
                                 )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Intervals.MessageCollection.ItemsDontMatchSubintervals.Invoke(5, Utilities.ObjectMother.Shared_SlidingWindow1_Interval)
+                UnivariateForecasting.Intervals.MessageCollection.ItemsDontMatchSubintervals.Invoke(5, Intervals.ObjectMother.Interval_SixMonths)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_06"),
 
             // Second Create()
@@ -173,8 +173,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
                                 null,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Steps,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_IntervalUnit,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_StartDate
+                                Intervals.ObjectMother.IntervalUnits_Months,
+                                Intervals.ObjectMother.Interval_SixMonths_StartDate
                                 )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
@@ -188,8 +188,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
                                 new List<double>(),
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Steps,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_IntervalUnit,
-                                Utilities.ObjectMother.Shared_SlidingWindow1_StartDate
+                                Intervals.ObjectMother.IntervalUnits_Months,
+                                Intervals.ObjectMother.Interval_SixMonths_StartDate
                                 )),
                 typeof(ArgumentException),
                 UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
@@ -248,18 +248,18 @@ namespace NW.UnivariateForecasting.UnitTests
                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
                 Utilities.ObjectMother.Shared_SlidingWindow1_Values,
                 Utilities.ObjectMother.Shared_SlidingWindow1_Steps,
-                Utilities.ObjectMother.Shared_SlidingWindow1_IntervalUnit,
-                Utilities.ObjectMother.Shared_SlidingWindow1_StartDate,
+                Intervals.ObjectMother.IntervalUnits_Months,
+                Intervals.ObjectMother.Interval_SixMonths_StartDate,
                 Utilities.ObjectMother.Shared_SlidingWindow1,
                 new List<string>() {
                     UnivariateForecasting.SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
                     UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Values),
                     UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedStepsAre.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Steps),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_IntervalUnit),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs.Invoke(Intervals.ObjectMother.IntervalUnits_Months),
                     UnivariateForecasting.SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
                     UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIdIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Id),
                     UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedObservationNameIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Interval),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs.Invoke(Intervals.ObjectMother.Interval_SixMonths),
                     UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedItemsCountIs.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1_Items),
                     UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1)
                     }
@@ -359,5 +359,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

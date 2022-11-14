@@ -13,15 +13,15 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
-                Utilities.ObjectMother.Shared_SlidingWindow1_Interval_String,
-                Utilities.ObjectMother.Shared_SlidingWindow1_Interval_StringOnlyDates
+                Intervals.ObjectMother.Interval_SixMonths,
+                Intervals.ObjectMother.Interval_SixMonths_AsString,
+                Intervals.ObjectMother.Interval_SixMonths_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1,
-                Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1_String,
-                Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1_StringOnlyDates
+                Intervals.ObjectMother.Interval_SixMonths_SubInterval01,
+                Intervals.ObjectMother.Interval_SixMonths_SubInterval01_AsString,
+                Intervals.ObjectMother.Interval_SixMonths_SubInterval01_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02"),
 
             new TestCaseData(
@@ -65,5 +65,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

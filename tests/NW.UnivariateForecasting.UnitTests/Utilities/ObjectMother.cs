@@ -14,144 +14,54 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #region Shared
 
-        internal static IntervalUnits Shared_SlidingWindow1_IntervalUnit = IntervalUnits.Months;
-        internal static DateTime Shared_SlidingWindow1_StartDate = new DateTime(2019, 01, 31, 00, 00, 00);
-        internal static Interval Shared_SlidingWindow1_Interval = new Interval()
-        {
-
-            Size = 6,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 01, 31),
-            EndDate = new DateTime(2019, 07, 31),
-            TargetDate = new DateTime(2019, 08, 31),
-            Steps = 1,
-            SubIntervals = 6
-
-        };
-        internal static Interval Shared_SlidingWindow1_SubInterval1 = new Interval()
-        {
-
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 01, 31),
-            EndDate = new DateTime(2019, 02, 28),
-            TargetDate = new DateTime(2019, 03, 31),
-            Steps = 1,
-            SubIntervals = 1
-
-        };
-        internal static Interval Shared_SlidingWindow1_SubInterval2 = new Interval()
-        {
-
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 02, 28),
-            EndDate = new DateTime(2019, 03, 31),
-            TargetDate = new DateTime(2019, 04, 30),
-            Steps = 1,
-            SubIntervals = 1
-
-        };
-        internal static Interval Shared_SlidingWindow1_SubInterval3 = new Interval()
-        {
-
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 03, 31),
-            EndDate = new DateTime(2019, 04, 30),
-            TargetDate = new DateTime(2019, 05, 31),
-            Steps = 1,
-            SubIntervals = 1
-
-        };
-        internal static Interval Shared_SlidingWindow1_SubInterval4 = new Interval()
-        {
-
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 04, 30),
-            EndDate = new DateTime(2019, 05, 31),
-            TargetDate = new DateTime(2019, 06, 30),
-            Steps = 1,
-            SubIntervals = 1
-
-        };
-        internal static Interval Shared_SlidingWindow1_SubInterval5 = new Interval()
-        {
-
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 05, 31),
-            EndDate = new DateTime(2019, 06, 30),
-            TargetDate = new DateTime(2019, 07, 31),
-            Steps = 1,
-            SubIntervals = 1
-
-        };
-        internal static Interval Shared_SlidingWindow1_SubInterval6 = new Interval()
-        {
-
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 06, 30),
-            EndDate = new DateTime(2019, 07, 31),
-            TargetDate = new DateTime(2019, 08, 31),
-            Steps = 1,
-            SubIntervals = 1
-
-        };
-        internal static string Shared_SlidingWindow1_Interval_String = "6:Months:20190131:20190731:20190831:1:6";
-        internal static string Shared_SlidingWindow1_Interval_StringOnlyDates = "20190131:20190731:20190831";
-        internal static string Shared_SlidingWindow1_SubInterval1_String = "1:Months:20190131:20190228:20190331:1:1";
-        internal static string Shared_SlidingWindow1_SubInterval1_StringOnlyDates = "20190131:20190228:20190331";
         internal static string Shared_SlidingWindow1_Id = "SW20200906090516";
         internal static string Shared_SlidingWindow1_ObservationName = "Total Monthly Sales USD";
         internal static uint Shared_SlidingWindow1_Steps = 1;
 
         internal static uint Shared_SlidingWindow1_Item1_Id = 1;
-        internal static Interval Shared_SlidingWindow1_Item1_Interval = Shared_SlidingWindow1_SubInterval1;
+        internal static Interval Shared_SlidingWindow1_Item1_Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval01;
         internal static double Shared_SlidingWindow1_Item1_XActual = 58.5;
         internal static double? Shared_SlidingWindow1_Item1_YForecasted = 615.26;
 
         internal static SlidingWindowItem Shared_SlidingWindow1_Item1 = new SlidingWindowItem()
         {
             Id = Shared_SlidingWindow1_Item1_Id,
-            Interval = Shared_SlidingWindow1_SubInterval1,
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval01,
             X_Actual = Shared_SlidingWindow1_Item1_XActual,
             Y_Forecasted = Shared_SlidingWindow1_Item1_YForecasted
         };
         internal static SlidingWindowItem Shared_SlidingWindow1_Item2 = new SlidingWindowItem()
         {
             Id = 2,
-            Interval = Shared_SlidingWindow1_SubInterval2,
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval02,
             X_Actual = 615.26,
             Y_Forecasted = 659.84
         };
         internal static SlidingWindowItem Shared_SlidingWindow1_Item3 = new SlidingWindowItem()
         {
             Id = 3,
-            Interval = Shared_SlidingWindow1_SubInterval3,
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval03,
             X_Actual = 659.84,
             Y_Forecasted = 635.69
         };
         internal static SlidingWindowItem Shared_SlidingWindow1_Item4 = new SlidingWindowItem()
         {
             Id = 4,
-            Interval = Shared_SlidingWindow1_SubInterval4,
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval04,
             X_Actual = 635.69,
             Y_Forecasted = 612.27
         };
         internal static SlidingWindowItem Shared_SlidingWindow1_Item5 = new SlidingWindowItem()
         {
             Id = 5,
-            Interval = Shared_SlidingWindow1_SubInterval5,
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval05,
             X_Actual = 612.27,
             Y_Forecasted = 632.94
         };
         internal static SlidingWindowItem Shared_SlidingWindow1_Item6 = new SlidingWindowItem()
         {
             Id = 6,
-            Interval = Shared_SlidingWindow1_SubInterval6,
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
             X_Actual = 632.94,
             Y_Forecasted = null
         };
@@ -169,7 +79,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
         {
             Id = Shared_SlidingWindow1_Id,
             ObservationName = Shared_SlidingWindow1_ObservationName,
-            Interval = Shared_SlidingWindow1_Interval,
+            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = Shared_SlidingWindow1_Items
         };
         internal static List<double> Shared_SlidingWindow1_Values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();

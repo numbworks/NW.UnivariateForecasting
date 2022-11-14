@@ -42,7 +42,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         new SlidingWindowItem()
                         {
                             Id = 6,
-                            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval6,
+                            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
                             X_Actual = 632.94,
                             Y_Forecasted = 519.23
                         },
@@ -104,7 +104,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         new SlidingWindowItem()
                         {
                             Id = 6,
-                            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval6,
+                            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
                             X_Actual = 632.94,
                             Y_Forecasted = 519.23
                         },
@@ -180,7 +180,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         new SlidingWindowItem()
                         {
                             Id = 6,
-                            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval6,
+                            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
                             X_Actual = 632.94,
                             Y_Forecasted = 519.23
                         },
@@ -234,5 +234,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

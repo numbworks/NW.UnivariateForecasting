@@ -100,6 +100,102 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
 
         };
 
+        internal static IntervalUnits IntervalUnits_Months = IntervalUnits.Months;
+
+        internal static DateTime Interval_SixMonths_StartDate = new DateTime(2019, 01, 31, 00, 00, 00);
+        internal static DateTime Interval_SixMonths_EndDate = new DateTime(2019, 07, 31, 00, 00, 00);
+        internal static DateTime Interval_SixMonths_TargetDate = new DateTime(2019, 08, 31, 00, 00, 00);
+
+        internal static Interval Interval_SixMonths = new Interval()
+        {
+
+            Size = 6,
+            Unit = IntervalUnits.Months,
+            StartDate = Interval_SixMonths_StartDate,
+            EndDate = Interval_SixMonths_EndDate,
+            TargetDate = Interval_SixMonths_TargetDate,
+            Steps = 1,
+            SubIntervals = 6
+
+        };
+        internal static Interval Interval_SixMonths_SubInterval01 = new Interval()
+        {
+
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = Interval_SixMonths_StartDate,
+            EndDate = new DateTime(2019, 02, 28),
+            TargetDate = new DateTime(2019, 03, 31),
+            Steps = 1,
+            SubIntervals = 1
+
+        };
+        internal static Interval Interval_SixMonths_SubInterval02 = new Interval()
+        {
+
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 02, 28),
+            EndDate = new DateTime(2019, 03, 31),
+            TargetDate = new DateTime(2019, 04, 30),
+            Steps = 1,
+            SubIntervals = 1
+
+        };
+        internal static Interval Interval_SixMonths_SubInterval03 = new Interval()
+        {
+
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 03, 31),
+            EndDate = new DateTime(2019, 04, 30),
+            TargetDate = new DateTime(2019, 05, 31),
+            Steps = 1,
+            SubIntervals = 1
+
+        };
+        internal static Interval Interval_SixMonths_SubInterval04 = new Interval()
+        {
+
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 04, 30),
+            EndDate = new DateTime(2019, 05, 31),
+            TargetDate = new DateTime(2019, 06, 30),
+            Steps = 1,
+            SubIntervals = 1
+
+        };
+        internal static Interval Interval_SixMonths_SubInterval05 = new Interval()
+        {
+
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 05, 31),
+            EndDate = new DateTime(2019, 06, 30),
+            TargetDate = new DateTime(2019, 07, 31),
+            Steps = 1,
+            SubIntervals = 1
+
+        };
+        internal static Interval Interval_SixMonths_SubInterval06 = new Interval()
+        {
+
+            Size = 1,
+            Unit = IntervalUnits.Months,
+            StartDate = new DateTime(2019, 06, 30),
+            EndDate = Interval_SixMonths_EndDate,
+            TargetDate = Interval_SixMonths_TargetDate,
+            Steps = 1,
+            SubIntervals = 1
+
+        };
+
+        internal static string Interval_SixMonths_AsString = "6:Months:20190131:20190731:20190831:1:6";
+        internal static string Interval_SixMonths_AsStringOnlyDates = "20190131:20190731:20190831";
+        internal static string Interval_SixMonths_SubInterval01_AsString = "1:Months:20190131:20190228:20190331:1:1";
+        internal static string Interval_SixMonths_SubInterval01_AsStringOnlyDates = "20190131:20190228:20190331";
+
         #endregion
 
         #region Methods

@@ -27,7 +27,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         {
 
             Name = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_SubInterval1, // Whatever valid Interval
+            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval01, // Whatever valid Interval
             SlidingWindowId = null
 
         };
@@ -64,5 +64,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

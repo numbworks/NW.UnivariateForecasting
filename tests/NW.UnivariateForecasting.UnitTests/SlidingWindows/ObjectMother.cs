@@ -31,14 +31,14 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         {
             Id = null,
             ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = Utilities.ObjectMother.Shared_SlidingWindow1_Items
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfNullObservationName = new SlidingWindow()
         {
             Id = Utilities.ObjectMother.Shared_SlidingWindow1_Id,
             ObservationName = null,
-            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = Utilities.ObjectMother.Shared_SlidingWindow1_Items
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfInvalidInterval = new SlidingWindow()
@@ -52,21 +52,21 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         {
             Id = Utilities.ObjectMother.Shared_SlidingWindow1_Id,
             ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = null
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfItemsCountZero = new SlidingWindow()
         {
             Id = Utilities.ObjectMother.Shared_SlidingWindow1_Id,
             ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = new List<SlidingWindowItem>()
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfSubInterval = new SlidingWindow()
         {
             Id = Utilities.ObjectMother.Shared_SlidingWindow1_Id,
             ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-            Interval = Utilities.ObjectMother.Shared_SlidingWindow1_Interval,
+            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = Utilities.ObjectMother.Shared_SlidingWindow1_Items.Where(item => item.Id != 6).ToList() // Removes a random item
         };
 
@@ -103,5 +103,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */
