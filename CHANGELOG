@@ -1,6 +1,7 @@
 v2.5.0
 - Library:
 	- Refactoring: split the monolithic MessageCollection class to namespace-based MessageCollection classes to improve maintainability.
+	- Refactoring: split the monolithic ObjectMother class to namespace-based ObjectMother classes to improve maintainability.
 
 v2.0.1
 - Updated Newtonsoft.Json to 13.0.1 to solve vulnerability GHSA-5crp-9r3c-p9vr.
