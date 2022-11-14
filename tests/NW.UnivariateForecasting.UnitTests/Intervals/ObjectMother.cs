@@ -100,7 +100,6 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
 
         };
 
-
         #endregion
 
         #region Methods
@@ -124,5 +123,5 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */
