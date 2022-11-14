@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NW.UnivariateForecasting.SlidingWindows;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 {
     [TestFixture]
     public class SlidingWindowTests
@@ -13,15 +13,15 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                SlidingWindows.ObjectMother.SlidingWindow_Empty,
-                SlidingWindows.ObjectMother.SlidingWindow_Empty_AsString,
-                SlidingWindows.ObjectMother.SlidingWindow_Empty_AsStringRolloutItems
+                ObjectMother.SlidingWindow_Empty,
+                ObjectMother.SlidingWindow_Empty_AsString,
+                ObjectMother.SlidingWindow_Empty_AsStringRolloutItems
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                SlidingWindows.ObjectMother.SlidingWindow01,
-                SlidingWindows.ObjectMother.SlidingWindow01_AsString,
-                SlidingWindows.ObjectMother.SlidingWindow01_AsStringRolloutItems
+                ObjectMother.SlidingWindow01,
+                ObjectMother.SlidingWindow01_AsString,
+                ObjectMother.SlidingWindow01_AsStringRolloutItems
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
@@ -59,5 +59,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

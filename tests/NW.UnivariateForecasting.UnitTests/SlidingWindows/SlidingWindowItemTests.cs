@@ -1,7 +1,7 @@
 ﻿using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 {
     [TestFixture]
     public class SlidingWindowItemTests
@@ -13,13 +13,13 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                SlidingWindows.ObjectMother.SlidingWindowItem_Empty,
-                SlidingWindows.ObjectMother.SlidingWindowItem_Empty_AsString
+                ObjectMother.SlidingWindowItem_Empty,
+                ObjectMother.SlidingWindowItem_Empty_AsString
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                SlidingWindows.ObjectMother.SlidingWindow01_Item01,
-                SlidingWindows.ObjectMother.SlidingWindow01_Item01_AsString
+                ObjectMother.SlidingWindow01_Item01,
+                ObjectMother.SlidingWindow01_Item01_AsString
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
