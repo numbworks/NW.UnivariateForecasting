@@ -19,14 +19,14 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         internal static Observation Observation_InvalidDueOfNullInterval = new Observation()
         {
 
-            Name = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = null
 
         };
         internal static Observation Observation_InvalidDueOfNullSlidingWindow = new Observation()
         {
 
-            Name = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval01, // Whatever valid Interval
             SlidingWindowId = null
 

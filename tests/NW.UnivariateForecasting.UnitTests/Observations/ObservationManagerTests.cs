@@ -127,23 +127,23 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                Utilities.ObjectMother.Shared_SlidingWindow1,
+                SlidingWindows.ObjectMother.SlidingWindow01,
                 null,
                 null,
                 Utilities.ObjectMother.Shared_Observation1,
                 new List<string>() {
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1),
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
                     UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Shared_SlidingWindow1,
+                SlidingWindows.ObjectMother.SlidingWindow01,
                 Utilities.ObjectMother.Shared_Observation1WithCustomCE_C,
                 Utilities.ObjectMother.Shared_Observation1WithCustomCE_E,
                 Utilities.ObjectMother.Shared_Observation1WithCustomCE,
                 new List<string>() {
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Utilities.ObjectMother.Shared_SlidingWindow1),
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
                     UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
@@ -217,5 +217,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

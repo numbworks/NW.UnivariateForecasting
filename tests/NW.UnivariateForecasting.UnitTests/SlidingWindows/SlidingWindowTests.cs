@@ -19,9 +19,9 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Shared_SlidingWindow1,
-                Utilities.ObjectMother.Shared_SlidingWindow1_String,
-                Utilities.ObjectMother.Shared_SlidingWindow1_StringRolloutItems
+                SlidingWindows.ObjectMother.SlidingWindow01,
+                SlidingWindows.ObjectMother.SlidingWindow01_AsString,
+                SlidingWindows.ObjectMother.SlidingWindow01_AsStringRolloutItems
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };

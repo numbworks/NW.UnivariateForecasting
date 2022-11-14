@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static SlidingWindow UnivariateForecaster_FaCSteps1_Final = new SlidingWindow()
         {
             Id = UnivariateForecaster_FaC_Id,
-            ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
 
@@ -34,11 +34,11 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             },
             Items = new List<SlidingWindowItem>()
                     {
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item1,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item2,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item3,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item4,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item5,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item01,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item02,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item03,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item04,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item05,
                         new SlidingWindowItem()
                         {
                             Id = 6,
@@ -60,7 +60,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static Observation UnivariateForecaster_FaCSteps3_MidwayObservation_1 = new Observation()
         {
 
-            Name = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
                 Size = 1,
@@ -81,7 +81,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static SlidingWindow UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_2 = new SlidingWindow()
         {
             Id = UnivariateForecaster_FaC_Id,
-            ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
 
@@ -96,11 +96,11 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             },
             Items = new List<SlidingWindowItem>()
                     {
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item1,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item2,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item3,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item4,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item5,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item01,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item02,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item03,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item04,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item05,
                         new SlidingWindowItem()
                         {
                             Id = 6,
@@ -136,7 +136,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static Observation UnivariateForecaster_FaCSteps3_MidwayObservation_2 = new Observation()
         {
 
-            Name = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
                 Size = 1,
@@ -157,7 +157,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static SlidingWindow UnivariateForecaster_FaCSteps3_Final = new SlidingWindow()
         {
             Id = UnivariateForecaster_FaC_Id,
-            ObservationName = Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
+            ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
 
@@ -172,11 +172,11 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             },
             Items = new List<SlidingWindowItem>()
                     {
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item1,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item2,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item3,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item4,
-                        Utilities.ObjectMother.Shared_SlidingWindow1_Item5,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item01,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item02,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item03,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item04,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item05,
                         new SlidingWindowItem()
                         {
                             Id = 6,
