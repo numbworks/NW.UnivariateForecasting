@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Observations;
-using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
@@ -12,41 +8,14 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
     public static class ObjectMother
     {
 
-        #region Shared
+        #region Properties
 
-
-
-
-
-        internal static Interval Shared_SlidingWindow1_DummyInterval
-            = new IntervalManager().Create(
-                    (uint)SlidingWindows.ObjectMother.SlidingWindow01_Values.Count,
-                    UnivariateForecastingSettings.DefaultDummyIntervalUnit,
-                    UnivariateForecastingSettings.DefaultDummyStartDate,
-                    UnivariateForecastingSettings.DefaultDummySteps
-                    );
-        internal static List<SlidingWindowItem> Shared_SlidingWindow1_DefaultDummyItems
-            = new SlidingWindowItemManager().CreateItems(
-                    UnivariateForecastingSettings.DefaultDummyStartDate,
-                    SlidingWindows.ObjectMother.SlidingWindow01_Values,
-                    UnivariateForecastingSettings.DefaultDummyIntervalUnit
-                );
-        internal static SlidingWindow Shared_SlidingWindow1_WithDefaultDummyFields = new SlidingWindow()
-        {
-
-            Id = UnivariateForecastingSettings.DefaultDummyId,
-            ObservationName = UnivariateForecastingSettings.DefaultDummyObservationName,
-            Interval = Shared_SlidingWindow1_DummyInterval,
-            Items = Shared_SlidingWindow1_DefaultDummyItems
-        };
-
-
-        internal static IFileAdapter Shared_FileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
+        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
             => new FakeFileAdapter(
                     fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
                     fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
                 );
-        internal static IFileAdapter Shared_FileAdapter_ReadAllTextReturnsObservationWithDummyValues
+        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues
             => new FakeFileAdapter(
                     fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
                     fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues

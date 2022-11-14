@@ -13,9 +13,9 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                Utilities.ObjectMother.Observation01,
-                Utilities.ObjectMother.Observation01_AsString,
-                Utilities.ObjectMother.Observation01_AsStringOnlyDates
+                Observations.ObjectMother.Observation01,
+                Observations.ObjectMother.Observation01_AsString,
+                Observations.ObjectMother.Observation01_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
@@ -59,5 +59,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 14.11.2022
 */

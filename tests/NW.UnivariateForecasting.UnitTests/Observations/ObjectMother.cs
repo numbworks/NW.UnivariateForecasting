@@ -10,6 +10,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         #region Properties
 
+        internal static string SlidingWindow01_Id = "SW20200906090516";
+        internal static string SlidingWindow01_ObservationName = "Total Monthly Sales USD";
+
         internal static ObservationManager ObservationManager_Empty = new ObservationManager();
         internal static Observation Observation_InvalidDueOfNullName = new Observation()
         {
@@ -20,14 +23,14 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         internal static Observation Observation_InvalidDueOfNullInterval = new Observation()
         {
 
-            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Name = SlidingWindow01_ObservationName,
             Interval = null
 
         };
         internal static Observation Observation_InvalidDueOfNullSlidingWindow = new Observation()
         {
 
-            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Name = SlidingWindow01_ObservationName,
             Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval01, // Whatever valid Interval
             SlidingWindowId = null
 
@@ -53,13 +56,13 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         internal static Observation Observation01 = new Observation()
         {
 
-            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Name = SlidingWindow01_ObservationName,
             Interval = Observation01_Interval,
             X_Actual = 632.94,
             C = 0.82,
             E = 0.22,
             Y_Forecasted = 519.23,
-            SlidingWindowId = SlidingWindows.ObjectMother.SlidingWindow01_Id
+            SlidingWindowId = SlidingWindow01_Id
 
         };
         internal static string Observation01_AsString

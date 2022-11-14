@@ -343,7 +343,7 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Assert.True(
                     SlidingWindows.ObjectMother.AreEqual(
-                        Utilities.ObjectMother.Shared_SlidingWindow1_WithDefaultDummyFields,
+                        SlidingWindows.ObjectMother.SlidingWindow01_WithDefaultDummyFields,
                         actual)
                     );
 
