@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         internal static SlidingWindowItem SlidingWindowItem_InvalidDueOfSize = new SlidingWindowItem()
         {
             Id = 2,
-            Interval = Utilities.ObjectMother.Shared_IntervalInvalidDueOfSize,
+            Interval = Intervals.ObjectMother.Interval_InvalidDueOfSize,
             X_Actual = 615.26,
             Y_Forecasted = 659.84
         };

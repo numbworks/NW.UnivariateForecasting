@@ -118,7 +118,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             .Create(
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Id,
                                 Utilities.ObjectMother.Shared_SlidingWindow1_ObservationName,
-                                Utilities.ObjectMother.Shared_IntervalDueOfEndDate, // Whatever invalid Interval
+                                Intervals.ObjectMother.Interval_InvalidDueOfEndDate, // Whatever invalid Interval
                                 Utilities.ObjectMother.Shared_SlidingWindow1_Items
                                 )),
                 typeof(ArgumentException),
