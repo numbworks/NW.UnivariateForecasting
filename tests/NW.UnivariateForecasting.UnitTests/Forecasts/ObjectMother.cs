@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.UnitTests.Utilities;
 
 namespace NW.UnivariateForecasting.UnitTests.Forecasts
 {
@@ -11,14 +13,14 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         #region Properties
 
-        internal static UnivariateForecaster UnivariateForecaster_Empty = new UnivariateForecaster();
+        internal static UnivariateForecaster UnivariateForecaster = new UnivariateForecaster();
 
-        internal static string UnivariateForecaster_FaC_Id = "SW20200925000000";
-        internal static Func<string> UnivariateForecaster_FaC_IdCreationFunction = () => UnivariateForecaster_FaC_Id;
+        internal static string ForecastAndCombine_Id = "SW20200925000000";
+        internal static Func<string> ForecastAndCombine_IdCreationFunction = () => ForecastAndCombine_Id;
 
-        internal static SlidingWindow UnivariateForecaster_FaCSteps1_Final = new SlidingWindow()
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps1_Final = new SlidingWindow()
         {
-            Id = UnivariateForecaster_FaC_Id,
+            Id = ForecastAndCombine_Id,
             ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
@@ -56,8 +58,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     }
         };
 
-        internal static SlidingWindow UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_1 = UnivariateForecaster_FaCSteps1_Final;
-        internal static Observation UnivariateForecaster_FaCSteps3_MidwayObservation_1 = new Observation()
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps1_01 = SlidingWindow_ForecastAndCombineSteps1_Final;
+        internal static Observation SlidingWindow_ForecastAndCombineSteps1_01_Observation = new Observation()
         {
 
             Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
@@ -75,12 +77,13 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             C = 0.88,
             E = 0.16,
             Y_Forecasted = 457.08,
-            SlidingWindowId = UnivariateForecaster_FaC_Id
+            SlidingWindowId = ForecastAndCombine_Id
 
         };
-        internal static SlidingWindow UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_2 = new SlidingWindow()
+        
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps3_02 = new SlidingWindow()
         {
-            Id = UnivariateForecaster_FaC_Id,
+            Id = ForecastAndCombine_Id,
             ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
@@ -133,7 +136,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         }
                     }
         };
-        internal static Observation UnivariateForecaster_FaCSteps3_MidwayObservation_2 = new Observation()
+        internal static Observation SlidingWindow_ForecastAndCombineSteps3_02_Observation = new Observation()
         {
 
             Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
@@ -151,12 +154,13 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             C = 0.92,
             E = 0.12,
             Y_Forecasted = 420.63,
-            SlidingWindowId = UnivariateForecaster_FaC_Id
+            SlidingWindowId = ForecastAndCombine_Id
 
         };
-        internal static SlidingWindow UnivariateForecaster_FaCSteps3_Final = new SlidingWindow()
+        
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps3_Final = new SlidingWindow()
         {
-            Id = UnivariateForecaster_FaC_Id,
+            Id = ForecastAndCombine_Id,
             ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
             Interval = new Interval()
             {
@@ -226,6 +230,17 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
                     }
         };
+
+        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
+                    fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
+                );
+        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
+                    fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
+                );
 
         #endregion
 

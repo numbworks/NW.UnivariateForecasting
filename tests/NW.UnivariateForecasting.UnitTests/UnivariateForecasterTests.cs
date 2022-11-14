@@ -43,7 +43,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.Forecast(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.Forecast(
                             SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
                         )),
                 typeof(ArgumentException),
@@ -56,7 +56,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.ExtractXActualValues(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.ExtractXActualValues(
                             SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
                         )),
                 typeof(ArgumentException),
@@ -69,7 +69,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.ExtractStartDates(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.ExtractStartDates(
                             SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval
                         )),
                 typeof(ArgumentException),
@@ -82,7 +82,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.Combine(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.Combine(
                             SlidingWindows.ObjectMother.SlidingWindow01,
                             Observations.ObjectMother.Observation_InvalidDueOfNullName
                         )),
@@ -92,7 +92,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.Combine(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.Combine(
                             SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval,
                             Observations.ObjectMother.Observation01
                         )),
@@ -106,7 +106,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.ForecastAndCombine(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.ForecastAndCombine(
                             SlidingWindows.ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval,
                             1
                         )),
@@ -116,7 +116,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.ForecastAndCombine(
+                    () => Forecasts.ObjectMother.UnivariateForecaster.ForecastAndCombine(
                             SlidingWindows.ObjectMother.SlidingWindow01,
                             0
                         )),
@@ -130,14 +130,14 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.ForecastNextValue(null)),
+                    () => Forecasts.ObjectMother.UnivariateForecaster.ForecastNextValue(null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
                 ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster_Empty.ForecastNextValue(new List<double>() { })),
+                    () => Forecasts.ObjectMother.UnivariateForecaster.ForecastNextValue(new List<double>() { })),
                 typeof(ArgumentException),
                 UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
                 ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_02")
@@ -201,12 +201,12 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
                 Observations.ObjectMother.Observation01,
-                Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final,
+                Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final,
                 new List<string>() {
                     UnivariateForecasting.Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation,
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Observations.ObjectMother.Observation01),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final)
                     }
                 ).SetArgDisplayNames($"{nameof(combineTestCases)}_01")
 
@@ -219,7 +219,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 (uint)1,
                 null,
                 null,
-                Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final,
+                Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final,
                 new List<Observation>()
                 {
                     Observations.ObjectMother.Observation01
@@ -232,9 +232,9 @@ namespace NW.UnivariateForecasting.UnitTests
                     UnivariateForecasting.Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation,
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Observations.ObjectMother.Observation01),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final),
                     UnivariateForecasting.Forecasts.MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(1),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final)
                     }
                 ).SetArgDisplayNames($"{nameof(forecastAndCombineTestCases)}_01"),
 
@@ -243,7 +243,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 (uint)1,
                 Observations.ObjectMother.Observation01.C,
                 Observations.ObjectMother.Observation01.E,
-                Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final,
+                Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final,
                 new List<Observation>()
                 {
                     Observations.ObjectMother.Observation01
@@ -256,9 +256,9 @@ namespace NW.UnivariateForecasting.UnitTests
                     UnivariateForecasting.Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation,
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Observations.ObjectMother.Observation01),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final),
                     UnivariateForecasting.Forecasts.MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(1),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps1_Final)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_Final)
                     }
                 ).SetArgDisplayNames($"{nameof(forecastAndCombineTestCases)}_02"),
 
@@ -267,12 +267,12 @@ namespace NW.UnivariateForecasting.UnitTests
                 (uint)3,
                 null,
                 null,
-                Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_Final,
+                Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_Final,
                 new List<Observation>()
                 {
                     Observations.ObjectMother.Observation01,
-                    Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwayObservation_1,
-                    Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwayObservation_2
+                    Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_01_Observation,
+                    Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_02_Observation
                 },
                 new List<string>() {
                     UnivariateForecasting.Forecasts.MessageCollection.RunningForecastAndCombineForSteps.Invoke(3),
@@ -283,26 +283,26 @@ namespace NW.UnivariateForecasting.UnitTests
                     UnivariateForecasting.Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation,
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
                     UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Observations.ObjectMother.Observation01),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_1),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_01),
                     // i = 2
                     UnivariateForecasting.Forecasts.MessageCollection.ForecastingAndCombineForStepNr.Invoke(2),
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_1),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwayObservation_1),
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_01),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_01_Observation),
                     UnivariateForecasting.Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation,
-                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_1),
-                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwayObservation_1),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_2),
+                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_01),
+                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps1_01_Observation),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_02),
                     // i = 3
                     UnivariateForecasting.Forecasts.MessageCollection.ForecastingAndCombineForStepNr.Invoke(3),
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_2),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwayObservation_2),
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_02),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_02_Observation),
                     UnivariateForecasting.Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation,
-                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwaySlidingWindow_2),
-                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_MidwayObservation_2),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_Final),
+                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedSlidingWindowIs.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_02),
+                    UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationIs.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_02_Observation),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_Final),
                     // final
                     UnivariateForecasting.Forecasts.MessageCollection.ForecastAndCombineSuccessfullyRunForSteps.Invoke(3),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.UnivariateForecaster_FaCSteps3_Final)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(Forecasts.ObjectMother.SlidingWindow_ForecastAndCombineSteps3_Final)
                     }
                 ).SetArgDisplayNames($"{nameof(forecastAndCombineTestCases)}_03")
 
@@ -657,7 +657,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         observationManager: new ObservationManager(),
                         intervalManager: new IntervalManager(),
                         fileManager: new FileManager(),
-                        idCreationFunction: Forecasts.ObjectMother.UnivariateForecaster_FaC_IdCreationFunction,
+                        idCreationFunction: Forecasts.ObjectMother.ForecastAndCombine_IdCreationFunction,
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: (message) => fakeLogger.Log(message));
             UnivariateForecaster univariateForecaster
@@ -712,7 +712,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         observationManager: observationManager,
                         intervalManager: new IntervalManager(),
                         fileManager: new FileManager(),
-                        idCreationFunction: Forecasts.ObjectMother.UnivariateForecaster_FaC_IdCreationFunction,
+                        idCreationFunction: Forecasts.ObjectMother.ForecastAndCombine_IdCreationFunction,
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction);
             UnivariateForecaster univariateForecaster
@@ -825,7 +825,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         loggingAction: fakeLoggingAction
                     );
             IFileManager fakeFileManager 
-                = new FileManager(Utilities.ObjectMother.FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues);
+                = new FileManager(Forecasts.ObjectMother.FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues);
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: slidingManager,
@@ -885,7 +885,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         loggingAction: fakeLoggingAction
                     );
             IFileManager fakeFileManager
-                = new FileManager(Utilities.ObjectMother.FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues);
+                = new FileManager(Forecasts.ObjectMother.FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues);
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: slidingManager,

@@ -9,18 +9,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
     {
 
         #region Properties
-
-        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
-            => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
-                    fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
-                );
-        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues
-            => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
-                    fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
-                );
-
         #endregion
 
         #region Methods
