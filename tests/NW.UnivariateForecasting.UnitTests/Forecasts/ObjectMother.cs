@@ -49,7 +49,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         new SlidingWindowItem()
                         {
                             Id = 7,
-                            Interval = Utilities.ObjectMother.Shared_Observation1_Interval,
+                            Interval = Observations.ObjectMother.Observation01_Interval,
                             X_Actual = 519.23,
                             Y_Forecasted = null
                         }
@@ -111,7 +111,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         new SlidingWindowItem()
                         {
                             Id = 7,
-                            Interval = Utilities.ObjectMother.Shared_Observation1_Interval,
+                            Interval = Observations.ObjectMother.Observation01_Interval,
                             X_Actual = 519.23,
                             Y_Forecasted = 457.08
                         },
@@ -187,7 +187,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         new SlidingWindowItem()
                         {
                             Id = 7,
-                            Interval = Utilities.ObjectMother.Shared_Observation1_Interval,
+                            Interval = Observations.ObjectMother.Observation01_Interval,
                             X_Actual = 519.23,
                             Y_Forecasted = 457.08
                         },

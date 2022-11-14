@@ -14,48 +14,9 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #region Shared
 
-        internal static Interval Shared_Observation1_Interval = new Interval()
-        {
-            Size = 1,
-            Unit = IntervalUnits.Months,
-            StartDate = new DateTime(2019, 07, 31),
-            EndDate = new DateTime(2019, 08, 31),
-            TargetDate = new DateTime(2019, 09, 30),
-            Steps = 1,
-            SubIntervals = 1
-        };
-        internal static Observation Shared_Observation1 = new Observation()
-        {
 
-            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
-            Interval = Shared_Observation1_Interval,
-            X_Actual = 632.94,
-            C = 0.82,
-            E = 0.22,
-            Y_Forecasted = 519.23,
-            SlidingWindowId = SlidingWindows.ObjectMother.SlidingWindow01_Id
 
-        };
-        internal static string Shared_Observation1_String
-            = $"[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190731:20190831:20190930:1:1', X_Actual: '{632.94.ToString()}', C: '{0.82.ToString()}', E: '{0.22.ToString()}', Y_Forecasted: '{519.23.ToString()}', SlidingWindowId: 'SW20200906090516' ]";
-        internal static string Shared_Observation1_StringOnlyDates
-            = $"[ Name: 'Total Monthly Sales USD', Interval: '20190731:20190831:20190930', X_Actual: '{632.94.ToString()}', C: '{0.82.ToString()}', E: '{0.22.ToString()}', Y_Forecasted: '{519.23.ToString()}', SlidingWindowId: 'SW20200906090516' ]";
 
-        internal static double Shared_Observation1WithCustomCE_C = 0.92;
-        internal static double Shared_Observation1WithCustomCE_E = 0.12;
-        internal static double Shared_Observation1WithCustomCE_Y = 582.42;
-        internal static Observation Shared_Observation1WithCustomCE = new Observation()
-        {
-
-            Name = Shared_Observation1.Name,
-            Interval = Shared_Observation1.Interval,
-            SlidingWindowId = Shared_Observation1.SlidingWindowId,
-            X_Actual = Shared_Observation1.X_Actual,
-            C = Shared_Observation1WithCustomCE_C,
-            E = Shared_Observation1WithCustomCE_E,
-            Y_Forecasted = Shared_Observation1WithCustomCE_Y
-
-        };
 
         internal static Interval Shared_SlidingWindow1_DummyInterval
             = new IntervalManager().Create(
@@ -79,28 +40,6 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             Items = Shared_SlidingWindow1_DefaultDummyItems
         };
 
-        internal static Interval Shared_Observation1_DefaultDummyInterval = new Interval()
-        {
-            Size = 1,
-            Unit = UnivariateForecastingSettings.DefaultDummyIntervalUnit,
-            StartDate = new DateTime(2020, 07, 01),
-            EndDate = new DateTime(2020, 08, 01),
-            TargetDate = new DateTime(2020, 09, 01),
-            Steps = UnivariateForecastingSettings.DefaultDummySteps,
-            SubIntervals = 1
-        };
-        internal static Observation Shared_Observation1_WithDefaultDummyFields = new Observation()
-        {
-
-            Name = UnivariateForecastingSettings.DefaultDummyObservationName,
-            Interval = Shared_Observation1_DefaultDummyInterval,
-            X_Actual = 632.94,
-            C = 0.82,
-            E = 0.22,
-            Y_Forecasted = 519.23,
-            SlidingWindowId = UnivariateForecastingSettings.DefaultDummyId
-
-        };
 
         internal static IFileAdapter Shared_FileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
             => new FakeFileAdapter(

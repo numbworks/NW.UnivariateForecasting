@@ -118,7 +118,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
             new TestCaseData(
-                Utilities.ObjectMother.Shared_Observation1, 
+                Utilities.ObjectMother.Observation01, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05")
 
@@ -130,21 +130,21 @@ namespace NW.UnivariateForecasting.UnitTests
                 SlidingWindows.ObjectMother.SlidingWindow01,
                 null,
                 null,
-                Utilities.ObjectMother.Shared_Observation1,
+                Utilities.ObjectMother.Observation01,
                 new List<string>() {
                     UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1)
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Observation01)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                Utilities.ObjectMother.Shared_Observation1WithCustomCE_C,
-                Utilities.ObjectMother.Shared_Observation1WithCustomCE_E,
-                Utilities.ObjectMother.Shared_Observation1WithCustomCE,
+                Utilities.ObjectMother.Observation01_WithCustomCE_C,
+                Utilities.ObjectMother.Observation01_WithCustomCE_E,
+                Utilities.ObjectMother.Observation01_WithCustomCE,
                 new List<string>() {
                     UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Shared_Observation1WithCustomCE)
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Utilities.ObjectMother.Observation01_WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
