@@ -5,7 +5,7 @@ using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Observations
 {
     [TestFixture]
     public class ObservationManagerTests
@@ -87,7 +87,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Observations.ObjectMother.ObservationManager_Empty.Create(null) // Whatever invalid SlidingWindow
+                    () => ObjectMother.ObservationManager_Empty.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
                 UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
@@ -103,22 +103,22 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
 
             new TestCaseData(
-                Observations.ObjectMother.Observation_InvalidDueOfNullName, 
+                ObjectMother.Observation_InvalidDueOfNullName, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
             new TestCaseData(
-                Observations.ObjectMother.Observation_InvalidDueOfNullInterval, 
+                ObjectMother.Observation_InvalidDueOfNullInterval, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(
-                Observations.ObjectMother.Observation_InvalidDueOfNullSlidingWindow, 
+                ObjectMother.Observation_InvalidDueOfNullSlidingWindow, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
             new TestCaseData(
-                Observations.ObjectMother.Observation01, 
+                ObjectMother.Observation01, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05")
 
@@ -130,21 +130,21 @@ namespace NW.UnivariateForecasting.UnitTests
                 SlidingWindows.ObjectMother.SlidingWindow01,
                 null,
                 null,
-                Observations.ObjectMother.Observation01,
+                ObjectMother.Observation01,
                 new List<string>() {
                     UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Observations.ObjectMother.Observation01)
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation01)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                Observations.ObjectMother.Observation01_WithCustomCE_C,
-                Observations.ObjectMother.Observation01_WithCustomCE_E,
-                Observations.ObjectMother.Observation01_WithCustomCE,
+                ObjectMother.Observation01_WithCustomCE_C,
+                ObjectMother.Observation01_WithCustomCE_E,
+                ObjectMother.Observation01_WithCustomCE,
                 new List<string>() {
                     UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(Observations.ObjectMother.Observation01_WithCustomCE)
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation01_WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
@@ -174,7 +174,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = Observations.ObjectMother.ObservationManager_Empty.IsValid(observation);
+            bool actual = ObjectMother.ObservationManager_Empty.IsValid(observation);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -202,7 +202,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                Observations.ObjectMother.AreEqual(expected, actual));
+                ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
 
         }

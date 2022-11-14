@@ -1,7 +1,7 @@
 ﻿using NW.UnivariateForecasting.Observations;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Observations
 {
     [TestFixture]
     public class ObservationTests
@@ -13,15 +13,15 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                Observations.ObjectMother.Observation01,
-                Observations.ObjectMother.Observation01_AsString,
-                Observations.ObjectMother.Observation01_AsStringOnlyDates
+                ObjectMother.Observation01,
+                ObjectMother.Observation01_AsString,
+                ObjectMother.Observation01_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                Observations.ObjectMother.Observation_Empty,
-                Observations.ObjectMother.Observation_Empty_AsString,
-                Observations.ObjectMother.Observation_Empty_AsStringOnlyDates
+                ObjectMother.Observation_Empty,
+                ObjectMother.Observation_Empty_AsString,
+                ObjectMother.Observation_Empty_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
 
         };
