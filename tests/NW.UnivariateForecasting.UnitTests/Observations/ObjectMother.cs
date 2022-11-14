@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         internal static string SlidingWindow01_Id = "SW20200906090516";
         internal static string SlidingWindow01_ObservationName = "Total Monthly Sales USD";
 
-        internal static ObservationManager ObservationManager_Empty = new ObservationManager();
+        internal static ObservationManager ObservationManager = new ObservationManager();
         internal static Observation Observation_InvalidDueOfNullName = new Observation()
         {
 

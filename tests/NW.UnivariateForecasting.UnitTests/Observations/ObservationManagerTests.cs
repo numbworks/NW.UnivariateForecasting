@@ -88,7 +88,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 new TestDelegate(
-                    () => ObjectMother.ObservationManager_Empty.Create(null) // Whatever invalid SlidingWindow
+                    () => ObjectMother.ObservationManager.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
                 UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
@@ -175,7 +175,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             // Arrange
             // Act
-            bool actual = ObjectMother.ObservationManager_Empty.IsValid(observation);
+            bool actual = ObjectMother.ObservationManager.IsValid(observation);
 
             // Assert
             Assert.AreEqual(expected, actual);

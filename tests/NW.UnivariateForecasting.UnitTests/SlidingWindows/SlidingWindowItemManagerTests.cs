@@ -117,7 +117,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
             // Arrange
             // Act
-            bool actual = ObjectMother.SlidingWindowItemManager_Empty.IsValid(slidingWindowItem);
+            bool actual = ObjectMother.SlidingWindowItemManager.IsValid(slidingWindowItem);
 
             // Assert
             Assert.AreEqual(expected, actual);
