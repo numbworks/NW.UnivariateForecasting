@@ -1,7 +1,7 @@
 ﻿using NW.UnivariateForecasting.Intervals;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Intervals
 {
     [TestFixture]
     public class IntervalTests
@@ -13,21 +13,21 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                Intervals.ObjectMother.Interval_SixMonths,
-                Intervals.ObjectMother.Interval_SixMonths_AsString,
-                Intervals.ObjectMother.Interval_SixMonths_AsStringOnlyDates
+                ObjectMother.Interval_SixMonths,
+                ObjectMother.Interval_SixMonths_AsString,
+                ObjectMother.Interval_SixMonths_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                Intervals.ObjectMother.Interval_SixMonths_SubInterval01,
-                Intervals.ObjectMother.Interval_SixMonths_SubInterval01_AsString,
-                Intervals.ObjectMother.Interval_SixMonths_SubInterval01_AsStringOnlyDates
+                ObjectMother.Interval_SixMonths_SubInterval01,
+                ObjectMother.Interval_SixMonths_SubInterval01_AsString,
+                ObjectMother.Interval_SixMonths_SubInterval01_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02"),
 
             new TestCaseData(
-                Intervals.ObjectMother.Interval_Empty,
-                Intervals.ObjectMother.Interval_Empty_AsString,
-                Intervals.ObjectMother.Interval_Empty_AsStringOnlyDates
+                ObjectMother.Interval_Empty,
+                ObjectMother.Interval_Empty_AsString,
+                ObjectMother.Interval_Empty_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_03")
 
         };
