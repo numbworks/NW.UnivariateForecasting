@@ -91,7 +91,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                     () => ObjectMother.ObservationManager.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
-                UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow))
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
 
         };
@@ -133,8 +133,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 null,
                 ObjectMother.Observation01,
                 new List<string>() {
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation01)
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated(ObjectMother.Observation01)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
@@ -144,8 +144,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 ObjectMother.Observation01_WithCustomCE_E,
                 ObjectMother.Observation01_WithCustomCE,
                 new List<string>() {
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow.Invoke(SlidingWindows.ObjectMother.SlidingWindow01),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated.Invoke(ObjectMother.Observation01_WithCustomCE)
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated(ObjectMother.Observation01_WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
