@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                     ),
                 typeof(Exception),
                 new Exception(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke(ObjectMother.VariableName_Length)).Message
+                        MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_Length)).Message
                 ).SetArgDisplayNames($"{nameof(validateLengthExceptionTestCases)}_01"),
 
             // ValidateLength
@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                     ),
                 typeof(ArgumentException),
                 new ArgumentException(
-                        MessageCollection.VariableCantBeLessThanOne.Invoke(ObjectMother.VariableName_Length)).Message
+                        MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_Length)).Message
                 ).SetArgDisplayNames($"{nameof(validateLengthExceptionTestCases)}_02")
 
         };
@@ -79,7 +79,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                                 ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.VariableContainsZeroItems.Invoke(ObjectMother.VariableName_Variable)
+                MessageCollection.VariableContainsZeroItems(ObjectMother.VariableName_Variable)
                 ).SetArgDisplayNames($"{nameof(validateArrayExceptionTestCases)}_02")
 
         };
@@ -105,7 +105,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                                 ObjectMother.VariableName_Variable)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.VariableContainsZeroItems.Invoke(ObjectMother.VariableName_Variable)
+                MessageCollection.VariableContainsZeroItems(ObjectMother.VariableName_Variable)
                 ).SetArgDisplayNames($"{nameof(validateListExceptionTestCases)}_02"),
 
         };
@@ -215,7 +215,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                         () => Validator.ThrowIfLessThanOne<Exception>(0, ObjectMother.VariableName_N1)
                     ),
                 typeof(Exception),
-                MessageCollection.VariableCantBeLessThanOne.Invoke(ObjectMother.VariableName_N1)
+                MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_N1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_01"),
 
             // ThrowIfLessThanOne
@@ -224,7 +224,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                         () => Validator.ThrowIfLessThanOne(0, ObjectMother.VariableName_N1)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.VariableCantBeLessThanOne.Invoke(ObjectMother.VariableName_N1)
+                MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_N1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_02")
 
         };
@@ -241,7 +241,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                                 ObjectMother.VariableName_N2)
                     ),
                 typeof(Exception),
-                MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(
+                MessageCollection.FirstValueIsGreaterThanSecondValue(
                                         ObjectMother.VariableName_N1,
                                         ObjectMother.VariableName_N2
                                     )
@@ -257,7 +257,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                                 ObjectMother.VariableName_N2)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(
+                MessageCollection.FirstValueIsGreaterThanSecondValue(
                                         ObjectMother.VariableName_N1,
                                         ObjectMother.VariableName_N2
                                     )
@@ -277,7 +277,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                                 ObjectMother.VariableName_N2)
                     ),
                 typeof(Exception),
-                MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
+                MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(
                                         ObjectMother.VariableName_N1,
                                         ObjectMother.VariableName_N2
                                     )
@@ -293,7 +293,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                                 ObjectMother.VariableName_N2)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(
+                MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(
                                         ObjectMother.VariableName_N1,
                                         ObjectMother.VariableName_N2
                                     )
@@ -434,7 +434,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                 // Arrange
                 // Act
                 foreach (Action action in actions)
-                    action.Invoke();
+                    action();
 
             }
             catch (Exception ex)
