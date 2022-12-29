@@ -23,7 +23,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 >= value2)
-                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(variableName1, variableName2));
 
         }
 
@@ -36,7 +36,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 > value2)
-                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterThanSecondValue.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterThanSecondValue(variableName1, variableName2));
 
         }
 
@@ -53,7 +53,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value < 1)
-                throw CreateException<TException>(Validation.MessageCollection.VariableCantBeLessThanOne.Invoke(variableName));
+                throw CreateException<TException>(Validation.MessageCollection.VariableCantBeLessThanOne(variableName));
 
         }
 
@@ -70,7 +70,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 % value2 != 0)
-                throw CreateException<TException>(Validation.MessageCollection.DividingMustReturnWholeNumber.Invoke(variableName1, variableName2));
+                throw CreateException<TException>(Validation.MessageCollection.DividingMustReturnWholeNumber(variableName1, variableName2));
 
         }
 
@@ -105,7 +105,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (arr.Length == 0)
-                throw CreateException<TException>(Validation.MessageCollection.VariableContainsZeroItems.Invoke(variableName));
+                throw CreateException<TException>(Validation.MessageCollection.VariableContainsZeroItems(variableName));
 
         }
 
@@ -118,7 +118,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (!file.Exists)
-                throw CreateException<TException>(MessageCollection.ProvidedPathDoesntExist.Invoke(file));
+                throw CreateException<TException>(MessageCollection.ProvidedPathDoesntExist(file));
 
         }
 
@@ -135,7 +135,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (length < 1)
-                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanOne.Invoke(nameof(length)));
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanOne(nameof(length)));
 
         }
 
@@ -170,7 +170,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (list.Count == 0)
-                throw CreateException<ArgumentException>(MessageCollection.VariableContainsZeroItems.Invoke(variableName));
+                throw CreateException<ArgumentException>(MessageCollection.VariableContainsZeroItems(variableName));
 
         }
 
@@ -230,7 +230,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (unit != IntervalUnits.Months)
-                throw CreateException<TException>(MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(unit.ToString()));
+                throw CreateException<TException>(MessageCollection.ProvidedIntervalUnitNotSupported(unit.ToString()));
 
         }
 
