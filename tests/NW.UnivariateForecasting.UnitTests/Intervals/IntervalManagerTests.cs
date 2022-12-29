@@ -24,7 +24,7 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
                                 ObjectMother.Interval_SixMonths_StartDate,
                                 1)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("size")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("size")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01"),
 
             new TestCaseData(
@@ -36,7 +36,7 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
                                 ObjectMother.Interval_SixMonths_StartDate,
                                 0)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("steps")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
                                 ObjectMother.Interval_SixMonths_StartDate,
                                 2)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.DividingMustReturnWholeNumber.Invoke("size", "steps")
+                UnivariateForecasting.Validation.MessageCollection.DividingMustReturnWholeNumber("size", "steps")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_03")
 
         };
@@ -64,7 +64,7 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
                                 ObjectMother.IntervalUnits_Months,
                                 0)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne.Invoke("steps")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("steps")
                 ).SetArgDisplayNames($"{nameof(calculateNextExceptionTestCases)}_01"),
 
             new TestCaseData(
@@ -75,7 +75,7 @@ namespace NW.UnivariateForecasting.UnitTests.Intervals
                                 ObjectMother.IntervalUnit_NonExistant,
                                 1)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported.Invoke(
+                UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported(
                             ObjectMother.IntervalUnit_NonExistant.ToString())
                 ).SetArgDisplayNames($"{nameof(calculateNextExceptionTestCases)}_02")
 
