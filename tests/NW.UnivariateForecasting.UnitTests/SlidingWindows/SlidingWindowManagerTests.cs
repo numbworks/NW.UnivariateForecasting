@@ -149,7 +149,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                                 new List<SlidingWindowItem>()
                                 )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems.Invoke("items")
+                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems("items")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_05"),
 
             new TestCaseData(
@@ -162,7 +162,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                                 ObjectMother.SlidingWindow01_Items.Where(item => item.Id != 6).ToList() // Removes a random item
                                 )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Intervals.MessageCollection.ItemsDontMatchSubintervals.Invoke(5, Intervals.ObjectMother.Interval_SixMonths)
+                UnivariateForecasting.Intervals.MessageCollection.ItemsDontMatchSubintervals(5, Intervals.ObjectMother.Interval_SixMonths)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_06"),
 
             // Second Create()
@@ -193,7 +193,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                                 Intervals.ObjectMother.Interval_SixMonths_StartDate
                                 )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems.Invoke("values")
+                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems("values")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_08")
 
         };
@@ -254,15 +254,15 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                ObjectMother.SlidingWindow01,
                 new List<string>() {
                     UnivariateForecasting.SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre.Invoke(ObjectMother.SlidingWindow01_Values),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedStepsAre.Invoke(ObjectMother.SlidingWindow01_Steps),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs.Invoke(Intervals.ObjectMother.IntervalUnits_Months),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre(ObjectMother.SlidingWindow01_Values),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedStepsAre(ObjectMother.SlidingWindow01_Steps),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs(Intervals.ObjectMother.IntervalUnits_Months),
                     UnivariateForecasting.SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIdIs.Invoke(ObjectMother.SlidingWindow01_Id),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedObservationNameIs.Invoke(ObjectMother.SlidingWindow01_ObservationName),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs.Invoke(Intervals.ObjectMother.Interval_SixMonths),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedItemsCountIs.Invoke(ObjectMother.SlidingWindow01_Items),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated.Invoke(ObjectMother.SlidingWindow01)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIdIs(ObjectMother.SlidingWindow01_Id),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedObservationNameIs(ObjectMother.SlidingWindow01_ObservationName),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs(Intervals.ObjectMother.Interval_SixMonths),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedItemsCountIs(ObjectMother.SlidingWindow01_Items),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated(ObjectMother.SlidingWindow01)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01")
 
