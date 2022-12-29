@@ -58,7 +58,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.NotPossibleToRead.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToRead(file, e), e);
 
             }
 
@@ -78,7 +78,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.NotPossibleToRead.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToRead(file, e), e);
 
             }
 
@@ -97,7 +97,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.NotPossibleToWrite.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToWrite(file, e), e);
 
             }
 
@@ -116,7 +116,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.NotPossibleToWrite.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToWrite(file, e), e);
 
             }
 
