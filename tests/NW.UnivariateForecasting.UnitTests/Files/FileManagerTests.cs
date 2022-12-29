@@ -39,7 +39,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                         () => new FileManager().ReadAllLines(ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist(ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                                     .ReadAllLines(ObjectMother.FileInfoAdapterExists)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToRead.Invoke(
+                MessageCollection.NotPossibleToRead(
                                     ObjectMother.FileInfoAdapterExists,
                                     ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(readAllLinesExceptionTestCases)}_03")
@@ -70,7 +70,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                         () => new FileManager().ReadAllText(ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist.Invoke(ObjectMother.FileInfoAdapterDoesntExist)
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist(ObjectMother.FileInfoAdapterDoesntExist)
                 ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -79,7 +79,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                                     .ReadAllText(ObjectMother.FileInfoAdapterExists)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToRead.Invoke(
+                MessageCollection.NotPossibleToRead(
                                     ObjectMother.FileInfoAdapterExists,
                                     ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(readAllTextExceptionTestCases)}_03")
@@ -104,7 +104,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                                         ObjectMother.ContentMultipleLines)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToWrite.Invoke(
+                MessageCollection.NotPossibleToWrite(
                                     ObjectMother.FileInfoAdapterExists,
                                     ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(writeAllLinesExceptionTestCases)}_02")
@@ -129,7 +129,7 @@ namespace NW.UnivariateForecasting.UnitTests.Files
                                         ObjectMother.ContentSingleLine)
                     ),
                 typeof(Exception),
-                MessageCollection.NotPossibleToWrite.Invoke(
+                MessageCollection.NotPossibleToWrite(
                                     ObjectMother.FileInfoAdapterExists,
                                     ObjectMother.FileAdapterIOException)
                 ).SetArgDisplayNames($"{nameof(writeAllTextExceptionTestCases)}_02")
