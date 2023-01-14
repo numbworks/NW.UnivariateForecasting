@@ -1,4 +1,5 @@
 ﻿using System;
+using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
@@ -22,6 +23,8 @@ namespace NW.UnivariateForecasting
             = new Func<double, double>(x => Math.Round(x, 2, MidpointRounding.AwayFromZero));
         public static Action<string> DefaultLoggingAction { get; }
             = (message) => Console.WriteLine(message);
+        public static Action<string> DefaultLoggingActionAsciiBanner { get; }
+            = (message) => Console.WriteLine($"{message}");
 
         public IObservationManager ObservationManager { get; private set; }
         public ISlidingWindowManager SlidingWindowManager { get; private set; }
@@ -31,6 +34,8 @@ namespace NW.UnivariateForecasting
         public Func<string> IdCreationFunction { get; private set; }
         public Func<double, double> RoundingFunction { get; private set; }
         public Action<string> LoggingAction { get; private set; }
+        public Action<string> LoggingActionAsciiBanner { get; }
+        public IAsciiBannerManager AsciiBannerManager { get; }
 
         #endregion
 
@@ -56,7 +61,9 @@ namespace NW.UnivariateForecasting
                 IFileManager fileManager,
                 Func<string> idCreationFunction,
                 Func<double, double> roundingFunction,
-                Action<string> loggingAction
+                Action<string> loggingAction,
+                Action<string> loggingActionAsciiBanner,
+                IAsciiBannerManager asciiBannerManager
             )
         {
 
@@ -68,6 +75,8 @@ namespace NW.UnivariateForecasting
             Validator.ValidateObject(idCreationFunction, nameof(idCreationFunction));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
+            Validator.ValidateObject(loggingActionAsciiBanner, nameof(loggingActionAsciiBanner));
+            Validator.ValidateObject(asciiBannerManager, nameof(asciiBannerManager));
 
             ObservationManager = observationManager;
             SlidingWindowManager = slidingWindowManager;
@@ -77,6 +86,8 @@ namespace NW.UnivariateForecasting
             IdCreationFunction = idCreationFunction;
             RoundingFunction = roundingFunction;
             LoggingAction = loggingAction;
+            LoggingActionAsciiBanner = loggingActionAsciiBanner;
+            AsciiBannerManager = asciiBannerManager;
 
         }
 
@@ -92,7 +103,9 @@ namespace NW.UnivariateForecasting
                   new FileManager(),
                   DefaultIdCreationFunction,
                   DefaultRoundingFunction,
-                  DefaultLoggingAction) { }
+                  DefaultLoggingAction,
+                  DefaultLoggingActionAsciiBanner,
+                  new AsciiBannerManager()) { }
 
         #endregion
 
@@ -104,5 +117,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.01.2023
 */
