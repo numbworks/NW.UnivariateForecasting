@@ -61,6 +61,9 @@ namespace NW.UnivariateForecasting
 
         #region Methods_public
 
+        public void LogAsciiBanner()
+            => _components.LoggingActionAsciiBanner(AsciiBanner);
+
         public Observation Forecast(SlidingWindow slidingWindow, double? C = null, double? E = null)
         {
 

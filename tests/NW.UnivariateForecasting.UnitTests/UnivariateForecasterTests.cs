@@ -1078,6 +1078,45 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [Test]
+        public void LogAsciiBanner_ShouldLogAsExpected_WhenInvoked()
+        {
+
+            // Arrange
+            List<string> actualLogMessages = new List<string>();
+            Action<string> fakeLoggingActionAsciiBanner = (message) => actualLogMessages.Add(message);
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        slidingWindowItemManager: new SlidingWindowItemManager(),
+                        observationManager: new ObservationManager(),
+                        intervalManager: new IntervalManager(),
+                        fileManager: new FileManager(),
+                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                        loggingActionAsciiBanner: fakeLoggingActionAsciiBanner,
+                        asciiBannerManager: new AsciiBannerManager());
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+
+            List<string> expectedMessages = new List<string>()
+            {
+
+                new AsciiBannerManager().Create(univariateForecaster.Version)
+
+            };
+
+            // Act            
+            univariateForecaster.LogAsciiBanner();
+
+            // Assert
+            Assert.AreEqual(expectedMessages, actualLogMessages);
+
+        }
+
         #endregion
 
         #region TearDown
