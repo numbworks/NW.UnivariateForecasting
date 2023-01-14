@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
@@ -24,6 +25,10 @@ namespace NW.UnivariateForecasting
         #endregion
 
         #region Properties
+
+        public string Version { get; }
+        public string AsciiBanner { get; }
+
         #endregion
 
         #region Constructors
@@ -40,6 +45,9 @@ namespace NW.UnivariateForecasting
 
             _settings = settings;
             _components = components;
+
+            Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            AsciiBanner = _components.AsciiBannerManager.Create(Version);
 
         }
 

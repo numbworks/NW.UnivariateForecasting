@@ -498,6 +498,22 @@ namespace NW.UnivariateForecasting.UnitTests
 
         #region Tests
 
+        [Test]
+        public void UnivariateForecaster_ShouldCreateAnInstanceOfThisType_WhenProperArgument()
+        {
+
+            // Arrange
+            // Act
+            UnivariateForecaster actual = new UnivariateForecaster();
+
+            // Assert
+            Assert.IsInstanceOf<UnivariateForecaster>(actual);
+
+            Assert.IsInstanceOf<string>(actual.AsciiBanner);
+            Assert.IsInstanceOf<string>(actual.Version);
+
+        }
+
         [TestCaseSource(nameof(univariateForecasterExceptionTestCases))]
         public void UnivariateForecaster_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
