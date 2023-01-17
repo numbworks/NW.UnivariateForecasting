@@ -4,6 +4,7 @@ v2.5.0
 	- Refactoring: split the monolithic ObjectMother class to namespace-based ObjectMother classes to improve maintainability.
 	- Refactoring: all the Invoke() statements removed.
 	- Feature: added support for "AsciiBanner" namespace.
+	- Feature: added standard NW build script.
 
 v2.0.1
 - Updated Newtonsoft.Json to 13.0.1 to solve vulnerability GHSA-5crp-9r3c-p9vr.
