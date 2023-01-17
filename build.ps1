@@ -33,7 +33,7 @@
 #>
 
 # Variables
-[string]$clientProjectName = 'NW.UnivariateForecasting'
+[string]$clientProjectName = 'NW.UnivariateForecastingClient'
 [string[]]$runtimes = @("win-x64", "osx-x64", "linux-x64")
 [bool]$forcePublishToDesktop = $true
 [bool]$removeAllExceptZip = $true
