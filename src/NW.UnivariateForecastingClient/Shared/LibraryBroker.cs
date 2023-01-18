@@ -10,9 +10,9 @@ namespace NW.UnivariateForecastingClient.Shared
 
         #region Fields
 
-        private ITextClassifierComponentsFactory _componentsFactory { get; }
-        private ITextClassifierSettingsFactory _settingsFactory { get; }
-        private ITextClassifierFactory _univariateForecasterFactory { get; }
+        private IUnivariateForecastingComponentsFactory _componentsFactory { get; }
+        private IUnivariateForecastingSettingsFactory _settingsFactory { get; }
+        private IUnivariateForecasterFactory _univariateForecasterFactory { get; }
 
         #endregion
 
@@ -61,9 +61,9 @@ namespace NW.UnivariateForecastingClient.Shared
         public int ShowHeader()
         {
 
-            UnivariateForecastingComponents components = _componentsFactory.Create();
             UnivariateForecastingSettings settings = _settingsFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(components, settings);
+            UnivariateForecastingComponents components = _componentsFactory.Create();
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
 
             ShowHeader(components, univariateForecaster);
 
@@ -73,9 +73,9 @@ namespace NW.UnivariateForecastingClient.Shared
         public int RunAboutMain()
         {
 
-            UnivariateForecastingComponents components = _componentsFactory.Create();
             UnivariateForecastingSettings settings = _settingsFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(components, settings);
+            UnivariateForecastingComponents components = _componentsFactory.Create();
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
 
             ShowHeader(components, univariateForecaster);
 
