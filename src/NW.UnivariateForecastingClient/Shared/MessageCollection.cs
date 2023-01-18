@@ -26,6 +26,9 @@ namespace NW.UnivariateForecastingClient.Shared
 
         public static string PressAButtonToCloseTheWindow = "Press a button to close the window.";
 
+        public static Func<string, string, string> ValueIsInvalidOrNotWithinRange
+            = (name, value) => $"{name} ('{value}') is invalid or not within the expected range ('{nameof(DoubleManager.MininumValue)}':'{DoubleManager.MininumValue}', '{nameof(DoubleManager.MaximumValue)}':'{DoubleManager.MaximumValue}').";
+
         #endregion
 
     }
