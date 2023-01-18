@@ -41,4 +41,8 @@
     <Folder Include="Shared\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.0.1" />
+  </ItemGroup>
+
 </Project>
