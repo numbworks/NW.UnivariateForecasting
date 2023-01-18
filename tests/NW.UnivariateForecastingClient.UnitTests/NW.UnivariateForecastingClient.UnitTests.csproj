@@ -46,4 +46,9 @@
     <Folder Include="Shared\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NW.UnivariateForecastingClient\NW.UnivariateForecastingClient.csproj" />
+    <ProjectReference Include="..\..\src\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
+  </ItemGroup>
+
 </Project>
