@@ -3,7 +3,8 @@ v2.5.0
 	- Refactoring: split the monolithic MessageCollection class to namespace-based MessageCollection classes to improve maintainability.
 	- Refactoring: split the monolithic ObjectMother class to namespace-based ObjectMother classes to improve maintainability.
 	- Refactoring: all the Invoke() statements removed.
-	- Feature: added support for "AsciiBanner" namespace.
+	- Feature: added support for the "AsciiBanner" namespace.
+	- Feature: added support for the "Filenames" namespace.
 	- Feature: added standard NW build script.
 
 v2.0.1
