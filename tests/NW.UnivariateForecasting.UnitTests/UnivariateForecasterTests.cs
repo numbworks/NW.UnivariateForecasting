@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
-using NW.UnivariateForecasting.AsciiBanner;
+
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -584,7 +586,10 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction
+                        );
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -618,7 +623,10 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: (message) => fakeLogger.Log(message),
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction
+                        );
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -651,7 +659,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: (message) => fakeLogger.Log(message),
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -684,7 +694,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: (message) => fakeLogger.Log(message),
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -741,7 +753,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -795,7 +809,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -866,7 +882,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -928,7 +946,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -990,7 +1010,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -1052,7 +1074,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -1096,7 +1120,9 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         loggingActionAsciiBanner: fakeLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager());
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction);
             UnivariateForecaster univariateForecaster
                 = new UnivariateForecaster(
                         new UnivariateForecastingSettings(),
@@ -1127,5 +1153,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.01.2023
+    Last Update: 18.01.2023
 */
