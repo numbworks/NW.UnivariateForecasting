@@ -1,6 +1,9 @@
 # NW.UnivariateForecasting
 
-![codecoverage.svg](codecoverage.svg)<br>
+| <sub>Library</sub> | <sub>Client</sub> |
+|---|---|
+|![codecoverage_library.svg](codecoverage_library.svg)|![codecoverage_client.svg](codecoverage_client.svg)|
+
 Contact: numbworks@gmail.com
 
 ## Revision History
@@ -12,21 +15,15 @@ Contact: numbworks@gmail.com
 | 2020-12-26 | numbworks | Added Download* paragraphs. |
 | 2020-12-27 | numbworks | Added code coverage badge. |
 | 2021-10-11 | numbworks | Version numbers removed. |
+| 2023-01-22 | numbworks | Updated to v2.5.0. |
 
-## In Short
+## In short
 
 From the documentation:
 
->`NW.UnivariateForecasting` is a `.NET Standard` library written in `C#` to perform `Univariate Forecasting` on your own values. 
+>`NW.UnivariateForecasting` is a `.NET Standard` library to perform univariate forecasting tasks on the values you provide. 
 
->*Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
-
->For example, given the last six months of "*Total Monthly Sales USD*" of your company, you would like the machine to predict the amounts for the next x months.
-
->*Time Series Forecasting* is divided in *Univariate* and *Multivariate*. 
-The first one can predict only one step ahead, while the second one can predict multiple steps ahead.
-
->As its name states, this library implements the univariate approach. 
+>`NW.UnivariateForecastingClient` (`unifor.exe`) is the command-line client for the `NW.UnivariateForecasting` library.
 
 ## Download the source code
 
@@ -44,13 +41,18 @@ PS C:\NW.UnivariateForecasting> git clone https://github.com/numbworks/NW.Univar
 3. Open `NW.UnivariateForecasting.sln` with `Visual Studio` or other IDE;
 4. Done!
 
-## Download the binary packages
+## Download the library's binary package
 
 If you are a .NET developer and you want to use the library from within your projects, the binary packages are available on [NuGet](https://www.nuget.org/packages/NW.UnivariateForecasting/).
 
+## Download the client's binary package
+
+If you are an non-developer user, you can download the client from the [Releases](https://github.com/numbworks/NW.UnivariateForecasting/releases) page on Github.
+
 ## Getting Started
 
-- [Documentation](docs/Documentation-NW.UnivariateForecasting.md)
+- [Documentation: Library](docs/Documentation-NW.UnivariateForecasting.md)
+- [Documentation: Client](docs/Documentation-NW.UnivariateForecastingClient.md)
 
 ## Other Links
 
