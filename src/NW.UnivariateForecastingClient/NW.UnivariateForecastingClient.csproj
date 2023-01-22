@@ -4,23 +4,21 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>numbworks</Authors>
-    <Company>numbworks</Company>
-    <Product>unifor</Product>
-    <Copyright>numbworks 2023</Copyright>
     <Description>unifor is a command-line application to perform univariate forecasting tasks based on the NW.UnivariateForecasting library.</Description>
+    <Copyright>numbworks 2023</Copyright>
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
+    <PackageIconUrl></PackageIconUrl>	
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
-    <PackageIconUrl></PackageIconUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <Version>2.5.0</Version>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<AssemblyVersion>2.5.0.0</AssemblyVersion>
-	<FileVersion>2.5.0.0</FileVersion>
-	<PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
-	<ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>
-	<AssemblyName>unifor</AssemblyName>		
+	<IsPackable>false</IsPackable>	
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>2.5.0</Version>
+		<AssemblyName>unifor</AssemblyName>
+		<ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>
+		<PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
+		<AssemblyVersion>2.5.0.0</AssemblyVersion>
+		<FileVersion>2.5.0.0</FileVersion>	
   </PropertyGroup>
 
   <ItemGroup>
