@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace NW.UnivariateForecastingClient.UnitTests
 {
     [TestFixture]
-    public class UnivariateForecasterFactoryTests
+    public class UnivariateForecastingSettingsFactoryTests
     {
 
         #region Fields
