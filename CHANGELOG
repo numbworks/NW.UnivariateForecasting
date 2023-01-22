@@ -6,6 +6,8 @@ v2.5.0
 	- Feature: added support for the "AsciiBanner" namespace.
 	- Feature: added support for the "Filenames" namespace.
 	- Feature: added standard NW build script.
+- Client:
+	- Feature: added a preliminary client structure.
 
 v2.0.1
 - Updated Newtonsoft.Json to 13.0.1 to solve vulnerability GHSA-5crp-9r3c-p9vr.
