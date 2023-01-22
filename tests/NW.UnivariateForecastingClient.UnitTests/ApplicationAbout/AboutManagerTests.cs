@@ -3,7 +3,7 @@ using NW.UnivariateForecastingClient.ApplicationAbout;
 using NW.UnivariateForecastingClient.Shared;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecastingClient.UnitTests
+namespace NW.UnivariateForecastingClient.UnitTests.ApplicationAbout
 {
     [TestFixture]
     public class AboutManagerTests

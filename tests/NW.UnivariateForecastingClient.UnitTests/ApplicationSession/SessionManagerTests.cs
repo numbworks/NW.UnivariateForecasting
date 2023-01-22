@@ -3,7 +3,7 @@ using NW.UnivariateForecastingClient.ApplicationSession;
 using NW.UnivariateForecastingClient.Shared;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecastingClient.UnitTests
+namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {
     [TestFixture]
     public class SessionManagerTests

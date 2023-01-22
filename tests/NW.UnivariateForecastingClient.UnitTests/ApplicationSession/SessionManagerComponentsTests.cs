@@ -3,7 +3,7 @@ using NW.UnivariateForecastingClient.ApplicationSession;
 using NUnit.Framework;
 using McMaster.Extensions.CommandLineUtils.Validation;
 
-namespace NW.UnivariateForecastingClient.UnitTests
+namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {
     [TestFixture]
     public class SessionManagerComponentsTests
