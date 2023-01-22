@@ -1,5 +1,6 @@
 ﻿using System;
 using NW.UnivariateForecastingClient.ApplicationSession;
+using NW.UnivariateForecastingClient.UnitTests.Utilities;
 using NUnit.Framework;
 using McMaster.Extensions.CommandLineUtils.Validation;
 

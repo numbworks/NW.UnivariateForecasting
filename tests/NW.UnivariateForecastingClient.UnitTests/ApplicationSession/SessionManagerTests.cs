@@ -1,6 +1,7 @@
 ﻿using System;
 using NW.UnivariateForecastingClient.ApplicationSession;
 using NW.UnivariateForecastingClient.Shared;
+using NW.UnivariateForecastingClient.UnitTests.Utilities;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession

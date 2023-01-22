@@ -2,7 +2,7 @@
 using System.Reflection;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecastingClient.UnitTests
+namespace NW.UnivariateForecastingClient.UnitTests.Utilities
 {
 
     public static class ObjectMother
