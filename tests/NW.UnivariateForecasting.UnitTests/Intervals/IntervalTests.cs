@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using NW.UnivariateForecasting.Intervals;
+﻿using NW.UnivariateForecasting.Intervals;
+using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Intervals
 {
     [TestFixture]
     public class IntervalTests
@@ -12,22 +12,22 @@ namespace NW.UnivariateForecasting.UnitTests
         private static TestCaseData[] toStringTestCases =
         {
 
-            new TestCaseData( 
-                ObjectMother.Shared_SlidingWindow1_Interval,
-                ObjectMother.Shared_SlidingWindow1_Interval_String,
-                ObjectMother.Shared_SlidingWindow1_Interval_StringOnlyDates
+            new TestCaseData(
+                ObjectMother.Interval_SixMonths,
+                ObjectMother.Interval_SixMonths_AsString,
+                ObjectMother.Interval_SixMonths_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval1,
-                ObjectMother.Shared_SlidingWindow1_SubInterval1_String,
-                ObjectMother.Shared_SlidingWindow1_SubInterval1_StringOnlyDates
+                ObjectMother.Interval_SixMonths_SubInterval01,
+                ObjectMother.Interval_SixMonths_SubInterval01_AsString,
+                ObjectMother.Interval_SixMonths_SubInterval01_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02"),
 
             new TestCaseData(
-                ObjectMother.Interval_Empty_Object,
-                ObjectMother.Interval_Empty_String,
-                ObjectMother.Interval_Empty_StringOnlyDates
+                ObjectMother.Interval_Empty,
+                ObjectMother.Interval_Empty_AsString,
+                ObjectMother.Interval_Empty_AsStringOnlyDates
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_03")
 
         };
@@ -65,5 +65,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.11.2022
 */

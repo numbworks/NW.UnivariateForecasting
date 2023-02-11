@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NW.UnivariateForecasting.Files;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
     public class FakeFileAdapter : IFileAdapter
     {
@@ -103,6 +103,6 @@ namespace NW.UnivariateForecasting.UnitTests
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 08.10.2021
+    Last Update: 14.11.2022
 
 */

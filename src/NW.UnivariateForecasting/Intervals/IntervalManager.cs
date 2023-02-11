@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.Intervals
@@ -81,7 +80,7 @@ namespace NW.UnivariateForecasting.Intervals
         {
 
             if (!IsValid(interval))
-                throw new ArgumentException(MessageCollection.IntervalManager_IntervalNullOrInvalid);
+                throw new ArgumentException(MessageCollection.IntervalNullOrInvalid);
             Validator.ValidateSubIntervals(interval);
 
             List<Interval> subIntervals = new List<Interval>();

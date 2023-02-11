@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
+using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Intervals
 {
     [TestFixture]
     public class IntervalManagerTests
@@ -21,11 +20,11 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 0,
-                                ObjectMother.Shared_SlidingWindow1_IntervalUnit, 
-                                ObjectMother.Shared_SlidingWindow1_StartDate,
+                                ObjectMother.IntervalUnits_Months,
+                                ObjectMother.Interval_SixMonths_StartDate,
                                 1)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("size")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("size")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01"),
 
             new TestCaseData(
@@ -33,11 +32,11 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 1,
-                                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
-                                ObjectMother.Shared_SlidingWindow1_StartDate,
+                                ObjectMother.IntervalUnits_Months,
+                                ObjectMother.Interval_SixMonths_StartDate,
                                 0)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("steps")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
 
             new TestCaseData(
@@ -45,11 +44,11 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new IntervalManager()
                             .Create(
                                 5,
-                                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
-                                ObjectMother.Shared_SlidingWindow1_StartDate,
+                                ObjectMother.IntervalUnits_Months,
+                                ObjectMother.Interval_SixMonths_StartDate,
                                 2)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_DividingMustReturnWholeNumber.Invoke("size", "steps")
+                UnivariateForecasting.Validation.MessageCollection.DividingMustReturnWholeNumber("size", "steps")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_03")
 
         };
@@ -61,23 +60,23 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                             .CalculateNext(
-                                ObjectMother.Shared_SlidingWindow1_StartDate,
-                                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                                ObjectMother.Interval_SixMonths_StartDate,
+                                ObjectMother.IntervalUnits_Months,
                                 0)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_VariableCantBeLessThanOne.Invoke("steps")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("steps")
                 ).SetArgDisplayNames($"{nameof(calculateNextExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new IntervalManager()
                             .CalculateNext(
-                                ObjectMother.Shared_SlidingWindow1_StartDate,
-                                ObjectMother.Shared_NonExistantIntervalUnit,
+                                ObjectMother.Interval_SixMonths_StartDate,
+                                ObjectMother.IntervalUnit_NonExistant,
                                 1)),
                 typeof(ArgumentException),
-                MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(
-                            ObjectMother.Shared_NonExistantIntervalUnit.ToString())
+                UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported(
+                            ObjectMother.IntervalUnit_NonExistant.ToString())
                 ).SetArgDisplayNames($"{nameof(calculateNextExceptionTestCases)}_02")
 
         };
@@ -89,18 +88,18 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
-                                    ObjectMother.Shared_IntervalInvalidDueOfSize)),
+                                    ObjectMother.Interval_InvalidDueOfSize)),
                 typeof(ArgumentException),
-                MessageCollection.IntervalManager_IntervalNullOrInvalid
+                MessageCollection.IntervalNullOrInvalid
                 ).SetArgDisplayNames($"{nameof(calculateSubIntervalsExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new IntervalManager()
                                 .CalculateSubIntervals(
-                                        ObjectMother.Shared_SlidingWindow1_SubInterval1)), // took a random subinterval with steps=1
+                                        ObjectMother.Interval_SixMonths_SubInterval01)), // took a random subinterval with steps=1
                 typeof(ArgumentException),
-                MessageCollection.Validator_SubIntervalsCantBeLessThanTwo
+                UnivariateForecasting.Validation.MessageCollection.SubIntervalsCantBeLessThanTwo
                 ).SetArgDisplayNames($"{nameof(calculateSubIntervalsExceptionTestCases)}_02")
 
         };
@@ -109,18 +108,18 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                     (uint)6,
-                    ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                    ObjectMother.IntervalUnits_Months,
                     new DateTime(2019, 01, 31),
                     (uint)1,
-                    ObjectMother.Shared_SlidingWindow1_Interval
+                    ObjectMother.Interval_SixMonths
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
             new TestCaseData(
                     (uint)1,
-                    ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                    ObjectMother.IntervalUnits_Months,
                     new DateTime(2019, 01, 31),
                     (uint)1,
-                    ObjectMother.Shared_SlidingWindow1_SubInterval1
+                    ObjectMother.Interval_SixMonths_SubInterval01
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
         };
@@ -129,28 +128,28 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new DateTime(2019, 01, 01),
-                ObjectMother.Shared_SlidingWindow1_IntervalUnit, 
+                ObjectMother.IntervalUnits_Months, 
                 (uint)1, 
                 new DateTime(2019, 02, 01)
                 ).SetArgDisplayNames($"{nameof(calculateNextTestCases)}_01"),
 
             new TestCaseData(
                 new DateTime(2019, 01, 31),
-                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                ObjectMother.IntervalUnits_Months,
                 (uint)1, 
                 new DateTime(2019, 02, 28)
                 ).SetArgDisplayNames($"{nameof(calculateNextTestCases)}_02"),
 
             new TestCaseData(
                 new DateTime(2019, 01, 01),
-                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                ObjectMother.IntervalUnits_Months,
                 (uint)2,
                 new DateTime(2019, 03, 01)
                 ).SetArgDisplayNames($"{nameof(calculateNextTestCases)}_03"),
 
             new TestCaseData(
                 new DateTime(2019, 01, 31),
-                ObjectMother.Shared_SlidingWindow1_IntervalUnit,
+                ObjectMother.IntervalUnits_Months,
                 (uint)2,
                 new DateTime(2019, 03, 31)
                 ).SetArgDisplayNames($"{nameof(calculateNextTestCases)}_04")
@@ -193,67 +192,67 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.Shared_IntervalDueOfEndDate, 
+                ObjectMother.Interval_InvalidDueOfEndDate, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
             new TestCaseData(
-                ObjectMother.Shared_IntervalInvalidDueOfSize, 
+                ObjectMother.Interval_InvalidDueOfSize, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(
-                ObjectMother.Shared_IntervalDueOfSizeBySteps, 
+                ObjectMother.Interval_InvalidDueOfSizeBySteps, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
             new TestCaseData(
-                ObjectMother.Shared_IntervalDueOfSteps, 
+                ObjectMother.Interval_InvalidDueOfSteps, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05"),
 
             new TestCaseData(
-                ObjectMother.Shared_IntervalDueOfSubIntervals, 
+                ObjectMother.Interval_InvalidDueOfSubIntervals, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_06"),
 
             new TestCaseData(
-                ObjectMother.Shared_IntervalDueOfTargetDate, 
+                ObjectMother.Interval_InvalidDueOfTargetDate, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_07"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_Interval, 
+                ObjectMother.Interval_SixMonths, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_08"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval1, 
+                ObjectMother.Interval_SixMonths_SubInterval01, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_09"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval2, 
+                ObjectMother.Interval_SixMonths_SubInterval02, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_10"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval3, 
+                ObjectMother.Interval_SixMonths_SubInterval03, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_11"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval4, 
+                ObjectMother.Interval_SixMonths_SubInterval04, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_12"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval5, 
+                ObjectMother.Interval_SixMonths_SubInterval05, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_13"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_SubInterval6, 
+                ObjectMother.Interval_SixMonths_SubInterval06, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_14")
 
@@ -262,14 +261,14 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_Interval,
+                ObjectMother.Interval_SixMonths,
                 new List<Interval>() {
-                    ObjectMother.Shared_SlidingWindow1_SubInterval1,
-                    ObjectMother.Shared_SlidingWindow1_SubInterval2,
-                    ObjectMother.Shared_SlidingWindow1_SubInterval3,
-                    ObjectMother.Shared_SlidingWindow1_SubInterval4,
-                    ObjectMother.Shared_SlidingWindow1_SubInterval5,
-                    ObjectMother.Shared_SlidingWindow1_SubInterval6
+                    ObjectMother.Interval_SixMonths_SubInterval01,
+                    ObjectMother.Interval_SixMonths_SubInterval02,
+                    ObjectMother.Interval_SixMonths_SubInterval03,
+                    ObjectMother.Interval_SixMonths_SubInterval04,
+                    ObjectMother.Interval_SixMonths_SubInterval05,
+                    ObjectMother.Interval_SixMonths_SubInterval06
                     }
                 ).SetArgDisplayNames($"{nameof(calculateSubIntervalsTestCases)}_01")
 
@@ -285,17 +284,17 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(createExceptionTestCases))]
         public void Create_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(calculateNextExceptionTestCases))]
         public void CalculateNext_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(calculateSubIntervalsExceptionTestCases))]
         public void CalculateSubIntervals_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedInterval_WhenProperArguments
@@ -378,7 +377,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.IsTrue(
-                ObjectMother.AreEqual(expected, actual));
+                    ObjectMother.AreEqual(expected, actual));
 
         }
 
@@ -392,5 +391,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.11.2022
 */

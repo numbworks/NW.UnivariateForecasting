@@ -1,9 +1,11 @@
 ﻿using System;
-using NUnit.Framework;
+using NW.UnivariateForecasting.AsciiBanner;
+using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -26,7 +28,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -43,7 +49,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -60,7 +70,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -77,7 +91,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -94,7 +112,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: null,
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -111,7 +133,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: null,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -128,7 +154,11 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: null,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -145,12 +175,100 @@ namespace NW.UnivariateForecasting.UnitTests
                                     fileManager: new FileManager(),
                                     idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: null
+                                    loggingAction: null,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_08")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_08"),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecastingComponents(
+                                    slidingWindowManager: new SlidingWindowManager(),
+                                    slidingWindowItemManager: new SlidingWindowItemManager(),
+                                    observationManager: new ObservationManager(),
+                                    intervalManager: new IntervalManager(),
+                                    fileManager: new FileManager(),
+                                    idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: null,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
+                            )
+                        ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("loggingActionAsciiBanner").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_09"),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecastingComponents(
+                                    slidingWindowManager: new SlidingWindowManager(),
+                                    slidingWindowItemManager: new SlidingWindowItemManager(),
+                                    observationManager: new ObservationManager(),
+                                    intervalManager: new IntervalManager(),
+                                    fileManager: new FileManager(),
+                                    idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: null,
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
+                            )
+                        ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("asciiBannerManager").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_10"),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecastingComponents(
+                                    slidingWindowManager: new SlidingWindowManager(),
+                                    slidingWindowItemManager: new SlidingWindowItemManager(),
+                                    observationManager: new ObservationManager(),
+                                    intervalManager: new IntervalManager(),
+                                    fileManager: new FileManager(),
+                                    idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: null,
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction
+                            )
+                        ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("filenameFactory").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_11"),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecastingComponents(
+                                    slidingWindowManager: new SlidingWindowManager(),
+                                    slidingWindowItemManager: new SlidingWindowItemManager(),
+                                    observationManager: new ObservationManager(),
+                                    intervalManager: new IntervalManager(),
+                                    fileManager: new FileManager(),
+                                    idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: null
+                            )
+                        ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("nowFunction").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_12")
 
         };
 
@@ -164,7 +282,7 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(univariateForecastingComponentsExceptionsTestCases))]
         public void UnivariateForecastingComponents_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         #endregion
 
@@ -176,5 +294,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: rua@sitecore.net
-    Last Update: 11.10.2021
+    Last Update: 18.01.2023
 */

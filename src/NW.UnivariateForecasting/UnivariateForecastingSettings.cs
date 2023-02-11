@@ -1,6 +1,5 @@
 ﻿using System;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 
 namespace NW.UnivariateForecasting
 {
@@ -52,7 +51,7 @@ namespace NW.UnivariateForecasting
         {
 
             if (forecastingDenominator < DefaultForecastingDenominator)
-                throw new ArgumentException(MessageCollection.UnivariateForecastingSettings_DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
+                throw new ArgumentException(Forecasts.MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
 
             ForecastingDenominator = forecastingDenominator;
             DummyId = dummyId;
@@ -85,5 +84,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

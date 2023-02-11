@@ -7,7 +7,7 @@
 
     <Authors>numbworks</Authors>
 
-    <Copyright>numbworks 2022</Copyright>
+    <Copyright>numbworks 2023</Copyright>
 
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
 
@@ -17,7 +17,7 @@
 
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
 
-    <Version>2.0.1</Version>
+    <Version>2.5.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,12 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System">
-      <HintPath>System</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

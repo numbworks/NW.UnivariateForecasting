@@ -1,0 +1,253 @@
+﻿using System;
+using System.Collections.Generic;
+using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.UnitTests.Utilities;
+
+namespace NW.UnivariateForecasting.UnitTests.Forecasts
+{
+    public static class ObjectMother
+    {
+
+        #region Properties
+
+        internal static UnivariateForecaster UnivariateForecaster = new UnivariateForecaster();
+
+        internal static string ForecastAndCombine_Id = "SW20200925000000";
+        internal static Func<string> ForecastAndCombine_IdCreationFunction = () => ForecastAndCombine_Id;
+
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps1_Final = new SlidingWindow()
+        {
+            Id = ForecastAndCombine_Id,
+            ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Interval = new Interval()
+            {
+
+                Size = 7,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 01, 31),
+                EndDate = new DateTime(2019, 08, 31),
+                TargetDate = new DateTime(2019, 09, 30),
+                Steps = 1,
+                SubIntervals = 7
+
+            },
+            Items = new List<SlidingWindowItem>()
+                    {
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item01,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item02,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item03,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item04,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item05,
+                        new SlidingWindowItem()
+                        {
+                            Id = 6,
+                            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
+                            X_Actual = 632.94,
+                            Y_Forecasted = 519.23
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 7,
+                            Interval = Observations.ObjectMother.Observation01_Interval,
+                            X_Actual = 519.23,
+                            Y_Forecasted = null
+                        }
+                    }
+        };
+
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps1_01 = SlidingWindow_ForecastAndCombineSteps1_Final;
+        internal static Observation SlidingWindow_ForecastAndCombineSteps1_01_Observation = new Observation()
+        {
+
+            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Interval = new Interval()
+            {
+                Size = 1,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 08, 31),
+                EndDate = new DateTime(2019, 09, 30),
+                TargetDate = new DateTime(2019, 10, 31),
+                Steps = 1,
+                SubIntervals = 1
+            },
+            X_Actual = 519.23,
+            C = 0.88,
+            E = 0.16,
+            Y_Forecasted = 457.08,
+            SlidingWindowId = ForecastAndCombine_Id
+
+        };
+        
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps3_02 = new SlidingWindow()
+        {
+            Id = ForecastAndCombine_Id,
+            ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Interval = new Interval()
+            {
+
+                Size = 8,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 01, 31),
+                EndDate = new DateTime(2019, 09, 30),
+                TargetDate = new DateTime(2019, 10, 31),
+                Steps = 1,
+                SubIntervals = 8
+
+            },
+            Items = new List<SlidingWindowItem>()
+                    {
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item01,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item02,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item03,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item04,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item05,
+                        new SlidingWindowItem()
+                        {
+                            Id = 6,
+                            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
+                            X_Actual = 632.94,
+                            Y_Forecasted = 519.23
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 7,
+                            Interval = Observations.ObjectMother.Observation01_Interval,
+                            X_Actual = 519.23,
+                            Y_Forecasted = 457.08
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 8,
+                            Interval = new Interval()
+                                        {
+                                            Size = 1,
+                                            Unit = IntervalUnits.Months,
+                                            StartDate = new DateTime(2019, 08, 31),
+                                            EndDate = new DateTime(2019, 09, 30),
+                                            TargetDate = new DateTime(2019, 10, 31),
+                                            Steps = 1,
+                                            SubIntervals = 1
+                                        },
+                            X_Actual = 457.08,
+                            Y_Forecasted = null
+                        }
+                    }
+        };
+        internal static Observation SlidingWindow_ForecastAndCombineSteps3_02_Observation = new Observation()
+        {
+
+            Name = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Interval = new Interval()
+            {
+                Size = 1,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 09, 30),
+                EndDate = new DateTime(2019, 10, 31),
+                TargetDate = new DateTime(2019, 11, 30),
+                Steps = 1,
+                SubIntervals = 1
+            },
+            X_Actual = 457.08,
+            C = 0.92,
+            E = 0.12,
+            Y_Forecasted = 420.63,
+            SlidingWindowId = ForecastAndCombine_Id
+
+        };
+        
+        internal static SlidingWindow SlidingWindow_ForecastAndCombineSteps3_Final = new SlidingWindow()
+        {
+            Id = ForecastAndCombine_Id,
+            ObservationName = SlidingWindows.ObjectMother.SlidingWindow01_ObservationName,
+            Interval = new Interval()
+            {
+
+                Size = 9,
+                Unit = IntervalUnits.Months,
+                StartDate = new DateTime(2019, 01, 31),
+                EndDate = new DateTime(2019, 10, 31),
+                TargetDate = new DateTime(2019, 11, 30),
+                Steps = 1,
+                SubIntervals = 9
+
+            },
+            Items = new List<SlidingWindowItem>()
+                    {
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item01,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item02,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item03,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item04,
+                        SlidingWindows.ObjectMother.SlidingWindow01_Item05,
+                        new SlidingWindowItem()
+                        {
+                            Id = 6,
+                            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
+                            X_Actual = 632.94,
+                            Y_Forecasted = 519.23
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 7,
+                            Interval = Observations.ObjectMother.Observation01_Interval,
+                            X_Actual = 519.23,
+                            Y_Forecasted = 457.08
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 8,
+                            Interval = new Interval()
+                                        {
+                                            Size = 1,
+                                            Unit = IntervalUnits.Months,
+                                            StartDate = new DateTime(2019, 08, 31),
+                                            EndDate = new DateTime(2019, 09, 30),
+                                            TargetDate = new DateTime(2019, 10, 31),
+                                            Steps = 1,
+                                            SubIntervals = 1
+                                        },
+                            X_Actual = 457.08,
+                            Y_Forecasted = 420.63
+                        },
+                        new SlidingWindowItem()
+                        {
+                            Id = 9,
+                            Interval = new Interval()
+                                        {
+                                            Size = 1,
+                                            Unit = IntervalUnits.Months,
+                                            StartDate = new DateTime(2019, 09, 30),
+                                            EndDate = new DateTime(2019, 10, 31),
+                                            TargetDate = new DateTime(2019, 11, 30),
+                                            Steps = 1,
+                                            SubIntervals = 1
+                                        },
+                            X_Actual = 420.63,
+                            Y_Forecasted = null
+                        }
+
+                    }
+        };
+
+        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
+                    fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
+                );
+        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues
+            => new FakeFileAdapter(
+                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
+                    fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
+                );
+
+        #endregion
+
+    }
+}
+
+/*
+    Author: numbworks@gmail.com
+    Last Update: 14.11.2022
+*/

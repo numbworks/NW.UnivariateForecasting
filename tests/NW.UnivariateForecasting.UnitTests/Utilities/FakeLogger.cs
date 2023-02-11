@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
     public class FakeLogger
     {
@@ -37,5 +37,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.11.2022
 */

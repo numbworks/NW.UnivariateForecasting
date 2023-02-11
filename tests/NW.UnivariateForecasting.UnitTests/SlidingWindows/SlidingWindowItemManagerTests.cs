@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.SlidingWindows;
+using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 {
     [TestFixture]
     public class SlidingWindowItemManagerTests
@@ -27,7 +26,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_Item1, 
+                ObjectMother.SlidingWindow01_Item01, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03")
 
@@ -50,7 +49,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItem(1, null, 58.65, 639.10)),
                 typeof(ArgumentException),
-                MessageCollection.IntervalManager_IntervalNullOrInvalid
+                UnivariateForecasting.Intervals.MessageCollection.IntervalNullOrInvalid
                 ).SetArgDisplayNames($"{nameof(createItemExceptionTestCases)}_01")
 
         };
@@ -58,11 +57,11 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1_Item1_Id,
-                ObjectMother.Shared_SlidingWindow1_Item1_Interval,
-                ObjectMother.Shared_SlidingWindow1_Item1_XActual,
-                ObjectMother.Shared_SlidingWindow1_Item1_YForecasted,
-                ObjectMother.Shared_SlidingWindow1_Item1
+                ObjectMother.SlidingWindow01_Item01_Id,
+                Intervals.ObjectMother.Interval_SixMonths_SubInterval01,
+                ObjectMother.SlidingWindow01_Item01_XActual,
+                ObjectMother.SlidingWindow01_Item01_YForecasted,
+                ObjectMother.SlidingWindow01_Item01
                 ).SetArgDisplayNames($"{nameof(createItemTestCases)}_01")
 
         };
@@ -72,9 +71,9 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItems(
-                            ObjectMother.Shared_SlidingWindow1_Item1.Interval.StartDate,
+                            ObjectMother.SlidingWindow01_Item01.Interval.StartDate,
                             null,
-                            ObjectMother.Shared_SlidingWindow1_Item1.Interval.Unit
+                            ObjectMother.SlidingWindow01_Item01.Interval.Unit
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
@@ -83,23 +82,23 @@ namespace NW.UnivariateForecasting.UnitTests
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItems(
-                            ObjectMother.Shared_SlidingWindow1_Item1.Interval.StartDate,
+                            ObjectMother.SlidingWindow01_Item01.Interval.StartDate,
                             new List<double>(),
-                            ObjectMother.Shared_SlidingWindow1_Item1.Interval.Unit
+                            ObjectMother.SlidingWindow01_Item01.Interval.Unit
                         )),
                 typeof(ArgumentException),
-                MessageCollection.Validator_VariableContainsZeroItems.Invoke("values")
+                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems("values")
                 ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowItemManager().CreateItems(
-                            ObjectMother.Shared_SlidingWindow1_Item1.Interval.StartDate,
-                            ObjectMother.Shared_SlidingWindow1_Values,
-                            ObjectMother.Shared_NonExistantIntervalUnit
+                            ObjectMother.SlidingWindow01_Item01.Interval.StartDate,
+                            ObjectMother.SlidingWindow01_Values,
+                            Intervals.ObjectMother.IntervalUnit_NonExistant
                         )),
                 typeof(ArgumentException),
-                MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.Shared_NonExistantIntervalUnit.ToString())
+                UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported(Intervals.ObjectMother.IntervalUnit_NonExistant.ToString())
                 ).SetArgDisplayNames($"{nameof(createItemsExceptionTestCases)}_03")
 
         };
@@ -118,7 +117,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = ObjectMother.SlidingWindowItemManager_Default.IsValid(slidingWindowItem);
+            bool actual = ObjectMother.SlidingWindowItemManager.IsValid(slidingWindowItem);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -128,12 +127,12 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(slidingWindowItemManagerExceptionTestCases))]
         public void SlidingWindowItemManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createItemExceptionTestCases))]
         public void CreateItem_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createItemTestCases))]
         public void CreateItem_ShouldReturnExpectedSlidingWindowItem_WhenProperArguments
@@ -146,7 +145,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Assert
             Assert.True(
-                ObjectMother.AreEqual(expected, actual));
+                    ObjectMother.AreEqual(expected, actual));
 
         }
 
@@ -157,14 +156,14 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             TestDelegate del = () =>
                 new SlidingWindowItemManager().CreateItem(
-                                                    ObjectMother.Shared_SlidingWindow1_Item1_Id,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Interval.StartDate,
-                                                    ObjectMother.Shared_NonExistantIntervalUnit,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.X_Actual,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Y_Forecasted);
+                                                    ObjectMother.SlidingWindow01_Item01_Id,
+                                                    ObjectMother.SlidingWindow01_Item01.Interval.StartDate,
+                                                    Intervals.ObjectMother.IntervalUnit_NonExistant,
+                                                    ObjectMother.SlidingWindow01_Item01.X_Actual,
+                                                    ObjectMother.SlidingWindow01_Item01.Y_Forecasted);
             Type expectedType = typeof(ArgumentException);
             string expectedMessage 
-                = MessageCollection.Validator_ProvidedIntervalUnitNotSupported.Invoke(ObjectMother.Shared_NonExistantIntervalUnit.ToString());
+                = UnivariateForecasting.Validation.MessageCollection.ProvidedIntervalUnitNotSupported(Intervals.ObjectMother.IntervalUnit_NonExistant.ToString());
 
             // Act
             // Assert
@@ -181,21 +180,21 @@ namespace NW.UnivariateForecasting.UnitTests
             // Act
             SlidingWindowItem actual
                  = new SlidingWindowItemManager().CreateItem(
-                                                    ObjectMother.Shared_SlidingWindow1_Item1_Id,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Interval.StartDate,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Interval.Unit,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.X_Actual,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Y_Forecasted);
+                                                    ObjectMother.SlidingWindow01_Item01_Id,
+                                                    ObjectMother.SlidingWindow01_Item01.Interval.StartDate,
+                                                    ObjectMother.SlidingWindow01_Item01.Interval.Unit,
+                                                    ObjectMother.SlidingWindow01_Item01.X_Actual,
+                                                    ObjectMother.SlidingWindow01_Item01.Y_Forecasted);
             // Assert
             Assert.True(
-                ObjectMother.AreEqual(ObjectMother.Shared_SlidingWindow1_Item1, actual));
+                    ObjectMother.AreEqual(ObjectMother.SlidingWindow01_Item01, actual));
 
         }
 
         [TestCaseSource(nameof(createItemsExceptionTestCases))]
         public void CreateItems_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
         public void CreateItems_ShouldReturnExpectedListSlidingWindowItem_WhenProperStartDateEtc()
@@ -205,13 +204,13 @@ namespace NW.UnivariateForecasting.UnitTests
             // Act
             List<SlidingWindowItem> actual
                 = new SlidingWindowItemManager().CreateItems(
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Interval.StartDate,
-                                                    ObjectMother.Shared_SlidingWindow1_Values,
-                                                    ObjectMother.Shared_SlidingWindow1_Item1.Interval.Unit);
+                                                    ObjectMother.SlidingWindow01_Item01.Interval.StartDate,
+                                                    ObjectMother.SlidingWindow01_Values,
+                                                    ObjectMother.SlidingWindow01_Item01.Interval.Unit);
 
             // Assert
             Assert.True(
-                ObjectMother.AreEqual(ObjectMother.Shared_SlidingWindow1_Items, actual));
+                    ObjectMother.AreEqual(ObjectMother.SlidingWindow01_Items, actual));
 
         }
 
@@ -225,5 +224,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: rua@sitecore.net
-    Last Update: 11.10.2021
+    Last Update: 14.11.2022
 */

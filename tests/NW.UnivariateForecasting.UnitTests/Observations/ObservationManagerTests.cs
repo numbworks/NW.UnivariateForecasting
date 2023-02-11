@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.UnitTests.Utilities;
+using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Observations
 {
     [TestFixture]
     public class ObservationManagerTests
@@ -88,10 +88,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => ObjectMother.ObservationManager_Default.Create(null) // Whatever invalid SlidingWindow
+                    () => ObjectMother.ObservationManager.Create(null) // Whatever invalid SlidingWindow
                     ),
                 typeof(ArgumentException),
-                MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow))
+                UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow))
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
 
         };
@@ -119,7 +119,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
             new TestCaseData(
-                ObjectMother.Shared_Observation1, 
+                ObjectMother.Observation01, 
                 true
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05")
 
@@ -128,24 +128,24 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1,
+                SlidingWindows.ObjectMother.SlidingWindow01,
                 null,
                 null,
-                ObjectMother.Shared_Observation1,
+                ObjectMother.Observation01,
                 new List<string>() {
-                    MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
-                    MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1)
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated(ObjectMother.Observation01)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01"),
 
             new TestCaseData(
-                ObjectMother.Shared_SlidingWindow1,
-                ObjectMother.Shared_Observation1WithCustomCE_C,
-                ObjectMother.Shared_Observation1WithCustomCE_E,
-                ObjectMother.Shared_Observation1WithCustomCE,
+                SlidingWindows.ObjectMother.SlidingWindow01,
+                ObjectMother.Observation01_WithCustomCE_C,
+                ObjectMother.Observation01_WithCustomCE_E,
+                ObjectMother.Observation01_WithCustomCE,
                 new List<string>() {
-                    MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(ObjectMother.Shared_SlidingWindow1),
-                    MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(ObjectMother.Shared_Observation1WithCustomCE)
+                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01),
+                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated(ObjectMother.Observation01_WithCustomCE)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_02")
 
@@ -161,12 +161,12 @@ namespace NW.UnivariateForecasting.UnitTests
         [TestCaseSource(nameof(observationManagerExceptionTestCases))]
         public void ObservationManager_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createExceptionTestCases))]
         public void Create_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
-                => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(isValidTestCases))]
         public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
@@ -175,7 +175,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            bool actual = ObjectMother.ObservationManager_Default.IsValid(observation);
+            bool actual = ObjectMother.ObservationManager.IsValid(observation);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -218,5 +218,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.11.2022
 */

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
@@ -75,9 +74,9 @@ namespace NW.UnivariateForecasting.Observations
         {
 
             if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(MessageCollection.ObservationManager_ProvidedTypeObjectNotValid.Invoke(typeof(SlidingWindow)));
+                throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
 
-            _loggingAction.Invoke(MessageCollection.ObservationManager_CreatingObservationOutOfProvidedSlidingWindow.Invoke(slidingWindow));
+            _loggingAction(MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(slidingWindow));
 
             Observation observation = new Observation();
             observation.SlidingWindowId = slidingWindow.Id;
@@ -98,7 +97,7 @@ namespace NW.UnivariateForecasting.Observations
             double CX = CalculateCX(observation.C, observation.X_Actual);
             observation.Y_Forecasted = CalculateY(CX, observation.E);
 
-            _loggingAction.Invoke(MessageCollection.ObservationManager_FollowingObservationHasBeenCreated.Invoke(observation));
+            _loggingAction(MessageCollection.FollowingObservationHasBeenCreated(observation));
 
             return observation;
 
@@ -208,7 +207,7 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = sum / items.Count;
 
-            return _roundingFunction.Invoke(result);
+            return _roundingFunction(result);
 
         }
         private double CalculateE(List<SlidingWindowItem> items, double C, double denominator)
@@ -252,13 +251,13 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = CalculateMODE(values);
 
-            return _roundingFunction.Invoke(result);
+            return _roundingFunction(result);
 
         }
         private double CalculateCX(double C, double X) 
-            => _roundingFunction.Invoke(C * X);
+            => _roundingFunction(C * X);
         private double CalculateY(double CX, double E) 
-            => _roundingFunction.Invoke(CX + E);
+            => _roundingFunction(CX + E);
         private double DivideXByY(SlidingWindowItem item, double denominator)
         {
 
@@ -270,7 +269,7 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = X / Y;
 
-            return _roundingFunction.Invoke(result);
+            return _roundingFunction(result);
 
         }
         private double CalculateMODE(List<double> values)
@@ -292,5 +291,5 @@ namespace NW.UnivariateForecasting.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 12.11.2022
 */

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Messages;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.Files
@@ -59,7 +58,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.FileManager_NotPossibleToRead.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToRead(file, e), e);
 
             }
 
@@ -79,7 +78,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.FileManager_NotPossibleToRead.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToRead(file, e), e);
 
             }
 
@@ -98,7 +97,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.FileManager_NotPossibleToWrite.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToWrite(file, e), e);
 
             }
 
@@ -117,7 +116,7 @@ namespace NW.UnivariateForecasting.Files
             catch (Exception e)
             {
 
-                throw new Exception(MessageCollection.FileManager_NotPossibleToWrite.Invoke(file, e), e);
+                throw new Exception(MessageCollection.NotPossibleToWrite(file, e), e);
 
             }
 
