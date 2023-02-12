@@ -2,6 +2,7 @@
 using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
@@ -40,6 +41,7 @@ namespace NW.UnivariateForecasting
         public IAsciiBannerManager AsciiBannerManager { get; }
         public IFilenameFactory FilenameFactory { get; }
         public Func<DateTime> NowFunction { get; }
+        public IForecastingInitManager ForecastingInitManager { get; }
 
         #endregion
 
@@ -69,7 +71,8 @@ namespace NW.UnivariateForecasting
                 Action<string> loggingActionAsciiBanner,
                 IAsciiBannerManager asciiBannerManager,
                 IFilenameFactory filenameFactory,
-                Func<DateTime> nowFunction
+                Func<DateTime> nowFunction,
+                IForecastingInitManager forecastingInitManager
             )
         {
 
@@ -85,6 +88,7 @@ namespace NW.UnivariateForecasting
             Validator.ValidateObject(asciiBannerManager, nameof(asciiBannerManager));
             Validator.ValidateObject(filenameFactory, nameof(filenameFactory));
             Validator.ValidateObject(nowFunction, nameof(nowFunction));
+            Validator.ValidateObject(forecastingInitManager, nameof(forecastingInitManager));
 
             ObservationManager = observationManager;
             SlidingWindowManager = slidingWindowManager;
@@ -98,6 +102,7 @@ namespace NW.UnivariateForecasting
             AsciiBannerManager = asciiBannerManager;
             FilenameFactory = filenameFactory;
             NowFunction = nowFunction;
+            ForecastingInitManager = forecastingInitManager;
 
         }
 
@@ -117,7 +122,9 @@ namespace NW.UnivariateForecasting
                   DefaultLoggingActionAsciiBanner,
                   new AsciiBannerManager(),
                   new FilenameFactory(),
-                  DefaultNowFunction) { }
+                  DefaultNowFunction,
+                  new ForecastingInitManager()
+                ) { }
 
         #endregion
 
@@ -129,5 +136,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 12.02.2023
 */
