@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
@@ -242,6 +243,27 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
                 );
 
+        internal static string ForecastingInit_ObservationName = "Sales USD";
+        internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
+        internal static double ForecastingInit_Coefficient = 0.5;
+        internal static double ForecastingInit_Error = 0.01;
+        internal static ForecastingInit ForecastingInit
+            = new ForecastingInit(
+                    observationName: ForecastingInit_ObservationName,
+                    values: ForecastingInit_Values,
+                    coefficient: ForecastingInit_Coefficient,
+                    error: ForecastingInit_Error
+                    );
+
+        internal static uint ForecastingSession_Steps = 1;
+        internal static string ForecastingSession_Version = "3.0.0.0";
+        internal static ForecastingSession ForecastingSession = new ForecastingSession(
+                    init: ForecastingInit,
+                    observations: Observations.ObjectMother.Observations,
+                    steps: ForecastingSession_Steps,
+                    version: ForecastingSession_Version
+                );
+
         #endregion
 
     }
@@ -249,5 +271,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.11.2022
+    Last Update: 12.02.2023
 */

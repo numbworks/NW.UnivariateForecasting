@@ -11,53 +11,53 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         #region Fields
 
-        private static TestCaseData[] forecastingInitTestCases =
-        {
-
-            new TestCaseData(
-                    null,
-                    new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 },
-                    null,
-                    null
-                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_01"),
-
-            new TestCaseData(
-                    "Sales USD",
-                    new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 },
-                    null,
-                    null
-                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_02"),
-
-            new TestCaseData(
-                    "Sales USD",
-                    new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 },
-                    0.5,
-                    null
-                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_03"),
-
-            new TestCaseData(
-                    "Sales USD",
-                    new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 },
-                    0.5,
-                    0.01
-                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_04")
-
-        };
         private static TestCaseData[] forecastingInitExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ForecastingInit(
-                                observationName: "Sales USD",
+                                observationName: ObjectMother.ForecastingInit_ObservationName,
                                 values: null,
-                                coefficient: 0.5,
-                                error: 0.01
+                                coefficient: ObjectMother.ForecastingInit_Coefficient,
+                                error: ObjectMother.ForecastingInit_Error
                         )
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
             ).SetArgDisplayNames($"{nameof(forecastingInitExceptionTestCases)}_01")
+
+        };
+        private static TestCaseData[] forecastingInitTestCases =
+        {
+
+            new TestCaseData(
+                    null,
+                    ObjectMother.ForecastingInit_Values,
+                    null,
+                    null
+                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_01"),
+
+            new TestCaseData(
+                    ObjectMother.ForecastingInit_ObservationName,
+                    ObjectMother.ForecastingInit_Values,
+                    null,
+                    null
+                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_02"),
+
+            new TestCaseData(
+                    ObjectMother.ForecastingInit_ObservationName,
+                    ObjectMother.ForecastingInit_Values,
+                    ObjectMother.ForecastingInit_Coefficient,
+                    null
+                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_03"),
+
+            new TestCaseData(
+                    ObjectMother.ForecastingInit_ObservationName,
+                    ObjectMother.ForecastingInit_Values,
+                    ObjectMother.ForecastingInit_Coefficient,
+                    ObjectMother.ForecastingInit_Error
+                ).SetArgDisplayNames($"{nameof(forecastingInitTestCases)}_04")
 
         };
 
@@ -98,10 +98,10 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             Assert.IsInstanceOf<List<double>>(actual.Values);
 
             if (actual.Coefficient != null)
-                Assert.IsInstanceOf<double?>(actual.Coefficient ?? null);
+                Assert.IsInstanceOf<double?>(actual.Coefficient);
 
             if (actual.Error != null)
-                Assert.IsInstanceOf<double?>(actual.Error ?? null);
+                Assert.IsInstanceOf<double?>(actual.Error);
 
         }
 
