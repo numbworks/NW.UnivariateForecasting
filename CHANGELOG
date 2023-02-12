@@ -1,3 +1,11 @@
+v3.0.0 - BREAKING CHANGES
+- Library:
+	- Feature: added ForecastingInit, ForecastingInitManager and ForecastingSession.
+- Client:
+	- 
+- Documentation:
+	- 
+
 v2.5.0
 - Library:
 	- Refactoring: split the monolithic MessageCollection class to namespace-based MessageCollection classes to improve maintainability.
