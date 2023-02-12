@@ -264,6 +264,48 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     version: ForecastingSession_Version
                 );
 
+        internal static double NextValue = 519.23;
+        internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
+        internal static ForecastingInit ForecastingInit_WithExpandedValues
+            = new ForecastingInit(
+                    observationName: ForecastingInit_ObservationName,
+                    values: ExpandedValues,
+                    coefficient: ForecastingInit_Coefficient,
+                    error: ForecastingInit_Error
+                    );
+
+        #endregion
+
+        #region Methods
+
+        internal static bool AreEqual(double double1, double double2)
+            => Math.Abs(double1 - double2) < 0.0001;
+        internal static bool AreEqual(List<double> list1, List<double> list2)
+            => Utilities.ObjectMother.AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
+        internal static bool AreEqual(double? double1, double? double2)
+        {
+
+            if (double1 == null && double2 != null)
+                return false;
+            if (double1 != null && double2 == null)
+                return false;
+
+            if (double1 == null && double2 == null)
+                return true;
+
+            return AreEqual((double)double1, (double)double2);
+
+        }
+        internal static bool AreEqual(ForecastingInit obj1, ForecastingInit obj2)
+        {
+
+            return string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
+                        && AreEqual(obj1.Values, obj2.Values)
+                        && AreEqual(obj1.Coefficient, obj2.Coefficient)
+                        && AreEqual(obj1.Error, obj2.Error);
+
+        }
+
         #endregion
 
     }
