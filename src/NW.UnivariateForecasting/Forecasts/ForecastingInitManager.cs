@@ -24,12 +24,12 @@ namespace NW.UnivariateForecasting.Forecasts
 
         #region Methods_public
 
-        public ForecastingInit ExpandValues(ForecastingInit forecastingInit, double nextValue)
+        public ForecastingInit ExpandValues(ForecastingInit forecastingInit, decimal nextValue)
         {
 
             Validator.ValidateObject(forecastingInit, nameof(forecastingInit));
 
-            List<double> expandedValues = new List<double>();
+            List<decimal> expandedValues = new List<decimal>();
             expandedValues.AddRange(forecastingInit.Values);
             expandedValues.Add(nextValue);
 

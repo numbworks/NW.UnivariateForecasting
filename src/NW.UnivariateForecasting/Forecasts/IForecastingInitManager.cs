@@ -10,7 +10,7 @@ namespace NW.UnivariateForecasting.Forecasts
         /// Add <paramref name="nextValue"/> to <see cref="ForecastingInit.Values"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        ForecastingInit ExpandValues(ForecastingInit forecastingInit, double nextValue);
+        ForecastingInit ExpandValues(ForecastingInit forecastingInit, decimal nextValue);
 
     }
 }

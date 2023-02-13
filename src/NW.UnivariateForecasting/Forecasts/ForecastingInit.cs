@@ -15,9 +15,9 @@ namespace NW.UnivariateForecasting.Forecasts
         #region Properties
 
         public string ObservationName { get; }
-        public List<double> Values { get; }
-        public double? Coefficient { get; }
-        public double? Error { get; }
+        public List<decimal> Values { get; }
+        public decimal? Coefficient { get; }
+        public decimal? Error { get; }
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace NW.UnivariateForecasting.Forecasts
 
         /// <summary>Initializes a <see cref="ForecastingInit"/> instance using default parameters.</summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public ForecastingInit(string observationName, List<double> values, double? coefficient, double? error) 
+        public ForecastingInit(string observationName, List<decimal> values, decimal? coefficient, decimal? error) 
         {
 
             Validator.ValidateList(values, nameof(values));
@@ -52,5 +52,5 @@ namespace NW.UnivariateForecasting.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 13.02.2023
 */

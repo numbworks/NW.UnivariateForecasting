@@ -76,7 +76,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         [TestCaseSource(nameof(forecastingInitTestCases))]
         public void ForecastingInit_ShouldCreateAnInstanceOfThisType_WhenProperArgument
-            (string observationName, List<double> values, double? coefficient, double? error)
+            (string observationName, List<decimal> values, decimal? coefficient, decimal? error)
         {
 
             // Arrange
@@ -95,13 +95,13 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             if(actual.ObservationName != null) 
                 Assert.IsInstanceOf<string>(actual.ObservationName);
 
-            Assert.IsInstanceOf<List<double>>(actual.Values);
+            Assert.IsInstanceOf<List<decimal>>(actual.Values);
 
             if (actual.Coefficient != null)
-                Assert.IsInstanceOf<double?>(actual.Coefficient);
+                Assert.IsInstanceOf<decimal?>(actual.Coefficient);
 
             if (actual.Error != null)
-                Assert.IsInstanceOf<double?>(actual.Error);
+                Assert.IsInstanceOf<decimal?>(actual.Error);
 
         }
 

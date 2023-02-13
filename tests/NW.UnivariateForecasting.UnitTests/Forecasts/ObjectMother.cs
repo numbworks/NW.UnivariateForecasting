@@ -244,15 +244,23 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                 );
 
         internal static string ForecastingInit_ObservationName = "Sales USD";
-        internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
-        internal static double ForecastingInit_Coefficient = 0.5;
-        internal static double ForecastingInit_Error = 0.01;
+        internal static List<decimal> ForecastingInit_Values = new List<decimal>() { 58.5M, 615.26M, 659.84M, 635.69M, 612.27M, 632.94M };
+        internal static decimal ForecastingInit_Coefficient = 0.5M;
+        internal static decimal ForecastingInit_Error = 0.01M;
         internal static ForecastingInit ForecastingInit
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
                     coefficient: ForecastingInit_Coefficient,
                     error: ForecastingInit_Error
+                    );
+
+        internal static ForecastingInit ForecastingInit_Minimal
+            = new ForecastingInit(
+                    observationName: null,
+                    values: ForecastingInit_Values,
+                    coefficient: null,
+                    error: null
                     );
 
         internal static uint ForecastingSession_Steps = 1;
@@ -264,8 +272,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     version: ForecastingSession_Version
                 );
 
-        internal static double NextValue = 519.23;
-        internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
+        internal static decimal NextValue = 519.23M;
+        internal static List<decimal> ExpandedValues = new List<decimal>() { 58.5M, 615.26M, 659.84M, 635.69M, 612.27M, 632.94M, NextValue };
         internal static ForecastingInit ForecastingInit_WithExpandedValues
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
@@ -274,15 +282,18 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     error: ForecastingInit_Error
                     );
 
+        internal static string ForecastingInitAsJson_Content = Properties.Resources.ForecastingInitAsJson;
+        internal static string ForecastingInitMinimalAsJson_Content = Properties.Resources.ForecastingInitMinimalAsJson;
+
         #endregion
 
         #region Methods
 
-        internal static bool AreEqual(double double1, double double2)
-            => Math.Abs(double1 - double2) < 0.0001;
-        internal static bool AreEqual(List<double> list1, List<double> list2)
+        internal static bool AreEqual(decimal double1, decimal double2)
+            => Math.Abs(double1 - double2) < 0.0001M;
+        internal static bool AreEqual(List<decimal> list1, List<decimal> list2)
             => Utilities.ObjectMother.AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-        internal static bool AreEqual(double? double1, double? double2)
+        internal static bool AreEqual(decimal? double1, decimal? double2)
         {
 
             if (double1 == null && double2 != null)
@@ -293,7 +304,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             if (double1 == null && double2 == null)
                 return true;
 
-            return AreEqual((double)double1, (double)double2);
+            return AreEqual((decimal)double1, (decimal)double2);
 
         }
         internal static bool AreEqual(ForecastingInit obj1, ForecastingInit obj2)
@@ -313,5 +324,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 13.02.2023
 */

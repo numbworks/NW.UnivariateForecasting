@@ -114,5 +114,5 @@ namespace NW.UnivariateForecasting.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 13.02.2023
 */
