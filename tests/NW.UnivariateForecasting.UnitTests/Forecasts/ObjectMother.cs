@@ -292,6 +292,13 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     version: ForecastingSession_Version
                 );
 
+        internal static uint ForecastingSession_Multiple_Steps = 2;
+        internal static ForecastingSession ForecastingSession_Multiple = new ForecastingSession(
+                    init: ForecastingInit,
+                    observations: Observations.ObjectMother.Observations_With0102,
+                    steps: ForecastingSession_Multiple_Steps,
+                    version: ForecastingSession_Version
+                );
 
         internal static string ForecastingSessionSingleAsJson_Content = Properties.Resources.ForecastingSessionSingleAsJson;
         internal static string ForecastingSessionSingleMinimalAsJson_Content = Properties.Resources.ForecastingSessionSingleMinimalAsJson;
@@ -301,22 +308,22 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         #region Methods
 
-        internal static bool AreEqual(decimal double1, decimal double2)
-            => Math.Abs(double1 - double2) < 0.0001M;
+        internal static bool AreEqual(decimal dec1, decimal dec2)
+            => Math.Abs(dec1 - dec2) < 0.0001M;
         internal static bool AreEqual(List<decimal> list1, List<decimal> list2)
             => Utilities.ObjectMother.AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-        internal static bool AreEqual(decimal? double1, decimal? double2)
+        internal static bool AreEqual(decimal? dec1, decimal? dec2)
         {
 
-            if (double1 == null && double2 != null)
+            if (dec1 == null && dec2 != null)
                 return false;
-            if (double1 != null && double2 == null)
+            if (dec1 != null && dec2 == null)
                 return false;
 
-            if (double1 == null && double2 == null)
+            if (dec1 == null && dec2 == null)
                 return true;
 
-            return AreEqual((decimal)double1, (decimal)double2);
+            return AreEqual((decimal)dec1, (decimal)dec2);
 
         }
         internal static bool AreEqual(ForecastingInit obj1, ForecastingInit obj2)
@@ -328,6 +335,15 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         && AreEqual(obj1.Error, obj2.Error);
 
         }
+        internal static bool AreEqual(ForecastingSession obj1, ForecastingSession obj2)
+        {
+
+            return AreEqual(obj1.Init, obj2.Init)
+                        && Observations.ObjectMother.AreEqual(obj1.Observations, obj2.Observations)
+                        && Equals(obj1.Steps, obj2.Steps)
+                        && string.Equals(obj1.Version, obj2.Version, StringComparison.InvariantCulture);
+
+        }
 
         #endregion
 
@@ -336,5 +352,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.02.2023
+    Last Update: 14.02.2023
 */

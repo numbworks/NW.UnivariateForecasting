@@ -111,7 +111,16 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         internal static List<Observation> Observations_With01 = new List<Observation>()
         {
+
             Observation01
+
+        };
+        internal static List<Observation> Observations_With0102 = new List<Observation>()
+        {
+
+            Observation01,
+            Observation01 // To change with Observation02
+
         };
 
         #endregion
@@ -140,5 +149,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 14.02.2023
 */
