@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
@@ -21,7 +20,6 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: null, 
-                            intervalManager: new IntervalManager(),
                             slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
@@ -34,53 +32,37 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            intervalManager: null,
-                            slidingWindowManager: new SlidingWindowManager(),
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
-                        )),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("intervalManager").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_02"),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new ObservationManager(
-                            settings: new UnivariateForecastingSettings(),
-                            intervalManager: new IntervalManager(),
                             slidingWindowManager: null,
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindowManager").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_03"),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            intervalManager: new IntervalManager(),
                             slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: null,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_04"),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            intervalManager: new IntervalManager(),
                             slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_05")
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_04")
 
         };
         private static TestCaseData[] createExceptionTestCases =
@@ -192,7 +174,6 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             ObservationManager observationManager 
                 = new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            intervalManager: new IntervalManager(),
                             slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: (message) => fakeLogger.Log(message)
@@ -218,5 +199,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.11.2022
+    Last Update: 14.02.2023
 */
