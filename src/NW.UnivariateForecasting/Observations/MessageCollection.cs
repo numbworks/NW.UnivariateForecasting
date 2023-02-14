@@ -14,7 +14,7 @@ namespace NW.UnivariateForecasting.Observations
         public static Func<SlidingWindow, string> CreatingObservationOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Creating an {typeof(Observation).Name} out of the provided {typeof(SlidingWindow).Name}: '{slidingWindow.ToString(false)}'...";
         public static Func<Observation, string> FollowingObservationHasBeenCreated { get; }
-            = (observation) => $"The following {typeof(Observation).Name} has been created: '{observation.ToString(false)}'.";
+            = (observation) => $"The following {typeof(Observation).Name} has been created: '{observation}'.";
 
         #endregion
 
@@ -23,5 +23,5 @@ namespace NW.UnivariateForecasting.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 14.02.2023
 */
