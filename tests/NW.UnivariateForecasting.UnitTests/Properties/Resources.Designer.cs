@@ -62,17 +62,17 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
-        ///    &quot;Values&quot;: [
-        ///        58.5,
-        ///        615.26,
-        ///        659.84,
-        ///        635.69,
-        ///        612.27,
-        ///        632.94
-        ///    ],
-        ///    &quot;Coefficient&quot;: 0.5,
-        ///    &quot;Error&quot;: 0.01
+        ///  &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26,
+        ///    659.84,
+        ///    635.69,
+        ///    612.27,
+        ///    632.94
+        ///  ],
+        ///  &quot;Coefficient&quot;: 0.5,
+        ///  &quot;Error&quot;: 0.01
         ///}.
         /// </summary>
         internal static string ForecastingInitAsJson {
@@ -83,22 +83,123 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///    &quot;ObservationName&quot;: null,
-        ///    &quot;Values&quot;: [
-        ///        58.5,
-        ///        615.26,
-        ///        659.84,
-        ///        635.69,
-        ///        612.27,
-        ///        632.94
-        ///    ],
-        ///    &quot;Coefficient&quot;: null,
-        ///    &quot;Error&quot;: null
+        ///  &quot;ObservationName&quot;: null,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26,
+        ///    659.84,
+        ///    635.69,
+        ///    612.27,
+        ///    632.94
+        ///  ],
+        ///  &quot;Coefficient&quot;: null,
+        ///  &quot;Error&quot;: null
         ///}.
         /// </summary>
         internal static string ForecastingInitMinimalAsJson {
             get {
                 return ResourceManager.GetString("ForecastingInitMinimalAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Init&quot;: {
+        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///    &quot;Values&quot;: [
+        ///      58.5,
+        ///      615.26,
+        ///      659.84,
+        ///      635.69,
+        ///      612.27,
+        ///      632.94
+        ///    ],
+        ///    &quot;Coefficient&quot;: 0.5,
+        ///    &quot;Error&quot;: 0.01
+        ///  },
+        ///  &quot;Observations&quot;: [
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 519.23
+        ///    },
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 478.12
+        ///    }
+        ///  ],
+        ///  &quot;Steps&quot;: 2,
+        ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
+        ///}.
+        /// </summary>
+        internal static string ForecastingSessionMultipleAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingSessionMultipleAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Init&quot;: {
+        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///    &quot;Values&quot;: [
+        ///      58.5,
+        ///      615.26,
+        ///      659.84,
+        ///      635.69,
+        ///      612.27,
+        ///      632.94
+        ///    ],
+        ///    &quot;Coefficient&quot;: 0.5,
+        ///    &quot;Error&quot;: 0.01
+        ///  },
+        ///  &quot;Observations&quot;: [
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 519.23
+        ///    }
+        ///  ],
+        ///  &quot;Steps&quot;: 1,
+        ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
+        ///}.
+        /// </summary>
+        internal static string ForecastingSessionSingleAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingSessionSingleAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Init&quot;: {
+        ///    &quot;ObservationName&quot;: null,
+        ///    &quot;Values&quot;: [
+        ///      58.5,
+        ///      615.26,
+        ///      659.84,
+        ///      635.69,
+        ///      612.27,
+        ///      632.94
+        ///    ],
+        ///    &quot;Coefficient&quot;: null,
+        ///    &quot;Error&quot;: null
+        ///  },
+        ///  &quot;Observations&quot;: [
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 519.23
+        ///    }
+        ///  ],
+        ///  &quot;Steps&quot;: 1,
+        ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
+        ///}.
+        /// </summary>
+        internal static string ForecastingSessionSingleMinimalAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingSessionSingleMinimalAsJson", resourceCulture);
             }
         }
         

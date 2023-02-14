@@ -124,6 +124,15 @@
   <data name="ForecastingInitMinimalAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\forecastinginitminimalasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="ForecastingSessionMultipleAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastingsessionmultipleasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ForecastingSessionSingleAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastingsessionsingleasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ForecastingSessionSingleMinimalAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastingsessionsingleminimalasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="ObservationWithDummyValues" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\observationwithdummyvalues.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

@@ -285,6 +285,10 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static string ForecastingInitAsJson_Content = Properties.Resources.ForecastingInitAsJson;
         internal static string ForecastingInitMinimalAsJson_Content = Properties.Resources.ForecastingInitMinimalAsJson;
 
+        internal static string ForecastingSessionSingleAsJson_Content = Properties.Resources.ForecastingSessionSingleAsJson;
+        internal static string ForecastingSessionSingleMinimalAsJson_Content = Properties.Resources.ForecastingSessionSingleMinimalAsJson;
+        internal static string ForecastingSessionMultipleAsJson_Content = Properties.Resources.ForecastingSessionMultipleAsJson;
+
         #endregion
 
         #region Methods
