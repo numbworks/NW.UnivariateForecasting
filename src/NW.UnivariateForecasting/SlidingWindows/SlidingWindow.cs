@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
@@ -15,7 +14,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         public string Id { get; set; }
         public string ObservationName { get; set; }
-        public Interval Interval { get; set; }
         public List<SlidingWindowItem> Items { get; set; }
 
         #endregion
@@ -36,8 +34,8 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public string ToString(bool rolloutItems)
         {
 
-            // [ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]
-            // [ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]
+            // [ Id: 'null', ObservationName: 'null', Items: 'null' ]
+            // [ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Items: '6' ]
             // ...
 
             string content
@@ -45,7 +43,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
                     ", ",
                     $"{nameof(Id)}: '{Id ?? "null"}'",
                     $"{nameof(ObservationName)}: '{ObservationName ?? "null"}'",
-                    $"{nameof(Interval)}: '{Interval?.ToString() ?? "null"}'",
                     $"{nameof(Items)}: '{Items?.Count.ToString() ?? "null"}'"
                     );
             content = $"[ {content} ]";
@@ -73,5 +70,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.02.2023
 */
