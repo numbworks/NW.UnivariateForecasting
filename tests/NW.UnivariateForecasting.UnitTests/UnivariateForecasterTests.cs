@@ -4,7 +4,6 @@ using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
-using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
@@ -154,7 +153,6 @@ namespace NW.UnivariateForecasting.UnitTests
             SlidingWindowManager slidingManager
                 = new SlidingWindowManager(
                         settings: new UnivariateForecastingSettings(),
-                        intervalManager: new IntervalManager(),
                         slidingWindowItemManager: new SlidingWindowItemManager(),
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction
@@ -162,7 +160,6 @@ namespace NW.UnivariateForecasting.UnitTests
             ObservationManager observationManager
                 = new ObservationManager(
                         settings: new UnivariateForecastingSettings(),
-                        intervalManager: new IntervalManager(),
                         slidingWindowManager: slidingManager,
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction
@@ -172,9 +169,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         slidingWindowManager: slidingManager,
                         slidingWindowItemManager: new SlidingWindowItemManager(),
                         observationManager: observationManager,
-                        intervalManager: new IntervalManager(),
                         fileManager: new FileManager(),
-                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
@@ -210,9 +205,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         slidingWindowManager: new SlidingWindowManager(),
                         slidingWindowItemManager: new SlidingWindowItemManager(),
                         observationManager: new ObservationManager(),
-                        intervalManager: new IntervalManager(),
                         fileManager: new FileManager(),
-                        idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         loggingActionAsciiBanner: fakeLoggingActionAsciiBanner,
