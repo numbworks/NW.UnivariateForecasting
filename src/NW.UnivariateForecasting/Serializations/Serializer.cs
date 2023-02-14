@@ -15,8 +15,6 @@ namespace NW.UnivariateForecasting.Serializations
 
         #region Properties
 
-        public static List<T> Default { get; } = null;
-
         #endregion
 
         #region Constructors
