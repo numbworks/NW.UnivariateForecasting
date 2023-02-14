@@ -15,14 +15,8 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new UnivariateForecastingSettings(
-                                    forecastingDenominator: 0,
-                                    dummyId: UnivariateForecastingSettings.DefaultDummyId,
-                                    dummyObservationName: UnivariateForecastingSettings.DefaultDummyObservationName,
-                                    dummyStartDate: UnivariateForecastingSettings.DefaultDummyStartDate,
-                                    dummySteps: UnivariateForecastingSettings.DefaultDummySteps,
-                                    dummyIntervalUnit: UnivariateForecastingSettings.DefaultDummyIntervalUnit
-                                    )),
+                    () => new UnivariateForecastingSettings(forecastingDenominator: 0)
+                ),
                 typeof(ArgumentException),
                 MessageCollection.DenominatorCantBeLessThan(
                                     "forecastingDenominator", 
@@ -53,5 +47,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 14.02.2023
 */
