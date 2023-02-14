@@ -11,6 +11,7 @@ Contact: numbworks@gmail.com
 | 2020-12-06 | numbworks | Added "Saving and Loading" paragraph. |
 | 2020-12-22 | numbworks | Changed font size and date format in Revision History. |
 | 2021-10-11 | numbworks | Version numbers removed. |
+| 2023-02-14 | numbworks | Updated to v3.0.0. |
 
 ## Introduction
 
@@ -424,6 +425,18 @@ The function to forecast the next value in the series is `Y=F(X)+E`, which can b
 | <sub>Y_Forecasted</sub> |
 |---|
 | <sub>519,23</sub> |
+
+## Load and save
+
+The library is able to load and save different key-objects using JSON format. 
+
+Here an example of each JSON file produced by the library:
+
+1. [ForecastingInit.json](ExampleFiles/ForecastingInit.json)
+2. [ForecastingInitMinimal.json](ExampleFiles/ForecastingInitMinimal.json)
+3. [ForecastingSessionSingle.json](ExampleFiles/ForecastingSessionSingle.json)
+4. [ForecastingSessionSingleMinimal.json](ExampleFiles/ForecastingSessionSingleMinimal.json)
+5. [ForecastingSessionMultiple.json](ExampleFiles/ForecastingSessionMultiple.json)
 
 ## Markdown Toolset
 
