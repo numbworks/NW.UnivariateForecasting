@@ -121,12 +121,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
         {
 
             return Create(
-                    _settings.DummyId,
-                    _settings.DummyObservationName,
+                    "dummy",
+                    "dummy",
                     values,
-                    _settings.DummySteps,
-                    _settings.DummyIntervalUnit,
-                    _settings.DummyStartDate
+                    1,
+                    IntervalUnits.Months,
+                    default(DateTime)
                 );
 
         }
@@ -204,5 +204,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 14.02.2023
 */
