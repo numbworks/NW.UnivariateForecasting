@@ -38,39 +38,6 @@ namespace NW.UnivariateForecasting.Serializations
             return json;
 
         }
-        public string Serialize(List<T> objects)
-        {
-
-            Validation.Validator.ValidateList(objects, nameof(objects));
-
-            string json = JsonSerializer.Serialize(objects, CreateJsonSerializerOptions());
-
-            return json;
-
-        }
-        
-        public List<T> DeserializeManyOrDefault(string json)
-        {
-
-            try
-            {
-
-                List<T> objects = JsonSerializer.Deserialize<List<T>>(json, CreateJsonSerializerOptions());
-
-                if (objects.Count == 0)
-                    return Default;
-
-                return objects;
-
-            }
-            catch
-            {
-
-                return Default;
-
-            }
-
-        }
         public T DeserializeOrDefault(string json)
         {
 
@@ -114,5 +81,5 @@ namespace NW.UnivariateForecasting.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.02.2023
+    Last Update: 14.02.2023
 */

@@ -17,37 +17,10 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new Serializer<ForecastingInit>().Serialize(objects: null)),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("objects").Message
-                ).SetArgDisplayNames($"{nameof(serializeExceptionTestCases)}_01"),
-
-            new TestCaseData(
-                new TestDelegate(
                         () => new Serializer<ForecastingInit>().Serialize(obj: null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("obj").Message
-                ).SetArgDisplayNames($"{nameof(serializeExceptionTestCases)}_02")
-
-        };
-        private static TestCaseData[] deserializeManyOrDefaultWhenUnproperArgumentTestCases =
-        {
-
-            new TestCaseData(
-                    "Unproper Json content"
-                ).SetArgDisplayNames($"{nameof(deserializeManyOrDefaultWhenUnproperArgumentTestCases)}_01"),
-
-            new TestCaseData(
-                    string.Empty
-                ).SetArgDisplayNames($"{nameof(deserializeManyOrDefaultWhenUnproperArgumentTestCases)}_02"),
-
-            new TestCaseData(
-                    null
-                ).SetArgDisplayNames($"{nameof(deserializeManyOrDefaultWhenUnproperArgumentTestCases)}_03"),
-
-            new TestCaseData(
-                    "[]"
-                ).SetArgDisplayNames($"{nameof(deserializeManyOrDefaultWhenUnproperArgumentTestCases)}_04")
+                ).SetArgDisplayNames($"{nameof(serializeExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] deserializeOrDefaultWhenUnproperArgumentTestCases =
@@ -83,6 +56,19 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         public void Serialize_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
+        [TestCaseSource(nameof(deserializeOrDefaultWhenUnproperArgumentTestCases))]
+        public void DeserializeOrDefault_ShouldReturnDefault_WhenTypeIsForecastingInit(string json)
+        {
+
+            // Arrange
+            // Act
+            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.AreEqual(default(ForecastingInit), actual);
+
+        }
 
         [Test]
         public void Serialize_ShouldReturnExpectedString_WhenForecastingInit()

@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         #region Tests
 
         [Test]
-        public void Create_ShouldCreateExpectedInstanceOfISerializer_WhenTypeIsLabeledExample()
+        public void Create_ShouldCreateExpectedInstanceOfISerializer_WhenTypeIsForecastingInit()
         {
 
             // Arrange
