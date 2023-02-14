@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
@@ -36,20 +35,17 @@ namespace NW.UnivariateForecasting.Observations
         /// <exception cref="ArgumentNullException"/> 
         public ObservationManager(
             UnivariateForecastingSettings settings,
-            IIntervalManager intervalManager,
             ISlidingWindowManager slidingWindowManager,
             Func<double, double> roundingFunction,
             Action<string> loggingAction)
         {
 
             Validator.ValidateObject(settings, nameof(settings));
-            Validator.ValidateObject(intervalManager, nameof(intervalManager));
             Validator.ValidateObject(slidingWindowManager, nameof(slidingWindowManager));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
             _settings = settings;
-            _intervalManager = intervalManager;
             _slidingWindowManager = slidingWindowManager;
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
@@ -60,7 +56,6 @@ namespace NW.UnivariateForecasting.Observations
         public ObservationManager()
             : this(
                   new UnivariateForecastingSettings(),
-                  new IntervalManager(), 
                   new SlidingWindowManager(),
                   DefaultRoundingFunction,
                   DefaultLoggingAction
@@ -81,12 +76,6 @@ namespace NW.UnivariateForecasting.Observations
             Observation observation = new Observation();
             observation.SlidingWindowId = slidingWindow.Id;
             observation.Name = slidingWindow.ObservationName;
-
-            uint size = 1;
-            IntervalUnits unit = slidingWindow.Interval.Unit;
-            uint steps = slidingWindow.Interval.Steps;
-            DateTime startDate = GetObservationStartDate(slidingWindow);
-            observation.Interval = _intervalManager.Create(size, unit, startDate, steps);
 
             observation.X_Actual = GetTargetXActual(slidingWindow.Items);
 
@@ -109,8 +98,6 @@ namespace NW.UnivariateForecasting.Observations
                 return false;
             if (string.IsNullOrWhiteSpace(observation.Name))
                 return false;
-            if (observation.Interval == null)
-                return false;
             if (string.IsNullOrWhiteSpace(observation.SlidingWindowId))
                 return false;
 
@@ -122,8 +109,6 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Methods_private
 
-        private DateTime GetObservationStartDate(SlidingWindow slidingWindow)
-            => slidingWindow.Items.OrderBy(item => item.Interval.EndDate).Last().Interval.EndDate;
         private double GetTargetXActual(List<SlidingWindowItem> items)
         {
 
