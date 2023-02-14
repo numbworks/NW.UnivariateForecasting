@@ -89,7 +89,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
             return slidingWindow;
 
         }
-        public SlidingWindow Create(string id, string observationName, List<double> values, uint steps, DateTime startDate)
+        public SlidingWindow Create(string id, string observationName, List<double> values, uint steps)
         {
 
             Validator.ValidateList(values, nameof(values));
@@ -103,17 +103,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         }
         public SlidingWindow Create(List<double> values)
-        {
-
-            return Create(
-                    "dummy",
-                    "dummy",
-                    values,
-                    1,
-                    default(DateTime)
-                );
-
-        }
+            => Create("dummy", "dummy", values, 1);
 
         public bool IsValid(SlidingWindow slidingWindow)
         {

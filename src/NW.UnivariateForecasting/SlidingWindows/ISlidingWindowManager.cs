@@ -14,7 +14,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
         /// <summary>Creates a <seealso cref="SlidingWindow"/> object.</summary>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
-        SlidingWindow Create(string id, string observationName, List<double> values, uint steps, DateTime startDate);
+        SlidingWindow Create(string id, string observationName, List<double> values, uint steps);
 
         /// <summary>Creates a <seealso cref="SlidingWindow"/> object out of the <seealso cref="UnivariateForecastingSettings"/> properties.</summary>
         SlidingWindow Create(List<double> values);
