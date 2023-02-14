@@ -263,15 +263,6 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     error: null
                     );
 
-        internal static uint ForecastingSession_Steps = 1;
-        internal static string ForecastingSession_Version = "3.0.0.0";
-        internal static ForecastingSession ForecastingSession = new ForecastingSession(
-                    init: ForecastingInit,
-                    observations: Observations.ObjectMother.Observations,
-                    steps: ForecastingSession_Steps,
-                    version: ForecastingSession_Version
-                );
-
         internal static decimal NextValue = 519.23M;
         internal static List<decimal> ExpandedValues = new List<decimal>() { 58.5M, 615.26M, 659.84M, 635.69M, 612.27M, 632.94M, NextValue };
         internal static ForecastingInit ForecastingInit_WithExpandedValues
@@ -284,6 +275,23 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         internal static string ForecastingInitAsJson_Content = Properties.Resources.ForecastingInitAsJson;
         internal static string ForecastingInitMinimalAsJson_Content = Properties.Resources.ForecastingInitMinimalAsJson;
+
+
+        internal static string ForecastingSession_Version = "3.0.0.0";
+        internal static uint ForecastingSession_Single_Steps = 1;
+        internal static ForecastingSession ForecastingSession_Single = new ForecastingSession(
+                    init: ForecastingInit,
+                    observations: Observations.ObjectMother.Observations_With01,
+                    steps: ForecastingSession_Single_Steps,
+                    version: ForecastingSession_Version
+                );
+        internal static ForecastingSession ForecastingSession_SingleMinimal = new ForecastingSession(
+                    init: ForecastingInit_Minimal,
+                    observations: Observations.ObjectMother.Observations_With01,
+                    steps: ForecastingSession_Single_Steps,
+                    version: ForecastingSession_Version
+                );
+
 
         internal static string ForecastingSessionSingleAsJson_Content = Properties.Resources.ForecastingSessionSingleAsJson;
         internal static string ForecastingSessionSingleMinimalAsJson_Content = Properties.Resources.ForecastingSessionSingleMinimalAsJson;

@@ -109,7 +109,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         };
 
-        internal static List<Observation> Observations = new List<Observation>()
+        internal static List<Observation> Observations_With01 = new List<Observation>()
         {
             Observation01
         };
