@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
@@ -10,24 +9,17 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         /// <summary>Creates a <seealso cref="SlidingWindowItem"/> object.</summary>
         /// <exception cref="ArgumentException"/> 
-        SlidingWindowItem CreateItem(uint id, Interval interval, double X_Actual, double? Y_Forecasted);
-
-        /// <summary>Creates a <seealso cref="SlidingWindowItem"/> object.</summary>
-        /// <exception cref="ArgumentException"/> 
-        SlidingWindowItem CreateItem(uint id, DateTime startDate, IntervalUnits intervalUnit, double X_Actual, double? Y_Forecasted);
+        SlidingWindowItem CreateItem(uint id, double X_Actual, double? Y_Forecasted);
 
         /// <summary>Creates a collection of <seealso cref="SlidingWindowItem"/> objects.</summary>
         /// <exception cref="ArgumentNullException"/> 
         /// <exception cref="ArgumentException"/> 
-        List<SlidingWindowItem> CreateItems(DateTime startDate, List<double> values, IntervalUnits intervalUnit);
-
-        /// <summary>Checks the properties of the provided <seealso cref="SlidingWindowItem"/> object for validity.</summary>
-        bool IsValid(SlidingWindowItem slidingWindowItem);
+        List<SlidingWindowItem> CreateItems(List<double> values);
 
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.02.2023
 */

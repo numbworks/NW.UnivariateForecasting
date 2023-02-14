@@ -1,6 +1,5 @@
 ﻿using System;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.Validation
 {
@@ -23,11 +22,6 @@ namespace NW.UnivariateForecasting.Validation
         public static Func<IFileInfoAdapter, string> ProvidedPathDoesntExist
             = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
 
-        public static Func<string, string> ProvidedIntervalUnitNotSupported { get; }
-            = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
-        public static string SubIntervalsCantBeLessThanTwo { get; }
-            = "Subintervals can't be less than two";
-
         #endregion
 
     }
@@ -35,5 +29,5 @@ namespace NW.UnivariateForecasting.Validation
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 14.02.2023
 */
