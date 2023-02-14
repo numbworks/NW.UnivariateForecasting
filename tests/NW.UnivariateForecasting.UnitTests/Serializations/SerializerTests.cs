@@ -116,6 +116,42 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInit()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingInitAsJson_Content;
+            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit;
+
+            // Act
+            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitMinimal()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingInitMinimalAsJson_Content;
+            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_Minimal;
+
+            // Act
+            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
         #endregion
 
         #region TearDown
