@@ -94,7 +94,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
             Validator.ValidateList(values, nameof(values));
 
-            _loggingAction(MessageCollection.CreatingIntervalOutOfFollowingArguments);
             _loggingAction(MessageCollection.ProvidedValuesAre(values));
             _loggingAction(MessageCollection.ProvidedStepsAre(steps));
 
