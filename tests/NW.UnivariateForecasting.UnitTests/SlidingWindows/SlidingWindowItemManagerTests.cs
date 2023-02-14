@@ -223,6 +223,6 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 }
 
 /*
-    Author: rua@sitecore.net
+    Author: numbworks@gmail.com
     Last Update: 14.11.2022
 */

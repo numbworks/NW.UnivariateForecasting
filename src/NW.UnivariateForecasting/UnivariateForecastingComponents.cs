@@ -5,6 +5,7 @@ using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
@@ -42,6 +43,7 @@ namespace NW.UnivariateForecasting
         public IFilenameFactory FilenameFactory { get; }
         public Func<DateTime> NowFunction { get; }
         public IForecastingInitManager ForecastingInitManager { get; }
+        public ISerializerFactory SerializerFactory { get; }
 
         #endregion
 
@@ -72,7 +74,8 @@ namespace NW.UnivariateForecasting
                 IAsciiBannerManager asciiBannerManager,
                 IFilenameFactory filenameFactory,
                 Func<DateTime> nowFunction,
-                IForecastingInitManager forecastingInitManager
+                IForecastingInitManager forecastingInitManager,
+                ISerializerFactory serializerFactory
             )
         {
 
@@ -89,6 +92,7 @@ namespace NW.UnivariateForecasting
             Validator.ValidateObject(filenameFactory, nameof(filenameFactory));
             Validator.ValidateObject(nowFunction, nameof(nowFunction));
             Validator.ValidateObject(forecastingInitManager, nameof(forecastingInitManager));
+            Validator.ValidateObject(serializerFactory, nameof(serializerFactory));
 
             ObservationManager = observationManager;
             SlidingWindowManager = slidingWindowManager;
@@ -103,6 +107,7 @@ namespace NW.UnivariateForecasting
             FilenameFactory = filenameFactory;
             NowFunction = nowFunction;
             ForecastingInitManager = forecastingInitManager;
+            SerializerFactory = serializerFactory;
 
         }
 
@@ -123,7 +128,8 @@ namespace NW.UnivariateForecasting
                   new AsciiBannerManager(),
                   new FilenameFactory(),
                   DefaultNowFunction,
-                  new ForecastingInitManager()
+                  new ForecastingInitManager(),
+                  new SerializerFactory()
                 ) { }
 
         #endregion
@@ -136,5 +142,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 14.02.2023
 */

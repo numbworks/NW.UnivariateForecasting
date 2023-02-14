@@ -5,6 +5,7 @@ using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
@@ -34,7 +35,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -56,7 +58,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -78,7 +81,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -100,7 +104,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -122,7 +127,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -144,7 +150,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -166,7 +173,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -188,7 +196,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -210,7 +219,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -232,7 +242,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: null,
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -254,7 +265,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: null,
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -276,7 +288,8 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: null,
-                                    forecastingInitManager: new ForecastingInitManager()
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
@@ -298,12 +311,36 @@ namespace NW.UnivariateForecasting.UnitTests
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: null
+                                    forecastingInitManager: null,
+                                    serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("forecastingInitManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_13")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_13"),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecastingComponents(
+                                    slidingWindowManager: new SlidingWindowManager(),
+                                    slidingWindowItemManager: new SlidingWindowItemManager(),
+                                    observationManager: new ObservationManager(),
+                                    intervalManager: new IntervalManager(),
+                                    fileManager: new FileManager(),
+                                    idCreationFunction: UnivariateForecastingComponents.DefaultIdCreationFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    asciiBannerManager: new AsciiBannerManager(),
+                                    filenameFactory: new FilenameFactory(),
+                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    forecastingInitManager: new ForecastingInitManager(),
+                                    serializerFactory: null
+                            )
+                        ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("serializerFactory").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_14")
 
         };
 
@@ -328,6 +365,6 @@ namespace NW.UnivariateForecasting.UnitTests
 }
 
 /*
-    Author: rua@sitecore.net
-    Last Update: 18.01.2023
+    Author: numbworks@gmail.com
+    Last Update: 14.02.2023
 */
