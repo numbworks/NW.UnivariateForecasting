@@ -13,7 +13,6 @@ namespace NW.UnivariateForecasting.Observations
         #region Fields
 
         private UnivariateForecastingSettings _settings;
-        private IIntervalManager _intervalManager;
         private ISlidingWindowManager _slidingWindowManager;
         private Func<double, double> _roundingFunction;
         private Action<string> _loggingAction;
