@@ -100,6 +100,22 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        [Test]
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingInitMinimal()
+        {
+
+            // Arrange
+            ForecastingInit obj = Forecasts.ObjectMother.ForecastingInit_Minimal;
+            string expected = Forecasts.ObjectMother.ForecastingInitMinimalAsJson_Content;
+
+            // Act
+            string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
         #endregion
 
         #region TearDown
