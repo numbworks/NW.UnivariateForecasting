@@ -1,6 +1,7 @@
 v3.0.0 - BREAKING CHANGES
 - Library:
 	- Feature: added ForecastingInit, ForecastingInitManager and ForecastingSession.
+	- Feature: added System.Text.Json-based Serializer.
 - Client:
 	- 
 - Documentation:
