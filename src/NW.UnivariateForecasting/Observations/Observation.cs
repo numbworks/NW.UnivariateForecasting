@@ -1,5 +1,4 @@
-﻿using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.SlidingWindows;
+﻿using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.Observations
 {
@@ -10,7 +9,6 @@ namespace NW.UnivariateForecasting.Observations
         #region Fields
 
         public string Name { get; set; }
-        public Interval Interval { get; set; }
         public double X_Actual { get; set; }
         public double C { get; set; }
         public double E { get; set; }
@@ -32,22 +30,17 @@ namespace NW.UnivariateForecasting.Observations
         #region Methods_public
 
         public override string ToString()
-            => ToString(true);
-
-        /// <inheritdoc cref="object.ToString"/>
-        public string ToString(bool onlyDates)
         {
 
-            // "[ Name: 'Total Monthly Sales USD', Interval: '1:Months:20190831:20190930:20191031:1:1', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
-            // "[ Name: 'Total Monthly Sales USD', Interval: '20190831:20190930:20191031', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
-            // "[ Name: 'null', Interval: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]"
+            // "[ Name: 'Total Monthly Sales USD', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
+            // "[ Name: 'Total Monthly Sales USD', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
+            // "[ Name: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]"
             // ...
 
             string content
                 = string.Join(
                     ", ",
                     $"{nameof(Name)}: '{Name ?? "null"}'",
-                    $"{nameof(Interval)}: '{Interval?.ToString(onlyDates) ?? "null"}'",
                     $"{nameof(X_Actual)}: '{X_Actual}'",
                     $"{nameof(C)}: '{C}'",
                     $"{nameof(E)}: '{E}'",
@@ -66,5 +59,5 @@ namespace NW.UnivariateForecasting.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 14.02.2023
 */
