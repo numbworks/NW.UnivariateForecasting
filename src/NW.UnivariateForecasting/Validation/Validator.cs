@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.Validation
 {
@@ -223,40 +222,10 @@ namespace NW.UnivariateForecasting.Validation
 
         #endregion
 
-        #region ValidateInterval
-
-        /// <summary>Throws an exception of type TException when <paramref name="unit"/> is not valid.</summary>
-        public static void ValidateIntervalUnit<TException>(IntervalUnits unit) where TException : Exception
-        {
-
-            if (unit != IntervalUnits.Months)
-                throw CreateException<TException>(MessageCollection.ProvidedIntervalUnitNotSupported(unit.ToString()));
-
-        }
-
-        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name="unit"/> is not valid.</summary>
-        public static void ValidateIntervalUnit(IntervalUnits unit)
-            => ValidateIntervalUnit<ArgumentException>(unit);
-
-        /// <summary>Throws an exception of type TException when <see cref="Interval.SubIntervals"/> is not valid.</summary>
-        public static void ValidateSubIntervals<TException>(Interval interval) where TException : Exception
-        {
-
-            if (interval.SubIntervals < 2)
-                throw CreateException<TException>(MessageCollection.SubIntervalsCantBeLessThanTwo);
-
-        }
-
-        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <see cref="Interval.SubIntervals"/> is not valid.</summary>
-        public static void ValidateSubIntervals(Interval interval)
-            => ValidateSubIntervals<ArgumentException>(interval);
-
-        #endregion
-
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 14.02.2023
 */
