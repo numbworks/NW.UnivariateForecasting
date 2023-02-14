@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Serializations;
 using NUnit.Framework;
@@ -189,6 +188,63 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        [Ignore("")]
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingle()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingSessionSingleAsJson_Content;
+            ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_Single;
+
+            // Act
+            ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
+        [Ignore("")]
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleMinimal()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingSessionSingleMinimalAsJson_Content;
+            ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_SingleMinimal;
+
+            // Act
+            ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
+        [Ignore("")]
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionMultiple()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingSessionMultipleAsJson_Content;
+            ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_Multiple;
+
+            // Act
+            ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
         #endregion
 
         #region TearDown
@@ -200,5 +256,5 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.02.2023
+    Last Update: 14.02.2023
 */
