@@ -14,15 +14,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 ObjectMother.Observation01,
-                ObjectMother.Observation01_AsString,
-                ObjectMother.Observation01_AsStringOnlyDates
-                ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01"),
-
-            new TestCaseData(
-                ObjectMother.Observation_Empty,
-                ObjectMother.Observation_Empty_AsString,
-                ObjectMother.Observation_Empty_AsStringOnlyDates
-                ).SetArgDisplayNames($"{nameof(toStringTestCases)}_02")
+                ObjectMother.Observation01_AsString
+                ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01")
 
         };
 
@@ -34,18 +27,15 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         #region Tests
 
         [TestCaseSource(nameof(toStringTestCases))]
-        public void ToString_ShouldReturnExpectedString_WhenInvoked
-            (Observation observation, string expected1, string expected2)
+        public void ToString_ShouldReturnExpectedString_WhenInvoked(Observation observation, string expected1)
         {
 
             // Arrange
             // Act
-            string actual1 = observation.ToString(false);
-            string actual2 = observation.ToString(); // This tests both ToString(true) and ToString()
+            string actual = observation.ToString();
 
             // Assert
-            Assert.AreEqual(expected1, actual1);
-            Assert.AreEqual(expected2, actual2);
+            Assert.AreEqual(expected1, actual);
 
         }
 
@@ -59,5 +49,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.11.2022
+    Last Update: 14.02.2023
 */
