@@ -300,7 +300,7 @@ namespace NW.UnivariateForecasting.UnitTests
             Assert.IsInstanceOf<ISlidingWindowManager>(actual.SlidingWindowManager);
             Assert.IsInstanceOf<ISlidingWindowItemManager>(actual.SlidingWindowItemManager);
             Assert.IsInstanceOf<IFileManager>(actual.FileManager);
-            Assert.IsInstanceOf<Func<string>>(actual.RoundingFunction);
+            Assert.IsInstanceOf<Func<double, double>>(actual.RoundingFunction);
             Assert.IsInstanceOf<Action<string>>(actual.LoggingAction);
             Assert.IsInstanceOf<Action<string>>(actual.LoggingActionAsciiBanner);
             Assert.IsInstanceOf<IAsciiBannerManager>(actual.AsciiBannerManager);
@@ -326,5 +326,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
