@@ -38,7 +38,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public override string ToString()
         {
 
-            // [ Id: '0', X_Actual: '0', Y_Forecasted: 'null' ]
             // [ Id: '1', X_Actual: '58,5', Y_Forecasted: '615,26' ]
 
             string content
