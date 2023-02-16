@@ -20,7 +20,6 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: null, 
-                            slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
@@ -32,37 +31,23 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            slidingWindowManager: null,
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: null,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("slidingWindowManager").Message
+                new ArgumentNullException("roundingFunction").Message
                 ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            slidingWindowManager: new SlidingWindowManager(),
-                            roundingFunction: null,
-                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
-                        )),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("roundingFunction").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_03"),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new ObservationManager(
-                            settings: new UnivariateForecastingSettings(),
-                            slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_04")
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_03")
 
         };
         private static TestCaseData[] createExceptionTestCases =
@@ -70,30 +55,11 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 new TestDelegate(
-                    () => ObjectMother.ObservationManager.Create(null) // Whatever invalid SlidingWindow
+                    () => new ObservationManager().Create(slidingWindow: null)
                     ),
-                typeof(ArgumentException),
-                UnivariateForecasting.Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow))
+                typeof(ArgumentNullException),
+                new ArgumentNullException("slidingWindow").Message
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
-
-        };
-        private static TestCaseData[] isValidTestCases =
-        {
-
-            new TestCaseData(
-                null, 
-                false
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
-
-            new TestCaseData(
-                ObjectMother.Observation_InvalidDueOfNullName, 
-                false
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
-
-            new TestCaseData(
-                ObjectMother.Observation01, 
-                true
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03")
 
         };
         private static TestCaseData[] createTestCases =
@@ -112,8 +78,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                ObjectMother.Observation01_WithCustomCE_C,
-                ObjectMother.Observation01_WithCustomCE_E,
+                ObjectMother.Observation02.Coefficient,
+                ObjectMother.Observation02.Error,
                 ObjectMother.Observation01_WithCustomCE,
                 new List<string>() {
                     UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01),
@@ -140,23 +106,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
-        [TestCaseSource(nameof(isValidTestCases))]
-        public void IsValid_ShouldReturnExpectedBoolean_WhenInvoked
-            (Observation observation, bool expected)
-        {
-
-            // Arrange
-            // Act
-            bool actual = ObjectMother.ObservationManager.IsValid(observation);
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-
-        }
-
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
-            (SlidingWindow slidingWindow, double? C, double? E, Observation expected, List<string> expectedMessages)
+            (SlidingWindow slidingWindow, double? coefficient, double? error, Observation expected, List<string> expectedMessages)
         {
 
             // Arrange
@@ -164,18 +116,33 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             ObservationManager observationManager 
                 = new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            slidingWindowManager: new SlidingWindowManager(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: (message) => fakeLogger.Log(message)
                         );
 
             // Act
-            Observation actual = observationManager.Create(slidingWindow, C, E);
+            Observation actual = observationManager.Create(slidingWindow, coefficient, error);
 
             // Assert
             Assert.True(
                 ObjectMother.AreEqual(expected, actual));
             Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+
+        }
+
+        [Test]
+        public void ObservationManager_ShouldCreateAnObjectOfThisType_WhenInvoked()
+        {
+
+            // Arrange
+            // Act
+            ObservationManager actual = new ObservationManager();
+
+            // Assert
+            Assert.IsInstanceOf<ObservationManager>(actual);
+
+            Assert.IsInstanceOf<Func<double, double>>(ObservationManager.DefaultRoundingFunction);
+            Assert.IsInstanceOf<Action<string>>(ObservationManager.DefaultLoggingAction);
 
         }
 
