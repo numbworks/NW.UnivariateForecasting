@@ -152,22 +152,18 @@ namespace NW.UnivariateForecasting.UnitTests
             Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
             SlidingWindowManager slidingManager
                 = new SlidingWindowManager(
-                        settings: new UnivariateForecastingSettings(),
-                        slidingWindowItemManager: new SlidingWindowItemManager(),
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction
                     );
             ObservationManager observationManager
                 = new ObservationManager(
                         settings: new UnivariateForecastingSettings(),
-                        slidingWindowManager: slidingManager,
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction
                     );
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: slidingManager,
-                        slidingWindowItemManager: new SlidingWindowItemManager(),
                         observationManager: observationManager,
                         fileManager: new FileManager(),
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -203,7 +199,6 @@ namespace NW.UnivariateForecasting.UnitTests
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: new SlidingWindowManager(),
-                        slidingWindowItemManager: new SlidingWindowItemManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FileManager(),
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -245,5 +240,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
