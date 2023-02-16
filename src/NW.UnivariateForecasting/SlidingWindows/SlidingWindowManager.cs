@@ -150,6 +150,8 @@ namespace NW.UnivariateForecasting.SlidingWindows
                 double X_Actual = values[i];
 
                 double? Y_Forecasted = null;
+                if (i != values.Count - 1)
+                    Y_Forecasted = values[i + 1]; // only the "before last" is null
 
                 SlidingWindowItem slidingWindowItem
                     = _slidingWindowItemManager.CreateItem(id, X_Actual, Y_Forecasted);
@@ -169,5 +171,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
