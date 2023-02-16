@@ -9,8 +9,6 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Properties
 
-        public static Func<Type, string> ProvidedTypeObjectNotValid { get; }
-            = (type) => $"The provided {type.Name} object is not valid.";
         public static Func<SlidingWindow, string> CreatingObservationOutOfProvidedSlidingWindow { get; }
             = (slidingWindow) => $"Creating an {typeof(Observation).Name} out of the provided {typeof(SlidingWindow).Name}: '{slidingWindow.ToString(false)}'...";
         public static Func<Observation, string> FollowingObservationHasBeenCreated { get; }

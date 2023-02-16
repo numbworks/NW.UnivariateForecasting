@@ -13,7 +13,6 @@ namespace NW.UnivariateForecasting.Observations
         #region Fields
 
         private UnivariateForecastingSettings _settings;
-        private ISlidingWindowManager _slidingWindowManager;
         private Func<double, double> _roundingFunction;
         private Action<string> _loggingAction;
 
@@ -34,18 +33,15 @@ namespace NW.UnivariateForecasting.Observations
         /// <exception cref="ArgumentNullException"/> 
         public ObservationManager(
             UnivariateForecastingSettings settings,
-            ISlidingWindowManager slidingWindowManager,
             Func<double, double> roundingFunction,
             Action<string> loggingAction)
         {
 
             Validator.ValidateObject(settings, nameof(settings));
-            Validator.ValidateObject(slidingWindowManager, nameof(slidingWindowManager));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
             _settings = settings;
-            _slidingWindowManager = slidingWindowManager;
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
 
@@ -55,7 +51,6 @@ namespace NW.UnivariateForecasting.Observations
         public ObservationManager()
             : this(
                   new UnivariateForecastingSettings(),
-                  new SlidingWindowManager(),
                   DefaultRoundingFunction,
                   DefaultLoggingAction
                   ) { }
@@ -64,43 +59,31 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Methods_public
 
-        public Observation Create(SlidingWindow slidingWindow, double? C = null, double? E = null)
+        public Observation Create(SlidingWindow slidingWindow, double? coefficient = null, double? error = null)
         {
 
-            if (!_slidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
+            Validator.ValidateObject(slidingWindow, nameof(slidingWindow));
 
             _loggingAction(MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(slidingWindow));
 
-            Observation observation = new Observation();
-            observation.SlidingWindowId = slidingWindow.Id;
-            observation.Name = slidingWindow.ObservationName;
-
-            observation.X_Actual = GetTargetXActual(slidingWindow.Items);
-
+            double X_Actual = GetTargetXActual(slidingWindow.Items);
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);
-            observation.C = C ?? CalculateC(itemsExceptTarget, _settings.ForecastingDenominator);
-            observation.E = E ?? CalculateE(itemsExceptTarget, observation.C, _settings.ForecastingDenominator);
 
-            double CX = CalculateCX(observation.C, observation.X_Actual);
-            observation.Y_Forecasted = CalculateY(CX, observation.E);
+            coefficient = coefficient ?? CalculateCoefficient(itemsExceptTarget, _settings.ForecastingDenominator);
+            error = error ?? CalculateError(itemsExceptTarget, (double)coefficient, _settings.ForecastingDenominator);
+
+            double CX = CalculateCX((double)coefficient, X_Actual);
+            double nextValue = CalculateNextValue(CX, (double)error);
+
+            Observation observation = new Observation(
+                    coefficient: (double)coefficient,
+                    error: (double)error,
+                    nextValue: nextValue
+                );
 
             _loggingAction(MessageCollection.FollowingObservationHasBeenCreated(observation));
 
             return observation;
-
-        }
-        public bool IsValid(Observation observation)
-        {
-
-            if (observation == null)
-                return false;
-            if (string.IsNullOrWhiteSpace(observation.Name))
-                return false;
-            if (string.IsNullOrWhiteSpace(observation.SlidingWindowId))
-                return false;
-
-            return true;
 
         }
 
@@ -153,7 +136,7 @@ namespace NW.UnivariateForecasting.Observations
             return items.Where(Item => Item.Y_Forecasted != null).ToList();
 
         }
-        private double CalculateC(List<SlidingWindowItem> items, double denominator)
+        private double CalculateCoefficient(List<SlidingWindowItem> items, double denominator)
         {
 
             /*
@@ -194,7 +177,7 @@ namespace NW.UnivariateForecasting.Observations
             return _roundingFunction(result);
 
         }
-        private double CalculateE(List<SlidingWindowItem> items, double C, double denominator)
+        private double CalculateError(List<SlidingWindowItem> items, double coefficient, double denominator)
         {
 
             /*
@@ -231,17 +214,17 @@ namespace NW.UnivariateForecasting.Observations
             List<double> values = new List<double>();
             for (int i = 0; i < items.Count; i++)
                 values.Add(
-                        DivideXByY(items[i], denominator) - C);
+                        DivideXByY(items[i], denominator) - coefficient);
 
             double result = CalculateMODE(values);
 
             return _roundingFunction(result);
 
         }
-        private double CalculateCX(double C, double X) 
-            => _roundingFunction(C * X);
-        private double CalculateY(double CX, double E) 
-            => _roundingFunction(CX + E);
+        private double CalculateCX(double coefficient, double X) 
+            => _roundingFunction(coefficient * X);
+        private double CalculateNextValue(double CX, double error) 
+            => _roundingFunction(CX + error);
         private double DivideXByY(SlidingWindowItem item, double denominator)
         {
 
@@ -275,5 +258,5 @@ namespace NW.UnivariateForecasting.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 16.02.2023
 */
