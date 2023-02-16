@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
@@ -25,7 +24,6 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         internal static SlidingWindowItem SlidingWindowItem_InvalidDueOfSize = new SlidingWindowItem()
         {
             Id = 2,
-            Interval = Intervals.ObjectMother.Interval_InvalidDueOfSize,
             X_Actual = 615.26,
             Y_Forecasted = 659.84
         };
@@ -38,42 +36,36 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         internal static SlidingWindowItem SlidingWindow01_Item01 = new SlidingWindowItem()
         {
             Id = SlidingWindow01_Item01_Id,
-            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval01,
             X_Actual = SlidingWindow01_Item01_XActual,
             Y_Forecasted = SlidingWindow01_Item01_YForecasted
         };
         internal static SlidingWindowItem SlidingWindow01_Item02 = new SlidingWindowItem()
         {
             Id = 2,
-            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval02,
             X_Actual = 615.26,
             Y_Forecasted = 659.84
         };
         internal static SlidingWindowItem SlidingWindow01_Item03 = new SlidingWindowItem()
         {
             Id = 3,
-            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval03,
             X_Actual = 659.84,
             Y_Forecasted = 635.69
         };
         internal static SlidingWindowItem SlidingWindow01_Item04 = new SlidingWindowItem()
         {
             Id = 4,
-            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval04,
             X_Actual = 635.69,
             Y_Forecasted = 612.27
         };
         internal static SlidingWindowItem SlidingWindow01_Item05 = new SlidingWindowItem()
         {
             Id = 5,
-            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval05,
             X_Actual = 612.27,
             Y_Forecasted = 632.94
         };
         internal static SlidingWindowItem SlidingWindow01_Item06 = new SlidingWindowItem()
         {
             Id = 6,
-            Interval = Intervals.ObjectMother.Interval_SixMonths_SubInterval06,
             X_Actual = 632.94,
             Y_Forecasted = null
         };
@@ -91,68 +83,38 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         {
             Id = SlidingWindow01_Id,
             ObservationName = SlidingWindow01_ObservationName,
-            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = SlidingWindow01_Items
         };
         internal static List<double> SlidingWindow01_Values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-        internal static List<DateTime> SlidingWindow01_StartDates = new List<DateTime>()
-        {
-
-            SlidingWindow01_Item01.Interval.StartDate,
-            SlidingWindow01_Item02.Interval.StartDate,
-            SlidingWindow01_Item03.Interval.StartDate,
-            SlidingWindow01_Item04.Interval.StartDate,
-            SlidingWindow01_Item05.Interval.StartDate,
-            SlidingWindow01_Item06.Interval.StartDate
-
-        };
 
         internal static SlidingWindowManager SlidingWindowManager_Empty = new SlidingWindowManager();
         internal static SlidingWindow SlidingWindow_InvalidDueOfNullId = new SlidingWindow()
         {
             Id = null,
             ObservationName = SlidingWindow01_ObservationName,
-            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = SlidingWindow01_Items
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfNullObservationName = new SlidingWindow()
         {
             Id = SlidingWindow01_Id,
             ObservationName = null,
-            Interval = Intervals.ObjectMother.Interval_SixMonths,
-            Items = SlidingWindow01_Items
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfInvalidInterval = new SlidingWindow()
-        {
-            Id = SlidingWindow01_Id,
-            ObservationName = SlidingWindow01_ObservationName,
-            Interval = null, // Whatever other invalid interval would do the trick
             Items = SlidingWindow01_Items
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfNullItems = new SlidingWindow()
         {
             Id = SlidingWindow01_Id,
             ObservationName = SlidingWindow01_ObservationName,
-            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = null
         };
         internal static SlidingWindow SlidingWindow_InvalidDueOfItemsCountZero = new SlidingWindow()
         {
             Id = SlidingWindow01_Id,
             ObservationName = SlidingWindow01_ObservationName,
-            Interval = Intervals.ObjectMother.Interval_SixMonths,
             Items = new List<SlidingWindowItem>()
-        };
-        internal static SlidingWindow SlidingWindow_InvalidDueOfSubInterval = new SlidingWindow()
-        {
-            Id = SlidingWindow01_Id,
-            ObservationName = SlidingWindow01_ObservationName,
-            Interval = Intervals.ObjectMother.Interval_SixMonths,
-            Items = SlidingWindow01_Items.Where(item => item.Id != 6).ToList() // Removes a random item
         };
 
         internal static string SlidingWindow01_AsString
-            = "[ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]";
+            = "[ Id: 'SW20200906090516', ObservationName: 'Total Monthly Sales USD', Items: '6' ]";
         internal static string SlidingWindow01_AsStringRolloutItems
             = string.Join(
                 Environment.NewLine,
@@ -165,29 +127,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 SlidingWindow01_Item06.ToString()
                 );
         internal static string SlidingWindow01_Item01_AsString
-            = $"[ Id: '1', Interval: '20190131:20190228:20190331', X_Actual: '{58.5}', Y_Forecasted: '{615.26}' ]";
-
-        internal static Interval SlidingWindow01_DummyInterval
-            = new IntervalManager().Create(
-                    (uint)SlidingWindows.ObjectMother.SlidingWindow01_Values.Count,
-                    UnivariateForecastingSettings.DefaultDummyIntervalUnit,
-                    UnivariateForecastingSettings.DefaultDummyStartDate,
-                    UnivariateForecastingSettings.DefaultDummySteps
-                    );
-        internal static List<SlidingWindowItem> SlidingWindow01_DefaultDummyItems
-            = new SlidingWindowItemManager().CreateItems(
-                    UnivariateForecastingSettings.DefaultDummyStartDate,
-                    SlidingWindows.ObjectMother.SlidingWindow01_Values,
-                    UnivariateForecastingSettings.DefaultDummyIntervalUnit
-                );
-        internal static SlidingWindow SlidingWindow01_WithDefaultDummyFields = new SlidingWindow()
-        {
-
-            Id = UnivariateForecastingSettings.DefaultDummyId,
-            ObservationName = UnivariateForecastingSettings.DefaultDummyObservationName,
-            Interval = SlidingWindow01_DummyInterval,
-            Items = SlidingWindow01_DefaultDummyItems
-        };
+            = $"[ Id: '1', X_Actual: '{58.5}', Y_Forecasted: '{615.26}' ]";
 
         #endregion
 
@@ -197,7 +137,6 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         {
 
             return Equals(obj1.Id, obj2.Id)
-                        && Intervals.ObjectMother.AreEqual(obj1.Interval, obj2.Interval)
                         && Equals(obj1.X_Actual, obj2.X_Actual)
                         && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted);
 
@@ -210,7 +149,6 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
             return string.Equals(obj1.Id, obj2.Id, StringComparison.InvariantCulture)
                         && string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
-                        && Intervals.ObjectMother.AreEqual(obj1.Interval, obj2.Interval)
                         && AreEqual(obj1.Items, obj2.Items);
 
         }
@@ -222,5 +160,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.11.2022
+    Last Update: 16.02.2023
 */

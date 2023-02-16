@@ -163,29 +163,19 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(
-                ObjectMother.SlidingWindow_InvalidDueOfInvalidInterval, 
+                ObjectMother.SlidingWindow_InvalidDueOfNullItems, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
 
             new TestCaseData(
-                ObjectMother.SlidingWindow_InvalidDueOfNullItems, 
+                ObjectMother.SlidingWindow_InvalidDueOfItemsCountZero, 
                 false
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05"),
 
             new TestCaseData(
-                ObjectMother.SlidingWindow_InvalidDueOfItemsCountZero, 
-                false
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_06"),
-
-            new TestCaseData(
-                ObjectMother.SlidingWindow_InvalidDueOfSubInterval, 
-                false
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_07"),
-
-            new TestCaseData(
                 ObjectMother.SlidingWindow01, 
                 true
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_08")
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_06")
 
         };
         private static TestCaseData[] createTestCases =
@@ -271,24 +261,6 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
         }
 
-        [Test]
-        public void Create_ShouldReturnSlidingWindowWithDummyFields_WhenValues()
-        {
-
-            // Arrange
-            // Act
-            SlidingWindow actual 
-                = new SlidingWindowManager().Create(ObjectMother.SlidingWindow01_Values);
-
-            // Assert
-            Assert.True(
-                    ObjectMother.AreEqual(
-                        ObjectMother.SlidingWindow01_WithDefaultDummyFields,
-                        actual)
-                    );
-
-        }
-
         #endregion
 
         #region TearDown
@@ -299,5 +271,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
