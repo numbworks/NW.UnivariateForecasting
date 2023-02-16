@@ -11,8 +11,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Fields
 
-        private UnivariateForecastingSettings _settings;
-        private ISlidingWindowItemManager _slidingWindowItemManager;
         private Func<double, double> _roundingFunction;
         private Action<string> _loggingAction;
 
@@ -31,20 +29,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/>.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public SlidingWindowManager(
-            UnivariateForecastingSettings settings,
-            ISlidingWindowItemManager slidingWindowItemManager,
-            Func<double, double> roundingFunction,
-            Action<string> loggingAction)
+        public SlidingWindowManager(Func<double, double> roundingFunction, Action<string> loggingAction)
         {
 
-            Validator.ValidateObject(settings, nameof(settings));
-            Validator.ValidateObject(slidingWindowItemManager, nameof(slidingWindowItemManager));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
-            _settings = settings;
-            _slidingWindowItemManager = slidingWindowItemManager;
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
 
@@ -53,8 +43,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
         /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/> using default values.</summary>
         public SlidingWindowManager()
             : this(
-                  new UnivariateForecastingSettings(),
-                  new SlidingWindowItemManager(),
                   DefaultRoundingFunction,
                   DefaultLoggingAction
                   ) { }
@@ -63,63 +51,82 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Methods_public
 
-        public SlidingWindow Create(string id, string observationName, List<SlidingWindowItem> items)
+        public SlidingWindow Create(List<double> values)
         {
 
-            Validator.ValidateStringNullOrWhiteSpace(id, nameof(id));
-            Validator.ValidateStringNullOrWhiteSpace(observationName, nameof(observationName));
-            Validator.ValidateList(items, nameof(items));
+            Validator.ValidateList(values, nameof(values));
 
             _loggingAction(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
-            _loggingAction(MessageCollection.ProvidedIdIs(id));
-            _loggingAction(MessageCollection.ProvidedObservationNameIs(observationName));
-            _loggingAction(MessageCollection.ProvidedItemsCountIs(items));
+            _loggingAction(MessageCollection.ProvidedValuesAre(values));
 
-            SlidingWindow slidingWindow = new SlidingWindow()
-            {
-
-                Id = id,
-                ObservationName = observationName,
-                Items = items
-
-            };
+            List<SlidingWindowItem> items = CreateItems(Round(values));
+            SlidingWindow slidingWindow = new SlidingWindow(items);
 
             _loggingAction(MessageCollection.FollowingSlidingWindowHasBeenCreated(slidingWindow));
 
             return slidingWindow;
 
         }
-        public SlidingWindow Create(string id, string observationName, List<double> values, uint steps)
+        public List<SlidingWindowItem> CreateItems(List<double> values)
         {
+
+            /*
+
+                values = [58.50, 615.26, 659.84, 635.69, 612.27, 632.94]
+
+                List<SlidingWindowItem>
+
+                    - SlidingWindowItem
+                        - Id		    1
+                        - X_Actual	    58.50
+                        - Y_Forecasted	615.26
+
+                    - SlidingWindowItem
+                        - Id		    2
+                        - X_Actual	    615.26
+                        - Y_Forecasted	659.84
+
+                    - SlidingWindowItem
+                        - Id		    3
+                        - X_Actual	    659.84
+                        - Y_Forecasted	635.69
+
+                    - SlidingWindowItem
+                        - Id		    4
+                        - X_Actual	    635.69
+                        - Y_Forecasted	612.27
+
+                    - SlidingWindowItem
+                        - Id		    5
+                        - X_Actual	    612.27
+                        - Y_Forecasted	632.94
+
+                    - SlidingWindowItem
+                        - Id		    6
+                        - X_Actual	    632.94
+                        - Y_Forecasted	null
+
+                The item.Id should start from '1' and not from '0'.
+
+            */
 
             Validator.ValidateList(values, nameof(values));
 
-            _loggingAction(MessageCollection.ProvidedValuesAre(values));
-            _loggingAction(MessageCollection.ProvidedStepsAre(steps));
+            List<SlidingWindowItem> items = new List<SlidingWindowItem>();
+            for (int i = 0; i < values.Count; i++)
+            {
 
-            List<SlidingWindowItem> items = CreateItems(Round(values));
+                SlidingWindowItem item = null;
+                if (i == (values.Count - 1))
+                    item = new SlidingWindowItem(id: (uint)(i + 1), X_Actual: values[i], Y_Forecasted: null);
+                else
+                    item = new SlidingWindowItem(id: (uint)(i + 1), X_Actual: values[i], Y_Forecasted: values[i + 1]);
 
-            return Create(id, observationName, items);
+                items.Add(item);
 
-        }
-        public SlidingWindow Create(List<double> values)
-            => Create("dummy", "dummy", values, 1);
+            }
 
-        public bool IsValid(SlidingWindow slidingWindow)
-        {
-
-            if (slidingWindow == null)
-                return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.Id))
-                return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
-                return false;
-            if (slidingWindow.Items == null)
-                return false;
-            if (slidingWindow.Items.Count < 1)
-                return false;
-
-            return true;
+            return items;
 
         }
 
@@ -137,30 +144,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
              */
 
             return values.Select(item => _roundingFunction(item)).ToList();
-
-        }
-        private List<SlidingWindowItem> CreateItems(List<double> values)
-        {
-
-            List<SlidingWindowItem> slidingWindowItems = new List<SlidingWindowItem>();
-            for (int i = 0; i < values.Count; i++)
-            {
-
-                uint id = (uint)i + 1; // id starts from "1"
-                double X_Actual = values[i];
-
-                double? Y_Forecasted = null;
-                if (i != values.Count - 1)
-                    Y_Forecasted = values[i + 1]; // only the "before last" is null
-
-                SlidingWindowItem slidingWindowItem
-                    = _slidingWindowItemManager.CreateItem(id, X_Actual, Y_Forecasted);
-
-                slidingWindowItems.Add(slidingWindowItem);
-
-            };
-
-            return slidingWindowItems;
 
         }
 

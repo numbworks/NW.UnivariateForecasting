@@ -1,4 +1,6 @@
-﻿namespace NW.UnivariateForecasting.SlidingWindows
+﻿using NW.UnivariateForecasting.Validation;
+
+namespace NW.UnivariateForecasting.SlidingWindows
 {
     /// <summary>An item within a <see cref="SlidingWindow"/>.</summary>
     public class SlidingWindowItem
@@ -9,16 +11,25 @@
 
         #region Properties
 
-        public uint Id { get; set; }
-        public double X_Actual { get; set; }
-        public double? Y_Forecasted { get; set; }
+        public uint Id { get; }
+        public double X_Actual { get; }
+        public double? Y_Forecasted { get; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes an <see cref="SlidingWindowItem"/> instance.</summary>
-        public SlidingWindowItem() { }
+        public SlidingWindowItem(uint id, double X_Actual, double? Y_Forecasted) 
+        {
+
+            Validator.ThrowIfLessThanOne(id, nameof(id));
+
+            Id = id;
+            this.X_Actual = X_Actual;
+            this.Y_Forecasted = Y_Forecasted;
+
+        }
 
         #endregion
 
@@ -49,5 +60,5 @@
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
