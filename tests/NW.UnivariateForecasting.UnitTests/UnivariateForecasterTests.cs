@@ -58,7 +58,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_02")
 
         };
-        
         private static TestCaseData[] forecastNextValueTestCases =
         {
             /*
