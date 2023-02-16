@@ -78,8 +78,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                ObjectMother.Observation02.Coefficient,
-                ObjectMother.Observation02.Error,
+                ObjectMother.Observation01_WithCustomCE.Coefficient,
+                ObjectMother.Observation01_WithCustomCE.Error,
                 ObjectMother.Observation01_WithCustomCE,
                 new List<string>() {
                     UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01),
