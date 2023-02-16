@@ -14,11 +14,11 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         internal static string SlidingWindow01_ObservationName = "Total Monthly Sales USD";
 
         internal static SlidingWindow SlidingWindow_Empty = new SlidingWindow();
-        internal static string SlidingWindow_Empty_AsString = "[ Id: 'null', ObservationName: 'null', Interval: 'null', Items: 'null' ]";
+        internal static string SlidingWindow_Empty_AsString = "[ Id: 'null', ObservationName: 'null', Items: 'null' ]";
         internal static string SlidingWindow_Empty_AsStringRolloutItems = SlidingWindow_Empty_AsString;
 
         internal static SlidingWindowItem SlidingWindowItem_Empty = new SlidingWindowItem();
-        internal static string SlidingWindowItem_Empty_AsString = "[ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]";
+        internal static string SlidingWindowItem_Empty_AsString = "[ Id: '0', X_Actual: '0', Y_Forecasted: 'null' ]";
 
         internal static SlidingWindowItemManager SlidingWindowItemManager = new SlidingWindowItemManager();
         internal static SlidingWindowItem SlidingWindowItem_InvalidDueOfSize = new SlidingWindowItem()
