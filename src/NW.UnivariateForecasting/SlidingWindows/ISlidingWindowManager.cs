@@ -12,11 +12,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
         /// <exception cref="ArgumentException"/>
         SlidingWindow Create(List<double> values);
 
-        /// <summary>Creates a collection of <seealso cref="SlidingWindowItem"/> objects.</summary>
-        /// <exception cref="ArgumentNullException"/> 
-        /// <exception cref="ArgumentException"/> 
-        List<SlidingWindowItem> CreateItems(List<double> values);
-
     }
 }
 

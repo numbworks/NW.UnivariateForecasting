@@ -67,7 +67,24 @@ namespace NW.UnivariateForecasting.SlidingWindows
             return slidingWindow;
 
         }
-        public List<SlidingWindowItem> CreateItems(List<double> values)
+
+        #endregion
+
+        #region Methods_private
+
+        private List<double> Round(List<double> values)
+        {
+
+            /*
+                934.5322222 => 934.53
+                978.5600101 => 978.56
+                ...
+             */
+
+            return values.Select(item => _roundingFunction(item)).ToList();
+
+        }
+        private List<SlidingWindowItem> CreateItems(List<double> values)
         {
 
             /*
@@ -110,8 +127,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
             */
 
-            Validator.ValidateList(values, nameof(values));
-
             List<SlidingWindowItem> items = new List<SlidingWindowItem>();
             for (int i = 0; i < values.Count; i++)
             {
@@ -127,23 +142,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
             }
 
             return items;
-
-        }
-
-        #endregion
-
-        #region Methods_private
-
-        private List<double> Round(List<double> values)
-        {
-
-            /*
-                934.5322222 => 934.53
-                978.5600101 => 978.56
-                ...
-             */
-
-            return values.Select(item => _roundingFunction(item)).ToList();
 
         }
 
