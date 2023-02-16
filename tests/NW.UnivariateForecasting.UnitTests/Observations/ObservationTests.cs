@@ -39,6 +39,22 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         }
 
+        [Test]
+        public void Observation_ShouldCreateAnObjectOfThisType_WhenInvoked()
+        {
+
+            // Arrange
+            // Act
+            Observation actual = new Observation(coefficient: 0.82, error: 0.22, nextValue: 519.23);
+
+            // Assert
+            Assert.IsInstanceOf<Observation>(actual);
+            Assert.IsInstanceOf<double>(actual.Coefficient);
+            Assert.IsInstanceOf<double>(actual.Error);
+            Assert.IsInstanceOf<double>(actual.NextValue);
+
+        }
+
         #endregion
 
         #region TearDown
@@ -49,5 +65,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
