@@ -8,12 +8,9 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Fields
 
-        public string Name { get; set; }
-        public double X_Actual { get; set; }
-        public double C { get; set; }
-        public double E { get; set; }
-        public double Y_Forecasted { get; set; }
-        public string SlidingWindowId { get; set; }
+        public double Coefficient { get; }
+        public double Error { get; }
+        public double NextValue { get; }
 
         #endregion
 
@@ -23,7 +20,14 @@ namespace NW.UnivariateForecasting.Observations
         #region Constructors
 
         /// <summary>Initializes an <see cref="Observation"/> instance.</summary>
-        public Observation() { }
+        public Observation(double coefficient, double error, double nextValue) 
+        {
+
+            Coefficient = coefficient;
+            Error = error;
+            NextValue = nextValue;
+
+        }
 
         #endregion
 
@@ -32,20 +36,14 @@ namespace NW.UnivariateForecasting.Observations
         public override string ToString()
         {
 
-            // "[ Name: 'Total Monthly Sales USD', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
-            // "[ Name: 'Total Monthly Sales USD', X_Actual: '632,94', C: '0,82', E: '0,22', Y_Forecasted: '519,23', SlidingWindowId: 'SW20200906090516' ]"
-            // "[ Name: 'null', X_Actual: '0', C: '0', E: '0', Y_Forecasted: '0', SlidingWindowId: 'null' ]"
-            // ...
+            // "[ C: '0,82', Error: '0,22',  NextValue: '519,23' ]"
 
             string content
                 = string.Join(
                     ", ",
-                    $"{nameof(Name)}: '{Name ?? "null"}'",
-                    $"{nameof(X_Actual)}: '{X_Actual}'",
-                    $"{nameof(C)}: '{C}'",
-                    $"{nameof(E)}: '{E}'",
-                    $"{nameof(Y_Forecasted)}: '{Y_Forecasted}'",
-                    $"{nameof(SlidingWindowId)}: '{SlidingWindowId ?? "null"}'"
+                    $"{nameof(Coefficient)}: '{Coefficient}'",
+                    $"{nameof(Error)}: '{Error}'",
+                    $"{nameof(NextValue)}: '{NextValue}'"
                     );
 
             return $"[ {content} ]";
@@ -59,5 +57,5 @@ namespace NW.UnivariateForecasting.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */

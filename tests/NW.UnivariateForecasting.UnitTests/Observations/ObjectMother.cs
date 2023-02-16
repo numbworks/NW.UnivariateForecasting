@@ -29,9 +29,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             Name = SlidingWindow01_ObservationName,
             X_Actual = 632.94,
-            C = 0.82,
-            E = 0.22,
-            Y_Forecasted = 519.23,
+            Coefficient = 0.82,
+            Error = 0.22,
+            NextValue = 519.23,
             SlidingWindowId = SlidingWindow01_Id
 
         };
@@ -49,9 +49,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             Name = Observation01.Name,
             SlidingWindowId = Observation01.SlidingWindowId,
             X_Actual = Observation01.X_Actual,
-            C = Observation01_WithCustomCE_C,
-            E = Observation01_WithCustomCE_E,
-            Y_Forecasted = Observation01_WithCustomCE_Y
+            Coefficient = Observation01_WithCustomCE_C,
+            Error = Observation01_WithCustomCE_E,
+            NextValue = Observation01_WithCustomCE_Y
 
         };
 
@@ -78,9 +78,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             return string.Equals(obj1.Name, obj2.Name, StringComparison.InvariantCulture)
                         && Equals(obj1.X_Actual, obj2.X_Actual)
-                        && Equals(obj1.C, obj2.C)
-                        && Equals(obj1.E, obj2.E)
-                        && Equals(obj1.Y_Forecasted, obj2.Y_Forecasted)
+                        && Equals(obj1.Coefficient, obj2.Coefficient)
+                        && Equals(obj1.Error, obj2.Error)
+                        && Equals(obj1.NextValue, obj2.NextValue)
                         && string.Equals(obj1.SlidingWindowId, obj2.SlidingWindowId, StringComparison.InvariantCulture);
 
         }

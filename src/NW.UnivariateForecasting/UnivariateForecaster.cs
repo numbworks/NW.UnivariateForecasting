@@ -65,7 +65,7 @@ namespace NW.UnivariateForecasting
             _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueRunningForProvidedValues(values));
 
             SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(values);
-            double nextValue = _components.ObservationManager.Create(slidingWindow, C, E).Y_Forecasted;
+            double nextValue = _components.ObservationManager.Create(slidingWindow, C, E).NextValue;
 
             _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueSuccessfullyRun(nextValue));
 
