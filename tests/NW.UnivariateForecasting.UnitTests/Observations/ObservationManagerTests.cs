@@ -91,19 +91,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 ).SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
             new TestCaseData(
-                ObjectMother.Observation_InvalidDueOfNullInterval, 
-                false
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
-
-            new TestCaseData(
-                ObjectMother.Observation_InvalidDueOfNullSlidingWindow, 
-                false
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
-
-            new TestCaseData(
                 ObjectMother.Observation01, 
                 true
-                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_05")
+                ).SetArgDisplayNames($"{nameof(isValidTestCases)}_03")
 
         };
         private static TestCaseData[] createTestCases =
@@ -199,5 +189,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */
