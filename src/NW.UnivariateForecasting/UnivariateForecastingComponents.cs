@@ -29,7 +29,6 @@ namespace NW.UnivariateForecasting
 
         public IObservationManager ObservationManager { get; private set; }
         public ISlidingWindowManager SlidingWindowManager { get; private set; }
-        public ISlidingWindowItemManager SlidingWindowItemManager { get; private set; }
         public IFileManager FileManager { get; private set; }
         public Func<double, double> RoundingFunction { get; private set; }
         public Action<string> LoggingAction { get; private set; }
@@ -56,7 +55,6 @@ namespace NW.UnivariateForecasting
         /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecastingComponents(
                 ISlidingWindowManager slidingWindowManager,
-                ISlidingWindowItemManager slidingWindowItemManager,
                 IObservationManager observationManager,
                 IFileManager fileManager,
                 Func<double, double> roundingFunction,
@@ -71,7 +69,6 @@ namespace NW.UnivariateForecasting
         {
 
             Validator.ValidateObject(slidingWindowManager, nameof(slidingWindowManager));
-            Validator.ValidateObject(slidingWindowItemManager, nameof(slidingWindowItemManager));
             Validator.ValidateObject(observationManager, nameof(observationManager));
             Validator.ValidateObject(fileManager, nameof(fileManager));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
@@ -85,7 +82,6 @@ namespace NW.UnivariateForecasting
 
             ObservationManager = observationManager;
             SlidingWindowManager = slidingWindowManager;
-            SlidingWindowItemManager = slidingWindowItemManager;
             FileManager = fileManager;
             RoundingFunction = roundingFunction;
             LoggingAction = loggingAction;
@@ -104,7 +100,6 @@ namespace NW.UnivariateForecasting
         public UnivariateForecastingComponents()
             : this(
                   new SlidingWindowManager(),
-                  new SlidingWindowItemManager(),
                   new ObservationManager(),
                   new FileManager(),
                   DefaultRoundingFunction,
@@ -127,5 +122,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 16.02.2023
 */

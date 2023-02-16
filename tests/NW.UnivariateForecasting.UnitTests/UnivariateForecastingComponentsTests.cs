@@ -23,7 +23,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate( 
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: null,
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -44,28 +43,6 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: null,
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                                    asciiBannerManager: new AsciiBannerManager(),
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory()
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("slidingWindowItemManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_02"),
-
-            new TestCaseData(
-                new TestDelegate(
-                        () => new UnivariateForecastingComponents(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: null,
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -80,13 +57,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("observationManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_03"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: null,
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -101,13 +77,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_04"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: null,
@@ -122,13 +97,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_05"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_04"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -143,13 +117,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_06"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_05"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -164,13 +137,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingActionAsciiBanner").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_07"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_06"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -185,13 +157,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("asciiBannerManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_08"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_07"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -206,13 +177,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("filenameFactory").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_09"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_08"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -227,13 +197,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("nowFunction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_10"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_09"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -248,13 +217,12 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("forecastingInitManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_11"),
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_10"),
 
             new TestCaseData(
                 new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: new SlidingWindowManager(),
-                                    slidingWindowItemManager: new SlidingWindowItemManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
@@ -269,7 +237,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("serializerFactory").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_12")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_11")
 
         };
 
@@ -298,7 +266,6 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Assert.IsInstanceOf<IObservationManager>(actual.ObservationManager);
             Assert.IsInstanceOf<ISlidingWindowManager>(actual.SlidingWindowManager);
-            Assert.IsInstanceOf<ISlidingWindowItemManager>(actual.SlidingWindowItemManager);
             Assert.IsInstanceOf<IFileManager>(actual.FileManager);
             Assert.IsInstanceOf<Func<double, double>>(actual.RoundingFunction);
             Assert.IsInstanceOf<Action<string>>(actual.LoggingAction);
