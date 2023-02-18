@@ -25,9 +25,9 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                 );
 
         internal static string ForecastingInit_ObservationName = "Sales USD";
-        internal static List<decimal> ForecastingInit_Values = new List<decimal>() { 58.5M, 615.26M, 659.84M, 635.69M, 612.27M, 632.94M };
-        internal static decimal ForecastingInit_Coefficient = 0.5M;
-        internal static decimal ForecastingInit_Error = 0.01M;
+        internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
+        internal static double ForecastingInit_Coefficient = 0.5;
+        internal static double ForecastingInit_Error = 0.01;
         internal static ForecastingInit ForecastingInit
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
@@ -43,9 +43,10 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     coefficient: null,
                     error: null
                     );
+        
+        internal static double NextValue = 519.23;
+        internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
 
-        internal static decimal NextValue = 519.23M;
-        internal static List<decimal> ExpandedValues = new List<decimal>() { 58.5M, 615.26M, 659.84M, 635.69M, 612.27M, 632.94M, NextValue };
         internal static ForecastingInit ForecastingInit_WithExpandedValues
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
@@ -89,22 +90,22 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         #region Methods
 
-        internal static bool AreEqual(decimal dec1, decimal dec2)
-            => Math.Abs(dec1 - dec2) < 0.0001M;
-        internal static bool AreEqual(List<decimal> list1, List<decimal> list2)
+        internal static bool AreEqual(double double01, double double02, double delta = 0.00000000000001D)
+            => Math.Abs(double01 - double02) < delta;
+        internal static bool AreEqual(List<double> list1, List<double> list2)
             => Utilities.ObjectMother.AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-        internal static bool AreEqual(decimal? dec1, decimal? dec2)
+        internal static bool AreEqual(double? double01, double? double02)
         {
 
-            if (dec1 == null && dec2 != null)
+            if (double01 == null && double02 != null)
                 return false;
-            if (dec1 != null && dec2 == null)
+            if (double01 != null && double02 == null)
                 return false;
 
-            if (dec1 == null && dec2 == null)
+            if (double01 == null && double02 == null)
                 return true;
 
-            return AreEqual((decimal)dec1, (decimal)dec2);
+            return AreEqual((double)double01, (double)double02);
 
         }
         internal static bool AreEqual(ForecastingInit obj1, ForecastingInit obj2)

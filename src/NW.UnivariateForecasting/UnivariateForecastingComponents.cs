@@ -50,7 +50,7 @@ namespace NW.UnivariateForecasting
         /// <param name="slidingWindowItemManager"></param>
         /// <param name="observationManager"></param>
         /// <param name="fileManager"></param>
-        /// <param name="roundingFunction">All the values processed by <see cref="NW.UnivariateForecasting"/> will be rounded according to this function. Default: two decimal digits.</param>
+        /// <param name="roundingFunction">All the values processed by <see cref="NW.UnivariateForecasting"/> will be rounded according to this function. Default: two double digits.</param>
         /// <param name="loggingAction">Default: Console.WriteLine(message).</param>
         /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecastingComponents(
