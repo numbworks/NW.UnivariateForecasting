@@ -28,7 +28,9 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
         internal static double ForecastingInit_Coefficient = 0.5;
         internal static double ForecastingInit_Error = 0.01;
-        internal static ForecastingInit ForecastingInit
+
+        internal static string ForecastingInitWithInitCEAsJson_Content = Properties.Resources.ForecastingInitWithInitCEAsJson;
+        internal static ForecastingInit ForecastingInit_WithInitCE
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
@@ -36,55 +38,54 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     error: ForecastingInit_Error
                     );
 
-        internal static ForecastingInit ForecastingInit_Minimal
+        internal static string ForecastingInitWithoutInitCEAsJson_Content = Properties.Resources.ForecastingInitWithoutInitCEAsJson;
+        internal static ForecastingInit ForecastingInit_WithoutInitCE
             = new ForecastingInit(
-                    observationName: null,
+                    observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
                     coefficient: null,
                     error: null
-                    );
-        
+                    );        
+
+        internal static string ForecastingSession_Version = "3.0.0.0";
+        internal static uint ForecastingSession_Single_Steps = 1;
+
+        internal static string ForecastingSessionSingleWithInitCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
+        internal static ForecastingSession ForecastingSession_SingleWithInitCE = new ForecastingSession(
+                    init: ForecastingInit_WithInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
+                    steps: ForecastingSession_Single_Steps,
+                    version: ForecastingSession_Version
+                );
+
+        internal static string ForecastingSessionSingleWithoutInitCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithoutInitCEAsJson;
+        internal static ForecastingSession ForecastingSession_SingleWithoutInitCE = new ForecastingSession(
+                    init: ForecastingInit_WithoutInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
+                    steps: ForecastingSession_Single_Steps,
+                    version: ForecastingSession_Version
+                );
+
+        internal static uint ForecastingSession_Multiple_Steps = 2;
+
+        internal static string ForecastingSessionMultipleAsJson_Content = Properties.Resources.ForecastingSessionMultipleAsJson;
+        internal static ForecastingSession ForecastingSession_Multiple = new ForecastingSession(
+                    init: ForecastingInit_WithInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
+                    steps: ForecastingSession_Multiple_Steps,
+                    version: ForecastingSession_Version
+                );
+
         internal static double NextValue = 519.23;
         internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
 
-        internal static ForecastingInit ForecastingInit_WithExpandedValues
+        internal static ForecastingInit ForecastingInit_WithInitCEAndExpandedValues
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ExpandedValues,
                     coefficient: ForecastingInit_Coefficient,
                     error: ForecastingInit_Error
                     );
-
-        internal static string ForecastingInitAsJson_Content = Properties.Resources.ForecastingInitAsJson;
-        internal static string ForecastingInitMinimalAsJson_Content = Properties.Resources.ForecastingInitMinimalAsJson;
-
-
-        internal static string ForecastingSession_Version = "3.0.0.0";
-        internal static uint ForecastingSession_Single_Steps = 1;
-        internal static ForecastingSession ForecastingSession_Single = new ForecastingSession(
-                    init: ForecastingInit,
-                    observations: Observations.ObjectMother.Observations_With01,
-                    steps: ForecastingSession_Single_Steps,
-                    version: ForecastingSession_Version
-                );
-        internal static ForecastingSession ForecastingSession_SingleMinimal = new ForecastingSession(
-                    init: ForecastingInit_Minimal,
-                    observations: Observations.ObjectMother.Observations_With01,
-                    steps: ForecastingSession_Single_Steps,
-                    version: ForecastingSession_Version
-                );
-
-        internal static uint ForecastingSession_Multiple_Steps = 2;
-        internal static ForecastingSession ForecastingSession_Multiple = new ForecastingSession(
-                    init: ForecastingInit,
-                    observations: Observations.ObjectMother.Observations_With0102,
-                    steps: ForecastingSession_Multiple_Steps,
-                    version: ForecastingSession_Version
-                );
-
-        internal static string ForecastingSessionSingleAsJson_Content = Properties.Resources.ForecastingSessionSingleAsJson;
-        internal static string ForecastingSessionSingleMinimalAsJson_Content = Properties.Resources.ForecastingSessionSingleMinimalAsJson;
-        internal static string ForecastingSessionMultipleAsJson_Content = Properties.Resources.ForecastingSessionMultipleAsJson;
 
         #endregion
 

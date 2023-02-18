@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         {
 
             new TestCaseData(
-                ObjectMother.Observation01,
+                ObjectMother.Observation01_WithoutInitCE,
                 ObjectMother.Observation01_AsString
                 ).SetArgDisplayNames($"{nameof(toStringTestCases)}_01")
 

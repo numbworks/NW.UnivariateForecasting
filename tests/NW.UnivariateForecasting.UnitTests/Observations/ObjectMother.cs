@@ -9,23 +9,31 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         #region Properties
 
-        internal static Observation Observation01 = new Observation(coefficient: 0.82, error: 0.22, nextValue: 519.23);
-        internal static Observation Observation01_WithCustomCE = new Observation(coefficient: 0.92, error: 0.12, nextValue: 582.42);
-        internal static Observation Observation02 = new Observation(coefficient: 0.82, error: 0.22, nextValue: 613.11);
+        internal static Observation Observation01_WithInitCE = new Observation(coefficient: 0.5, error: 0.01, nextValue: 582.42);
+        internal static Observation Observation01_WithoutInitCE = new Observation(coefficient: 0.82, error: 0.22, nextValue: 519.23);       
+
+        internal static Observation Observation02_WithInitCE = new Observation(coefficient: 0.5, error: 0.01, nextValue: 613.11);
 
         internal static string Observation01_AsString = $"[ Coefficient: '{0.82}', Error: '{0.22}', NextValue: '{519.23}' ]";
 
-        internal static List<Observation> Observations_With01 = new List<Observation>()
+        internal static List<Observation> Observations_Containing01_WithInitCE = new List<Observation>()
         {
 
-            Observation01
+            Observation01_WithInitCE
 
         };
-        internal static List<Observation> Observations_With0102 = new List<Observation>()
+        internal static List<Observation> Observations_Containing01_WithoutInitCE = new List<Observation>()
         {
 
-            Observation01,
-            Observation02
+            Observation01_WithoutInitCE
+
+        };
+
+        internal static List<Observation> Observations_Containing0102_WithInitCE = new List<Observation>()
+        {
+
+            Observation01_WithInitCE,
+            Observation02_WithInitCE
 
         };
 

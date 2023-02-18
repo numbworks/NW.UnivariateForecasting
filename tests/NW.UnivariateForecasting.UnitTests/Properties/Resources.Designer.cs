@@ -75,15 +75,15 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///  &quot;Error&quot;: 0.01
         ///}.
         /// </summary>
-        internal static string ForecastingInitAsJson {
+        internal static string ForecastingInitWithInitCEAsJson {
             get {
-                return ResourceManager.GetString("ForecastingInitAsJson", resourceCulture);
+                return ResourceManager.GetString("ForecastingInitWithInitCEAsJson", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///  &quot;ObservationName&quot;: null,
+        ///  &quot;ObservationName&quot;: &quot;Sales USD&quot;,
         ///  &quot;Values&quot;: [
         ///    58.5,
         ///    615.26,
@@ -96,9 +96,9 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///  &quot;Error&quot;: null
         ///}.
         /// </summary>
-        internal static string ForecastingInitMinimalAsJson {
+        internal static string ForecastingInitWithoutInitCEAsJson {
             get {
-                return ResourceManager.GetString("ForecastingInitMinimalAsJson", resourceCulture);
+                return ResourceManager.GetString("ForecastingInitWithoutInitCEAsJson", resourceCulture);
             }
         }
         
@@ -165,16 +165,16 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
         ///}.
         /// </summary>
-        internal static string ForecastingSessionSingleAsJson {
+        internal static string ForecastingSessionSingleWithInitCEAsJson {
             get {
-                return ResourceManager.GetString("ForecastingSessionSingleAsJson", resourceCulture);
+                return ResourceManager.GetString("ForecastingSessionSingleWithInitCEAsJson", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;Init&quot;: {
-        ///    &quot;ObservationName&quot;: null,
+        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
         ///    &quot;Values&quot;: [
         ///      58.5,
         ///      615.26,
@@ -188,8 +188,8 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///  },
         ///  &quot;Observations&quot;: [
         ///    {
-        ///      &quot;Coefficient&quot;: 0.5,
-        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;Coefficient&quot;: 0.82,
+        ///      &quot;Error&quot;: 0.22,
         ///      &quot;NextValue&quot;: 519.23
         ///    }
         ///  ],
@@ -197,9 +197,9 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
         ///}.
         /// </summary>
-        internal static string ForecastingSessionSingleMinimalAsJson {
+        internal static string ForecastingSessionSingleWithoutInitCEAsJson {
             get {
-                return ResourceManager.GetString("ForecastingSessionSingleMinimalAsJson", resourceCulture);
+                return ResourceManager.GetString("ForecastingSessionSingleWithoutInitCEAsJson", resourceCulture);
             }
         }
         

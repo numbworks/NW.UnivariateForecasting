@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                 new TestDelegate(
                     () => new ForecastingSession(
                                 init: null,
-                                observations: Observations.ObjectMother.Observations_With01,
+                                observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
                                 steps: ObjectMother.ForecastingSession_Single_Steps,
                                 version: ObjectMother.ForecastingSession_Version
                         )
@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             new TestCaseData(
                 new TestDelegate(
                     () => new ForecastingSession(
-                                init: ObjectMother.ForecastingInit,
+                                init: ObjectMother.ForecastingInit_WithInitCE,
                                 observations: null,
                                 steps: ObjectMother.ForecastingSession_Single_Steps,
                                 version: ObjectMother.ForecastingSession_Version
@@ -44,8 +44,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             new TestCaseData(
                 new TestDelegate(
                     () => new ForecastingSession(
-                                init: ObjectMother.ForecastingInit,
-                                observations: Observations.ObjectMother.Observations_With01,
+                                init: ObjectMother.ForecastingInit_WithInitCE,
+                                observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
                                 steps: 0,
                                 version: ObjectMother.ForecastingSession_Version
                         )
@@ -57,8 +57,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             new TestCaseData(
                 new TestDelegate(
                     () => new ForecastingSession(
-                                init: ObjectMother.ForecastingInit,
-                                observations: Observations.ObjectMother.Observations_With01,
+                                init: ObjectMother.ForecastingInit_WithInitCE,
+                                observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
                                 steps: ObjectMother.ForecastingSession_Single_Steps,
                                 version: null
                         )
@@ -90,8 +90,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             // Act
             ForecastingSession actual
                 = new ForecastingSession(
-                        init: ObjectMother.ForecastingInit,
-                        observations: Observations.ObjectMother.Observations_With01,
+                        init: ObjectMother.ForecastingInit_WithInitCE,
+                        observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
                         steps: ObjectMother.ForecastingSession_Single_Steps,
                         version: ObjectMother.ForecastingSession_Version
                     );

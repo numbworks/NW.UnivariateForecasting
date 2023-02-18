@@ -1,6 +1,6 @@
 {
   "Init": {
-    "ObservationName": null,
+    "ObservationName": "Sales USD",
     "Values": [
       58.5,
       615.26,
@@ -14,8 +14,8 @@
   },
   "Observations": [
     {
-      "Coefficient": 0.5,
-      "Error": 0.01,
+      "Coefficient": 0.82,
+      "Error": 0.22,
       "NextValue": 519.23
     }
   ],

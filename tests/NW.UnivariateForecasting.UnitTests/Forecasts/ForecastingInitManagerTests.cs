@@ -59,13 +59,13 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             // Arrange
             // Act
             ForecastingInit actual = new ForecastingInitManager().ExpandValues(
-                                forecastingInit: ObjectMother.ForecastingInit,
+                                forecastingInit: ObjectMother.ForecastingInit_WithInitCE,
                                 nextValue: ObjectMother.NextValue
                             );
 
             // Assert
             Assert.True(
-                    ObjectMother.AreEqual(ObjectMother.ForecastingInit_WithExpandedValues, actual)
+                    ObjectMother.AreEqual(ObjectMother.ForecastingInit_WithInitCEAndExpandedValues, actual)
                 );
 
         }
