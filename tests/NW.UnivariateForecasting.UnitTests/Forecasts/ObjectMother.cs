@@ -50,22 +50,6 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static string ForecastingSession_Version = "3.0.0.0";
         internal static uint ForecastingSession_Single_Steps = 1;
 
-        internal static string ForecastingSessionSingleWithInitCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
-        internal static ForecastingSession ForecastingSession_SingleWithInitCE = new ForecastingSession(
-                    init: ForecastingInit_WithInitCE,
-                    observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                    steps: ForecastingSession_Single_Steps,
-                    version: ForecastingSession_Version
-                );
-
-        internal static string ForecastingSessionSingleWithoutInitCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithoutInitCEAsJson;
-        internal static ForecastingSession ForecastingSession_SingleWithoutInitCE = new ForecastingSession(
-                    init: ForecastingInit_WithoutInitCE,
-                    observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
-                    steps: ForecastingSession_Single_Steps,
-                    version: ForecastingSession_Version
-                );
-
         internal static uint ForecastingSession_Multiple_Steps = 2;
 
         internal static string ForecastingSessionMultipleAsJson_Content = Properties.Resources.ForecastingSessionMultipleAsJson;

@@ -16,7 +16,7 @@
     {
       "Coefficient": 0.5,
       "Error": 0.01,
-      "NextValue": 519.23
+      "NextValue": 582.42
     }
   ],
   "Steps": 1,

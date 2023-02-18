@@ -72,13 +72,21 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        // 
+
         [Test]
         public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithInitCE()
         {
 
             // Arrange
-            ForecastingSession obj = Forecasts.ObjectMother.ForecastingSession_SingleWithInitCE;
-            string expected = Forecasts.ObjectMother.ForecastingSessionSingleWithInitCEAsJson_Content;
+            ForecastingSession obj = new ForecastingSession(
+                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
+                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
+                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                );
+
+            string expected = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
 
             // Act
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
@@ -88,6 +96,29 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        [Test]
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithoutInitCE()
+        {
+
+            // Arrange
+            ForecastingSession obj = new ForecastingSession(
+                    init: Forecasts.ObjectMother.ForecastingInit_WithoutInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
+                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
+                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                );
+
+            string expected = Properties.Resources.ForecastingSessionSingleWithoutInitCEAsJson;
+
+            // Act
+            string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        //
 
         [TestCaseSource(nameof(deserializeOrDefaultWhenUnproperArgumentTestCases))]
         public void DeserializeOrDefault_ShouldReturnDefault_WhenTypeIsForecastingInit(string json)
