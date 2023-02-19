@@ -238,6 +238,91 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleWithInitCE()
+        {
+
+            // Arrange
+            string json = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
+
+            ForecastingSession expected = new ForecastingSession(
+                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
+                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
+                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                );
+
+            // Act
+            ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleWithoutInitCE()
+        {
+
+            // Arrange
+            string json = Properties.Resources.ForecastingSessionSingleWithoutInitCEAsJson;
+
+            ForecastingSession expected = new ForecastingSession(
+                    init: Forecasts.ObjectMother.ForecastingInit_WithoutInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
+                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
+                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                );
+
+            // Act
+            ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionMultiple()
+        {
+
+            // Arrange
+            string json = Properties.Resources.ForecastingSessionMultipleAsJson;
+
+            ForecastingSession expected = new ForecastingSession(
+                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
+                    steps: Forecasts.ObjectMother.ForecastingSession_Multiple_Steps,
+                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                );
+
+            // Act
+            ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
+
+        [Test]
+        public void Serializer_ShouldCreateAnInstanceOfThisType_WhenProperArgument()
+        {
+
+            // Arrange
+            // Act
+            Serializer<ForecastingInit> actual = new Serializer<ForecastingInit>();
+
+            // Assert
+            Assert.IsInstanceOf<Serializer<ForecastingInit>>(actual);
+
+        }
 
         #endregion
 
@@ -250,5 +335,5 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.02.2023
+    Last Update: 19.02.2023
 */
