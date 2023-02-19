@@ -11,7 +11,7 @@ namespace NW.UnivariateForecasting
 
         #region Properties
 
-        public const double DefaultForecastingDenominator = 0.001;
+        public const double DefaultForecastingDenominator = 0.00000000000001D;
         public double ForecastingDenominator { get; private set; }
 
         #endregion
@@ -49,5 +49,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 19.02.2023
 */
