@@ -62,6 +62,23 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
+        ///  &quot;ObservationName&quot;: null,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26
+        ///  ],
+        ///  &quot;Coefficient&quot;: null,
+        ///  &quot;Error&quot;: null
+        ///}.
+        /// </summary>
+        internal static string ForecastingInitBareMinimumAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingInitBareMinimumAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
         ///  &quot;ObservationName&quot;: &quot;Sales USD&quot;,
         ///  &quot;Values&quot;: [
         ///    58.5,
@@ -158,7 +175,7 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///    {
         ///      &quot;Coefficient&quot;: 0.5,
         ///      &quot;Error&quot;: 0.01,
-        ///      &quot;NextValue&quot;: 519.23
+        ///      &quot;NextValue&quot;: 582.42
         ///    }
         ///  ],
         ///  &quot;Steps&quot;: 1,

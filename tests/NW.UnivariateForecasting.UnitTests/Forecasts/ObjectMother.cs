@@ -45,7 +45,16 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     values: ForecastingInit_Values,
                     coefficient: null,
                     error: null
-                    );        
+                    );
+
+        internal static string ForecastingInitBareMinimumAsJson_Content = Properties.Resources.ForecastingInitBareMinimumAsJson;
+        internal static ForecastingInit ForecastingInit_BareMinimum
+            = new ForecastingInit(
+                    observationName: null,
+                    values: new List<double>() { 58.5, 615.26 },
+                    coefficient: null,
+                    error: null
+                    );
 
         internal static string ForecastingSession_Version = "3.0.0.0";
         internal static uint ForecastingSession_Single_Steps = 1;
@@ -119,5 +128,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 19.02.2023
 */
