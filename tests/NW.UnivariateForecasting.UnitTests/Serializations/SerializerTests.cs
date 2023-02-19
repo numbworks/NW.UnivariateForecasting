@@ -171,12 +171,12 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [TestCaseSource(nameof(deserializeOrDefaultWhenUnproperArgumentTestCases))]
-        public void DeserializeOrDefault_ShouldReturnDefault_WhenTypeIsForecastingInit(string json)
+        public void DeserializeOrDefault_ShouldReturnDefault_WhenWhenUnproperArgument(string json)
         {
 
             // Arrange
             // Act
-            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
+            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json); // The type doesn't matter.
 
             // Assert
             Assert.AreEqual(default(ForecastingInit), actual);
@@ -184,7 +184,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInit()
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitWithInitCE()
         {
 
             // Arrange
@@ -201,6 +201,23 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitWithoutInitCE()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingInitWithoutInitCEAsJson_Content;
+            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_WithoutInitCE;
+
+            // Act
+            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
 
         #endregion
 
