@@ -58,16 +58,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         internal static string ForecastingSession_Version = "3.0.0.0";
         internal static uint ForecastingSession_Single_Steps = 1;
-
         internal static uint ForecastingSession_Multiple_Steps = 2;
-
-        internal static string ForecastingSessionMultipleAsJson_Content = Properties.Resources.ForecastingSessionMultipleAsJson;
-        internal static ForecastingSession ForecastingSession_Multiple = new ForecastingSession(
-                    init: ForecastingInit_WithInitCE,
-                    observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
-                    steps: ForecastingSession_Multiple_Steps,
-                    version: ForecastingSession_Version
-                );
 
         internal static double NextValue = 519.23;
         internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };

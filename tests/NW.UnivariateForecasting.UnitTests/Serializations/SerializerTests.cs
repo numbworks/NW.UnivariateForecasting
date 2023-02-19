@@ -104,7 +104,6 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
-
         [Test]
         public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithInitCE()
         {
@@ -149,7 +148,27 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
-        //
+        [Test]
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionMultiple()
+        {
+
+            // Arrange
+            ForecastingSession obj = new ForecastingSession(
+                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
+                    steps: Forecasts.ObjectMother.ForecastingSession_Multiple_Steps,
+                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                );
+
+            string expected = Properties.Resources.ForecastingSessionMultipleAsJson;
+
+            // Act
+            string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
 
         [TestCaseSource(nameof(deserializeOrDefaultWhenUnproperArgumentTestCases))]
         public void DeserializeOrDefault_ShouldReturnDefault_WhenTypeIsForecastingInit(string json)
