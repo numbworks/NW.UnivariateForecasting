@@ -6,6 +6,7 @@ v3.0.0 - BREAKING CHANGES
 	- Refactoring: removed all the un-necessary members from UnivariateForecaster and related classes.
 	- Refactoring: removed all the un-necessary members from SlidingWindows and related classes.
 	- Refactoring: removed all the un-necessary members from Observations and related classes.
+	- Refactoring: consolidated all the floating point datatypes to double.
 - Client:
 	- 
 - Documentation:
