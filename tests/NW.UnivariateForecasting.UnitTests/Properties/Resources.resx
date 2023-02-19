@@ -136,10 +136,4 @@
   <data name="ForecastingSessionSingleWithoutInitCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\forecastingsessionsinglewithoutinitceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ObservationWithDummyValues" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\observationwithdummyvalues.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="SlidingWindowWithDummyValues" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\slidingwindowwithdummyvalues.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
 </root>

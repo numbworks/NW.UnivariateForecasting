@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
-using NW.UnivariateForecasting.UnitTests.Utilities;
 
 namespace NW.UnivariateForecasting.UnitTests.Forecasts
 {
@@ -12,17 +10,6 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         #region Properties
 
         internal static UnivariateForecaster UnivariateForecaster = new UnivariateForecaster();
-
-        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsSlidingWindowWithDummyValues
-            => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
-                    fakeReadAllText: () => Properties.Resources.SlidingWindowWithDummyValues
-                );
-        internal static IFileAdapter FakeFileAdapter_ReadAllTextReturnsObservationWithDummyValues
-            => new FakeFileAdapter(
-                    fakeReadAllLines: () => throw Files.ObjectMother.FileAdapterIOException,
-                    fakeReadAllText: () => Properties.Resources.ObservationWithDummyValues
-                );
 
         internal static string ForecastingInit_ObservationName = "Sales USD";
         internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };

@@ -138,12 +138,12 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         ///    {
         ///      &quot;Coefficient&quot;: 0.5,
         ///      &quot;Error&quot;: 0.01,
-        ///      &quot;NextValue&quot;: 519.23
+        ///      &quot;NextValue&quot;: 582.42
         ///    },
         ///    {
         ///      &quot;Coefficient&quot;: 0.5,
         ///      &quot;Error&quot;: 0.01,
-        ///      &quot;NextValue&quot;: 478.12
+        ///      &quot;NextValue&quot;: 613.11
         ///    }
         ///  ],
         ///  &quot;Steps&quot;: 2,
@@ -217,24 +217,6 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         internal static string ForecastingSessionSingleWithoutInitCEAsJson {
             get {
                 return ResourceManager.GetString("ForecastingSessionSingleWithoutInitCEAsJson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {&quot;Name&quot;:&quot;Dummy Observation&quot;,&quot;Interval&quot;:{&quot;Size&quot;:1,&quot;Unit&quot;:&quot;Months&quot;,&quot;StartDate&quot;:&quot;2020-07-01&quot;,&quot;EndDate&quot;:&quot;2020-08-01&quot;,&quot;TargetDate&quot;:&quot;2020-09-01&quot;,&quot;Steps&quot;:1,&quot;SubIntervals&quot;:1},&quot;X_Actual&quot;:632.94,&quot;C&quot;:0.82,&quot;E&quot;:0.22,&quot;Y_Forecasted&quot;:519.23,&quot;SlidingWindowId&quot;:&quot;Dummy Id&quot;}.
-        /// </summary>
-        internal static string ObservationWithDummyValues {
-            get {
-                return ResourceManager.GetString("ObservationWithDummyValues", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {&quot;Id&quot;:&quot;Dummy Id&quot;,&quot;ObservationName&quot;:&quot;Dummy Observation&quot;,&quot;Interval&quot;:{&quot;Size&quot;:6,&quot;Unit&quot;:&quot;Months&quot;,&quot;StartDate&quot;:&quot;2020-01-01&quot;,&quot;EndDate&quot;:&quot;2020-07-01&quot;,&quot;TargetDate&quot;:&quot;2020-08-01&quot;,&quot;Steps&quot;:1,&quot;SubIntervals&quot;:6},&quot;Items&quot;:[{&quot;Id&quot;:1,&quot;Interval&quot;:{&quot;Size&quot;:1,&quot;Unit&quot;:&quot;Months&quot;,&quot;StartDate&quot;:&quot;2020-01-01&quot;,&quot;EndDate&quot;:&quot;2020-02-01&quot;,&quot;TargetDate&quot;:&quot;2020-03-01&quot;,&quot;Steps&quot;:1,&quot;SubIntervals&quot;:1},&quot;X_Actual&quot;:58.5,&quot;Y_Forecasted&quot;:615.26},{&quot;Id&quot;:2,&quot;Interval&quot;:{&quot;Size&quot;:1,&quot;Unit&quot;:&quot;Months&quot;,&quot;StartDate&quot;:&quot;2020-02-01&quot;,&quot;EndDate&quot;:&quot;2020-03-01&quot;,&quot;TargetDate&quot;:&quot;2020-04-01&quot;,&quot;Ste [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string SlidingWindowWithDummyValues {
-            get {
-                return ResourceManager.GetString("SlidingWindowWithDummyValues", resourceCulture);
             }
         }
     }
