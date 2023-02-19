@@ -170,6 +170,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
+        
         [TestCaseSource(nameof(deserializeOrDefaultWhenUnproperArgumentTestCases))]
         public void DeserializeOrDefault_ShouldReturnDefault_WhenWhenUnproperArgument(string json)
         {
@@ -218,6 +219,25 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
                 );
 
         }
+
+        [Test]
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitBareMinimum()
+        {
+
+            // Arrange
+            string json = Forecasts.ObjectMother.ForecastingInitBareMinimumAsJson_Content;
+            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_BareMinimum;
+
+            // Act
+            ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(expected, actual)
+                );
+
+        }
+
 
         #endregion
 
