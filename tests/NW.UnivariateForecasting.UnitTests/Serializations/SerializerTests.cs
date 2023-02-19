@@ -72,7 +72,23 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
         }
 
-        // 
+        [Test]
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingInitWithoutInitCE()
+        {
+
+            // Arrange
+            ForecastingInit obj = Forecasts.ObjectMother.ForecastingInit_WithoutInitCE;
+            string expected = Forecasts.ObjectMother.ForecastingInitWithoutInitCEAsJson_Content;
+
+            // Act
+            string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+
 
         [Test]
         public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithInitCE()
