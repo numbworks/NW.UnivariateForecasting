@@ -16,12 +16,12 @@
     {
       "Coefficient": 0.5,
       "Error": 0.01,
-      "NextValue": 519.23
+      "NextValue": 316.48
     },
     {
       "Coefficient": 0.5,
       "Error": 0.01,
-      "NextValue": 478.12
+      "NextValue": 613.11
     }
   ],
   "Steps": 2,

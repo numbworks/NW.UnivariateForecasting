@@ -432,11 +432,12 @@ The library is able to load and save different key-objects using JSON format.
 
 Here an example of each JSON file produced by the library:
 
-1. [ForecastingInit.json](ExampleFiles/ForecastingInit.json)
-2. [ForecastingInitMinimal.json](ExampleFiles/ForecastingInitMinimal.json)
-3. [ForecastingSessionSingle.json](ExampleFiles/ForecastingSessionSingle.json)
-4. [ForecastingSessionSingleMinimal.json](ExampleFiles/ForecastingSessionSingleMinimal.json)
-5. [ForecastingSessionMultiple.json](ExampleFiles/ForecastingSessionMultiple.json)
+1. [ForecastingInitBareMinimum.json](ExampleFiles/ForecastingInitBareMinimum.json)
+2. [ForecastingInitWithInitCE.json](ExampleFiles/ForecastingInitWithInitCE.json)
+3. [ForecastingInitWithoutInitCE.json](ExampleFiles/ForecastingInitWithoutInitCE.json)
+4. [ForecastingSessionMultiple.json](ExampleFiles/ForecastingSessionMultiple.json)
+5. [ForecastingSessionSingleWithInitCE.json](ExampleFiles/ForecastingSessionSingleWithInitCE.json)
+6. [ForecastingSessionSingleWithoutInitCE.json](ExampleFiles/ForecastingSessionSingleWithoutInitCE.json)
 
 ## Markdown Toolset
 
