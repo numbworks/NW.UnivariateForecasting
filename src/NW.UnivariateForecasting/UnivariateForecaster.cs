@@ -59,6 +59,8 @@ namespace NW.UnivariateForecasting
 
         public void LogAsciiBanner()
             => _components.LoggingActionAsciiBanner(AsciiBanner);
+        public IFileInfoAdapter Convert(string filePath)
+            => _components.FileManager.Create(filePath);
 
         public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
         {
@@ -153,5 +155,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 20.02.2023
 */

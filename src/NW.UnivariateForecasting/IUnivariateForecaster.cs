@@ -14,6 +14,12 @@ namespace NW.UnivariateForecasting
         /// </summary>
         void LogAsciiBanner();
 
+        /// <summary>
+        /// Convert <paramref name="filePath"/> to <see cref="IFileInfoAdapter"/>
+        /// </summary>
+        /// <exception cref="ArgumentNullException"/>
+        IFileInfoAdapter Convert(string filePath);
+
         /// <summary>Forecasts the next value for the provided list of values.</summary>
         /// <exception cref="ArgumentNullException"/> 
         /// <exception cref="ArgumentException"/>         
@@ -39,5 +45,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 20.02.2023
 */

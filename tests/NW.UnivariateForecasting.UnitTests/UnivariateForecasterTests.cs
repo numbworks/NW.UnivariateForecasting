@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Filenames;
@@ -9,7 +11,6 @@ using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
-using System.IO;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -132,7 +133,19 @@ namespace NW.UnivariateForecasting.UnitTests
             ).SetArgDisplayNames($"{nameof(loadInitOrDefaultExceptionTestCases)}_02")
 
         };
-        
+        private static TestCaseData[] convertExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecaster().Convert(filePath: null)
+                    ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("filePath").Message
+            ).SetArgDisplayNames($"{nameof(convertExceptionTestCases)}_01")
+
+        };
+
         #endregion
 
         #region SetUp
@@ -461,6 +474,46 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+
+        [Test]
+        public void Create_ShouldThrowExpectedException_WhenProvidedTypeIsNotSupported()
+        {
+
+            // Arrange
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster();
+
+            try
+            {
+
+                // Act
+                IFileInfoAdapter actual
+                    = ObjectMother.CallPrivateGenericMethod<UnivariateForecaster, IFileInfoAdapter>(
+                            obj: univariateForecaster,
+                            methodName: "Create",
+                            args: new object[] { @"C:\", DateTime.Now },
+                            methodType: typeof(Observation) // "Observation" is a not supported type.
+                        );
+
+            }
+            catch (TargetInvocationException e)
+            {
+
+                // Assert
+                Assert.IsInstanceOf<Exception>(e.InnerException);
+                Assert.AreEqual(
+                    UnivariateForecasting.Forecasts.MessageCollection.ThereIsNoStrategyOutOfType(typeof(Observation)),
+                    e.InnerException.Message);
+
+            }
+
+        }
+
+        [TestCaseSource(nameof(convertExceptionTestCases))]
+        public void Convert_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
+
         #endregion
 
         #region TearDown
@@ -471,5 +524,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 20.02.2023
 */

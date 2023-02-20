@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Files;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
@@ -12,7 +12,17 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
         #endregion
 
         #region Methods
-        
+
+        internal static TReturn CallPrivateGenericMethod<TClass, TReturn>(TClass obj, string methodName, object[] args, Type methodType)
+        {
+
+            MethodInfo methodInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            var genericMethod = methodInfo.MakeGenericMethod(methodType);
+
+            return (TReturn)genericMethod.Invoke(obj, args);
+
+        }
+
         internal static void Method_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
@@ -51,5 +61,5 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.11.2022
+    Last Update: 20.02.2023
 */
