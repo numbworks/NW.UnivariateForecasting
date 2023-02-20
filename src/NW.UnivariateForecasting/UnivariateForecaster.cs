@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
+using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
@@ -75,6 +76,36 @@ namespace NW.UnivariateForecasting
             _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueSuccessfullyRun(nextValue));
 
             return nextValue;
+
+        }
+        public ForecastingSession Forecast(ForecastingInit init, uint steps)
+        {
+
+            Validator.ValidateObject(init, nameof(init));
+
+            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedErrorIs(init.Error));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(steps));
+
+            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values);
+            Observation observation = _components.ObservationManager.Create(slidingWindow: slidingWindow, coefficient: init.Coefficient, error: init.Error);
+            List<Observation> observations = new List<Observation>() { observation };
+
+            ForecastingSession session = new ForecastingSession(
+                    init: init,
+                    observations: observations,
+                    steps: steps,
+                    version: Version
+                );
+
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(observation.Coefficient));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(observation.Error));
+            _components.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted(observation.NextValue));
+
+            return session;
 
         }
 

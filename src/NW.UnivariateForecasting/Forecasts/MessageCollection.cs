@@ -12,6 +12,28 @@ namespace NW.UnivariateForecasting.Forecasts
 
         #region Properties
 
+
+        public static string AttemptingToForecast = 
+            $"Attempting to perform a forecasting task out of the provided {typeof(ForecastingInit)}...";
+        public static Func<double, string> ForecastSuccessfullyCompleted { get; }
+            = (nextValue) => $"The forecasting task has been successfully completed. The next value is: '{nextValue}'.";
+
+        public static Func<string, string> ProvidedObservationNameIs = 
+            (observationName) => $"The provided observation name is: '{observationName}'.";
+        public static Func<int, string> ProvidedValuesAre = 
+            (count) => $"The provided values are: '{count}'.";
+        public static Func<double?, string> ProvidedCoefficientIs = 
+            (coefficient) => $"The provided coefficient is: '{coefficient?.ToString() ?? "null"}'.";
+        public static Func<double?, string> ProvidedErrorIs =
+            (error) => $"The provided error is: '{error?.ToString() ?? "null"}'.";
+        public static Func<uint, string> ProvidedStepsAre =
+            (steps) => $"The provided steps are: '{steps}'.";
+
+        public static Func<double, string> ObservationCoefficientIs =
+            (coefficient) => $"The observation's coefficient is: '{coefficient}'.";
+        public static Func<double, string> ObservationErrorIs =
+            (error) => $"The observation's error is: '{error}'.";
+
         public static Func<List<double>, string> ForecastNextValueRunningForProvidedValues { get; }
             = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
         public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
