@@ -131,6 +131,7 @@ namespace NW.UnivariateForecasting.UnitTests
             ).SetArgDisplayNames($"{nameof(loadInitOrDefaultExceptionTestCases)}_02")
 
         };
+        
         #endregion
 
         #region SetUp
@@ -254,6 +255,101 @@ namespace NW.UnivariateForecasting.UnitTests
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
+        [Test]
+        public void LoadInitOrDefault_ShouldReturnExpectedForecastingInit_WhenProperJsonFileContent()
+        {
+
+            // Arrange
+            List<string> actualLogMessages = new List<string>();
+            Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
+
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        observationManager: new ObservationManager(),
+                        fileManager: new FakeFileManager(Forecasts.ObjectMother.ForecastingInitBareMinimumAsJson_Content),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction,
+                        loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                        forecastingInitManager: new ForecastingInitManager(),
+                        serializerFactory: new SerializerFactory()
+                    );
+
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+
+            IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, @"C:\ForecastingInit.json");
+            List<string> expectedLogMessages = new List<string>()
+            {
+
+                UnivariateForecasting.Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(ForecastingInit), fakeJsonFile),
+                UnivariateForecasting.Forecasts.MessageCollection.ObjectSuccessfullyLoaded(typeof(ForecastingInit))
+
+            };
+
+            // Act
+            ForecastingInit actual = univariateForecaster.LoadInitOrDefault(fakeJsonFile);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(
+                        obj1: Forecasts.ObjectMother.ForecastingInit_BareMinimum, 
+                        obj2: actual)
+                );
+            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+
+        }
+
+        [Test]
+        public void LoadInitOrDefault_ShouldReturnDefault_WhenUnproperJsonFileContent()
+        {
+
+            // Arrange
+            List<string> actualLogMessages = new List<string>();
+            Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
+
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        observationManager: new ObservationManager(),
+                        fileManager: new FakeFileManager("Unproper Json content"),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction,
+                        loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                        forecastingInitManager: new ForecastingInitManager(),
+                        serializerFactory: new SerializerFactory()
+                    );
+
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+
+            IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, @"C:\ForecastingInit.json");
+            List<string> expectedLogMessages = new List<string>()
+            {
+
+                UnivariateForecasting.Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(ForecastingInit), fakeJsonFile),
+                UnivariateForecasting.Forecasts.MessageCollection.ObjectFailedToLoad(typeof(ForecastingInit))
+
+            };
+
+            // Act
+            ForecastingInit actual = univariateForecaster.LoadInitOrDefault(fakeJsonFile);
+
+            // Assert
+            Assert.AreEqual(default(ForecastingInit), actual);
+            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+
+        }
 
 
         #endregion
