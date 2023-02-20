@@ -111,7 +111,26 @@ namespace NW.UnivariateForecasting.UnitTests
             */
 
         };
-        
+        private static TestCaseData[] loadInitOrDefaultExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecaster().LoadInitOrDefault(jsonFile: (IFileInfoAdapter)null)
+                    ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("jsonFile").Message
+            ).SetArgDisplayNames($"{nameof(loadInitOrDefaultExceptionTestCases)}_01"),
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => new UnivariateForecaster().LoadInitOrDefault(jsonFile: Files.ObjectMother.FileInfoAdapterDoesntExist)
+                    ),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist(Files.ObjectMother.FileInfoAdapterDoesntExist)
+            ).SetArgDisplayNames($"{nameof(loadInitOrDefaultExceptionTestCases)}_02")
+
+        };
         #endregion
 
         #region SetUp
@@ -229,6 +248,14 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+
+        [TestCaseSource(nameof(loadInitOrDefaultExceptionTestCases))]
+        public void LoadInitOrDefault_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
+
+
         #endregion
 
         #region TearDown
@@ -239,5 +266,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 19.02.2023
 */
