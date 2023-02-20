@@ -76,6 +76,11 @@ namespace NW.UnivariateForecasting
 
         }
 
+        public ForecastingInit LoadInitOrDefault(IFileInfoAdapter jsonFile)
+            => LoadOrDefault<ForecastingInit>(jsonFile);
+        public void SaveSession(ForecastingSession session, string folderPath)
+            => Save(obj: session, jsonFile: Create<ForecastingSession>(folderPath: folderPath, now: _components.NowFunction()));
+
         #endregion
 
         #region Methods_private
