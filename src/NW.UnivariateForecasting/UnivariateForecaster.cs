@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
@@ -63,25 +64,11 @@ namespace NW.UnivariateForecasting
         public IFileInfoAdapter Convert(string filePath)
             => _components.FileManager.Create(filePath);
 
-        public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
-        {
-
-            Validator.ValidateList(values, nameof(values));
-
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueRunningForProvidedValues(values));
-
-            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(values);
-            double nextValue = _components.ObservationManager.Create(slidingWindow, C, E).NextValue;
-
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueSuccessfullyRun(nextValue));
-
-            return nextValue;
-
-        }
         public ForecastingSession Forecast(ForecastingInit init, uint steps)
         {
 
             Validator.ValidateObject(init, nameof(init));
+            Validator.ThrowIfLessThanOne(steps, nameof(steps));
 
             _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
@@ -90,20 +77,53 @@ namespace NW.UnivariateForecasting
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedErrorIs(init.Error));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(steps));
 
-            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values);
-            Observation observation = _components.ObservationManager.Create(slidingWindow: slidingWindow, coefficient: init.Coefficient, error: init.Error);
-            List<Observation> observations = new List<Observation>() { observation };
+            _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(1));
 
-            ForecastingSession session = new ForecastingSession(
-                    init: init,
-                    observations: observations,
-                    steps: steps,
-                    version: Version
-                );
+            ForecastingSession session = Forecast(init);
 
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(observation.Coefficient));
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(observation.Error));
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted(observation.NextValue));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(session.Observations.Last().Coefficient));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(session.Observations.Last().Error));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(session.Observations.Last().NextValue));
+
+            if (steps > 1)
+            {
+
+                List<Observation> observations = new List<Observation>();
+                observations.Add(session.Observations.Last());
+
+                ForecastingInit currentInit = new ForecastingInit(
+                        observationName: init.ObservationName,
+                        values: init.Values,
+                        coefficient: init.Coefficient,
+                        error: init.Error
+                    );
+
+                double nextValue = session.Observations.Last().NextValue;
+                for (uint step = 2; step <= steps; step++)
+                {
+
+                    _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(step));
+
+                    currentInit = _components.ForecastingInitManager.ExpandValues(currentInit, nextValue);
+                    session = Forecast(currentInit);
+
+                    observations.AddRange(session.Observations);
+                    nextValue = session.Observations.Last().NextValue;
+
+                    _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(nextValue));
+
+                }
+
+                session = new ForecastingSession(
+                        init: init,
+                        observations: observations,
+                        steps: steps,
+                        version: Version
+                    );
+
+            }
+
+            _components.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted);
 
             return session;
 
@@ -176,6 +196,23 @@ namespace NW.UnivariateForecasting
             IFileInfoAdapter jsonFile = new FileInfoAdapter(fileName: filePath);
 
             return jsonFile;
+
+        }
+
+        private ForecastingSession Forecast(ForecastingInit init)
+        {
+
+            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values);
+            Observation observation = _components.ObservationManager.Create(slidingWindow: slidingWindow, coefficient: init.Coefficient, error: init.Error);
+
+            ForecastingSession session = new ForecastingSession(
+                    init: init,
+                    observations: new List<Observation>() { observation },
+                    steps: 1,
+                    version: Version
+                );
+
+            return session;
 
         }
 

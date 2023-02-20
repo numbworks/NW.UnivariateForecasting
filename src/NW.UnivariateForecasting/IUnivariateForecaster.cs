@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
 
@@ -20,10 +19,10 @@ namespace NW.UnivariateForecasting
         /// <exception cref="ArgumentNullException"/>
         IFileInfoAdapter Convert(string filePath);
 
-        /// <summary>Forecasts the next value for the provided list of values.</summary>
+        /// <summary>Forecasts the next x values for the provided <paramref name="init"/>.</summary>
         /// <exception cref="ArgumentNullException"/> 
         /// <exception cref="ArgumentException"/>         
-        double ForecastNextValue(List<double> values, double? C = null, double? E = null);
+        ForecastingSession Forecast(ForecastingInit init, uint steps);
 
         /// <summary>
         /// Loads a <see cref="ForecastingInit"/> object from the provided <paramref name="jsonFile"/>. 

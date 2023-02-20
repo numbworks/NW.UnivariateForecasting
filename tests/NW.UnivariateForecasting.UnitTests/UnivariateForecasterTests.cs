@@ -42,75 +42,22 @@ namespace NW.UnivariateForecasting.UnitTests
                 ).SetArgDisplayNames($"{nameof(univariateForecasterExceptionTestCases)}_02")
 
         };
-        private static TestCaseData[] forecastNextValueExceptionTestCases =
+        private static TestCaseData[] forecastExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster.ForecastNextValue(null)),
+                    () => new UnivariateForecaster().Forecast(init: null, steps: 1)),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("values").Message
-                ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_01"),
+                new ArgumentNullException("init").Message
+                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
-                    () => Forecasts.ObjectMother.UnivariateForecaster.ForecastNextValue(new List<double>() { })),
+                    () => new UnivariateForecaster().Forecast(init: Forecasts.ObjectMother.ForecastingInit_WithInitCE, steps: 0)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableContainsZeroItems("values")
-                ).SetArgDisplayNames($"{nameof(forecastNextValueExceptionTestCases)}_02")
-
-        };
-        private static TestCaseData[] forecastNextValueTestCases =
-        {
-            /*
-
-            new TestCaseData(
-                SlidingWindows.ObjectMother.SlidingWindow01_Values,
-                null,
-                null,
-                Observations.ObjectMother.Observation01_WithDefaultDummyFields.Y_Forecasted,
-                new List<string>() {
-                    UnivariateForecasting.Forecasts.MessageCollection.ForecastNextValueRunningForProvidedValues(SlidingWindows.ObjectMother.SlidingWindow01_Values),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre(SlidingWindows.ObjectMother.SlidingWindow01_Values),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedStepsAre(new UnivariateForecastingSettings().DummySteps),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs(new UnivariateForecastingSettings().DummyIntervalUnit),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIdIs(new UnivariateForecastingSettings().DummyId),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedObservationNameIs(new UnivariateForecastingSettings().DummyObservationName),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs(SlidingWindows.ObjectMother.SlidingWindow01_DummyInterval),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedItemsCountIs(SlidingWindows.ObjectMother.SlidingWindow01_DefaultDummyItems),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated(SlidingWindows.ObjectMother.SlidingWindow01_WithDefaultDummyFields),
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01_WithDefaultDummyFields),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated(Observations.ObjectMother.Observation01_WithDefaultDummyFields),
-                    UnivariateForecasting.Forecasts.MessageCollection.ForecastNextValueSuccessfullyRun(Observations.ObjectMother.Observation01.Y_Forecasted)
-                    }
-                ).SetArgDisplayNames($"{nameof(forecastNextValueTestCases)}_01"),
-
-            new TestCaseData(
-                SlidingWindows.ObjectMother.SlidingWindow01_Values,
-                Observations.ObjectMother.Observation01_WithDefaultDummyFields.C,
-                Observations.ObjectMother.Observation01_WithDefaultDummyFields.E,
-                Observations.ObjectMother.Observation01_WithDefaultDummyFields.Y_Forecasted,
-                new List<string>() {
-                    UnivariateForecasting.Forecasts.MessageCollection.ForecastNextValueRunningForProvidedValues(SlidingWindows.ObjectMother.SlidingWindow01_Values),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingIntervalOutOfFollowingArguments,
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre(SlidingWindows.ObjectMother.SlidingWindow01_Values),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedStepsAre(new UnivariateForecastingSettings().DummySteps),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalUnitsIs(new UnivariateForecastingSettings().DummyIntervalUnit),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIdIs(new UnivariateForecastingSettings().DummyId),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedObservationNameIs(new UnivariateForecastingSettings().DummyObservationName),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedIntervalIs(SlidingWindows.ObjectMother.SlidingWindow01_DummyInterval),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedItemsCountIs(SlidingWindows.ObjectMother.SlidingWindow01_DefaultDummyItems),
-                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated(SlidingWindows.ObjectMother.SlidingWindow01_WithDefaultDummyFields),
-                    UnivariateForecasting.Observations.MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(SlidingWindows.ObjectMother.SlidingWindow01_WithDefaultDummyFields),
-                    UnivariateForecasting.Observations.MessageCollection.FollowingObservationHasBeenCreated(Observations.ObjectMother.Observation01_WithDefaultDummyFields),
-                    UnivariateForecasting.Forecasts.MessageCollection.ForecastNextValueSuccessfullyRun(Observations.ObjectMother.Observation01.Y_Forecasted)
-                    }
-                ).SetArgDisplayNames($"{nameof(forecastNextValueTestCases)}_02")
-
-            */
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("steps")
+                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] loadInitOrDefaultExceptionTestCases =
@@ -174,53 +121,10 @@ namespace NW.UnivariateForecasting.UnitTests
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
-        [Ignore("")]
-        [TestCaseSource(nameof(forecastNextValueTestCases))]
-        public void ForecastNextValue_ShouldReturnExpectedValueAndLogExpectedMessages_WhenProperValues
-            (List<double> values, double? C, double? E, double expected, List<string> expectedMessages)
-        {
-
-            // Arrange
-            FakeLogger fakeLogger = new FakeLogger();
-            Action<string> fakeLoggingAction = (message) => fakeLogger.Log(message);
-            SlidingWindowManager slidingManager
-                = new SlidingWindowManager(
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                        loggingAction: fakeLoggingAction
-                    );
-            ObservationManager observationManager
-                = new ObservationManager(
-                        settings: new UnivariateForecastingSettings(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                        loggingAction: fakeLoggingAction
-                    );
-            UnivariateForecastingComponents components
-                = new UnivariateForecastingComponents(
-                        slidingWindowManager: slidingManager,
-                        observationManager: observationManager,
-                        fileManager: new FileManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                        loggingAction: fakeLoggingAction,
-                        loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
-                        filenameFactory: new FilenameFactory(),
-                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
-                        forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
-                    );
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
-
-            // Act
-            double actual = univariateForecaster.ForecastNextValue(values, C, E);
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
-
-        }
+        [TestCaseSource(nameof(forecastExceptionTestCases))]
+        public void Forecast_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
         public void LogAsciiBanner_ShouldLogAsExpected_WhenInvoked()

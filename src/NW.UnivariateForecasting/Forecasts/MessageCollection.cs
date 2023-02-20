@@ -12,11 +12,8 @@ namespace NW.UnivariateForecasting.Forecasts
 
         #region Properties
 
-
         public static string AttemptingToForecast = 
             $"Attempting to perform a forecasting task out of the provided {typeof(ForecastingInit)}...";
-        public static Func<double, string> ForecastSuccessfullyCompleted { get; }
-            = (nextValue) => $"The forecasting task has been successfully completed. The next value is: '{nextValue}'.";
 
         public static Func<string, string> ProvidedObservationNameIs = 
             (observationName) => $"The provided observation name is: '{observationName}'.";
@@ -33,11 +30,13 @@ namespace NW.UnivariateForecasting.Forecasts
             (coefficient) => $"The observation's coefficient is: '{coefficient}'.";
         public static Func<double, string> ObservationErrorIs =
             (error) => $"The observation's error is: '{error}'.";
+        public static Func<double, string> ObservationNextValueIs =
+            (nextValue) => $"The current observation's next value is: '{nextValue}'.";
 
-        public static Func<List<double>, string> ForecastNextValueRunningForProvidedValues { get; }
-            = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
-        public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
-            = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue}'.";
+        public static Func<uint, string> ProcessingStepNr =
+            (step) => $"Processing step nr.: '{step}'.";
+        public static string ForecastSuccessfullyCompleted { get; } = 
+            "The forecasting task has been successfully completed.";
 
         public static Func<string, double, string> DenominatorCantBeLessThan { get; }
             = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator}'.";
