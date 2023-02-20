@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Forecasts;
+using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
@@ -77,6 +80,67 @@ namespace NW.UnivariateForecasting
 
         #region Methods_private
 
+        private T LoadOrDefault<T>(IFileInfoAdapter jsonFile)
+        {
+
+            Validator.ValidateObject(jsonFile, nameof(jsonFile));
+            Validator.ValidateFileExistance(jsonFile);
+
+            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(T), jsonFile));
+
+            string content = _components.FileManager.ReadAllText(jsonFile);
+
+            ISerializer<T> serializer = _components.SerializerFactory.Create<T>();
+            T obj = serializer.DeserializeOrDefault(content);
+
+            if (EqualityComparer<T>.Default.Equals(obj, default(T)))
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectFailedToLoad(typeof(T)));
+            else
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullyLoaded(typeof(T)));
+
+            return obj;
+
+        }
+        private void Save<T>(T obj, IFileInfoAdapter jsonFile)
+        {
+
+            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToSaveObjectAs(typeof(T), jsonFile));
+
+            try
+            {
+
+                ISerializer<T> serializer = _components.SerializerFactory.Create<T>();
+                string content = serializer.Serialize(obj);
+
+                _components.FileManager.WriteAllText(jsonFile, content);
+
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullySaved(typeof(T)));
+
+            }
+            catch
+            {
+
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectFailedToSave(typeof(T)));
+
+            }
+
+        }
+        private IFileInfoAdapter Create<T>(string folderPath, DateTime now)
+        {
+
+            string filePath;
+
+            if (typeof(T) == typeof(ForecastingSession))
+                filePath = _components.FilenameFactory.CreateForSessionJson(folderPath: folderPath, now: now);
+            else
+                throw new Exception(Forecasts.MessageCollection.ThereIsNoStrategyOutOfType(typeof(T)));
+
+            IFileInfoAdapter jsonFile = new FileInfoAdapter(fileName: filePath);
+
+            return jsonFile;
+
+        }
+
         #endregion
 
     }
@@ -84,5 +148,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 19.02.2023
 */
