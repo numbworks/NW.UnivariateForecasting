@@ -9,6 +9,7 @@ using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
+using System.IO;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -351,6 +352,60 @@ namespace NW.UnivariateForecasting.UnitTests
 
         }
 
+        [Test]
+        public void SaveSession_ShouldLogExpectedMessage_WhenWriteAllTextThrowsException()
+        {
+
+            // Arrange
+            List<string> actualLogMessages = new List<string>();
+            Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
+
+            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        observationManager: new ObservationManager(),
+                        fileManager: new FakeFileManagerThrowingWriteExceptions(
+                                                content: Forecasts.ObjectMother.ForecastingSessionSingleWithInitCEAsJson_Content,
+                                                writeExceptionMessage: "A random write-to-disk issue."),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        loggingAction: fakeLoggingAction,
+                        loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: FakeNowFunction,
+                        forecastingInitManager: new ForecastingInitManager(),
+                        serializerFactory: new SerializerFactory()
+                    );
+
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+
+            string folderPath = Filenames.ObjectMother.FakeFilePath;
+            string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
+            string filePath = Path.Combine(folderPath, fileName);
+            IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, filePath);
+
+            List<string> expectedLogMessages = new List<string>()
+            {
+
+                UnivariateForecasting.Forecasts.MessageCollection.AttemptingToSaveObjectAs(typeof(ForecastingSession), fakeJsonFile),
+                UnivariateForecasting.Forecasts.MessageCollection.ObjectFailedToSave(typeof(ForecastingSession))
+
+            };
+
+            // Act
+            univariateForecaster.SaveSession(
+                                    session: Forecasts.ObjectMother.ForecastingSession_SingleWithInitCE,
+                                    folderPath: folderPath);
+
+            // Assert
+            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+
+        }
 
         #endregion
 

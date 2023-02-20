@@ -58,6 +58,14 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     error: ForecastingInit_Error
                     );
 
+        internal static string ForecastingSessionSingleWithInitCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
+        internal static ForecastingSession ForecastingSession_SingleWithInitCE = new ForecastingSession(
+                init: ForecastingInit_WithInitCE,
+                observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
+                steps: ForecastingSession_Single_Steps,
+                version: ForecastingSession_Version
+            );
+
         #endregion
 
         #region Methods

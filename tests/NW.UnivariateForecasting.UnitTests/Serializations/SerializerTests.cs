@@ -109,14 +109,8 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         {
 
             // Arrange
-            ForecastingSession obj = new ForecastingSession(
-                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
-                    observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
-                    version: Forecasts.ObjectMother.ForecastingSession_Version
-                );
-
-            string expected = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
+            ForecastingSession obj = Forecasts.ObjectMother.ForecastingSession_SingleWithInitCE;
+            string expected = Forecasts.ObjectMother.ForecastingSessionSingleWithInitCEAsJson_Content;
 
             // Act
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
