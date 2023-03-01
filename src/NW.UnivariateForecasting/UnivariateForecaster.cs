@@ -64,66 +64,57 @@ namespace NW.UnivariateForecasting
         public IFileInfoAdapter Convert(string filePath)
             => _components.FileManager.Create(filePath);
 
-        public ForecastingSession Forecast(ForecastingInit init, uint steps)
+        public ForecastingSession Forecast(ForecastingInit init)
         {
 
             Validator.ValidateObject(init, nameof(init));
-            Validator.ThrowIfLessThanOne(steps, nameof(steps));
 
             _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedErrorIs(init.Error));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(steps));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(init.Steps));
 
             _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(1));
 
-            ForecastingSession session = Forecast(init);
+            Observation observation = CreateObservation(init);
+            List<Observation> observations = Convert(observation);
 
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(session.Observations.Last().Coefficient));
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(session.Observations.Last().Error));
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(session.Observations.Last().NextValue));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(observations.Last().Coefficient));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(observations.Last().Error));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(observations.Last().NextValue));
 
-            if (steps > 1)
+            if (init.Steps > 1)
             {
 
-                List<Observation> observations = new List<Observation>();
-                observations.Add(session.Observations.Last());
+                ForecastingInit nextInit = DuplicateInit(init);
+                double nextValue = observations.Last().NextValue;
 
-                ForecastingInit currentInit = new ForecastingInit(
-                        observationName: init.ObservationName,
-                        values: init.Values,
-                        coefficient: init.Coefficient,
-                        error: init.Error
-                    );
-
-                double nextValue = session.Observations.Last().NextValue;
-                for (uint step = 2; step <= steps; step++)
+                for (uint step = 2; step <= init.Steps; step++)
                 {
 
                     _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(step));
 
-                    currentInit = _components.ForecastingInitManager.ExpandValues(currentInit, nextValue);
-                    session = Forecast(currentInit);
-
-                    observations.AddRange(session.Observations);
-                    nextValue = session.Observations.Last().NextValue;
+                    nextInit = _components.ForecastingInitManager.ExpandValues(nextInit, nextValue);
+                    Observation nextObservation = CreateObservation(nextInit);
+                    nextValue = observation.NextValue;
 
                     _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(nextValue));
 
-                }
+                    observations.Add(observation);
 
-                session = new ForecastingSession(
-                        init: init,
-                        observations: observations,
-                        steps: steps,
-                        version: Version
-                    );
+                }
 
             }
 
             _components.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted);
+
+            ForecastingSession session = new ForecastingSession(
+                    init: init,
+                    observations: observations,
+                    version: Version
+                );
 
             return session;
 
@@ -199,20 +190,33 @@ namespace NW.UnivariateForecasting
 
         }
 
-        private ForecastingSession Forecast(ForecastingInit init)
+        private Observation CreateObservation(ForecastingInit init)
         {
 
             SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values);
-            Observation observation = _components.ObservationManager.Create(slidingWindow: slidingWindow, coefficient: init.Coefficient, error: init.Error);
+            Observation observation 
+                = _components.ObservationManager.Create(
+                        slidingWindow: slidingWindow, 
+                        coefficient: init.Coefficient, 
+                        error: init.Error);
 
-            ForecastingSession session = new ForecastingSession(
-                    init: init,
-                    observations: new List<Observation>() { observation },
-                    steps: 1,
-                    version: Version
+            return observation;
+
+        }
+        private List<Observation> Convert(Observation observation)
+            => new List<Observation>() { observation };
+        private ForecastingInit DuplicateInit(ForecastingInit init)
+        {
+
+            ForecastingInit duplicated = new ForecastingInit(
+                observationName: init.ObservationName,
+                values: init.Values,
+                coefficient: init.Coefficient,
+                error: init.Error,
+                steps: init.Steps
                 );
 
-            return session;
+            return duplicated;
 
         }
 
@@ -223,5 +227,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 20.02.2023
+    Last Update: 01.03.2023
 */

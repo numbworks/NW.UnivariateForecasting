@@ -20,9 +20,8 @@ namespace NW.UnivariateForecasting
         IFileInfoAdapter Convert(string filePath);
 
         /// <summary>Forecasts the next x values for the provided <paramref name="init"/>.</summary>
-        /// <exception cref="ArgumentNullException"/> 
-        /// <exception cref="ArgumentException"/>         
-        ForecastingSession Forecast(ForecastingInit init, uint steps);
+        /// <exception cref="ArgumentNullException"/>        
+        ForecastingSession Forecast(ForecastingInit init);
 
         /// <summary>
         /// Loads a <see cref="ForecastingInit"/> object from the provided <paramref name="jsonFile"/>. 
@@ -44,5 +43,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 20.02.2023
+    Last Update: 01.03.2023
 */

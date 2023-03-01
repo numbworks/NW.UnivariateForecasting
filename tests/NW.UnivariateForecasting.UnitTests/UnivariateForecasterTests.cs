@@ -47,17 +47,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new UnivariateForecaster().Forecast(init: null, steps: 1)),
+                    () => new UnivariateForecaster().Forecast(init: null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("init").Message
-                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_01"),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new UnivariateForecaster().Forecast(init: Forecasts.ObjectMother.ForecastingInit_WithInitCE, steps: 0)),
-                typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("steps")
-                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_02")
+                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_01")
 
         };
         private static TestCaseData[] loadInitOrDefaultExceptionTestCases =
@@ -284,7 +277,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FakeFileManagerThrowingWriteExceptions(
-                                                content: Forecasts.ObjectMother.ForecastingSessionSingleWithInitCEAsJson_Content,
+                                                content: Forecasts.ObjectMother.ForecastingSessionSingleWithCEAsJson_Content,
                                                 writeExceptionMessage: "A random write-to-disk issue."),
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
@@ -316,7 +309,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Act
             univariateForecaster.SaveSession(
-                                    session: Forecasts.ObjectMother.ForecastingSession_SingleWithInitCE,
+                                    session: Forecasts.ObjectMother.ForecastingSession_SingleWithCE,
                                     folderPath: folderPath);
 
             // Assert
@@ -339,7 +332,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FakeFileManager(
-                                                content: Forecasts.ObjectMother.ForecastingSessionSingleWithInitCEAsJson_Content),
+                                                content: Forecasts.ObjectMother.ForecastingSessionSingleWithCEAsJson_Content),
                         roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
@@ -370,7 +363,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Act
             univariateForecaster.SaveSession(
-                                    session: Forecasts.ObjectMother.ForecastingSession_SingleWithInitCE,
+                                    session: Forecasts.ObjectMother.ForecastingSession_SingleWithCE,
                                     folderPath: folderPath);
 
             // Assert

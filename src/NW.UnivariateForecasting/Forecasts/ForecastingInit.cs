@@ -18,22 +18,31 @@ namespace NW.UnivariateForecasting.Forecasts
         public List<double> Values { get; }
         public double? Coefficient { get; }
         public double? Error { get; }
+        public uint Steps { get; }
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a <see cref="ForecastingInit"/> instance using default parameters.</summary>
+        /// <summary>Initializes a <see cref="ForecastingInit"/> instance.</summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public ForecastingInit(string observationName, List<double> values, double? coefficient, double? error) 
+        /// <exception cref="ArgumentException"></exception>
+        public ForecastingInit(
+            string observationName, 
+            List<double> values, 
+            double? coefficient, 
+            double? error,
+            uint steps) 
         {
 
             Validator.ValidateList(values, nameof(values));
+            Validator.ThrowIfLessThanOne(steps, nameof(steps));
 
             ObservationName = observationName;
             Values = values;
             Coefficient = coefficient;
             Error = error;
+            Steps = steps;
 
         }
 
@@ -52,5 +61,5 @@ namespace NW.UnivariateForecasting.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.02.2023
+    Last Update: 01.03.2023
 */

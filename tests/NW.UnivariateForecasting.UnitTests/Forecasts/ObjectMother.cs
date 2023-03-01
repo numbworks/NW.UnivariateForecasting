@@ -15,23 +15,27 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
         internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
         internal static double ForecastingInit_Coefficient = 0.5;
         internal static double ForecastingInit_Error = 0.01;
+        internal static uint ForecastingInit_Steps_Single = 1;
+        internal static uint ForecastingInit_Steps_MultipleDouble = 2;
 
-        internal static string ForecastingInitWithInitCEAsJson_Content = Properties.Resources.ForecastingInitWithInitCEAsJson;
-        internal static ForecastingInit ForecastingInit_WithInitCE
+        internal static string ForecastingInitSingleWithCEAsJson_Content = Properties.Resources.ForecastingInitSingleWithCEAsJson;
+        internal static ForecastingInit ForecastingInit_SingleWithCE
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
                     coefficient: ForecastingInit_Coefficient,
-                    error: ForecastingInit_Error
+                    error: ForecastingInit_Error,
+                    steps: ForecastingInit_Steps_Single
                     );
 
-        internal static string ForecastingInitWithoutInitCEAsJson_Content = Properties.Resources.ForecastingInitWithoutInitCEAsJson;
-        internal static ForecastingInit ForecastingInit_WithoutInitCE
+        internal static string ForecastingInitSingleWithoutCEAsJson_Content = Properties.Resources.ForecastingInitSingleWithoutCEAsJson;
+        internal static ForecastingInit ForecastingInit_SingleWithoutCE
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
                     coefficient: null,
-                    error: null
+                    error: null,
+                    steps: ForecastingInit_Steps_Single
                     );
 
         internal static string ForecastingInitBareMinimumAsJson_Content = Properties.Resources.ForecastingInitBareMinimumAsJson;
@@ -40,29 +44,43 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     observationName: null,
                     values: new List<double>() { 58.5, 615.26 },
                     coefficient: null,
-                    error: null
+                    error: null,
+                    steps: ForecastingInit_Steps_Single
+                    );
+
+        internal static ForecastingInit ForecastingInit_DoubleWithCE
+            = new ForecastingInit(
+                    observationName: ForecastingInit_ObservationName,
+                    values: ForecastingInit_Values,
+                    coefficient: ForecastingInit_Coefficient,
+                    error: ForecastingInit_Error,
+                    steps: ForecastingInit_Steps_MultipleDouble
                     );
 
         internal static string ForecastingSession_Version = "3.0.0.0";
-        internal static uint ForecastingSession_Single_Steps = 1;
-        internal static uint ForecastingSession_Multiple_Steps = 2;
 
         internal static double NextValue = 519.23;
         internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
 
-        internal static ForecastingInit ForecastingInit_WithInitCEAndExpandedValues
+        internal static ForecastingInit ForecastingInit_SingleWithCEAndExpandedValues
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ExpandedValues,
                     coefficient: ForecastingInit_Coefficient,
-                    error: ForecastingInit_Error
+                    error: ForecastingInit_Error,
+                    steps: ForecastingInit_Steps_Single
                     );
 
-        internal static string ForecastingSessionSingleWithInitCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
-        internal static ForecastingSession ForecastingSession_SingleWithInitCE = new ForecastingSession(
-                init: ForecastingInit_WithInitCE,
+        internal static string ForecastingSessionSingleWithCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithCEAsJson;
+        internal static ForecastingSession ForecastingSession_SingleWithCE = new ForecastingSession(
+                init: ForecastingInit_SingleWithCE,
                 observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                steps: ForecastingSession_Single_Steps,
+                version: ForecastingSession_Version
+            );
+
+        internal static ForecastingSession ForecastingSession_DoubleWithCE = new ForecastingSession(
+                init: ForecastingInit_DoubleWithCE,
+                observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
                 version: ForecastingSession_Version
             );
 
@@ -94,7 +112,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             return string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
                         && AreEqual(obj1.Values, obj2.Values)
                         && AreEqual(obj1.Coefficient, obj2.Coefficient)
-                        && AreEqual(obj1.Error, obj2.Error);
+                        && AreEqual(obj1.Error, obj2.Error)
+                        && Equals(obj1.Steps, obj2.Steps);
 
         }
         internal static bool AreEqual(ForecastingSession obj1, ForecastingSession obj2)
@@ -102,7 +121,6 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
             return AreEqual(obj1.Init, obj2.Init)
                         && Observations.ObjectMother.AreEqual(obj1.Observations, obj2.Observations)
-                        && Equals(obj1.Steps, obj2.Steps)
                         && string.Equals(obj1.Version, obj2.Version, StringComparison.InvariantCulture);
 
         }
@@ -114,5 +132,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 01.03.2023
 */

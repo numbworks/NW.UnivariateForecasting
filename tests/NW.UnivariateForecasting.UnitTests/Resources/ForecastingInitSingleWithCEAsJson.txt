@@ -9,5 +9,6 @@
     632.94
   ],
   "Coefficient": 0.5,
-  "Error": 0.01
+  "Error": 0.01,
+  "Steps": 1
 }

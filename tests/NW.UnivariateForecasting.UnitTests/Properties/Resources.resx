@@ -121,19 +121,22 @@
   <data name="ForecastingInitBareMinimumAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\forecastinginitbareminimumasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="ForecastingInitWithInitCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\forecastinginitwithinitceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ForecastingInitDoubleWithCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastinginitdoublewithceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ForecastingInitWithoutInitCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\forecastinginitwithoutinitceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ForecastingInitSingleWithCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastinginitsinglewithceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ForecastingSessionMultipleAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\forecastingsessionmultipleasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ForecastingInitSingleWithoutCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastinginitsinglewithoutceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ForecastingSessionSingleWithInitCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\forecastingsessionsinglewithinitceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ForecastingSessionDoubleWithCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastingsessiondoublewithceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ForecastingSessionSingleWithoutInitCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\forecastingsessionsinglewithoutinitceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ForecastingSessionSingleWithCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastingsessionsinglewithceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ForecastingSessionSingleWithoutCEAsJson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\forecastingsessionsinglewithoutceasjson.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

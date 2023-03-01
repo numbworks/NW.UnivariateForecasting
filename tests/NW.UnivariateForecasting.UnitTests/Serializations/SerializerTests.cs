@@ -57,12 +57,12 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
-        public void Serialize_ShouldReturnExpectedString_WhenForecastingInitWithInitCE()
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingInitWithCE()
         {
 
             // Arrange
-            ForecastingInit obj = Forecasts.ObjectMother.ForecastingInit_WithInitCE;
-            string expected = Forecasts.ObjectMother.ForecastingInitWithInitCEAsJson_Content;
+            ForecastingInit obj = Forecasts.ObjectMother.ForecastingInit_SingleWithCE;
+            string expected = Forecasts.ObjectMother.ForecastingInitSingleWithCEAsJson_Content;
 
             // Act
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
@@ -73,12 +73,12 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void Serialize_ShouldReturnExpectedString_WhenForecastingInitWithoutInitCE()
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingInitWithoutCE()
         {
 
             // Arrange
-            ForecastingInit obj = Forecasts.ObjectMother.ForecastingInit_WithoutInitCE;
-            string expected = Forecasts.ObjectMother.ForecastingInitWithoutInitCEAsJson_Content;
+            ForecastingInit obj = Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE;
+            string expected = Forecasts.ObjectMother.ForecastingInitSingleWithoutCEAsJson_Content;
 
             // Act
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
@@ -105,12 +105,12 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithInitCE()
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithCE()
         {
 
             // Arrange
-            ForecastingSession obj = Forecasts.ObjectMother.ForecastingSession_SingleWithInitCE;
-            string expected = Forecasts.ObjectMother.ForecastingSessionSingleWithInitCEAsJson_Content;
+            ForecastingSession obj = Forecasts.ObjectMother.ForecastingSession_SingleWithCE;
+            string expected = Forecasts.ObjectMother.ForecastingSessionSingleWithCEAsJson_Content;
 
             // Act
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
@@ -121,18 +121,17 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithoutInitCE()
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionSingleWithoutCE()
         {
 
             // Arrange
             ForecastingSession obj = new ForecastingSession(
-                    init: Forecasts.ObjectMother.ForecastingInit_WithoutInitCE,
+                    init: Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE,
                     observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
-                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
                     version: Forecasts.ObjectMother.ForecastingSession_Version
                 );
 
-            string expected = Properties.Resources.ForecastingSessionSingleWithoutInitCEAsJson;
+            string expected = Properties.Resources.ForecastingSessionSingleWithoutCEAsJson;
 
             // Act
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
@@ -143,18 +142,17 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionMultiple()
+        public void Serialize_ShouldReturnExpectedString_WhenForecastingSessionDoubleWithCE()
         {
 
             // Arrange
             ForecastingSession obj = new ForecastingSession(
-                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    init: Forecasts.ObjectMother.ForecastingInit_DoubleWithCE,
                     observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
-                    steps: Forecasts.ObjectMother.ForecastingSession_Multiple_Steps,
                     version: Forecasts.ObjectMother.ForecastingSession_Version
                 );
 
-            string expected = Properties.Resources.ForecastingSessionMultipleAsJson;
+            string expected = Properties.Resources.ForecastingSessionDoubleWithCEAsJson;
 
             // Act
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
@@ -179,12 +177,12 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitWithInitCE()
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitWithCE()
         {
 
             // Arrange
-            string json = Forecasts.ObjectMother.ForecastingInitWithInitCEAsJson_Content;
-            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_WithInitCE;
+            string json = Forecasts.ObjectMother.ForecastingInitSingleWithCEAsJson_Content;
+            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_SingleWithCE;
 
             // Act
             ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
@@ -197,12 +195,12 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitWithoutInitCE()
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingInitWithoutCE()
         {
 
             // Arrange
-            string json = Forecasts.ObjectMother.ForecastingInitWithoutInitCEAsJson_Content;
-            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_WithoutInitCE;
+            string json = Forecasts.ObjectMother.ForecastingInitSingleWithoutCEAsJson_Content;
+            ForecastingInit expected = Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE;
 
             // Act
             ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
@@ -233,16 +231,15 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleWithInitCE()
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleWithCE()
         {
 
             // Arrange
-            string json = Properties.Resources.ForecastingSessionSingleWithInitCEAsJson;
+            string json = Properties.Resources.ForecastingSessionSingleWithCEAsJson;
 
             ForecastingSession expected = new ForecastingSession(
-                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    init: Forecasts.ObjectMother.ForecastingInit_SingleWithCE,
                     observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
                     version: Forecasts.ObjectMother.ForecastingSession_Version
                 );
 
@@ -257,16 +254,15 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleWithoutInitCE()
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionSingleWithoutCE()
         {
 
             // Arrange
-            string json = Properties.Resources.ForecastingSessionSingleWithoutInitCEAsJson;
+            string json = Properties.Resources.ForecastingSessionSingleWithoutCEAsJson;
 
             ForecastingSession expected = new ForecastingSession(
-                    init: Forecasts.ObjectMother.ForecastingInit_WithoutInitCE,
+                    init: Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE,
                     observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
-                    steps: Forecasts.ObjectMother.ForecastingSession_Single_Steps,
                     version: Forecasts.ObjectMother.ForecastingSession_Version
                 );
 
@@ -281,16 +277,15 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
         }
 
         [Test]
-        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionMultiple()
+        public void DeserializeOrDefault_ShouldReturnExpectedObject_WhenForecastingSessionDoubleWithCE()
         {
 
             // Arrange
-            string json = Properties.Resources.ForecastingSessionMultipleAsJson;
+            string json = Properties.Resources.ForecastingSessionDoubleWithCEAsJson;
 
             ForecastingSession expected = new ForecastingSession(
-                    init: Forecasts.ObjectMother.ForecastingInit_WithInitCE,
+                    init: Forecasts.ObjectMother.ForecastingInit_DoubleWithCE,
                     observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
-                    steps: Forecasts.ObjectMother.ForecastingSession_Multiple_Steps,
                     version: Forecasts.ObjectMother.ForecastingSession_Version
                 );
 
@@ -329,5 +324,5 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 01.03.2023
 */

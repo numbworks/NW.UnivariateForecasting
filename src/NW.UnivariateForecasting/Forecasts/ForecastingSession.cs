@@ -17,27 +17,23 @@ namespace NW.UnivariateForecasting.Forecasts
 
         public ForecastingInit Init { get; }
         public List<Observation> Observations { get; }
-        public uint Steps { get; }
         public string Version { get; }
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a <see cref="ForecastingSession"/> instance using default parameters.</summary>
-        /// <exception cref="ArgumentException"></exception>
+        /// <summary>Initializes a <see cref="ForecastingSession"/> instance.</summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public ForecastingSession(ForecastingInit init, List<Observation> observations, uint steps, string version) 
+        public ForecastingSession(ForecastingInit init, List<Observation> observations, string version) 
         {
 
             Validator.ValidateObject(init, nameof(init));
             Validator.ValidateList(observations, nameof(observations));
-            Validator.ThrowIfLessThanOne(steps, nameof(steps));
             Validator.ValidateStringNullOrWhiteSpace(version, nameof(version));
 
             Init = init;
             Observations = observations;
-            Steps = steps;
             Version = version;
 
         }
@@ -57,5 +53,5 @@ namespace NW.UnivariateForecasting.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 01.03.2023
 */

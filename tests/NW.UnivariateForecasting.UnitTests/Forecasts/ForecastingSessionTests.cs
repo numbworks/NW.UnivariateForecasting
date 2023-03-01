@@ -20,7 +20,6 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     () => new ForecastingSession(
                                 init: null,
                                 observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                                steps: ObjectMother.ForecastingSession_Single_Steps,
                                 version: ObjectMother.ForecastingSession_Version
                         )
                 ),
@@ -31,9 +30,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             new TestCaseData(
                 new TestDelegate(
                     () => new ForecastingSession(
-                                init: ObjectMother.ForecastingInit_WithInitCE,
+                                init: ObjectMother.ForecastingInit_SingleWithCE,
                                 observations: null,
-                                steps: ObjectMother.ForecastingSession_Single_Steps,
                                 version: ObjectMother.ForecastingSession_Version
                         )
                 ),
@@ -44,28 +42,14 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             new TestCaseData(
                 new TestDelegate(
                     () => new ForecastingSession(
-                                init: ObjectMother.ForecastingInit_WithInitCE,
+                                init: ObjectMother.ForecastingInit_SingleWithCE,
                                 observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                                steps: 0,
-                                version: ObjectMother.ForecastingSession_Version
-                        )
-                ),
-                typeof(ArgumentException),
-                "'steps' can't be less than one."
-            ).SetArgDisplayNames($"{nameof(forecastingSessionExceptionTestCases)}_03"),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new ForecastingSession(
-                                init: ObjectMother.ForecastingInit_WithInitCE,
-                                observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                                steps: ObjectMother.ForecastingSession_Single_Steps,
                                 version: null
                         )
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("version").Message
-            ).SetArgDisplayNames($"{nameof(forecastingSessionExceptionTestCases)}_04")
+            ).SetArgDisplayNames($"{nameof(forecastingSessionExceptionTestCases)}_03")
 
         };
 
@@ -90,9 +74,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             // Act
             ForecastingSession actual
                 = new ForecastingSession(
-                        init: ObjectMother.ForecastingInit_WithInitCE,
+                        init: ObjectMother.ForecastingInit_SingleWithCE,
                         observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                        steps: ObjectMother.ForecastingSession_Single_Steps,
                         version: ObjectMother.ForecastingSession_Version
                     );
 
@@ -101,7 +84,6 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
             Assert.IsInstanceOf<ForecastingInit>(actual.Init);
             Assert.IsInstanceOf<List<Observation>>(actual.Observations);
-            Assert.IsInstanceOf<uint>(actual.Steps);
             Assert.IsInstanceOf<string>(actual.Version);
 
         }
@@ -117,5 +99,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 01.03.2023
 */

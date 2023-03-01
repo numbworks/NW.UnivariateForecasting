@@ -37,7 +37,8 @@ namespace NW.UnivariateForecasting.Forecasts
                     observationName: forecastingInit.ObservationName,
                     values: expandedValues,
                     coefficient: forecastingInit.Coefficient,
-                    error: forecastingInit.Error
+                    error: forecastingInit.Error,
+                    steps: forecastingInit.Steps
                 );
 
             return expandedInit;
@@ -55,5 +56,5 @@ namespace NW.UnivariateForecasting.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 01.03.2023
 */
