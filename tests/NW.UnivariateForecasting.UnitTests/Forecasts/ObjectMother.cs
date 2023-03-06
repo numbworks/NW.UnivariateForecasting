@@ -90,6 +90,12 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                 version: ForecastingSession_Version
             );
 
+        internal static ForecastingSession ForecastingSession_BareMinimum = new ForecastingSession(
+                init: ForecastingInit_BareMinimum,
+                observations: Observations.ObjectMother.Observations_BareMinimum,
+                version: ForecastingSession_Version
+            );
+
         #endregion
 
         #region Methods

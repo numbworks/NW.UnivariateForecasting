@@ -410,6 +410,69 @@ namespace NW.UnivariateForecasting.UnitTests
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
+
+        [Test]
+        public void Forecast_ShouldReturnExpectedSession_WhenBareMinimum()
+        {
+
+            // Arrange
+            List<string> actualLogMessages = new List<string>();
+            Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
+
+            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+
+            UnivariateForecastingComponents components
+                = new UnivariateForecastingComponents(
+                        slidingWindowManager: new SlidingWindowManager(),
+                        observationManager: new ObservationManager(),
+                        fileManager: new FileManager(),
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        loggingAction: fakeLoggingAction,
+                        loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                        asciiBannerManager: new AsciiBannerManager(),
+                        filenameFactory: new FilenameFactory(),
+                        nowFunction: FakeNowFunction,
+                        forecastingInitManager: new ForecastingInitManager(),
+                        serializerFactory: new SerializerFactory()
+                    );
+
+            UnivariateForecaster univariateForecaster
+                = new UnivariateForecaster(
+                        new UnivariateForecastingSettings(),
+                        components);
+
+            ForecastingInit init = Forecasts.ObjectMother.ForecastingInit_BareMinimum;
+            ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_BareMinimum;
+
+            List<string> expectedLogMessages = new List<string>()
+            {
+
+                UnivariateForecasting.Forecasts.MessageCollection.AttemptingToForecast,
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedErrorIs(init.Error),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedStepsAre(init.Steps),
+                UnivariateForecasting.Forecasts.MessageCollection.ProcessingStepNr(1),
+
+                UnivariateForecasting.Forecasts.MessageCollection.ObservationCoefficientIs(expected.Observations[0].Coefficient),
+                UnivariateForecasting.Forecasts.MessageCollection.ObservationErrorIs(expected.Observations[0].Error),
+                UnivariateForecasting.Forecasts.MessageCollection.ObservationNextValueIs(expected.Observations[0].NextValue),
+
+                UnivariateForecasting.Forecasts.MessageCollection.ForecastSuccessfullyCompleted
+
+            };
+
+            // Act
+            ForecastingSession actual = univariateForecaster.Forecast(init: init);
+
+            // Assert
+            Assert.IsTrue(
+                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual));
+            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+
+        }
+
         [Test]
         public void Forecast_ShouldReturnExpectedSession_WhenSingleWithCE()
         {

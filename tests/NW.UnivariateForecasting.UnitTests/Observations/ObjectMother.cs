@@ -36,6 +36,14 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         };
 
+        internal static Observation Observation_BareMinimum = new Observation(coefficient: 0.1, error: 0, nextValue: 61.53);
+        internal static List<Observation> Observations_BareMinimum = new List<Observation>()
+        {
+
+            Observation_BareMinimum
+
+        };
+
         #endregion
 
         #region Methods
