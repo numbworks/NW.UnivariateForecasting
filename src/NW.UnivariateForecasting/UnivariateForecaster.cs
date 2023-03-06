@@ -98,11 +98,11 @@ namespace NW.UnivariateForecasting
 
                     nextInit = _components.ForecastingInitManager.ExpandValues(nextInit, nextValue);
                     Observation nextObservation = CreateObservation(nextInit);
-                    nextValue = observation.NextValue;
+                    nextValue = nextObservation.NextValue;
 
                     _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(nextValue));
 
-                    observations.Add(observation);
+                    observations.Add(nextObservation);
 
                 }
 

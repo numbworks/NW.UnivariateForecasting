@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         internal static Observation Observation01_WithoutInitCE = new Observation(coefficient: 0.82, error: 0.22, nextValue: 519.23);
         internal static string Observation01_WithoutInitCE_AsString = $"[ Coefficient: '{0.82}', Error: '{0.22}', NextValue: '{519.23}' ]";
 
-        internal static Observation Observation02_WithInitCE = new Observation(coefficient: 0.5, error: 0.01, nextValue: 613.11);
+        internal static Observation Observation02_WithInitCE = new Observation(coefficient: 0.5, error: 0.01, nextValue: 158.25);
 
         internal static List<Observation> Observations_Containing01_WithInitCE = new List<Observation>()
         {
@@ -58,5 +58,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 06.03.2023
 */

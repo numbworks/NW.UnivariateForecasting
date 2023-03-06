@@ -22,7 +22,7 @@
     {
       "Coefficient": 0.5,
       "Error": 0.01,
-      "NextValue": 613.11
+      "NextValue": 158.25
     }
   ],
   "Version": "3.0.0.0"

@@ -132,5 +132,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 01.03.2023
+    Last Update: 06.03.2023
 */
