@@ -306,10 +306,10 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
             new TestCaseData(
                 new TestDelegate(
                         () => Validator.ThrowIfModuloIsNotZero<Exception>(
-                                5,
-                                ObjectMother.VariableName_N1,
-                                2,
-                                ObjectMother.VariableName_N2)
+                                value1: 5,
+                                variableName1: ObjectMother.VariableName_N1,
+                                value2: 2,
+                                variableName2: ObjectMother.VariableName_N2)
                     ),
                 typeof(Exception),
                 MessageCollection.DividingMustReturnWholeNumber(ObjectMother.VariableName_N1, ObjectMother.VariableName_N2)
@@ -438,6 +438,17 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
             => Method_ShouldDoNothing_WhenProperArgument(
                     new Action[] {
                         () => Validator.ThrowIfLessThanOne(ObjectMother.Value, nameof(ObjectMother.Value))
+                    });
+
+        [Test]
+        public void ThrowIfModuloIsNotZero_ShouldDoNothing_WhenProperArgument()
+            => Method_ShouldDoNothing_WhenProperArgument(
+                    new Action[] {
+                        () => Validator.ThrowIfModuloIsNotZero(
+                                value1: 4,
+                                variableName1: ObjectMother.VariableName_N1,
+                                value2: 1,
+                                variableName2: ObjectMother.VariableName_N2)
                     });
 
         #endregion
