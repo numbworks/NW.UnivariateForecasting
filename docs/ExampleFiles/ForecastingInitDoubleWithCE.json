@@ -8,6 +8,7 @@
     612.27,
     632.94
   ],
-  "Coefficient": null,
-  "Error": null
+  "Coefficient": 0.5,
+  "Error": 0.01,
+  "Steps": 2
 }

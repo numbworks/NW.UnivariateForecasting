@@ -9,16 +9,21 @@
       612.27,
       632.94
     ],
-    "Coefficient": null,
-    "Error": null
+    "Coefficient": 0.5,
+    "Error": 0.01,
+    "Steps": 2
   },
   "Observations": [
     {
-      "Coefficient": 0.82,
-      "Error": 0.22,
-      "NextValue": 519.23
+      "Coefficient": 0.5,
+      "Error": 0.01,
+      "NextValue": 316.48
+    },
+    {
+      "Coefficient": 0.5,
+      "Error": 0.01,
+      "NextValue": 613.11
     }
   ],
-  "Steps": 1,
   "Version": "3.0.0.0"
 }

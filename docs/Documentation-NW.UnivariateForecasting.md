@@ -433,11 +433,12 @@ The library is able to load and save different key-objects using JSON format.
 Here an example of each JSON file produced by the library:
 
 1. [ForecastingInitBareMinimum.json](ExampleFiles/ForecastingInitBareMinimum.json)
-2. [ForecastingInitWithInitCE.json](ExampleFiles/ForecastingInitWithInitCE.json)
-3. [ForecastingInitWithoutInitCE.json](ExampleFiles/ForecastingInitWithoutInitCE.json)
-4. [ForecastingSessionMultiple.json](ExampleFiles/ForecastingSessionMultiple.json)
-5. [ForecastingSessionSingleWithInitCE.json](ExampleFiles/ForecastingSessionSingleWithInitCE.json)
-6. [ForecastingSessionSingleWithoutInitCE.json](ExampleFiles/ForecastingSessionSingleWithoutInitCE.json)
+2. [ForecastingInitSingleWithCE.json](ExampleFiles/ForecastingInitSingleWithCE.json)
+3. [ForecastingInitSingleWithoutCE.json](ExampleFiles/ForecastingInitSingleWithoutCE.json)
+4. [ForecastingInitDoubleWithCE.json](ExampleFiles/ForecastingInitDoubleWithCE.json)
+5. [ForecastingSessionSingleWithCE.json](ExampleFiles/ForecastingSessionSingleWithCE.json)
+6. [ForecastingSessionSingleWithoutCE.json](ExampleFiles/ForecastingSessionSingleWithoutCE.json)
+7. [ForecastingSessionDoubleWithCE.json](ExampleFiles/ForecastingSessionDoubleWithCE.json)
 
 ## Markdown Toolset
 

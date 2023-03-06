@@ -10,20 +10,15 @@
       632.94
     ],
     "Coefficient": 0.5,
-    "Error": 0.01
+    "Error": 0.01,
+    "Steps": 1
   },
   "Observations": [
     {
       "Coefficient": 0.5,
       "Error": 0.01,
       "NextValue": 316.48
-    },
-    {
-      "Coefficient": 0.5,
-      "Error": 0.01,
-      "NextValue": 613.11
     }
   ],
-  "Steps": 2,
   "Version": "3.0.0.0"
 }
