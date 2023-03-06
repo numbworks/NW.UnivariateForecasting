@@ -300,6 +300,22 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                 ).SetArgDisplayNames($"{nameof(throwIfFirstIsGreaterOrEqualExceptionTestCases)}_02")
 
         };
+        private static TestCaseData[] throwIfModuloIsNotZeroExceptionTestCases =
+        {
+
+            new TestCaseData(
+                new TestDelegate(
+                        () => Validator.ThrowIfModuloIsNotZero<Exception>(
+                                5,
+                                ObjectMother.VariableName_N1,
+                                2,
+                                ObjectMother.VariableName_N2)
+                    ),
+                typeof(Exception),
+                MessageCollection.DividingMustReturnWholeNumber(ObjectMother.VariableName_N1, ObjectMother.VariableName_N2)
+                ).SetArgDisplayNames($"{nameof(throwIfModuloIsNotZeroExceptionTestCases)}_01")
+
+        };
 
         #endregion
 
@@ -352,6 +368,12 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
         public void ThrowIfFirstIsGreaterOrEqual_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
+        [TestCaseSource(nameof(throwIfModuloIsNotZeroExceptionTestCases))]
+        public void ThrowIfModuloIsNotZero_ShouldThrowACertainException_WhenUnproperArguments
+            (TestDelegate del, Type expectedType, string expectedMessage)
+                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+
 
         [Test]
         public void ValidateLength_ShouldDoNothing_WhenProperArgument()
@@ -454,5 +476,5 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.11.2022
+    Last Update: 06.03.2023
 */
