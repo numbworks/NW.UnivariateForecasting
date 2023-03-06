@@ -146,6 +146,27 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         }
 
+        [Test]
+        public void DivideXByY_ShouldUseYAsDenominator_WhenYEqualsToZero()
+        {
+
+            // Arrange
+            SlidingWindowItem slidingWindowItem = new SlidingWindowItem(id: 1, X_Actual: 583.23, Y_Forecasted: 0);
+            double denominator = UnivariateForecastingSettings.DefaultForecastingDenominator;
+            double expected = 583.23 / denominator;
+
+            // Act
+            double actual = Utilities.ObjectMother.CallPrivateMethod<ObservationManager, double>(
+                    obj: new ObservationManager(),
+                    methodName: "DivideXByY",
+                    args: new object[] { slidingWindowItem, denominator }
+                );
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
         #endregion
 
         #region TearDown
@@ -156,5 +177,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 06.03.2023
 */

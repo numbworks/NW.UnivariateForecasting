@@ -13,6 +13,14 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #region Methods
 
+        public static TReturn CallPrivateMethod<TClass, TReturn>(TClass obj, string methodName, object[] args)
+        {
+
+            Type type = typeof(TClass);
+
+            return (TReturn)type.GetTypeInfo().GetDeclaredMethod(methodName).Invoke(obj, args);
+
+        }
         internal static TReturn CallPrivateGenericMethod<TClass, TReturn>(TClass obj, string methodName, object[] args, Type methodType)
         {
 
