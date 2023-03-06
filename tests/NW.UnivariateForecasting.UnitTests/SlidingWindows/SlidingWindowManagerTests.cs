@@ -28,7 +28,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowManager(
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
@@ -88,7 +88,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             FakeLogger fakeLogger = new FakeLogger();
             SlidingWindowManager slidingWindowManager
                 = new SlidingWindowManager(
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                         loggingAction: (message) => fakeLogger.Log(message)
                     );
 

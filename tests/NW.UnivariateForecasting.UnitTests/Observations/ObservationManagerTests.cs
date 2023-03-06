@@ -20,7 +20,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: null, 
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
@@ -42,7 +42,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
@@ -116,7 +116,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             ObservationManager observationManager 
                 = new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                             loggingAction: (message) => fakeLogger.Log(message)
                         );
 

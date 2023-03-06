@@ -25,7 +25,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: null,
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -45,7 +45,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: null,
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -65,7 +65,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: null,
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -105,7 +105,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: null,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -125,7 +125,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: null,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -145,7 +145,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: null,
@@ -165,7 +165,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -185,7 +185,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -205,7 +205,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -225,7 +225,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
                                     loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
                                     loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
@@ -276,10 +276,73 @@ namespace NW.UnivariateForecasting.UnitTests
             Assert.IsInstanceOf<IForecastingInitManager>(actual.ForecastingInitManager);
             Assert.IsInstanceOf<ISerializerFactory>(actual.SerializerFactory);
 
-            Assert.IsInstanceOf<Func<double, double>>(UnivariateForecastingComponents.DefaultRoundingFunction);
+            Assert.IsInstanceOf<Func<double, uint, double>>(UnivariateForecastingComponents.DefaultRoundingFunctionXDigits);
+            Assert.IsInstanceOf<Func<double, double>>(UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits);
+            Assert.IsInstanceOf<Func<double, double>>(UnivariateForecastingComponents.DefaultRoundingFunctionDoNothing);
+
             Assert.IsInstanceOf<Action<string>>(UnivariateForecastingComponents.DefaultLoggingAction);
             Assert.IsInstanceOf<Action<string>>(UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner);
             Assert.IsInstanceOf<Func<DateTime>>(UnivariateForecastingComponents.DefaultNowFunction);
+
+        }
+
+        [TestCase(0.577777777777788D, (uint)0, 1)]
+        [TestCase(0.577777777777788D, (uint)1, 0.6)]
+        [TestCase(0.577777777777788D, (uint)2, 0.58)]
+        [TestCase(0.577777777777788D, (uint)3, 0.578)]
+        [TestCase(0.577777777777788D, (uint)4, 0.5778)]
+        [TestCase(0.577777777777788D, (uint)5, 0.57778)]
+        [TestCase(0.577777777777788D, (uint)6, 0.577778)]
+        [TestCase(0.577777777777788D, (uint)7, 0.5777778)]
+        [TestCase(0.577777777777788D, (uint)8, 0.57777778)]
+        [TestCase(0.577777777777788D, (uint)9, 0.577777778)]
+        [TestCase(0.577777777777788D, (uint)10, 0.5777777778)]
+        [TestCase(0.577777777777788D, (uint)11, 0.57777777778)]
+        [TestCase(0.577777777777788D, (uint)12, 0.577777777778)]
+        [TestCase(0.577777777777788D, (uint)13, 0.5777777777778)]
+        [TestCase(0.577777777777788D, (uint)14, 0.57777777777779)]
+        [TestCase(0.577777777777788D, (uint)15, 0.577777777777788)]
+        public void DefaultRoundingFunctionXDigits_ShouldReturnExpectedValue_WhenInvoked(double x, uint digits, double expected)
+        {
+
+            // Arrange
+            // Act
+            double actual = UnivariateForecastingComponents.DefaultRoundingFunctionXDigits(x, digits);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [Test]
+        public void DefaultRoundingFunctionTwoDigits_ShouldReturnExpectedValue_WhenInvoked()
+        {
+
+            // Arrange
+            double x = 0.577777777777788D;
+            double expected = 0.58;
+
+            // Act
+            double actual = UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits(x);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [Test]
+        public void DefaultRoundingFunctionDoNothing_ShouldReturnExpectedValue_WhenInvoked()
+        {
+
+            // Arrange
+            double x = 0.577777777777788D;
+            double expected = 0.577777777777788;
+
+            // Act
+            double actual = UnivariateForecastingComponents.DefaultRoundingFunctionDoNothing(x);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
 
         }
 
@@ -293,5 +356,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 06.03.2023
 */

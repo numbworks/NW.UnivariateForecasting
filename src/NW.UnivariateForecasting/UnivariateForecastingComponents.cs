@@ -19,8 +19,15 @@ namespace NW.UnivariateForecasting
 
         #region Properties
 
-        public static Func<double, double> DefaultRoundingFunction { get; }
-            = new Func<double, double>(x => Math.Round(x, 2, MidpointRounding.AwayFromZero));
+        /// <summary>The maximum amount of digits is 15.</summary>
+        public static Func<double, uint, double> DefaultRoundingFunctionXDigits { get; }
+            = (x, digits) => Math.Round(x, (int)digits, MidpointRounding.AwayFromZero);
+
+        public static Func<double, double> DefaultRoundingFunctionTwoDigits { get; }
+            = (x) => DefaultRoundingFunctionXDigits(x, 2);
+        public static Func<double, double> DefaultRoundingFunctionDoNothing { get; }
+            = (x) => x;
+
         public static Action<string> DefaultLoggingAction { get; }
             = (message) => Console.WriteLine(message);
         public static Action<string> DefaultLoggingActionAsciiBanner { get; }
@@ -96,13 +103,14 @@ namespace NW.UnivariateForecasting
 
         /// <summary>
         /// Initializes an instance of <see cref="UnivariateForecastingComponents"/> using default values.
+        /// <para>The default rounding function is: <see cref="DefaultRoundingFunctionTwoDigits"/>.</para>
         /// </summary>
         public UnivariateForecastingComponents()
             : this(
                   new SlidingWindowManager(),
                   new ObservationManager(),
                   new FileManager(),
-                  DefaultRoundingFunction,
+                  DefaultRoundingFunctionTwoDigits,
                   DefaultLoggingAction,
                   DefaultLoggingActionAsciiBanner,
                   new AsciiBannerManager(),
@@ -122,5 +130,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 06.03.2023
 */

@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
         #region Properties
 
         public static Func<double, double> DefaultRoundingFunction { get; }
-            = UnivariateForecastingComponents.DefaultRoundingFunction;
+            = UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits;
         public static Action<string> DefaultLoggingAction { get; }
             = UnivariateForecastingComponents.DefaultLoggingAction;
 
