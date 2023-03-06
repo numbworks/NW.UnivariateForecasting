@@ -37,6 +37,22 @@ namespace NW.UnivariateForecasting.UnitTests
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
+        [Test]
+        public void UnivariateForecastingSettings_ShouldCreateAnInstanceOfThisType_WhenProperArgument()
+        {
+
+            // Arrange
+            // Act
+            UnivariateForecastingSettings actual = new UnivariateForecastingSettings();
+
+            // Assert
+            Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
+            Assert.IsInstanceOf<double>(actual.ForecastingDenominator);
+
+            Assert.IsInstanceOf<double>(UnivariateForecastingSettings.DefaultForecastingDenominator);
+
+        }
+
         #endregion
 
         #region TearDown
@@ -47,5 +63,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 06.03.2023
 */
