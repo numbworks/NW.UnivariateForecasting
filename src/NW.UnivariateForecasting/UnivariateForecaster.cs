@@ -68,6 +68,7 @@ namespace NW.UnivariateForecasting
         {
 
             Validator.ValidateObject(init, nameof(init));
+            Validator.ThrowIfLessThan(init.Values.Count, 2, nameof(init.Values));
 
             _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
@@ -227,5 +228,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 01.03.2023
+    Last Update: 06.03.2023
 */

@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                     ),
                 typeof(Exception),
                 new Exception(
-                        MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_Length)).Message
+                        MessageCollection.VariableCantBeLessThan(ObjectMother.VariableName_Length, 1)).Message
                 ).SetArgDisplayNames($"{nameof(validateLengthExceptionTestCases)}_01"),
 
             // ValidateLength
@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                     ),
                 typeof(ArgumentException),
                 new ArgumentException(
-                        MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_Length)).Message
+                        MessageCollection.VariableCantBeLessThan(ObjectMother.VariableName_Length, 1)).Message
                 ).SetArgDisplayNames($"{nameof(validateLengthExceptionTestCases)}_02")
 
         };
@@ -215,7 +215,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                         () => Validator.ThrowIfLessThanOne<Exception>(0, ObjectMother.VariableName_N1)
                     ),
                 typeof(Exception),
-                MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_N1)
+                MessageCollection.VariableCantBeLessThan(ObjectMother.VariableName_N1, 1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_01"),
 
             // ThrowIfLessThanOne
@@ -224,7 +224,7 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
                         () => Validator.ThrowIfLessThanOne(0, ObjectMother.VariableName_N1)
                     ),
                 typeof(ArgumentException),
-                MessageCollection.VariableCantBeLessThanOne(ObjectMother.VariableName_N1)
+                MessageCollection.VariableCantBeLessThan(ObjectMother.VariableName_N1, 1)
                 ).SetArgDisplayNames($"{nameof(throwIfLessThanOneExceptionTestCases)}_02")
 
         };

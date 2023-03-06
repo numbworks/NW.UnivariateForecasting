@@ -50,7 +50,21 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new UnivariateForecaster().Forecast(init: null)),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("init").Message
-                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_01")
+                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_01"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecaster().Forecast(
+                            init: new ForecastingInit(
+                                    observationName: null, 
+                                    values: new List<double>() { 58.5 },
+                                    coefficient: null,
+                                    error: null,
+                                    steps: 1
+                                ))),
+                typeof(ArgumentException),
+                "'Values' can't be less than '2'."
+                ).SetArgDisplayNames($"{nameof(forecastExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] loadInitOrDefaultExceptionTestCases =

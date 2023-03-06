@@ -39,7 +39,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         )
                 ),
                 typeof(ArgumentException),
-                "'steps' can't be less than one."
+                "'steps' can't be less than '1'."
             ).SetArgDisplayNames($"{nameof(forecastingInitExceptionTestCases)}_02")
 
         };
@@ -146,5 +146,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 01.03.2023
+    Last Update: 06.03.2023
 */

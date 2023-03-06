@@ -22,7 +22,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 >= value2)
-                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(variableName1, variableName2));
+                throw CreateException<TException>(MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(variableName1, variableName2));
 
         }
 
@@ -35,7 +35,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 > value2)
-                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterThanSecondValue(variableName1, variableName2));
+                throw CreateException<TException>(MessageCollection.FirstValueIsGreaterThanSecondValue(variableName1, variableName2));
 
         }
 
@@ -51,14 +51,28 @@ namespace NW.UnivariateForecasting.Validation
         public static void ThrowIfLessThanOne<TException>(uint value, string variableName) where TException : Exception
         {
 
-            if (value < 1)
-                throw CreateException<TException>(Validation.MessageCollection.VariableCantBeLessThanOne(variableName));
+            int threshold = 1;
+            if (value < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThan(variableName, threshold));
 
         }
 
         /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name=" value"/> is less than one.</summary>
         public static void ThrowIfLessThanOne(uint value, string variableName)
             => ThrowIfLessThanOne<ArgumentException>(value, variableName);
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan<TException>(int value, int threshold, string variableName) where TException : Exception
+        {
+
+            if (value < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThan(variableName, threshold));
+
+        }
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan(int value, int threshold, string variableName)
+            => ThrowIfLessThan<ArgumentException>(value, threshold, variableName);
 
         #endregion
 
@@ -69,7 +83,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 % value2 != 0)
-                throw CreateException<TException>(Validation.MessageCollection.DividingMustReturnWholeNumber(variableName1, variableName2));
+                throw CreateException<TException>(MessageCollection.DividingMustReturnWholeNumber(variableName1, variableName2));
 
         }
 
@@ -104,7 +118,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (arr.Length == 0)
-                throw CreateException<TException>(Validation.MessageCollection.VariableContainsZeroItems(variableName));
+                throw CreateException<TException>(MessageCollection.VariableContainsZeroItems(variableName));
 
         }
 
@@ -133,8 +147,9 @@ namespace NW.UnivariateForecasting.Validation
         public static void ValidateLength<TException>(uint length) where TException : Exception
         {
 
-            if (length < 1)
-                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanOne(nameof(length)));
+            int threshold = 1;
+            if (length < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThan(nameof(length), threshold));
 
         }
 
@@ -227,5 +242,5 @@ namespace NW.UnivariateForecasting.Validation
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.02.2023
+    Last Update: 06.03.2023
 */

@@ -17,7 +17,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 new TestDelegate(
                     () => new SlidingWindowItem(id: 0, X_Actual: 58.50, Y_Forecasted: 615.26)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanOne("id")
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThan("id", 1)
                 ).SetArgDisplayNames($"{nameof(slidingWindowItemExceptionTestCases)}_01")
 
         };
@@ -83,5 +83,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 06.03.2023
 */
