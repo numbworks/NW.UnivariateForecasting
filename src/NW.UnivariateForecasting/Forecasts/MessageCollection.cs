@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting.Forecasts
         #region Properties
 
         public static string AttemptingToForecast = 
-            $"Attempting to perform a forecasting task out of the provided {typeof(ForecastingInit)}...";
+            $"Attempting to perform a forecasting task out of the provided {nameof(ForecastingInit)}...";
 
         public static Func<string, string> ProvidedObservationNameIs = 
             (observationName) => $"The provided observation name is: '{observationName}'.";
