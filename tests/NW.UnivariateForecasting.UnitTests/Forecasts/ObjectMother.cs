@@ -78,6 +78,12 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                 version: ForecastingSession_Version
             );
 
+        internal static ForecastingSession ForecastingSession_SingleWithoutCE = new ForecastingSession(
+                init: ForecastingInit_SingleWithoutCE,
+                observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
+                version: ForecastingSession_Version
+            );
+
         internal static ForecastingSession ForecastingSession_DoubleWithCE = new ForecastingSession(
                 init: ForecastingInit_DoubleWithCE,
                 observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
