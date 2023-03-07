@@ -92,6 +92,17 @@ namespace NW.UnivariateForecastingClient.Shared
             return Success;
 
         }
+        public int RunSessionForecast(ForecastData forecastData)
+        {
+
+            Validator.ValidateObject(forecastData, nameof(forecastData));
+
+            // ...
+
+            throw new Exception();
+
+        }
+
 
         #endregion
 
@@ -126,6 +137,21 @@ namespace NW.UnivariateForecastingClient.Shared
 
         }
 
+        private ForecastData Defaultize(ForecastData forecastData)
+        {
+
+            ForecastData updated = new ForecastData(
+                    init: forecastData.Init,
+                    folderPath: forecastData.FolderPath, // ?? UnivariateForecastingSettings.DefaultFolderPath,
+                    saveSession: forecastData.SaveSession,
+                    roundingDigits: forecastData.RoundingDigits ?? 15, // Assign it to a static property
+                    forecastingDenominator: forecastData.ForecastingDenominator ?? UnivariateForecastingSettings.DefaultForecastingDenominator
+                );
+
+            return updated;
+
+        }
+
         #endregion
 
     }
@@ -133,5 +159,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 07.03.2023
 */
