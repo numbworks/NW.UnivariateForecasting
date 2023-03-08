@@ -16,7 +16,8 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new UnivariateForecastingSettings(
                                     forecastingDenominator: 0,
-                                    folderPath: UnivariateForecastingSettings.DefaultFolderPath
+                                    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                                    roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
                                     )
                 ),
                 typeof(ArgumentException),
@@ -29,11 +30,23 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new UnivariateForecastingSettings(
                                     forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
-                                    folderPath: null
+                                    folderPath: null,
+                                    roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
                                     )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("folderPath").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_02")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_02"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecastingSettings(
+                                    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                                    roundingDigits: 16
+                                    )),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_03")
 
         };
 
@@ -61,9 +74,11 @@ namespace NW.UnivariateForecasting.UnitTests
             Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
             Assert.IsInstanceOf<double>(actual.ForecastingDenominator);
             Assert.IsInstanceOf<string>(actual.FolderPath);
+            Assert.IsInstanceOf<uint>(actual.RoundingDigits);
 
             Assert.IsInstanceOf<double>(UnivariateForecastingSettings.DefaultForecastingDenominator);
             Assert.IsInstanceOf<string>(UnivariateForecastingSettings.DefaultFolderPath);
+            Assert.IsInstanceOf<uint>(UnivariateForecastingSettings.DefaultRoundingDigits);
 
         }
 
