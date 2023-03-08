@@ -86,6 +86,38 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
         }
 
+        [Test]
+        public void RunSessionClassify_ShouldReturnFailureAndLogException_WhenClassifyDataIsNull()
+        {
+
+            // Arrange
+            (List<string> messages, List<string> messagesAsciiBanner, UnivariateForecastingComponents fakeComponents) = CreateTuple();
+
+            LibraryBroker libraryBroker
+                = new LibraryBroker(
+                        componentsFactory: new FakeUnivariateForecastingComponentsFactory(fakeComponents),
+                        settingsFactory: new UnivariateForecastingSettingsFactory(),
+                        univariateForecasterFactory: new UnivariateForecasterFactory()
+                    );
+
+            // Act
+            int actual = libraryBroker.RunSessionForecast(null);
+
+            // Assert
+            Assert.AreEqual(LibraryBroker.Failure, actual);
+            Assert.AreEqual(
+                    expected: LibraryBroker.ErrorMessageFormatter(new ArgumentNullException("forecastData").Message),
+                    actual: messages[0]
+                    );
+            Assert.AreEqual(
+                    expected: LibraryBroker.SeparatorLine,
+                    actual: messagesAsciiBanner[0]
+                    );
+
+        }
+
+
+
         #endregion
 
         #region TearDown
