@@ -74,6 +74,19 @@ namespace NW.UnivariateForecasting.Validation
         public static void ThrowIfLessThan(int value, int threshold, string variableName)
             => ThrowIfLessThan<ArgumentException>(value, threshold, variableName);
 
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan<TException>(double value, double threshold, string variableName) where TException : Exception
+        {
+
+            if (value < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanDouble(variableName, threshold));
+
+        }
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan(double value, double threshold, string variableName)
+            => ThrowIfLessThan<ArgumentException>(value, threshold, variableName);
+
         #endregion
 
         #region ThrowIfModulo
@@ -242,5 +255,5 @@ namespace NW.UnivariateForecasting.Validation
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */

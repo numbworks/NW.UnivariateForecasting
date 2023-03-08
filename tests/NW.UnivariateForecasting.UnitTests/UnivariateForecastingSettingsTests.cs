@@ -1,5 +1,4 @@
 ﻿using System;
-using NW.UnivariateForecasting.Forecasts;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -21,9 +20,9 @@ namespace NW.UnivariateForecasting.UnitTests
                                     )
                 ),
                 typeof(ArgumentException),
-                MessageCollection.DenominatorCantBeLessThan(
-                                    "forecastingDenominator", 
-                                    UnivariateForecastingSettings.DefaultForecastingDenominator)
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
+                        "forecastingDenominator", 
+                        UnivariateForecastingSettings.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01"),
 
             new TestCaseData(
@@ -31,8 +30,7 @@ namespace NW.UnivariateForecasting.UnitTests
                     () => new UnivariateForecastingSettings(
                                     forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
                                     folderPath: null
-                                    )
-                ),
+                                    )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("folderPath").Message
                 ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_02")

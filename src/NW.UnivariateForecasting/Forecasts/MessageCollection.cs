@@ -38,9 +38,6 @@ namespace NW.UnivariateForecasting.Forecasts
         public static string ForecastSuccessfullyCompleted { get; } = 
             "The forecasting task has been successfully completed.";
 
-        public static Func<string, double, string> DenominatorCantBeLessThan { get; }
-            = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator}'.";
-
         public static Func<Type, IFileInfoAdapter, string> AttemptingToLoadObjectFrom =
             (type, jsonFile) => $"Attempting to load a '{type.Name}' object from: {jsonFile.FullName}.";
         public static Func<Type, string> ObjectSuccessfullyLoaded =
@@ -107,5 +104,5 @@ namespace NW.UnivariateForecasting.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 08.03.2023
 */
