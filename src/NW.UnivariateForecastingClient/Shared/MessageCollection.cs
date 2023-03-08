@@ -32,6 +32,26 @@ namespace NW.UnivariateForecastingClient.Shared
         public static Func<string, string> InvalidInitContent
             = (filePath) => $"Invalid init content ('{filePath}').";
 
+
+
+        public static string Session_Option_FolderPath_Template { get; } = "--folderpath";
+        public static string Session_Option_FolderPath_Description { get; }
+            = $"The path of the working folder. If not specified, '{UnivariateForecastingSettings.DefaultFolderPath}' will be used.";
+
+        public static string Session_Option_SaveSession_Template { get; } = "--savesession";
+        public static string Session_Option_SaveSession_Description { get; }
+            = $"If provided, the forecasting session will be saved as JSON in the working folder.";
+
+        public static string Session_Option_RoundingDigits_Template { get; } = "--roundingdigits";
+        public static string Session_Option_RoundingDigits_Description { get; }
+            = string.Concat(
+                "Every decimal value processed by the application will be rounded to this number of digits.",
+                $"If not specified, '{UnivariateForecastingSettings.DefaultRoundingDigits}' will be used."
+            );
+
+
+
+
         #endregion
 
     }
