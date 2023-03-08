@@ -52,7 +52,7 @@ namespace NW.UnivariateForecastingClient.Shared
         public static string Session_Option_RoundingDigits_Template { get; } = "--roundingdigits";
         public static string Session_Option_RoundingDigits_Description { get; }
             = string.Concat(
-                "Every decimal value processed by the application will be rounded to this number of digits.",
+                "When coefficient and error are not provided by the user, they are generated and rounded.",
                 $"If not specified, '{UnivariateForecastingSettings.DefaultRoundingDigits}' will be used."
             );
 

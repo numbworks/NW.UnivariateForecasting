@@ -29,7 +29,7 @@ namespace NW.UnivariateForecasting
         /// Initializes an instance of <see cref="UnivariateForecastingSettings"/>.
         /// </summary>
         /// <param name="forecastingDenominator">Y_Forecasted = 0 in a <see cref="SlidingWindowItem"/> is a totally legit value. To avoid "divide-by-zero" error, we replace it with a comparably small amount while forecasting. Default: 0.00000000000001.</param>
-        /// <param name="roundingDigits">Can't be greater than <see cref="DefaultRoundingDigits"/> (15, the maximum value allowed by double).</param>        
+        /// <param name="roundingDigits">When coefficient and error are not provided by the user, they are generated and rounded. The decimal digits can't be more than <see cref="DefaultRoundingDigits"/>.</param>        
         /// <exception cref="ArgumentException"/> 
         /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecastingSettings(double forecastingDenominator, string folderPath, uint roundingDigits)
