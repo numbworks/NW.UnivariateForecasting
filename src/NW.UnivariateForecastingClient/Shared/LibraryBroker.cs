@@ -73,8 +73,8 @@ namespace NW.UnivariateForecastingClient.Shared
         public int RunAboutMain()
         {
 
-            UnivariateForecastingSettings settings = _settingsFactory.Create();
             UnivariateForecastingComponents components = _componentsFactory.Create();
+            UnivariateForecastingSettings settings = _settingsFactory.Create();
             UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
 
             ShowHeader(components, univariateForecaster);
@@ -96,6 +96,13 @@ namespace NW.UnivariateForecastingClient.Shared
         {
 
             Validator.ValidateObject(forecastData, nameof(forecastData));
+
+            forecastData = Defaultize(forecastData);
+
+            UnivariateForecastingComponents components = _componentsFactory.Create();
+            UnivariateForecastingSettings settings = _settingsFactory.Create(forecastData);
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
+
 
             // ...
 

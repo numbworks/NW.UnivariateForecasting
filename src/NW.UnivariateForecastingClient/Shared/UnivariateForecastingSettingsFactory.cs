@@ -24,6 +24,19 @@ namespace NW.UnivariateForecastingClient.Shared
         public UnivariateForecastingSettings Create()
             => new UnivariateForecastingSettings();
 
+        public UnivariateForecastingSettings Create(ForecastData forecastData)
+        {
+
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                    forecastingDenominator: forecastData.ForecastingDenominator ?? UnivariateForecastingSettings.DefaultForecastingDenominator,
+                    folderPath: forecastData.FolderPath ?? UnivariateForecastingSettings.DefaultFolderPath,
+                    roundingDigits: forecastData.RoundingDigits ?? UnivariateForecastingSettings.DefaultRoundingDigits
+                );
+
+            return settings;
+
+        }
+
         #endregion
 
     }
@@ -31,5 +44,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */
