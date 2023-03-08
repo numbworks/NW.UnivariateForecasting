@@ -1,8 +1,5 @@
-﻿using System;
-using NW.UnivariateForecastingClient.ApplicationSession;
-using NW.UnivariateForecastingClient.UnitTests.Utilities;
+﻿using NW.UnivariateForecastingClient.ApplicationSession;
 using NUnit.Framework;
-using McMaster.Extensions.CommandLineUtils.Validation;
 
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {
@@ -28,7 +25,8 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
             // Assert
             Assert.IsInstanceOf<SessionManagerComponents>(actual);
-            Assert.IsInstanceOf<IOptionValidator>(actual.RoundingDigitsValidator);
+            Assert.IsInstanceOf<RoundingDigitsValidator>(actual.RoundingDigitsValidator);
+            Assert.IsInstanceOf<ForecastingDenominatorValidator>(actual.ForecastingDenominatorValidator);
 
         }
 

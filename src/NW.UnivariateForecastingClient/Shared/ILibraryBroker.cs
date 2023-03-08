@@ -15,10 +15,14 @@ namespace NW.UnivariateForecastingClient.Shared
         /// <returns>Always <see cref="ExitCodes.Success"/></returns>
         int RunAboutMain();
 
+        /// <summary>Runs the <c>forecast</c> sub-command of the CLI application.</summary>
+        /// <returns><see cref="ExitCodes"/></returns>
+        int RunSessionForecast(ForecastData forecastData);
+
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */

@@ -47,6 +47,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
             {
 
                 sessionCommand = AddMain(sessionCommand);
+                sessionCommand = AddForecast(sessionCommand);
 
             });
 
@@ -69,6 +70,41 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                 command.ShowHelp();
 
                 return exitCode;
+
+            });
+
+            return command;
+
+        }
+        private CommandLineApplication AddForecast(CommandLineApplication command)
+        {
+
+            command.Command(Shared.MessageCollection.Session_Forecast_Name, subCommand =>
+            {
+
+                subCommand.Description = Shared.MessageCollection.Session_Forecast_Description;
+
+                CommandOption initOption = CreateRequiredInitOption(subCommand);
+                CommandOption folderPathOption = CreateOptionalFolderPathOption(subCommand);
+                CommandOption saveSessionOption = CreateOptionalSaveSessionOption(subCommand);
+                CommandOption roundingDigitsOption = CreateOptionalRoundingDigitsOption(subCommand);
+                CommandOption forecastingDenominatorOption = CreateOptionalForecastingDenominatorOption(subCommand);
+
+                subCommand.OnExecute(() =>
+                {
+
+                    ForecastData classifyData
+                        = new ForecastData(
+                                init: initOption.Value(),
+                                folderPath: folderPathOption.Value(),
+                                saveSession: saveSessionOption.HasValue(),
+                                roundingDigits: _sessionManagerComponents.RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
+                                forecastingDenominator: _sessionManagerComponents.ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
+                        );
+
+                    return _libraryBroker.RunSessionForecast(classifyData);
+
+                });
 
             });
 

@@ -28,9 +28,12 @@ namespace NW.UnivariateForecastingClient.Shared
 
         public static Func<string, string, string> ValueIsInvalidOrNotWithinRange
             = (name, value) => $"{name} ('{value}') is invalid or not within the expected range.";
-
         public static Func<string, string> InvalidInitContent
             = (filePath) => $"Invalid init content ('{filePath}').";
+
+        public static string Session_Forecast_Name { get; } = "forecast";
+        public static string Session_Forecast_Description { get; }
+            = "Forecasts the next x values for the provided init file.";
 
         public static string Session_Option_Init_Template { get; } = "--init";
         public static string Session_Option_Init_Description { get; }
