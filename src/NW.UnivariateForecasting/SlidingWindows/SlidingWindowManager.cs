@@ -13,7 +13,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         private Func<double, uint, double> _roundingFunction;
         private Action<string> _loggingAction;
-        private uint _roundingDigits;
 
         #endregion
 
@@ -33,16 +32,14 @@ namespace NW.UnivariateForecasting.SlidingWindows
         /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/>.</summary>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
-        public SlidingWindowManager(Func<double, uint, double> roundingFunction, Action<string> loggingAction, uint roundingDigits)
+        public SlidingWindowManager(Func<double, uint, double> roundingFunction, Action<string> loggingAction)
         {
 
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
-            Validator.ThrowIfFirstIsGreater((int)roundingDigits, nameof(roundingDigits), (int)DefaultRoundingDigits, nameof(DefaultRoundingDigits));
 
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
-            _roundingDigits = roundingDigits;
 
         }
 
@@ -50,23 +47,23 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public SlidingWindowManager()
             : this(
                   DefaultRoundingFunction,
-                  DefaultLoggingAction,
-                  DefaultRoundingDigits
+                  DefaultLoggingAction
                   ) { }
 
         #endregion
 
         #region Methods_public
 
-        public SlidingWindow Create(List<double> values)
+        public SlidingWindow Create(List<double> values, uint roundingDigits)
         {
 
             Validator.ValidateList(values, nameof(values));
+            Validator.ThrowIfFirstIsGreater((int)roundingDigits, nameof(roundingDigits), (int)DefaultRoundingDigits, nameof(DefaultRoundingDigits));
 
             _loggingAction(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
             _loggingAction(MessageCollection.ProvidedValuesAre(values));
 
-            List<SlidingWindowItem> items = CreateItems(Round(values));
+            List<SlidingWindowItem> items = CreateItems(Round(values, roundingDigits));
             SlidingWindow slidingWindow = new SlidingWindow(items);
 
             _loggingAction(MessageCollection.FollowingSlidingWindowHasBeenCreated(slidingWindow));
@@ -79,7 +76,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Methods_private
 
-        private List<double> Round(List<double> values)
+        private List<double> Round(List<double> values, uint roundingDigits)
         {
 
             /*
@@ -88,7 +85,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
                 ...
              */
 
-            return values.Select(item => _roundingFunction(item, _roundingDigits)).ToList();
+            return values.Select(item => _roundingFunction(item, roundingDigits)).ToList();
 
         }
         private List<SlidingWindowItem> CreateItems(List<double> values)
@@ -159,5 +156,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 08.03.2023
 */

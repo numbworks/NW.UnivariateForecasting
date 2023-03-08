@@ -19,8 +19,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 new TestDelegate(
                     () => new SlidingWindowManager(
                             roundingFunction: null,
-                            loggingAction: SlidingWindowManager.DefaultLoggingAction,
-                            roundingDigits: SlidingWindowManager.DefaultRoundingDigits
+                            loggingAction: SlidingWindowManager.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
@@ -30,23 +29,11 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 new TestDelegate(
                     () => new SlidingWindowManager(
                             roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
-                            loggingAction: null,
-                            roundingDigits: SlidingWindowManager.DefaultRoundingDigits
+                            loggingAction: null
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(slidingWindowManagerExceptionTestCases)}_02"),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new SlidingWindowManager(
-                            roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
-                            loggingAction: SlidingWindowManager.DefaultLoggingAction,
-                            roundingDigits: 16
-                        )),
-                typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
-                ).SetArgDisplayNames($"{nameof(slidingWindowManagerExceptionTestCases)}_03")
+                ).SetArgDisplayNames($"{nameof(slidingWindowManagerExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] createExceptionTestCases =
@@ -54,10 +41,23 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new SlidingWindowManager().Create(values: null)),
+                    () => new SlidingWindowManager().Create(
+                                values: null,
+                                roundingDigits: SlidingWindowManager.DefaultRoundingDigits
+                        )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("values").Message
-                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
+                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowManager().Create(
+                                values: ObjectMother.SlidingWindow01_Values,
+                                roundingDigits: 16
+                        )),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] createTestCases =
@@ -103,12 +103,11 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             SlidingWindowManager slidingWindowManager
                 = new SlidingWindowManager(
                         roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
-                        loggingAction: (message) => fakeLogger.Log(message),
-                        roundingDigits: roundingDigits
+                        loggingAction: (message) => fakeLogger.Log(message)
                     );
 
             // Act
-            SlidingWindow actual = slidingWindowManager.Create(values);
+            SlidingWindow actual = slidingWindowManager.Create(values, roundingDigits);
 
             // Assert
             Assert.True(

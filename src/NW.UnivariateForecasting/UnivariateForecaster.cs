@@ -194,7 +194,7 @@ namespace NW.UnivariateForecasting
         private Observation CreateObservation(ForecastingInit init)
         {
 
-            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values);
+            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values, _settings.RoundingDigits);
             Observation observation 
                 = _components.ObservationManager.Create(
                         slidingWindow: slidingWindow,

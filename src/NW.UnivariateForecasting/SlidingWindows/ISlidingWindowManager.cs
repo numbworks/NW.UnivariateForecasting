@@ -10,12 +10,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
         /// <summary>Creates a <seealso cref="SlidingWindow"/> object.</summary>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
-        SlidingWindow Create(List<double> values);
+        SlidingWindow Create(List<double> values, uint roundingDigits);
 
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 08.03.2023
 */
