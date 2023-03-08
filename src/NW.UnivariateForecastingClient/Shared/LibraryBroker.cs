@@ -144,7 +144,7 @@ namespace NW.UnivariateForecastingClient.Shared
                     init: forecastData.Init,
                     folderPath: forecastData.FolderPath ?? UnivariateForecastingSettings.DefaultFolderPath,
                     saveSession: forecastData.SaveSession,
-                    roundingDigits: forecastData.RoundingDigits ?? 15, // Assign it to a static property
+                    roundingDigits: forecastData.RoundingDigits ?? UnivariateForecastingSettings.DefaultRoundingDigits,
                     forecastingDenominator: forecastData.ForecastingDenominator ?? UnivariateForecastingSettings.DefaultForecastingDenominator
                 );
 
