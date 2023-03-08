@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting
 {
@@ -12,7 +14,10 @@ namespace NW.UnivariateForecasting
         #region Properties
 
         public const double DefaultForecastingDenominator = 0.00000000000001D;
+        public static string DefaultFolderPath { get; } = Directory.GetCurrentDirectory();
+
         public double ForecastingDenominator { get; private set; }
+        public string FolderPath { get; }
 
         #endregion
 
@@ -23,13 +28,14 @@ namespace NW.UnivariateForecasting
         /// </summary>
         /// <param name="forecastingDenominator">Y_Forecasted = 0 in a <see cref="SlidingWindowItem"/> is a totally legit value. To avoid "divide-by-zero" error, we replace it with a comparably small amount while forecasting. Default: 0.00000000000001.</param>
         /// <exception cref="ArgumentException"/> 
-        public UnivariateForecastingSettings(double forecastingDenominator)
+        public UnivariateForecastingSettings(double forecastingDenominator, string folderPath)
         {
 
-            if (forecastingDenominator < DefaultForecastingDenominator)
-                throw new ArgumentException(Forecasts.MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
+            ValidateForecastingDenominator(forecastingDenominator);
+            Validator.ValidateStringNullOrWhiteSpace(folderPath, nameof(folderPath));
 
             ForecastingDenominator = forecastingDenominator;
+            FolderPath = folderPath;
 
         }
 
@@ -37,11 +43,23 @@ namespace NW.UnivariateForecasting
         /// Initializes an instance of <see cref="UnivariateForecastingSettings"/> using default values.
         /// </summary>
         public UnivariateForecastingSettings()
-            : this(DefaultForecastingDenominator) { }
-        
+            : this(
+                  forecastingDenominator: DefaultForecastingDenominator,
+                  folderPath: DefaultFolderPath
+                  ) { }
+
         #endregion
 
-        #region Methods_public
+        #region Methods_private
+
+        private static void ValidateForecastingDenominator(double forecastingDenominator)
+        {
+
+            if (forecastingDenominator < DefaultForecastingDenominator)
+                throw new ArgumentException(Forecasts.MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
+
+        }
+
         #endregion
 
     }
@@ -49,5 +67,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 19.02.2023
+    Last Update: 08.03.2023
 */

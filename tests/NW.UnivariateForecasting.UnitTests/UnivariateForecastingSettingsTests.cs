@@ -15,13 +15,27 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new UnivariateForecastingSettings(forecastingDenominator: 0)
+                    () => new UnivariateForecastingSettings(
+                                    forecastingDenominator: 0,
+                                    folderPath: UnivariateForecastingSettings.DefaultFolderPath
+                                    )
                 ),
                 typeof(ArgumentException),
                 MessageCollection.DenominatorCantBeLessThan(
                                     "forecastingDenominator", 
                                     UnivariateForecastingSettings.DefaultForecastingDenominator)
-                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecastingSettings(
+                                    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                    folderPath: null
+                                    )
+                ),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("folderPath").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_02")
 
         };
 
@@ -48,8 +62,10 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
             Assert.IsInstanceOf<double>(actual.ForecastingDenominator);
+            Assert.IsInstanceOf<string>(actual.FolderPath);
 
             Assert.IsInstanceOf<double>(UnivariateForecastingSettings.DefaultForecastingDenominator);
+            Assert.IsInstanceOf<string>(UnivariateForecastingSettings.DefaultFolderPath);
 
         }
 
@@ -63,5 +79,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */
