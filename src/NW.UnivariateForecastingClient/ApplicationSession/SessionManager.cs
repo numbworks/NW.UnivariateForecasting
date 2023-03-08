@@ -76,6 +76,22 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         }
 
+        private CommandOption CreateRequiredInitOption(CommandLineApplication subCommand)
+        {
+
+            CommandOption result
+                = subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_Init_Template,
+                        Shared.MessageCollection.Session_Option_Init_Description,
+                        CommandOptionType.SingleValue)
+                    .IsRequired(
+                        false,
+                        Shared.MessageCollection.Session_Option_Init_ErrorMessage);
+
+            return result;
+
+        }
         private CommandOption CreateOptionalFolderPathOption(CommandLineApplication subCommand)
         {
 

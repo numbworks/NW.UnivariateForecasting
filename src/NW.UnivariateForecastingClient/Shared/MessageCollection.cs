@@ -32,6 +32,12 @@ namespace NW.UnivariateForecastingClient.Shared
         public static Func<string, string> InvalidInitContent
             = (filePath) => $"Invalid init content ('{filePath}').";
 
+        public static string Session_Option_Init_Template { get; } = "--init";
+        public static string Session_Option_Init_Description { get; }
+            = $"The filename of the JSON file containing the initialization data. The file needs to be stored in the working folder.";
+        public static string Session_Option_Init_ErrorMessage { get; }
+            = $"{Session_Option_Init_Template} is mandatory.";
+
         public static string Session_Option_FolderPath_Template { get; } = "--folderpath";
         public static string Session_Option_FolderPath_Description { get; }
             = $"The path of the working folder. If not specified, '{UnivariateForecastingSettings.DefaultFolderPath}' will be used.";
@@ -50,8 +56,8 @@ namespace NW.UnivariateForecastingClient.Shared
         public static string Session_Option_ForecastingDenominator_Template { get; } = "--forecastingdenominator";
         public static string Session_Option_ForecastingDenominator_Description { get; }
             = string.Concat(
-                "Every decimal value processed by the application will be rounded to this number of digits.",
-                $"If not specified, '{UnivariateForecastingSettings.DefaultRoundingDigits}' will be used."
+                "'Y_Forecasted = 0' is a totally legit value. To avoid a 'divide-by-zero' error, we replace it with a comparably small amount while forecasting.",
+                $"If not specified, '{UnivariateForecastingSettings.DefaultForecastingDenominator}' will be used."
             );
 
 
