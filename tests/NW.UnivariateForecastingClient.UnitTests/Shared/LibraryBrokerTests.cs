@@ -172,7 +172,53 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
         }
 
+        [Test]
+        public void RunSessionForecast_ShouldThrowExceptionAndReturnFailure_WhenInitFailsToLoad()
+        {
 
+            // Arrange
+            List<(string fileName, string content)> readBehaviours = new List<(string fileName, string content)>()
+            {
+
+                (fileName: "Init.json", content: @"{ ""SomeField"": ""SomeValue"" }")
+
+            };
+
+            (List<string> messages, List<string> messagesAsciiBanner, UnivariateForecastingComponents fakeComponents) = CreateTuple(readBehaviours);
+
+            LibraryBroker libraryBroker
+                = new LibraryBroker(
+                        componentsFactory: new FakeUnivariateForecastingComponentsFactory(fakeComponents),
+                        settingsFactory: new UnivariateForecastingSettingsFactory(),
+                        univariateForecasterFactory: new UnivariateForecasterFactory()
+                    );
+
+            ForecastData forecastData
+                = new ForecastData(
+                        init: "Init.json",
+                        saveSession: true,
+                        folderPath: @"C:\unifor\",
+                        roundingDigits: 2,
+                        forecastingDenominator: 0.001
+                    );
+
+            Exception e
+                = new Exception(UnivariateForecastingClient.Shared.MessageCollection.LoadingFileNameReturnedDefault("Init.json"));
+            string expected = LibraryBroker.ErrorMessageFormatter(e.Message);
+
+            // Act
+
+            int actual = libraryBroker.RunSessionForecast(forecastData);
+
+            // Assert
+            Assert.AreEqual(LibraryBroker.Failure, actual);
+
+            Assert.AreEqual(
+                    expected: expected,
+                    actual: messages[2]
+                    );
+
+        }
 
         #endregion
 

@@ -26,10 +26,10 @@ namespace NW.UnivariateForecastingClient.Shared
 
         public static string PressAButtonToCloseTheWindow = "Press a button to close the window.";
 
+        public static Func<string, string> LoadingFileNameReturnedDefault
+            = (fileName) => $"Loading the content of '{fileName}' returned a default value. Please check the content of the file, it may be null or invalid.";
         public static Func<string, string, string> ValueIsInvalidOrNotWithinRange
             = (name, value) => $"{name} ('{value}') is invalid or not within the expected range.";
-        public static Func<string, string> InvalidInitContent
-            = (filePath) => $"Invalid init content ('{filePath}').";
 
         public static string Session_Forecast_Name { get; } = "forecast";
         public static string Session_Forecast_Description { get; }
