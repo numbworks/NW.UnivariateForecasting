@@ -1,5 +1,8 @@
-﻿using NW.UnivariateForecasting;
+﻿using System.ComponentModel.DataAnnotations;
+using NW.UnivariateForecasting;
+using NW.UnivariateForecastingClient.Shared;
 using NW.UnivariateForecastingClient.ApplicationSession;
+using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
@@ -98,6 +101,44 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
             // Assert
             Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestCase("somegarbage")]
+        public void GetValidationResult_ShouldReturnExpectedErrorMessage_WhenInvalidOptionValue(string value)
+        {
+
+            // Arrange
+            CommandOption option = new CommandOption(MessageCollection.Session_Option_ForecastingDenominator_Template, CommandOptionType.SingleValue);
+            option.DefaultValue = value;
+            ValidationContext context = new ValidationContext(option);
+            string valueName = nameof(ForecastingDenominatorValidator).Replace("Validator", string.Empty);
+            string expected = MessageCollection.ValueIsInvalidOrNotWithinRange(valueName, option.Value());
+
+            // Act
+            ValidationResult actual = new ForecastingDenominatorValidator().GetValidationResult(option, context);
+
+            // Assert
+            Assert.AreEqual(expected, actual.ErrorMessage);
+
+        }
+
+        [TestCase("0.0001")]
+        [TestCase("1")]
+        [TestCase((string)null)]
+        public void GetValidationResult_ShouldReturnSuccess_WhenValidOptionValue(string value)
+        {
+
+            // Arrange
+            CommandOption option = new CommandOption(MessageCollection.Session_Option_ForecastingDenominator_Template, CommandOptionType.SingleValue);
+            option.DefaultValue = value;
+            ValidationContext context = new ValidationContext(option);
+
+            // Act
+            ValidationResult actual = new ForecastingDenominatorValidator().GetValidationResult(option, context);
+
+            // Assert
+            Assert.AreEqual(ValidationResult.Success, actual);
 
         }
 
