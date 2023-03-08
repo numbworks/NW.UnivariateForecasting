@@ -500,6 +500,9 @@ namespace NW.UnivariateForecasting.UnitTests
             {
 
                 UnivariateForecasting.Forecasts.MessageCollection.AttemptingToForecast,
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedFolderPathIs(settings.FolderPath),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(settings.ForecastingDenominator),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedRoundingDigitsAre(settings.RoundingDigits),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient),
@@ -580,6 +583,9 @@ namespace NW.UnivariateForecasting.UnitTests
             {
 
                 UnivariateForecasting.Forecasts.MessageCollection.AttemptingToForecast,
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedFolderPathIs(settings.FolderPath),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(settings.ForecastingDenominator),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedRoundingDigitsAre(settings.RoundingDigits),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient),
@@ -653,6 +659,9 @@ namespace NW.UnivariateForecasting.UnitTests
             {
 
                 UnivariateForecasting.Forecasts.MessageCollection.AttemptingToForecast,
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedFolderPathIs(settings.FolderPath),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(settings.ForecastingDenominator),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedRoundingDigitsAre(settings.RoundingDigits),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient),
@@ -726,6 +735,9 @@ namespace NW.UnivariateForecasting.UnitTests
             {
 
                 UnivariateForecasting.Forecasts.MessageCollection.AttemptingToForecast,
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedFolderPathIs(settings.FolderPath),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(settings.ForecastingDenominator),
+                UnivariateForecasting.Forecasts.MessageCollection.ProvidedRoundingDigitsAre(settings.RoundingDigits),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count),
                 UnivariateForecasting.Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient),

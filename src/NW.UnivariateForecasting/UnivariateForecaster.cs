@@ -71,6 +71,9 @@ namespace NW.UnivariateForecasting
             Validator.ThrowIfLessThan(init.Values.Count, 2, nameof(init.Values));
 
             _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedFolderPathIs(_settings.FolderPath));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(_settings.ForecastingDenominator));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedRoundingDigitsAre(_settings.RoundingDigits));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
             _components.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));

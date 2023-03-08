@@ -15,6 +15,13 @@ namespace NW.UnivariateForecasting.Forecasts
         public static string AttemptingToForecast = 
             $"Attempting to perform a forecasting task out of the provided {nameof(ForecastingInit)}...";
 
+        public static Func<string, string> ProvidedFolderPathIs =
+            (folderPath) => $"The provided folder path is: '{folderPath}'.";
+        public static Func<double, string> ProvidedForecastingDenominatorIs =
+            (forecastingDenominator) => $"The provided forecasting denominator is: '{forecastingDenominator}'.";
+        public static Func<uint, string> ProvidedRoundingDigitsAre =
+            (roundingDigits) => $"The provided rounding digits are: '{roundingDigits}'.";
+
         public static Func<string, string> ProvidedObservationNameIs = 
             (observationName) => $"The provided observation name is: '{observationName}'.";
         public static Func<int, string> ProvidedValuesAre = 
