@@ -142,7 +142,7 @@ namespace NW.UnivariateForecastingClient.Shared
 
             ForecastData updated = new ForecastData(
                     init: forecastData.Init,
-                    folderPath: forecastData.FolderPath, // ?? UnivariateForecastingSettings.DefaultFolderPath,
+                    folderPath: forecastData.FolderPath ?? UnivariateForecastingSettings.DefaultFolderPath,
                     saveSession: forecastData.SaveSession,
                     roundingDigits: forecastData.RoundingDigits ?? 15, // Assign it to a static property
                     forecastingDenominator: forecastData.ForecastingDenominator ?? UnivariateForecastingSettings.DefaultForecastingDenominator
@@ -159,5 +159,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 07.03.2023
+    Last Update: 08.03.2023
 */
