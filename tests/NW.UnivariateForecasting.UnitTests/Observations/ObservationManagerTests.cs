@@ -20,7 +20,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: null, 
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
@@ -42,7 +42,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             settings: new UnivariateForecastingSettings(),
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
@@ -115,8 +115,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             FakeLogger fakeLogger = new FakeLogger();
             ObservationManager observationManager 
                 = new ObservationManager(
-                            settings: new UnivariateForecastingSettings(),
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                            settings: ObjectMother.UnivariateForecastingSettings_WithTwoRoundingDigits,
+                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: (message) => fakeLogger.Log(message)
                         );
 
@@ -141,7 +141,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             // Assert
             Assert.IsInstanceOf<ObservationManager>(actual);
 
-            Assert.IsInstanceOf<Func<double, double>>(ObservationManager.DefaultRoundingFunction);
+            Assert.IsInstanceOf<Func<double, uint, double>>(ObservationManager.DefaultRoundingFunction);
             Assert.IsInstanceOf<Action<string>>(ObservationManager.DefaultLoggingAction);
 
         }
@@ -157,7 +157,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             // Act
             double actual = Utilities.ObjectMother.CallPrivateMethod<ObservationManager, double>(
-                    obj: new ObservationManager(),
+                    obj: ObjectMother.ObservationManager_WithTwoRoundingDigits,
                     methodName: "DivideXByY",
                     args: new object[] { slidingWindowItem, denominator }
                 );
@@ -177,5 +177,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */

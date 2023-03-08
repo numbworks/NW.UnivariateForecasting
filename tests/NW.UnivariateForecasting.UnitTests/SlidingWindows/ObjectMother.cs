@@ -49,6 +49,8 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
         internal static string SlidingWindow01_Item01_AsString
             = $"[ Id: '1', X_Actual: '{58.5}', Y_Forecasted: '{615.26}' ]";
 
+        internal static uint SlidingWindow01_RoundingDigits = 2;
+
         #endregion
 
         #region Methods
@@ -73,5 +75,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 08.03.2023
 */

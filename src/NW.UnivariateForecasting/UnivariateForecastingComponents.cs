@@ -19,15 +19,8 @@ namespace NW.UnivariateForecasting
 
         #region Properties
 
-        /// <summary>The maximum amount of digits is 15.</summary>
-        public static Func<double, uint, double> DefaultRoundingFunctionXDigits { get; }
+        public static Func<double, uint, double> DefaultRoundingFunction { get; }
             = (x, digits) => Math.Round(x, (int)digits, MidpointRounding.AwayFromZero);
-
-        public static Func<double, double> DefaultRoundingFunctionTwoDigits { get; }
-            = (x) => DefaultRoundingFunctionXDigits(x, 2);
-        public static Func<double, double> DefaultRoundingFunctionDoNothing { get; }
-            = (x) => x;
-
         public static Action<string> DefaultLoggingAction { get; }
             = (message) => Console.WriteLine(message);
         public static Action<string> DefaultLoggingActionAsciiBanner { get; }
@@ -37,7 +30,7 @@ namespace NW.UnivariateForecasting
         public IObservationManager ObservationManager { get; private set; }
         public ISlidingWindowManager SlidingWindowManager { get; private set; }
         public IFileManager FileManager { get; private set; }
-        public Func<double, double> RoundingFunction { get; private set; }
+        public Func<double, uint, double> RoundingFunction { get; private set; }
         public Action<string> LoggingAction { get; private set; }
         public Action<string> LoggingActionAsciiBanner { get; }
         public IAsciiBannerManager AsciiBannerManager { get; }
@@ -64,7 +57,7 @@ namespace NW.UnivariateForecasting
                 ISlidingWindowManager slidingWindowManager,
                 IObservationManager observationManager,
                 IFileManager fileManager,
-                Func<double, double> roundingFunction,
+                Func<double, uint, double> roundingFunction,
                 Action<string> loggingAction,
                 Action<string> loggingActionAsciiBanner,
                 IAsciiBannerManager asciiBannerManager,
@@ -110,7 +103,7 @@ namespace NW.UnivariateForecasting
                   new SlidingWindowManager(),
                   new ObservationManager(),
                   new FileManager(),
-                  DefaultRoundingFunctionTwoDigits,
+                  DefaultRoundingFunction,
                   DefaultLoggingAction,
                   DefaultLoggingActionAsciiBanner,
                   new AsciiBannerManager(),
@@ -130,5 +123,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */

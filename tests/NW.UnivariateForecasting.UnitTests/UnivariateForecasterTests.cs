@@ -140,12 +140,19 @@ namespace NW.UnivariateForecasting.UnitTests
             // Arrange
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingActionAsciiBanner = (message) => actualLogMessages.Add(message);
+
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FileManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         loggingActionAsciiBanner: fakeLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -154,10 +161,8 @@ namespace NW.UnivariateForecasting.UnitTests
                         forecastingInitManager: new ForecastingInitManager(),
                         serializerFactory: new SerializerFactory()
                     );
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             List<string> expectedMessages = new List<string>()
             {
@@ -188,12 +193,18 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FakeFileManager(Forecasts.ObjectMother.ForecastingInitBareMinimumAsJson_Content),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -203,10 +214,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, @"C:\ForecastingInit.json");
             List<string> expectedLogMessages = new List<string>()
@@ -238,12 +246,18 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FakeFileManager("Unproper Json content"),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -253,10 +267,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, @"C:\ForecastingInit.json");
             List<string> expectedLogMessages = new List<string>()
@@ -286,6 +297,12 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: new SlidingWindowManager(),
@@ -293,7 +310,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         fileManager: new FakeFileManagerThrowingWriteExceptions(
                                                 content: Forecasts.ObjectMother.ForecastingSessionSingleWithCEAsJson_Content,
                                                 writeExceptionMessage: "A random write-to-disk issue."),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -303,10 +320,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             string folderPath = Filenames.ObjectMother.FakeFilePath;
             string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
@@ -341,13 +355,19 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         fileManager: new FakeFileManager(
                                                 content: Forecasts.ObjectMother.ForecastingSessionSingleWithCEAsJson_Content),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -357,10 +377,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             string folderPath = Filenames.ObjectMother.FakeFilePath;
             string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
@@ -435,12 +452,26 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
-                        slidingWindowManager: new SlidingWindowManager(),
-                        observationManager: new ObservationManager(),
+                        slidingWindowManager: new SlidingWindowManager(
+                                roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                                loggingAction: SlidingWindowManager.DefaultLoggingAction,
+                                roundingDigits: 2
+                            ),
+                        observationManager: new ObservationManager(
+                                settings: settings,
+                                roundingFunction: ObservationManager.DefaultRoundingFunction,
+                                loggingAction: ObservationManager.DefaultLoggingAction
+                            ),
                         fileManager: new FileManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -450,10 +481,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             ForecastingInit init = Forecasts.ObjectMother.ForecastingInit_BareMinimum;
             ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_BareMinimum;
@@ -497,12 +525,26 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
-                        slidingWindowManager: new SlidingWindowManager(),
-                        observationManager: new ObservationManager(),
+                        slidingWindowManager: new SlidingWindowManager(
+                                roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                                loggingAction: SlidingWindowManager.DefaultLoggingAction,
+                                roundingDigits: 2
+                            ),
+                        observationManager: new ObservationManager(
+                                settings: settings,
+                                roundingFunction: ObservationManager.DefaultRoundingFunction,
+                                loggingAction: ObservationManager.DefaultLoggingAction
+                            ),
                         fileManager: new FileManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -512,10 +554,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             ForecastingInit init = Forecasts.ObjectMother.ForecastingInit_SingleWithCE;
             ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_SingleWithCE;
@@ -559,12 +598,26 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
-                        slidingWindowManager: new SlidingWindowManager(),
-                        observationManager: new ObservationManager(),
+                        slidingWindowManager: new SlidingWindowManager(
+                                roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                                loggingAction: SlidingWindowManager.DefaultLoggingAction,
+                                roundingDigits: 2
+                            ),
+                        observationManager: new ObservationManager(
+                                settings: settings,
+                                roundingFunction: ObservationManager.DefaultRoundingFunction,
+                                loggingAction: ObservationManager.DefaultLoggingAction
+                            ),
                         fileManager: new FileManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -574,10 +627,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             ForecastingInit init = Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE;
             ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_SingleWithoutCE;
@@ -621,12 +671,26 @@ namespace NW.UnivariateForecasting.UnitTests
 
             Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
+            UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+                            forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                            folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                            roundingDigits: 2
+                        );
+
             UnivariateForecastingComponents components
                 = new UnivariateForecastingComponents(
-                        slidingWindowManager: new SlidingWindowManager(),
-                        observationManager: new ObservationManager(),
+                        slidingWindowManager: new SlidingWindowManager(
+                                roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                                loggingAction: SlidingWindowManager.DefaultLoggingAction,
+                                roundingDigits: 2
+                            ),
+                        observationManager: new ObservationManager(
+                                settings: settings,
+                                roundingFunction: ObservationManager.DefaultRoundingFunction,
+                                loggingAction: ObservationManager.DefaultLoggingAction
+                            ),
                         fileManager: new FileManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
+                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
                         asciiBannerManager: new AsciiBannerManager(),
@@ -636,10 +700,7 @@ namespace NW.UnivariateForecasting.UnitTests
                         serializerFactory: new SerializerFactory()
                     );
 
-            UnivariateForecaster univariateForecaster
-                = new UnivariateForecaster(
-                        new UnivariateForecastingSettings(),
-                        components);
+            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settings, components);
 
             ForecastingInit init = Forecasts.ObjectMother.ForecastingInit_DoubleWithCE;
             ForecastingSession expected = Forecasts.ObjectMother.ForecastingSession_DoubleWithCE;
@@ -686,5 +747,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */

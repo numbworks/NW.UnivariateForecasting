@@ -44,6 +44,17 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         };
 
+        internal static UnivariateForecastingSettings UnivariateForecastingSettings_WithTwoRoundingDigits = new UnivariateForecastingSettings(
+                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                roundingDigits: 2
+            );
+        internal static ObservationManager ObservationManager_WithTwoRoundingDigits = new ObservationManager(
+                settings: UnivariateForecastingSettings_WithTwoRoundingDigits,
+                roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+            );
+
         #endregion
 
         #region Methods
@@ -66,5 +77,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */

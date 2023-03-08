@@ -13,15 +13,15 @@ namespace NW.UnivariateForecasting.Observations
         #region Fields
 
         private UnivariateForecastingSettings _settings;
-        private Func<double, double> _roundingFunction;
+        private Func<double, uint, double> _roundingFunction;
         private Action<string> _loggingAction;
 
         #endregion
 
         #region Properties
 
-        public static Func<double, double> DefaultRoundingFunction { get; }
-            = UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits;
+        public static Func<double, uint, double> DefaultRoundingFunction { get; }
+            = UnivariateForecastingComponents.DefaultRoundingFunction;
         public static Action<string> DefaultLoggingAction { get; }
             = UnivariateForecastingComponents.DefaultLoggingAction;
 
@@ -33,7 +33,7 @@ namespace NW.UnivariateForecasting.Observations
         /// <exception cref="ArgumentNullException"/> 
         public ObservationManager(
             UnivariateForecastingSettings settings,
-            Func<double, double> roundingFunction,
+            Func<double, uint, double> roundingFunction,
             Action<string> loggingAction)
         {
 
@@ -174,7 +174,7 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = sum / items.Count;
 
-            return _roundingFunction(result);
+            return _roundingFunction(result, _settings.RoundingDigits);
 
         }
         private double CalculateError(List<SlidingWindowItem> items, double coefficient, double denominator)
@@ -218,13 +218,13 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = CalculateMODE(values);
 
-            return _roundingFunction(result);
+            return _roundingFunction(result, _settings.RoundingDigits);
 
         }
         private double CalculateCX(double coefficient, double X) 
-            => _roundingFunction(coefficient * X);
+            => _roundingFunction(coefficient * X, _settings.RoundingDigits);
         private double CalculateNextValue(double CX, double error) 
-            => _roundingFunction(CX + error);
+            => _roundingFunction(CX + error, _settings.RoundingDigits);
         private double DivideXByY(SlidingWindowItem item, double denominator)
         {
 
@@ -236,7 +236,7 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = X / Y;
 
-            return _roundingFunction(result);
+            return _roundingFunction(result, _settings.RoundingDigits);
 
         }
         private double CalculateMODE(List<double> values)
@@ -258,5 +258,5 @@ namespace NW.UnivariateForecasting.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 08.03.2023
 */

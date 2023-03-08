@@ -15,7 +15,7 @@ namespace NW.UnivariateForecasting
 
         public const double DefaultForecastingDenominator = 0.00000000000001D;
         public static string DefaultFolderPath { get; } = Directory.GetCurrentDirectory();
-        public static uint DefaultRoundingDigits { get; } = 15; // The maximum allowed by double.
+        public static uint DefaultRoundingDigits { get; } = 15;
 
         public double ForecastingDenominator { get; private set; }
         public string FolderPath { get; }

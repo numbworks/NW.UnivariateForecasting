@@ -19,7 +19,8 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 new TestDelegate(
                     () => new SlidingWindowManager(
                             roundingFunction: null,
-                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                            loggingAction: SlidingWindowManager.DefaultLoggingAction,
+                            roundingDigits: SlidingWindowManager.DefaultRoundingDigits
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
@@ -28,12 +29,24 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             new TestCaseData(
                 new TestDelegate(
                     () => new SlidingWindowManager(
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
-                            loggingAction: null
+                            roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                            loggingAction: null,
+                            roundingDigits: SlidingWindowManager.DefaultRoundingDigits
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(slidingWindowManagerExceptionTestCases)}_02")
+                ).SetArgDisplayNames($"{nameof(slidingWindowManagerExceptionTestCases)}_02"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new SlidingWindowManager(
+                            roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                            loggingAction: SlidingWindowManager.DefaultLoggingAction,
+                            roundingDigits: 16
+                        )),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                ).SetArgDisplayNames($"{nameof(slidingWindowManagerExceptionTestCases)}_03")
 
         };
         private static TestCaseData[] createExceptionTestCases =
@@ -52,6 +65,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
             new TestCaseData(
                 ObjectMother.SlidingWindow01_Values,
+                ObjectMother.SlidingWindow01_RoundingDigits,
                 ObjectMother.SlidingWindow01,
                 new List<string>() {
                     MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
@@ -81,15 +95,16 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
         [TestCaseSource(nameof(createTestCases))]
         public void Create_ShouldReturnExpectedSlidingWindowAndLogExpectedMessages_WhenProperArguments
-            (List<double> values, SlidingWindow expected, List<string> expectedMessages)
+            (List<double> values, uint roundingDigits, SlidingWindow expected, List<string> expectedMessages)
         {
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
             SlidingWindowManager slidingWindowManager
                 = new SlidingWindowManager(
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits,
-                        loggingAction: (message) => fakeLogger.Log(message)
+                        roundingFunction: SlidingWindowManager.DefaultRoundingFunction,
+                        loggingAction: (message) => fakeLogger.Log(message),
+                        roundingDigits: roundingDigits
                     );
 
             // Act
@@ -113,6 +128,10 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             // Assert
             Assert.IsInstanceOf<SlidingWindowManager>(actual);
 
+            Assert.IsInstanceOf<Func<double, uint, double>>(SlidingWindowManager.DefaultRoundingFunction);
+            Assert.IsInstanceOf<Action<string>>(SlidingWindowManager.DefaultLoggingAction);
+            Assert.IsInstanceOf<uint>(SlidingWindowManager.DefaultRoundingDigits);
+
         }
 
         #endregion
@@ -125,5 +144,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 08.03.2023
 */

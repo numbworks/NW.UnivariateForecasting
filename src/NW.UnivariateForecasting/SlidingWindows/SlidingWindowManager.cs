@@ -11,17 +11,20 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Fields
 
-        private Func<double, double> _roundingFunction;
+        private Func<double, uint, double> _roundingFunction;
         private Action<string> _loggingAction;
+        private uint _roundingDigits;
 
         #endregion
 
         #region Properties
 
-        public static Func<double, double> DefaultRoundingFunction { get; }
-            = UnivariateForecastingComponents.DefaultRoundingFunctionTwoDigits;
+        public static Func<double, uint, double> DefaultRoundingFunction { get; }
+            = UnivariateForecastingComponents.DefaultRoundingFunction;
         public static Action<string> DefaultLoggingAction { get; }
             = UnivariateForecastingComponents.DefaultLoggingAction;
+        public static uint DefaultRoundingDigits { get; }
+            = UnivariateForecastingSettings.DefaultRoundingDigits;
 
         #endregion
 
@@ -29,14 +32,17 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/>.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public SlidingWindowManager(Func<double, double> roundingFunction, Action<string> loggingAction)
+        /// <exception cref="ArgumentException"/>
+        public SlidingWindowManager(Func<double, uint, double> roundingFunction, Action<string> loggingAction, uint roundingDigits)
         {
 
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
+            Validator.ThrowIfFirstIsGreater((int)roundingDigits, nameof(roundingDigits), (int)DefaultRoundingDigits, nameof(DefaultRoundingDigits));
 
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
+            _roundingDigits = roundingDigits;
 
         }
 
@@ -44,7 +50,8 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public SlidingWindowManager()
             : this(
                   DefaultRoundingFunction,
-                  DefaultLoggingAction
+                  DefaultLoggingAction,
+                  DefaultRoundingDigits
                   ) { }
 
         #endregion
@@ -81,7 +88,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
                 ...
              */
 
-            return values.Select(item => _roundingFunction(item)).ToList();
+            return values.Select(item => _roundingFunction(item, _roundingDigits)).ToList();
 
         }
         private List<SlidingWindowItem> CreateItems(List<double> values)
