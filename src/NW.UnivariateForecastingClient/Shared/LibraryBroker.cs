@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecastingClient.Shared
@@ -95,21 +98,44 @@ namespace NW.UnivariateForecastingClient.Shared
         public int RunSessionForecast(ForecastData forecastData)
         {
 
-            Validator.ValidateObject(forecastData, nameof(forecastData));
+            try
+            {
 
-            forecastData = Defaultize(forecastData);
+                Validator.ValidateObject(forecastData, nameof(forecastData));
 
-            UnivariateForecastingComponents components = _componentsFactory.Create();
-            UnivariateForecastingSettings settings = _settingsFactory.Create(forecastData);
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
+                forecastData = Defaultize(forecastData);
 
+                UnivariateForecastingComponents components = _componentsFactory.Create();
+                UnivariateForecastingSettings settings = _settingsFactory.Create(forecastData);
+                UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
 
-            // ...
+                ShowHeader(components, univariateForecaster);
 
-            throw new Exception();
+                string filePath = Path.Combine(forecastData.FolderPath, forecastData.Init);
+                IFileInfoAdapter initFile = univariateForecaster.Convert(filePath);
+
+                ForecastingInit init = univariateForecaster.LoadInitOrDefault(jsonFile: initFile);
+                if (init == default(ForecastingInit))
+                    throw new Exception(MessageCollection.InvalidInitContent(initFile.FullName));
+
+                ForecastingSession session = univariateForecaster.Forecast(init: init);
+
+                if (forecastData.SaveSession)
+                    univariateForecaster.SaveSession(session, forecastData.FolderPath);
+
+                ShowFooter(components);
+
+                return Success;
+
+            }
+            catch (Exception e)
+            {
+
+                return LogAndReturnFailure(e);
+
+            }
 
         }
-
 
         #endregion
 

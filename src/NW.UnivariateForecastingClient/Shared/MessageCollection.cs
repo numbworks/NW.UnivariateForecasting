@@ -29,6 +29,9 @@ namespace NW.UnivariateForecastingClient.Shared
         public static Func<string, string, string> ValueIsInvalidOrNotWithinRange
             = (name, value) => $"{name} ('{value}') is invalid or not within the expected range ('{nameof(DoubleManager.MininumValue)}':'{DoubleManager.MininumValue}', '{nameof(DoubleManager.MaximumValue)}':'{DoubleManager.MaximumValue}').";
 
+        public static Func<string, string> InvalidInitContent
+            = (filePath) => $"Invalid init content ('{filePath}').";
+
         #endregion
 
     }
@@ -36,5 +39,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */
