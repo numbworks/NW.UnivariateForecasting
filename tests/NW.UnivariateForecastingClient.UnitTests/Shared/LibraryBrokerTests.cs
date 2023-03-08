@@ -87,7 +87,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
         }
 
         [Test]
-        public void RunSessionClassify_ShouldReturnFailureAndLogException_WhenClassifyDataIsNull()
+        public void RunSessionForecast_ShouldReturnFailureAndLogException_WhenForecastDataIsNull()
         {
 
             // Arrange
@@ -112,6 +112,62 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             Assert.AreEqual(
                     expected: LibraryBroker.SeparatorLine,
                     actual: messagesAsciiBanner[0]
+                    );
+
+        }
+
+        [Test]
+        public void RunSessionForecast_ShouldReturnSuccess_WhenForecastDataIsNotNull()
+        {
+
+            // Arrange
+            List<(string fileName, string content)> readBehaviours = new List<(string fileName, string content)>()
+            {
+
+                (fileName: "Init.json", content: UnivariateForecasting.UnitTests.Forecasts.ObjectMother.ForecastingInitBareMinimumAsJson_Content)
+
+            };
+
+            (List<string> messages, List<string> messagesAsciiBanner, UnivariateForecastingComponents fakeComponents) = CreateTuple(readBehaviours);
+
+            LibraryBroker libraryBroker
+                = new LibraryBroker(
+                        componentsFactory: new FakeUnivariateForecastingComponentsFactory(fakeComponents),
+                        settingsFactory: new UnivariateForecastingSettingsFactory(),
+                        univariateForecasterFactory: new UnivariateForecasterFactory()
+                    );
+
+            ForecastData forecastData
+                = new ForecastData(
+                        init: "Init.json",
+                        saveSession: true,
+                        folderPath: @"C:\unifor\",
+                        roundingDigits: 2,
+                        forecastingDenominator: 0.001
+                    );
+
+            // Act
+
+            int actual = libraryBroker.RunSessionForecast(forecastData);
+
+            // Assert
+            Assert.AreEqual(LibraryBroker.Success, actual);
+
+            Assert.AreEqual(
+                    expected: "Attempting to load a 'ForecastingInit' object from: C:\\unifor\\Init.json.",
+                    actual: messages[0]
+                    );
+            Assert.AreEqual(
+                    expected: LibraryBroker.SeparatorLine,
+                    actual: messagesAsciiBanner[0]
+                    );
+            Assert.AreEqual(
+                    expected: new UnivariateForecaster().AsciiBanner,
+                    actual: messagesAsciiBanner[1]
+                    );
+            Assert.AreEqual(
+                    expected: LibraryBroker.SeparatorLine,
+                    actual: messagesAsciiBanner[2]
                     );
 
         }

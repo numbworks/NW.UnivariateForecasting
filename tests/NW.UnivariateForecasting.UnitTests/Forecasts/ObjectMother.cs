@@ -9,17 +9,17 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         #region Properties
 
-        internal static UnivariateForecaster UnivariateForecaster = new UnivariateForecaster();
+        public static UnivariateForecaster UnivariateForecaster = new UnivariateForecaster();
 
-        internal static string ForecastingInit_ObservationName = "Sales USD";
-        internal static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
-        internal static double ForecastingInit_Coefficient = 0.5;
-        internal static double ForecastingInit_Error = 0.01;
-        internal static uint ForecastingInit_Steps_Single = 1;
-        internal static uint ForecastingInit_Steps_MultipleDouble = 2;
+        public static string ForecastingInit_ObservationName = "Sales USD";
+        public static List<double> ForecastingInit_Values = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94 };
+        public static double ForecastingInit_Coefficient = 0.5;
+        public static double ForecastingInit_Error = 0.01;
+        public static uint ForecastingInit_Steps_Single = 1;
+        public static uint ForecastingInit_Steps_MultipleDouble = 2;
 
-        internal static string ForecastingInitSingleWithCEAsJson_Content = Properties.Resources.ForecastingInitSingleWithCEAsJson;
-        internal static ForecastingInit ForecastingInit_SingleWithCE
+        public static string ForecastingInitSingleWithCEAsJson_Content = Properties.Resources.ForecastingInitSingleWithCEAsJson;
+        public static ForecastingInit ForecastingInit_SingleWithCE
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
@@ -28,8 +28,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     steps: ForecastingInit_Steps_Single
                     );
 
-        internal static string ForecastingInitSingleWithoutCEAsJson_Content = Properties.Resources.ForecastingInitSingleWithoutCEAsJson;
-        internal static ForecastingInit ForecastingInit_SingleWithoutCE
+        public static string ForecastingInitSingleWithoutCEAsJson_Content = Properties.Resources.ForecastingInitSingleWithoutCEAsJson;
+        public static ForecastingInit ForecastingInit_SingleWithoutCE
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
@@ -38,8 +38,8 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     steps: ForecastingInit_Steps_Single
                     );
 
-        internal static string ForecastingInitBareMinimumAsJson_Content = Properties.Resources.ForecastingInitBareMinimumAsJson;
-        internal static ForecastingInit ForecastingInit_BareMinimum
+        public static string ForecastingInitBareMinimumAsJson_Content = Properties.Resources.ForecastingInitBareMinimumAsJson;
+        public static ForecastingInit ForecastingInit_BareMinimum
             = new ForecastingInit(
                     observationName: null,
                     values: new List<double>() { 58.5, 615.26 },
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     steps: ForecastingInit_Steps_Single
                     );
 
-        internal static ForecastingInit ForecastingInit_DoubleWithCE
+        public static ForecastingInit ForecastingInit_DoubleWithCE
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ForecastingInit_Values,
@@ -57,12 +57,12 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     steps: ForecastingInit_Steps_MultipleDouble
                     );
 
-        internal static string ForecastingSession_Version = "3.0.0.0";
+        public static string ForecastingSession_Version = "3.0.0.0";
 
-        internal static double NextValue = 519.23;
-        internal static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
+        public static double NextValue = 519.23;
+        public static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
 
-        internal static ForecastingInit ForecastingInit_SingleWithCEAndExpandedValues
+        public static ForecastingInit ForecastingInit_SingleWithCEAndExpandedValues
             = new ForecastingInit(
                     observationName: ForecastingInit_ObservationName,
                     values: ExpandedValues,
@@ -71,26 +71,26 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     steps: ForecastingInit_Steps_Single
                     );
 
-        internal static string ForecastingSessionSingleWithCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithCEAsJson;
-        internal static ForecastingSession ForecastingSession_SingleWithCE = new ForecastingSession(
+        public static string ForecastingSessionSingleWithCEAsJson_Content = Properties.Resources.ForecastingSessionSingleWithCEAsJson;
+        public static ForecastingSession ForecastingSession_SingleWithCE = new ForecastingSession(
                 init: ForecastingInit_SingleWithCE,
                 observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
                 version: ForecastingSession_Version
             );
 
-        internal static ForecastingSession ForecastingSession_SingleWithoutCE = new ForecastingSession(
+        public static ForecastingSession ForecastingSession_SingleWithoutCE = new ForecastingSession(
                 init: ForecastingInit_SingleWithoutCE,
                 observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
                 version: ForecastingSession_Version
             );
 
-        internal static ForecastingSession ForecastingSession_DoubleWithCE = new ForecastingSession(
+        public static ForecastingSession ForecastingSession_DoubleWithCE = new ForecastingSession(
                 init: ForecastingInit_DoubleWithCE,
                 observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
                 version: ForecastingSession_Version
             );
 
-        internal static ForecastingSession ForecastingSession_BareMinimum = new ForecastingSession(
+        public static ForecastingSession ForecastingSession_BareMinimum = new ForecastingSession(
                 init: ForecastingInit_BareMinimum,
                 observations: Observations.ObjectMother.Observations_BareMinimum,
                 version: ForecastingSession_Version
@@ -100,11 +100,11 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
         #region Methods
 
-        internal static bool AreEqual(double double01, double double02, double delta = 0.00000000000001D)
+        public static bool AreEqual(double double01, double double02, double delta = 0.00000000000001D)
             => Math.Abs(double01 - double02) < delta;
-        internal static bool AreEqual(List<double> list1, List<double> list2)
+        public static bool AreEqual(List<double> list1, List<double> list2)
             => Utilities.ObjectMother.AreEqual(list1, list2, (obj1, obj2) => AreEqual(obj1, obj2));
-        internal static bool AreEqual(double? double01, double? double02)
+        public static bool AreEqual(double? double01, double? double02)
         {
 
             if (double01 == null && double02 != null)
@@ -118,7 +118,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             return AreEqual((double)double01, (double)double02);
 
         }
-        internal static bool AreEqual(ForecastingInit obj1, ForecastingInit obj2)
+        public static bool AreEqual(ForecastingInit obj1, ForecastingInit obj2)
         {
 
             return string.Equals(obj1.ObservationName, obj2.ObservationName, StringComparison.InvariantCulture)
@@ -128,7 +128,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         && Equals(obj1.Steps, obj2.Steps);
 
         }
-        internal static bool AreEqual(ForecastingSession obj1, ForecastingSession obj2)
+        public static bool AreEqual(ForecastingSession obj1, ForecastingSession obj2)
         {
 
             return AreEqual(obj1.Init, obj2.Init)

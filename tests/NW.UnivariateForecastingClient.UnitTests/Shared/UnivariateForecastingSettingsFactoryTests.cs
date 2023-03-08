@@ -51,7 +51,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             // Arrange
             ForecastData forecastData
                 = new ForecastData(
-                        init: "init.json",
+                        init: "Init.json",
                         saveSession: true,
                         folderPath: null,
                         roundingDigits: null,
@@ -80,7 +80,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             // Arrange
             ForecastData forecastData
                 = new ForecastData(
-                        init: "init.json",
+                        init: "Init.json",
                         saveSession: true,
                         folderPath: @"C:\unifor\",
                         roundingDigits: 2,

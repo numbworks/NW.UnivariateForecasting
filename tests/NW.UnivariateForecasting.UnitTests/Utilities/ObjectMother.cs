@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #region Methods
 
-        internal static TReturn CallPrivateMethod<TClass, TReturn>(TClass obj, string methodName, object[] args)
+        public static TReturn CallPrivateMethod<TClass, TReturn>(TClass obj, string methodName, object[] args)
         {
 
             Type type = typeof(TClass);
@@ -21,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             return (TReturn)type.GetTypeInfo().GetDeclaredMethod(methodName).Invoke(obj, args);
 
         }
-        internal static TReturn CallPrivateGenericMethod<TClass, TReturn>(TClass obj, string methodName, object[] args, Type methodType)
+        public static TReturn CallPrivateGenericMethod<TClass, TReturn>(TClass obj, string methodName, object[] args, Type methodType)
         {
 
             MethodInfo methodInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         }
 
-        internal static void Method_ShouldThrowACertainException_WhenUnproperArguments
+        public static void Method_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 
@@ -42,7 +42,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             Assert.AreEqual(expectedMessage, actual.Message);
 
         }
-        internal static bool AreEqual<T>(List<T> list1, List<T> list2, Func<T, T, bool> comparer)
+        public static bool AreEqual<T>(List<T> list1, List<T> list2, Func<T, T, bool> comparer)
         {
 
             if (list1 == null && list2 == null)

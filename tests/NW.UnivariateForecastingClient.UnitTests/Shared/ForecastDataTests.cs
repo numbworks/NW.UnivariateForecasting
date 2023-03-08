@@ -25,7 +25,7 @@ namespace NW.NGramTextClassificationClient.UnitTests.Shared
             // Act
             ForecastData actual
                 = new ForecastData(
-                        init: "init.json",
+                        init: "Init.json",
                         folderPath: @"C:\unifor\",
                         saveSession: true,
                         roundingDigits: 2,
