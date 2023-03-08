@@ -197,7 +197,9 @@ namespace NW.UnivariateForecasting
             SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values);
             Observation observation 
                 = _components.ObservationManager.Create(
-                        slidingWindow: slidingWindow, 
+                        slidingWindow: slidingWindow,
+                        forecastingDenominator: _settings.ForecastingDenominator,
+                        roundingDigits: _settings.RoundingDigits,
                         coefficient: init.Coefficient, 
                         error: init.Error);
 
@@ -228,5 +230,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 08.03.2023
 */

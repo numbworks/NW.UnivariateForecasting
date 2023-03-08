@@ -466,7 +466,6 @@ namespace NW.UnivariateForecasting.UnitTests
                                 roundingDigits: 2
                             ),
                         observationManager: new ObservationManager(
-                                settings: settings,
                                 roundingFunction: ObservationManager.DefaultRoundingFunction,
                                 loggingAction: ObservationManager.DefaultLoggingAction
                             ),
@@ -539,7 +538,6 @@ namespace NW.UnivariateForecasting.UnitTests
                                 roundingDigits: 2
                             ),
                         observationManager: new ObservationManager(
-                                settings: settings,
                                 roundingFunction: ObservationManager.DefaultRoundingFunction,
                                 loggingAction: ObservationManager.DefaultLoggingAction
                             ),
@@ -612,7 +610,6 @@ namespace NW.UnivariateForecasting.UnitTests
                                 roundingDigits: 2
                             ),
                         observationManager: new ObservationManager(
-                                settings: settings,
                                 roundingFunction: ObservationManager.DefaultRoundingFunction,
                                 loggingAction: ObservationManager.DefaultLoggingAction
                             ),
@@ -685,7 +682,6 @@ namespace NW.UnivariateForecasting.UnitTests
                                 roundingDigits: 2
                             ),
                         observationManager: new ObservationManager(
-                                settings: settings,
                                 roundingFunction: ObservationManager.DefaultRoundingFunction,
                                 loggingAction: ObservationManager.DefaultLoggingAction
                             ),

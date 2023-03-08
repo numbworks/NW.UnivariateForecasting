@@ -49,8 +49,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 folderPath: UnivariateForecastingSettings.DefaultFolderPath,
                 roundingDigits: 2
             );
+
         public static ObservationManager ObservationManager_WithTwoRoundingDigits = new ObservationManager(
-                settings: UnivariateForecastingSettings_WithTwoRoundingDigits,
                 roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                 loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
             );

@@ -12,13 +12,17 @@ namespace NW.UnivariateForecasting.Observations
 
         #region Fields
 
-        private UnivariateForecastingSettings _settings;
         private Func<double, uint, double> _roundingFunction;
         private Action<string> _loggingAction;
 
         #endregion
 
         #region Properties
+
+        public static double DefaultForecastingDenominator 
+            = UnivariateForecastingSettings.DefaultForecastingDenominator;
+        public static uint DefaultRoundingDigits { get; } 
+            = UnivariateForecastingSettings.DefaultRoundingDigits;
 
         public static Func<double, uint, double> DefaultRoundingFunction { get; }
             = UnivariateForecastingComponents.DefaultRoundingFunction;
@@ -31,17 +35,12 @@ namespace NW.UnivariateForecasting.Observations
 
         /// <summary>Initializes an instance of <see cref="ObservationManager"/>.</summary>
         /// <exception cref="ArgumentNullException"/> 
-        public ObservationManager(
-            UnivariateForecastingSettings settings,
-            Func<double, uint, double> roundingFunction,
-            Action<string> loggingAction)
+        public ObservationManager(Func<double, uint, double> roundingFunction, Action<string> loggingAction)
         {
 
-            Validator.ValidateObject(settings, nameof(settings));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
-            _settings = settings;
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
 
@@ -50,30 +49,32 @@ namespace NW.UnivariateForecasting.Observations
         /// <summary>Initializes an instance of <see cref="ObservationManager"/> using default values.</summary>
         public ObservationManager()
             : this(
-                  new UnivariateForecastingSettings(),
-                  DefaultRoundingFunction,
-                  DefaultLoggingAction
+                  roundingFunction: DefaultRoundingFunction,
+                  loggingAction: DefaultLoggingAction
                   ) { }
 
         #endregion
 
         #region Methods_public
 
-        public Observation Create(SlidingWindow slidingWindow, double? coefficient = null, double? error = null)
+        public Observation Create
+            (SlidingWindow slidingWindow, double forecastingDenominator, uint roundingDigits, double? coefficient = null, double? error = null)
         {
 
             Validator.ValidateObject(slidingWindow, nameof(slidingWindow));
+            Validator.ThrowIfLessThan(forecastingDenominator, DefaultForecastingDenominator, nameof(forecastingDenominator));
+            Validator.ThrowIfFirstIsGreater((int)roundingDigits, nameof(roundingDigits), (int)DefaultRoundingDigits, nameof(DefaultRoundingDigits));
 
             _loggingAction(MessageCollection.CreatingObservationOutOfProvidedSlidingWindow(slidingWindow));
 
             double X_Actual = GetTargetXActual(slidingWindow.Items);
             List<SlidingWindowItem> itemsExceptTarget = RemoveTargetXActual(slidingWindow.Items);
 
-            coefficient = coefficient ?? CalculateCoefficient(itemsExceptTarget, _settings.ForecastingDenominator);
-            error = error ?? CalculateError(itemsExceptTarget, (double)coefficient, _settings.ForecastingDenominator);
+            coefficient = coefficient ?? CalculateCoefficient(itemsExceptTarget, forecastingDenominator, roundingDigits);
+            error = error ?? CalculateError(itemsExceptTarget, (double)coefficient, forecastingDenominator, roundingDigits);
 
-            double CX = CalculateCX((double)coefficient, X_Actual);
-            double nextValue = CalculateNextValue(CX, (double)error);
+            double CX = CalculateCX((double)coefficient, X_Actual, roundingDigits);
+            double nextValue = CalculateNextValue(CX, (double)error, roundingDigits);
 
             Observation observation = new Observation(
                     coefficient: (double)coefficient,
@@ -136,7 +137,19 @@ namespace NW.UnivariateForecasting.Observations
             return items.Where(Item => Item.Y_Forecasted != null).ToList();
 
         }
-        private double CalculateCoefficient(List<SlidingWindowItem> items, double denominator)
+        private double CalculateMODE(List<double> values)
+        {
+
+            /* "The MODE of a set of values is the value that appears most often." */
+
+            return values.GroupBy(value => value)
+                             .OrderByDescending(group => group.Count())
+                             .First()
+                             .Key;
+
+        }
+
+        private double CalculateCoefficient(List<SlidingWindowItem> items, double denominator, uint roundingDigits)
         {
 
             /*
@@ -170,14 +183,14 @@ namespace NW.UnivariateForecasting.Observations
 
             double sum = 0;
             for (int i = 0; i < items.Count; i++)
-                sum += DivideXByY(items[i], denominator);
+                sum += DivideXByY(items[i], denominator, roundingDigits);
 
             double result = sum / items.Count;
 
-            return _roundingFunction(result, _settings.RoundingDigits);
+            return _roundingFunction(result, roundingDigits);
 
         }
-        private double CalculateError(List<SlidingWindowItem> items, double coefficient, double denominator)
+        private double CalculateError(List<SlidingWindowItem> items, double coefficient, double denominator, uint roundingDigits)
         {
 
             /*
@@ -214,18 +227,14 @@ namespace NW.UnivariateForecasting.Observations
             List<double> values = new List<double>();
             for (int i = 0; i < items.Count; i++)
                 values.Add(
-                        DivideXByY(items[i], denominator) - coefficient);
+                        DivideXByY(items[i], denominator, roundingDigits) - coefficient);
 
             double result = CalculateMODE(values);
 
-            return _roundingFunction(result, _settings.RoundingDigits);
+            return _roundingFunction(result, roundingDigits);
 
         }
-        private double CalculateCX(double coefficient, double X) 
-            => _roundingFunction(coefficient * X, _settings.RoundingDigits);
-        private double CalculateNextValue(double CX, double error) 
-            => _roundingFunction(CX + error, _settings.RoundingDigits);
-        private double DivideXByY(SlidingWindowItem item, double denominator)
+        private double DivideXByY(SlidingWindowItem item, double denominator, uint roundingDigits)
         {
 
             double X = item.X_Actual;
@@ -236,20 +245,14 @@ namespace NW.UnivariateForecasting.Observations
 
             double result = X / Y;
 
-            return _roundingFunction(result, _settings.RoundingDigits);
+            return _roundingFunction(result, roundingDigits);
 
         }
-        private double CalculateMODE(List<double> values)
-        {
 
-            /* "The MODE of a set of values is the value that appears most often." */
-
-            return values.GroupBy(value => value)
-                             .OrderByDescending(group => group.Count())
-                             .First()
-                             .Key;
-
-        }
+        private double CalculateCX(double coefficient, double X, uint roundingDigits) 
+            => _roundingFunction(coefficient * X, roundingDigits);
+        private double CalculateNextValue(double CX, double error, uint roundingDigits) 
+            => _roundingFunction(CX + error, roundingDigits);
 
         #endregion
 

@@ -19,35 +19,22 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager(
-                            settings: null, 
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
-                        )),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("settings").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_01"),
-
-            new TestCaseData(
-                new TestDelegate(
-                    () => new ObservationManager(
-                            settings: new UnivariateForecastingSettings(),
                             roundingFunction: null,
                             loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_02"),
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager(
-                            settings: new UnivariateForecastingSettings(),
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_03")
+                ).SetArgDisplayNames($"{nameof(observationManagerExceptionTestCases)}_02")
 
         };
         private static TestCaseData[] createExceptionTestCases =
@@ -55,11 +42,38 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new ObservationManager().Create(slidingWindow: null)
-                    ),
+                    () => new ObservationManager().Create(
+                                slidingWindow: null,
+                                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                        )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindow").Message
-                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01")
+                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_01"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new ObservationManager().Create(
+                                slidingWindow: SlidingWindows.ObjectMother.SlidingWindow01,
+                                forecastingDenominator: 0,
+                                roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                        )),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
+                        "forecastingDenominator",
+                        UnivariateForecastingSettings.DefaultForecastingDenominator)
+                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new ObservationManager().Create(
+                                slidingWindow: SlidingWindows.ObjectMother.SlidingWindow01,
+                                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                roundingDigits: 16
+                        )),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_03")
 
         };
         private static TestCaseData[] createTestCases =
@@ -67,6 +81,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
+                UnivariateForecastingSettings.DefaultForecastingDenominator,
+                (uint)2,
                 null,
                 null,
                 ObjectMother.Observation01_WithoutInitCE,
@@ -78,6 +94,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
+                UnivariateForecastingSettings.DefaultForecastingDenominator,
+                (uint)2,
                 ObjectMother.Observation01_WithInitCE.Coefficient,
                 ObjectMother.Observation01_WithInitCE.Error,
                 ObjectMother.Observation01_WithInitCE,
@@ -107,21 +125,34 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [TestCaseSource(nameof(createTestCases))]
-        public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow
-            (SlidingWindow slidingWindow, double? coefficient, double? error, Observation expected, List<string> expectedMessages)
+        public void Create_ShouldReturnExpectedObservationAndLogExpectedMessages_WhenProperSlidingWindow(
+                SlidingWindow slidingWindow, 
+                double forecastingDenominator, 
+                uint roundingDigits, 
+                double? coefficient, 
+                double? error, 
+                Observation expected, 
+                List<string> expectedMessages
+            )
         {
 
             // Arrange
             FakeLogger fakeLogger = new FakeLogger();
             ObservationManager observationManager 
                 = new ObservationManager(
-                            settings: ObjectMother.UnivariateForecastingSettings_WithTwoRoundingDigits,
                             roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
                             loggingAction: (message) => fakeLogger.Log(message)
                         );
 
             // Act
-            Observation actual = observationManager.Create(slidingWindow, coefficient, error);
+            Observation actual 
+                = observationManager.Create(
+                        slidingWindow: slidingWindow,
+                        forecastingDenominator: forecastingDenominator,
+                        roundingDigits: roundingDigits,
+                        coefficient: coefficient,
+                        error: error
+                    );
 
             // Assert
             Assert.True(
@@ -141,6 +172,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             // Assert
             Assert.IsInstanceOf<ObservationManager>(actual);
 
+            Assert.IsInstanceOf<double>(ObservationManager.DefaultForecastingDenominator);
+            Assert.IsInstanceOf<uint>(ObservationManager.DefaultRoundingDigits);
             Assert.IsInstanceOf<Func<double, uint, double>>(ObservationManager.DefaultRoundingFunction);
             Assert.IsInstanceOf<Action<string>>(ObservationManager.DefaultLoggingAction);
 
@@ -154,12 +187,13 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             SlidingWindowItem slidingWindowItem = new SlidingWindowItem(id: 1, X_Actual: 583.23, Y_Forecasted: 0);
             double denominator = UnivariateForecastingSettings.DefaultForecastingDenominator;
             double expected = 583.23 / denominator;
+            uint roundingDigits = 2;
 
             // Act
             double actual = Utilities.ObjectMother.CallPrivateMethod<ObservationManager, double>(
                     obj: ObjectMother.ObservationManager_WithTwoRoundingDigits,
                     methodName: "DivideXByY",
-                    args: new object[] { slidingWindowItem, denominator }
+                    args: new object[] { slidingWindowItem, denominator, roundingDigits }
                 );
 
             // Assert
