@@ -42,6 +42,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\NW.UnivariateForecastingClient\NW.UnivariateForecastingClient.csproj" />
     <ProjectReference Include="..\..\src\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
+    <ProjectReference Include="..\NW.UnivariateForecasting.UnitTests\NW.UnivariateForecasting.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

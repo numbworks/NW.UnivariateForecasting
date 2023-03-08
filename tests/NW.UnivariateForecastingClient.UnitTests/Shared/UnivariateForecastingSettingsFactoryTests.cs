@@ -1,4 +1,5 @@
 ﻿using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.UnitTests.Utilities;
 using NW.UnivariateForecastingClient.Shared;
 using NUnit.Framework;
 
@@ -17,32 +18,87 @@ namespace NW.UnivariateForecastingClient.UnitTests
         #region Tests
 
         [Test]
-        public void UnivariateForecasterFactory_ShouldCreateAnObjectOfTypeUnivariateForecasterFactory_WhenInvoked()
+        public void UnivariateForecastingSettingsFactory_ShouldCreateAnObjectOfThisType_WhenInvoked()
         {
 
             // Arrange
             // Act
-            UnivariateForecasterFactory actual = new UnivariateForecasterFactory();
+            UnivariateForecastingSettingsFactory actual = new UnivariateForecastingSettingsFactory();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecasterFactory>(actual);
+            Assert.IsInstanceOf<UnivariateForecastingSettingsFactory>(actual);
 
         }
 
         [Test]
-        public void Create_ShouldCreateAnObjectOfTypeUnivariateForecaster_WhenInvoked()
+        public void Create_ShouldCreateAnObjectOfTypeUnivariateForecastingSettings_WhenDefault()
         {
 
             // Arrange
             // Act
-            UnivariateForecaster actual 
-                = new UnivariateForecasterFactory().Create(
-                        components: new UnivariateForecastingComponents(), 
-                        settings: new UnivariateForecastingSettings()
-                        );
+            UnivariateForecastingSettings actual
+                = new UnivariateForecastingSettingsFactory().Create();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecaster>(actual);
+            Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
+
+        }
+
+        [Test]
+        public void Create_ShouldCreateExpectedUnivariateForecastingSettings_WhenForecastDataWithNullValues()
+        {
+
+            // Arrange
+            ForecastData forecastData
+                = new ForecastData(
+                        init: "init.json",
+                        saveSession: true,
+                        folderPath: null,
+                        roundingDigits: null,
+                        forecastingDenominator: null
+                    );
+            UnivariateForecastingSettings expected = new UnivariateForecastingSettings(
+                    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                    roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits,
+                    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator
+                );
+
+            // Act
+            UnivariateForecastingSettings actual
+                = new UnivariateForecastingSettingsFactory().Create(forecastData: forecastData);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(expected, actual));
+
+        }
+
+        [Test]
+        public void Create_ShouldCreateExpectedUnivariateForecastingSettings_WhenForecastDataWithNotNullValues()
+        {
+
+            // Arrange
+            ForecastData forecastData
+                = new ForecastData(
+                        init: "init.json",
+                        saveSession: true,
+                        folderPath: @"C:\unifor\",
+                        roundingDigits: 2,
+                        forecastingDenominator: 0.001
+                    );
+            UnivariateForecastingSettings expected = new UnivariateForecastingSettings(
+                    folderPath: @"C:\unifor\",
+                    roundingDigits: 2,
+                    forecastingDenominator: 0.001
+                );
+
+            // Act
+            UnivariateForecastingSettings actual
+                = new UnivariateForecastingSettingsFactory().Create(forecastData: forecastData);
+
+            // Assert
+            Assert.True(
+                ObjectMother.AreEqual(expected, actual));
 
         }
 
@@ -59,5 +115,5 @@ namespace NW.UnivariateForecastingClient.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 08.03.2023
 */

@@ -13,7 +13,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #region Methods
 
-        public static TReturn CallPrivateMethod<TClass, TReturn>(TClass obj, string methodName, object[] args)
+        internal static TReturn CallPrivateMethod<TClass, TReturn>(TClass obj, string methodName, object[] args)
         {
 
             Type type = typeof(TClass);
@@ -62,6 +62,15 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         }
 
+        public static bool AreEqual(UnivariateForecastingSettings obj1, UnivariateForecastingSettings obj2)
+        {
+
+            return string.Equals(obj1.FolderPath, obj2.FolderPath, StringComparison.InvariantCulture)
+                        && Forecasts.ObjectMother.AreEqual(obj1.ForecastingDenominator, obj2.ForecastingDenominator)
+                        && uint.Equals(obj1.RoundingDigits, obj2.RoundingDigits);
+
+        }
+
         #endregion
 
     }
@@ -69,5 +78,5 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 20.02.2023
+    Last Update: 08.03.2023
 */
