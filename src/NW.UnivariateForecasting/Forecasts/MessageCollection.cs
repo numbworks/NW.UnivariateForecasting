@@ -18,7 +18,7 @@ namespace NW.UnivariateForecasting.Forecasts
         public static Func<string, string> ProvidedFolderPathIs =
             (folderPath) => $"The provided folder path is: '{folderPath}'.";
         public static Func<double, string> ProvidedForecastingDenominatorIs =
-            (forecastingDenominator) => $"The provided forecasting denominator is: '{forecastingDenominator}'.";
+            (forecastingDenominator) => $"The provided forecasting denominator is: '{forecastingDenominator.ToString("0.###############")}'.";
         public static Func<uint, string> ProvidedRoundingDigitsAre =
             (roundingDigits) => $"The provided rounding digits are: '{roundingDigits}'.";
 
