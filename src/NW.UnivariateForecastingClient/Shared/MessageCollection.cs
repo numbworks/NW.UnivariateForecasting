@@ -52,15 +52,15 @@ namespace NW.UnivariateForecastingClient.Shared
         public static string Session_Option_RoundingDigits_Template { get; } = "--roundingdigits";
         public static string Session_Option_RoundingDigits_Description { get; }
             = string.Concat(
-                "When coefficient and error are not provided by the user, they are generated and rounded.",
+                "When coefficient and error are not provided by the user, they are generated and rounded. ",
                 $"If not specified, '{UnivariateForecastingSettings.DefaultRoundingDigits}' will be used."
             );
 
         public static string Session_Option_ForecastingDenominator_Template { get; } = "--forecastingdenominator";
         public static string Session_Option_ForecastingDenominator_Description { get; }
             = string.Concat(
-                "'Y_Forecasted = 0' is a totally legit value. To avoid a 'divide-by-zero' error, we replace it with a comparably small amount while forecasting.",
-                $"If not specified, '{UnivariateForecastingSettings.DefaultForecastingDenominator}' will be used."
+                "'Y_Forecasted = 0' is a totally legit value. To avoid a 'divide-by-zero' error, we replace it with a comparably small amount while forecasting. ",
+                $"If not specified, '{UnivariateForecastingSettings.DefaultForecastingDenominator.ToString("0.###############")}' will be used."
             );
 
 
