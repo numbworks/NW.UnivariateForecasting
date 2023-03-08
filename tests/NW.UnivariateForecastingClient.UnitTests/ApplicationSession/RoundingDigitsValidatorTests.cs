@@ -86,6 +86,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             // Assert
             Assert.IsInstanceOf<RoundingDigitsValidator>(actual);
 
+            Assert.IsNull(ForecastingDenominatorValidator.DefaultValue);
             Assert.IsInstanceOf<uint>(RoundingDigitsValidator.MininumValue);
             Assert.IsInstanceOf<uint>(RoundingDigitsValidator.MaximumValue);
 

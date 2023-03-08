@@ -27,12 +27,10 @@ namespace NW.UnivariateForecastingClient.Shared
         public static string PressAButtonToCloseTheWindow = "Press a button to close the window.";
 
         public static Func<string, string, string> ValueIsInvalidOrNotWithinRange
-            = (name, value) => $"{name} ('{value}') is invalid or not within the expected range ('{nameof(DoubleManager.MininumValue)}':'{DoubleManager.MininumValue}', '{nameof(DoubleManager.MaximumValue)}':'{DoubleManager.MaximumValue}').";
+            = (name, value) => $"{name} ('{value}') is invalid or not within the expected range.";
 
         public static Func<string, string> InvalidInitContent
             = (filePath) => $"Invalid init content ('{filePath}').";
-
-
 
         public static string Session_Option_FolderPath_Template { get; } = "--folderpath";
         public static string Session_Option_FolderPath_Description { get; }
@@ -49,7 +47,12 @@ namespace NW.UnivariateForecastingClient.Shared
                 $"If not specified, '{UnivariateForecastingSettings.DefaultRoundingDigits}' will be used."
             );
 
-
+        public static string Session_Option_ForecastingDenominator_Template { get; } = "--forecastingdenominator";
+        public static string Session_Option_ForecastingDenominator_Description { get; }
+            = string.Concat(
+                "Every decimal value processed by the application will be rounded to this number of digits.",
+                $"If not specified, '{UnivariateForecastingSettings.DefaultRoundingDigits}' will be used."
+            );
 
 
         #endregion

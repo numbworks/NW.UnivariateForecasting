@@ -108,7 +108,17 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                     .Accepts(validator => validator.Use(_sessionManagerComponents.RoundingDigitsValidator));
 
         }
+        private CommandOption CreateOptionalForecastingDenominatorOption(CommandLineApplication subCommand)
+        {
 
+            return subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_ForecastingDenominator_Template,
+                        Shared.MessageCollection.Session_Option_ForecastingDenominator_Description,
+                        CommandOptionType.SingleValue)
+                    .Accepts(validator => validator.Use(_sessionManagerComponents.ForecastingDenominatorValidator));
+
+        }
 
         #endregion
 
@@ -117,5 +127,5 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */

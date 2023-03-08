@@ -11,6 +11,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         #region Properties
 
+        public IOptionValidator ForecastingDenominatorValidator { get; }
         public IOptionValidator RoundingDigitsValidator { get; }
 
         #endregion
@@ -21,6 +22,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
         public SessionManagerComponents() 
         {
 
+            ForecastingDenominatorValidator = new ForecastingDenominatorValidator();
             RoundingDigitsValidator = new RoundingDigitsValidator();
 
         }
