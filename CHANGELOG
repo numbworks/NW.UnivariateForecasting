@@ -2,13 +2,14 @@ v3.0.0 - BREAKING CHANGES
 - Library:
 	- Feature: added ForecastingInit, ForecastingInitManager and ForecastingSession.
 	- Feature: added System.Text.Json-based Serializer.
+	- Feature: "Forecast" has been re-strucrured to support ForecastingInit and ForecastingSession.
 	- Refactoring: removed Intervals namespace.
 	- Refactoring: removed all the un-necessary members from UnivariateForecaster and related classes.
 	- Refactoring: removed all the un-necessary members from SlidingWindows and related classes.
 	- Refactoring: removed all the un-necessary members from Observations and related classes.
 	- Refactoring: consolidated all the floating point datatypes to double.
 - Client:
-	- 
+	- Feature: added "forecast" command.
 - Documentation:
 	- 
 
