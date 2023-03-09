@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Observations;
-using NW.UnivariateForecasting.SlidingWindows;
 
 namespace NW.UnivariateForecasting.Forecasts
 {
@@ -13,49 +12,79 @@ namespace NW.UnivariateForecasting.Forecasts
 
         #region Properties
 
-        public static Func<SlidingWindow, string> ExtractingValuesOutOfProvidedSlidingWindow { get; }
-            = (slidingWindow) => $"Extracting X_Values out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
-        public static Func<List<double>, string> ValuesHaveBeenSuccessfullyExtracted { get; }
-            = (values) => $"X_Values have been successfully extracted: '{RollOutCollection(values)}'.";
-        public static Func<SlidingWindow, string> ExtractingStartDatesOutOfProvidedSlidingWindow { get; }
-            = (slidingWindow) => $"Extracting StartDates out of the provided '{typeof(SlidingWindow).Name}': {slidingWindow.ToString(false)}...";
-        public static Func<List<DateTime>, string> StartDatesHaveBeenSuccessfullyExtracted { get; }
-            = (startDates) => $"StartDates have been successfully extracted: '{startDates.Count}'.";
-        
-        public static Func<uint, string> RunningForecastAndCombineForSteps { get; }
-            = (steps) => $"Running '{nameof(UnivariateForecaster.ForecastAndCombine)}' for '{steps}' steps...";
-        public static Func<uint, string> ForecastingAndCombineForStepNr { get; }
-            = (steps) => $"Forecasting and combine for step nr. '{steps}'...";
-        public static Func<uint, string> ForecastAndCombineSuccessfullyRunForSteps { get; }
-            = (steps) => $"'{nameof(UnivariateForecaster.ForecastAndCombine)}' has been successfully run for '{steps}' steps.";
+        public static string AttemptingToForecast = 
+            $"Attempting to perform a forecasting task out of the provided {nameof(ForecastingInit)}...";
 
-        public static string CombiningProvidedSlidingWindowWithObservation { get; }
-            = $"Combining the provided '{nameof(SlidingWindow)}' with the provided '{nameof(Observation)}'...";
-        public static Func<SlidingWindow, string> ProvidedSlidingWindowIs { get; }
-            = (slidingWindow) => $"The provided '{nameof(SlidingWindow)}' is: '{slidingWindow.ToString(false)}'.";
-        public static Func<Observation, string> ProvidedObservationIs { get; }
-            = (observation) => $"The provided '{nameof(Observation)}' is: '{observation.ToString(true)}'.";
+        public static Func<string, string> ProvidedFolderPathIs =
+            (folderPath) => $"The provided folder path is: '{folderPath}'.";
+        public static Func<double, string> ProvidedForecastingDenominatorIs =
+            (forecastingDenominator) => $"The provided forecasting denominator is: '{forecastingDenominator.ToString("0.###############")}'.";
+        public static Func<uint, string> ProvidedRoundingDigitsAre =
+            (roundingDigits) => $"The provided rounding digits are: '{roundingDigits}'.";
 
-        public static Func<List<double>, string> ForecastNextValueRunningForProvidedValues { get; }
-            = (values) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' running for provided values: '{RollOutCollection(values)}'...";
-        public static Func<double, string> ForecastNextValueSuccessfullyRun { get; }
-            = (nextValue) => $"'{nameof(UnivariateForecaster.ForecastNextValue)}' has been successfully run. The next value is: '{nextValue}'.";
-        public static Func<IFileInfoAdapter, string> SerializingProvidedSlidingWindowAsJsonAndSavingItTo
-            = (fileInfoAdapter) => $"Serializing the provided '{typeof(SlidingWindow).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
-        public static Func<IFileInfoAdapter, string> SerializingProvidedObservationAsJsonAndSavingItTo
-            = (fileInfoAdapter) => $"Serializing the provided '{typeof(Observation).Name}' as JSON and saving it to '{fileInfoAdapter.FullName}'...";
+        public static Func<string, string> ProvidedObservationNameIs = 
+            (observationName) => $"The provided observation name is: '{observationName}'.";
+        public static Func<int, string> ProvidedValuesAre = 
+            (count) => $"The provided values are: '{count}'.";
+        public static Func<double?, string> ProvidedCoefficientIs = 
+            (coefficient) => $"The provided coefficient is: '{coefficient?.ToString() ?? "null"}'.";
+        public static Func<double?, string> ProvidedErrorIs =
+            (error) => $"The provided error is: '{error?.ToString() ?? "null"}'.";
+        public static Func<uint, string> ProvidedStepsAre =
+            (steps) => $"The provided steps are: '{steps}'.";
 
-        public static string ProvidedObjectHasBeenSuccessfullySavedAsJson
-            = "The provided object has been successfully saved as JSON.";
-        public static Func<IFileInfoAdapter, string> DeserializingProvidedFileAsSlidingWindowObject
-            = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(SlidingWindow).Name}' object...";
-        public static Func<IFileInfoAdapter, string> DeserializingProvidedFileAsObservationObject
-            = (fileInfoAdapter) => $"Deserializing the provided file ('{fileInfoAdapter.FullName}') as '{typeof(Observation).Name}' object...";
-        public static string ProvidedFileHasBeenSuccessfullyDeserialized
-            = "The provided file has been successfully deserialized.";
+        public static Func<double, string> ObservationCoefficientIs =
+            (coefficient) => $"The observation's coefficient is: '{coefficient}'.";
+        public static Func<double, string> ObservationErrorIs =
+            (error) => $"The observation's error is: '{error}'.";
+        public static Func<double, string> ObservationNextValueIs =
+            (nextValue) => $"The current observation's next value is: '{nextValue}'.";
 
-        public static Func<string, double, string> DenominatorCantBeLessThan { get; }
-            = (variableName, defaultDenominator) => $"'{variableName}' can't be less than '{defaultDenominator.ToString()}'.";
+        public static Func<uint, string> ProcessingStepNr =
+            (step) => $"Processing step nr.: '{step}'.";
+        public static string ForecastSuccessfullyCompleted { get; } = 
+            "The forecasting task has been successfully completed.";
+
+        public static Func<Type, IFileInfoAdapter, string> AttemptingToLoadObjectFrom =
+            (type, jsonFile) => $"Attempting to load a '{type.Name}' object from: {jsonFile.FullName}.";
+        public static Func<Type, string> ObjectSuccessfullyLoaded =
+            (type) => $"A '{type.Name}' object has been successfully loaded.";
+        public static Func<Type, string> ObjectFailedToLoad =
+            (type) => $"A '{type.Name}' object failed to load. Default value is returned.";
+
+        public static Func<Type, IFileInfoAdapter, string> AttemptingToSaveObjectAs =
+            (type, jsonFile) =>
+            {
+
+                if (type == typeof(ExpandoObject))
+                    return $"Attempting to save the provided '{typeof(ForecastingSession).Name}' object as: {jsonFile.FullName}.";
+
+                return $"Attempting to save the provided '{type.Name}' object as: {jsonFile.FullName}.";
+
+            };
+        public static Func<Type, string> ObjectSuccessfullySaved =
+            (type) =>
+            {
+
+                if (type == typeof(ExpandoObject))
+                    return $"The provided '{typeof(ForecastingSession).Name}' object has been successfully saved.";
+
+                return $"The provided '{type.Name}' object has been successfully saved.";
+
+            };
+        public static Func<Type, string> ObjectFailedToSave =
+            (type) =>
+            {
+
+                if (type == typeof(ExpandoObject))
+                    return $"The provided '{typeof(ForecastingSession).Name}' object failed to save.";
+
+                return $"The provided '{type.Name}' object failed to save.";
+
+            };
+
+        public static Func<Type, string> ThereIsNoStrategyOutOfType =
+             (type) => $"There is no built-in strategy to create a filename out of a '{type.Name}' object.";
 
         #endregion 
 
@@ -82,5 +111,5 @@ namespace NW.UnivariateForecasting.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */

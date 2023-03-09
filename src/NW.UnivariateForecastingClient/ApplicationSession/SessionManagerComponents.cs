@@ -1,6 +1,4 @@
-﻿using System;
-using NW.UnivariateForecasting.Validation;
-using McMaster.Extensions.CommandLineUtils.Validation;
+﻿using McMaster.Extensions.CommandLineUtils.Validation;
 
 namespace NW.UnivariateForecastingClient.ApplicationSession
 {
@@ -13,29 +11,21 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         #region Properties
 
-        public IDoubleManager DoubleManager { get; }
-        public IOptionValidator MinimumAccuracyValidator { get; }
+        public ForecastingDenominatorValidator ForecastingDenominatorValidator { get; }
+        public RoundingDigitsValidator RoundingDigitsValidator { get; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a <see cref="SessionManagerComponents"/> instance.</summary>
-        /// <exception cref="ArgumentNullException"/>
-        public SessionManagerComponents(IDoubleManager doubleManager) 
+        public SessionManagerComponents() 
         {
 
-            Validator.ValidateObject(doubleManager, nameof(doubleManager));
-
-            DoubleManager = doubleManager;
-
-            MinimumAccuracyValidator = new MinimumAccuracyValidator(doubleManager);
+            ForecastingDenominatorValidator = new ForecastingDenominatorValidator();
+            RoundingDigitsValidator = new RoundingDigitsValidator();
 
         }
-
-        /// <summary>Initializes a <see cref="SessionManagerComponents"/> instance using default parameters.</summary>
-        public SessionManagerComponents()
-            : this(new DoubleManager()) { }
 
         #endregion
 
@@ -50,5 +40,5 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */

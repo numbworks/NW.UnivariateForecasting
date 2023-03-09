@@ -1,3 +1,23 @@
+v3.0.0 - BREAKING CHANGES
+- Highlights:
+	- You can load data into the library in a much simpler way, thanks to the total re-design of the data I/O.
+	- You can interact in a more pleasurable way with the library's endpoint, thanks to the removal of some redundant methods.
+	- You can perform forecasting tasks from the command-line client, thanks to the addition of the "forecast" command.
+	- You have easy access to all the library's file formats, thanks to the addition of the example files to the documentation.
+- Library:
+	- Feature: added ForecastingInit, ForecastingInitManager and ForecastingSession.
+	- Feature: added System.Text.Json-based Serializer.
+	- Feature: "Forecast" has been re-strucrured to support ForecastingInit and ForecastingSession.
+	- Refactoring: removed Intervals namespace.
+	- Refactoring: removed all the un-necessary members from UnivariateForecaster and related classes.
+	- Refactoring: removed all the un-necessary members from SlidingWindows and related classes.
+	- Refactoring: removed all the un-necessary members from Observations and related classes.
+	- Refactoring: consolidated all the floating point datatypes to double.
+- Client:
+	- Feature: added "forecast" command.
+- Documentation:
+	- Feature: updated to v3.0.0.
+
 v2.5.0
 - Library:
 	- Refactoring: split the monolithic MessageCollection class to namespace-based MessageCollection classes to improve maintainability.

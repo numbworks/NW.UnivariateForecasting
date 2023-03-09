@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
+using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace NW.UnivariateForecasting
 {
@@ -63,318 +61,168 @@ namespace NW.UnivariateForecasting
 
         public void LogAsciiBanner()
             => _components.LoggingActionAsciiBanner(AsciiBanner);
+        public IFileInfoAdapter Convert(string filePath)
+            => _components.FileManager.Create(filePath);
 
-        public Observation Forecast(SlidingWindow slidingWindow, double? C = null, double? E = null)
+        public ForecastingSession Forecast(ForecastingInit init)
         {
 
-            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
+            Validator.ValidateObject(init, nameof(init));
+            Validator.ThrowIfLessThan(init.Values.Count, 2, nameof(init.Values));
 
-            return _components.ObservationManager.Create(slidingWindow, C, E);
+            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedFolderPathIs(_settings.FolderPath));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(_settings.ForecastingDenominator));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedRoundingDigitsAre(_settings.RoundingDigits));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedErrorIs(init.Error));
+            _components.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(init.Steps));
 
-        }
-        
-        public SlidingWindow ForecastAndCombine
-            (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null)
-        {
+            _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(1));
 
-            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
-            Validator.ThrowIfLessThanOne(steps, nameof(steps));
+            Observation observation = CreateObservation(init);
+            List<Observation> observations = Convert(observation);
 
-            _components.LoggingAction(Forecasts.MessageCollection.RunningForecastAndCombineForSteps(steps));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(observations.Last().Coefficient));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(observations.Last().Error));
+            _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(observations.Last().NextValue));
 
-            SlidingWindow newSlidingWindow = DeepCloneSlidingWindow(slidingWindow);
-            List<Observation> temp = new List<Observation>();
-
-            for (uint i = 1; i <= steps; i++)
+            if (init.Steps > 1)
             {
 
-                _components.LoggingAction(Forecasts.MessageCollection.ForecastingAndCombineForStepNr(i));
+                ForecastingInit nextInit = DuplicateInit(init);
+                double nextValue = observations.Last().NextValue;
 
-                Observation observation = Forecast(newSlidingWindow, C, E);
-                newSlidingWindow = Combine(newSlidingWindow, observation);
+                for (uint step = 2; step <= init.Steps; step++)
+                {
 
-                temp.Add(observation);
+                    _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(step));
 
-            };
+                    nextInit = _components.ForecastingInitManager.ExpandValues(nextInit, nextValue);
+                    Observation nextObservation = CreateObservation(nextInit);
+                    nextValue = nextObservation.NextValue;
 
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastAndCombineSuccessfullyRunForSteps(steps));
-            _components.LoggingAction(SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated(newSlidingWindow));
+                    _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(nextValue));
 
-            observations = temp;
-            return newSlidingWindow;
+                    observations.Add(nextObservation);
 
-        }
-        public SlidingWindow ForecastAndCombine
-            (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null)
-                => ForecastAndCombine(slidingWindow, steps, out _, C, E);
+                }
 
-        public SlidingWindow ForecastAndCombine
-            (SlidingWindow slidingWindow, double? C = null, double? E = null)
-                => ForecastAndCombine(slidingWindow, 1, C, E);
+            }
 
-        public double ForecastNextValue(List<double> values, double? C = null, double? E = null)
-        {
+            _components.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted);
 
-            Validator.ValidateList(values, nameof(values));
+            ForecastingSession session = new ForecastingSession(
+                    init: init,
+                    observations: observations,
+                    version: Version
+                );
 
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueRunningForProvidedValues(values));
-
-            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(values);
-            double nextValue = _components.ObservationManager.Create(slidingWindow, C, E).Y_Forecasted;
-
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastNextValueSuccessfullyRun(nextValue));
-
-            return nextValue;
-
-        }
-        public SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation)
-        {
-
-            /*
-
-                SlidingWindow:
-
-                    [ Id: 'SW20200803063734', ObservationName: 'Some_Identifier', Interval: '6:Months:20190131:20190731:20190831:1:6', Items: '6' ]          
-
-                newSlidingWindow:
-
-                    [ Id: 'SW20200803063734', ObservationName: 'Some_Identifier', Interval: '7:Months:20190131:20190831:20190930:1:7', Items: '7' ]
-
-             */
-
-            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
-            if (!_components.ObservationManager.IsValid(observation))
-                throw new ArgumentException(Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(Observation)));
-
-            _components.LoggingAction(Forecasts.MessageCollection.CombiningProvidedSlidingWindowWithObservation);
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedSlidingWindowIs(slidingWindow));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationIs(observation));
-
-            uint steps = (uint)(slidingWindow.Interval.Size / slidingWindow.Items.Count);
-            SlidingWindow newSlidingWindow = new SlidingWindow()
-            {
-
-                Id = _components.IdCreationFunction(),
-                ObservationName = slidingWindow.ObservationName,
-                Interval = _components.IntervalManager.Create(
-                                                    slidingWindow.Interval.Size + 1,
-                                                    slidingWindow.Interval.Unit,
-                                                    slidingWindow.Interval.StartDate,
-                                                    steps),
-                Items = CombineItems(slidingWindow.Items, slidingWindow.Interval.Unit, steps, observation)
-
-            };
-
-            _components.LoggingAction(SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated(newSlidingWindow));
-
-            return newSlidingWindow;
-
-        }
-        public List<double> ExtractXActualValues(SlidingWindow slidingWindow)
-        {
-
-            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
-
-            _components.LoggingAction(Forecasts.MessageCollection.ExtractingValuesOutOfProvidedSlidingWindow(slidingWindow));
-
-            List<double> values = slidingWindow.Items.Select(item => item.X_Actual).ToList();
-            _components.LoggingAction(Forecasts.MessageCollection.ValuesHaveBeenSuccessfullyExtracted(values));
-
-            return values;
-
-        }
-        public List<DateTime> ExtractStartDates(SlidingWindow slidingWindow)
-        {
-
-            if (!_components.SlidingWindowManager.IsValid(slidingWindow))
-                throw new ArgumentException(Observations.MessageCollection.ProvidedTypeObjectNotValid(typeof(SlidingWindow)));
-
-            _components.LoggingAction(Forecasts.MessageCollection.ExtractingStartDatesOutOfProvidedSlidingWindow(slidingWindow));
-
-            List<DateTime> startDates = slidingWindow.Items.Select(item => item.Interval.StartDate).ToList();
-            _components.LoggingAction(Forecasts.MessageCollection.StartDatesHaveBeenSuccessfullyExtracted(startDates));
-
-            return startDates;
+            return session;
 
         }
 
-        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, IFileInfoAdapter fileInfoAdapter)
-        {
-
-            Validator.ValidateObject(slidingWindow, nameof(slidingWindow));
-            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
-
-            _components.LoggingAction(Forecasts.MessageCollection.SerializingProvidedSlidingWindowAsJsonAndSavingItTo(fileInfoAdapter));
-
-            SaveAsJson(slidingWindow, fileInfoAdapter);
-
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedObjectHasBeenSuccessfullySavedAsJson);
-
-        }
-        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfo fileInfo)
-            => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(fileInfo));
-        public void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath)
-            => SaveSlidingWindowAsJson(slidingWindow, _components.FileManager.Create(filePath));
-        
-        public void SaveObservationAsJson(Observation observation, IFileInfoAdapter fileInfoAdapter)
-        {
-
-            Validator.ValidateObject(observation, nameof(observation));
-            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
-
-            _components.LoggingAction(Forecasts.MessageCollection.SerializingProvidedObservationAsJsonAndSavingItTo(fileInfoAdapter));
-
-            SaveAsJson(observation, fileInfoAdapter);
-
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedObjectHasBeenSuccessfullySavedAsJson);
-
-        }
-        public void SaveObservationAsJson(Observation observation, FileInfo fileInfo)
-            => SaveObservationAsJson(observation, _components.FileManager.Create(fileInfo));
-        public void SaveObservationAsJson(Observation observation, string filePath)
-            => SaveObservationAsJson(observation, _components.FileManager.Create(filePath));
-
-        public SlidingWindow LoadSlidingWindowFromJson(IFileInfoAdapter fileInfoAdapter)
-        {
-
-            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
-            Validator.ValidateFileExistance(fileInfoAdapter);
-
-            _components.LoggingAction(Forecasts.MessageCollection.DeserializingProvidedFileAsSlidingWindowObject(fileInfoAdapter));
-
-            SlidingWindow slidingWindow = GetFromJson<SlidingWindow>(fileInfoAdapter);
-
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedFileHasBeenSuccessfullyDeserialized);
-
-            return slidingWindow;
-        }
-        public SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo)
-            => LoadSlidingWindowFromJson(_components.FileManager.Create(fileInfo));
-        public SlidingWindow LoadSlidingWindowFromJson(string filePath)
-            => LoadSlidingWindowFromJson(_components.FileManager.Create(filePath));
-        
-        public Observation LoadObservationFromJson(IFileInfoAdapter fileInfoAdapter)
-        {
-
-            Validator.ValidateObject(fileInfoAdapter, nameof(fileInfoAdapter));
-            Validator.ValidateFileExistance(fileInfoAdapter);
-
-            _components.LoggingAction(Forecasts.MessageCollection.DeserializingProvidedFileAsObservationObject(fileInfoAdapter));
-
-            Observation observation = GetFromJson<Observation>(fileInfoAdapter);
-
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedFileHasBeenSuccessfullyDeserialized);
-
-            return observation;
-
-        }
-        public Observation LoadObservationFromJson(FileInfo fileInfo)
-            => LoadObservationFromJson(_components.FileManager.Create(fileInfo));
-        public Observation LoadObservationFromJson(string filePath)
-            => LoadObservationFromJson(_components.FileManager.Create(filePath));
+        public ForecastingInit LoadInitOrDefault(IFileInfoAdapter jsonFile)
+            => LoadOrDefault<ForecastingInit>(jsonFile);
+        public void SaveSession(ForecastingSession session, string folderPath)
+            => Save(obj: session, jsonFile: Create<ForecastingSession>(folderPath: folderPath, now: _components.NowFunction()));
 
         #endregion
 
         #region Methods_private
 
-        private List<SlidingWindowItem> DeepCloneSlidingWindowItems(List<SlidingWindowItem> slidingWindowItems)
+        private T LoadOrDefault<T>(IFileInfoAdapter jsonFile)
         {
 
-            return slidingWindowItems.ConvertAll(item =>
-                                            new SlidingWindowItem()
-                                            {
-                                                Id = item.Id,
-                                                Interval = item.Interval,
-                                                X_Actual = item.X_Actual,
-                                                Y_Forecasted = item.Y_Forecasted
-                                            });
+            Validator.ValidateObject(jsonFile, nameof(jsonFile));
+            Validator.ValidateFileExistance(jsonFile);
+
+            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(T), jsonFile));
+
+            string content = _components.FileManager.ReadAllText(jsonFile);
+
+            ISerializer<T> serializer = _components.SerializerFactory.Create<T>();
+            T obj = serializer.DeserializeOrDefault(content);
+
+            if (EqualityComparer<T>.Default.Equals(obj, default(T)))
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectFailedToLoad(typeof(T)));
+            else
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullyLoaded(typeof(T)));
+
+            return obj;
 
         }
-        private SlidingWindow DeepCloneSlidingWindow(SlidingWindow slidingWindow)
+        private void Save<T>(T obj, IFileInfoAdapter jsonFile)
         {
 
-            return new SlidingWindow()
+            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToSaveObjectAs(typeof(T), jsonFile));
+
+            try
             {
-                Id = slidingWindow.Id,
-                ObservationName = slidingWindow.ObservationName,
-                Interval = slidingWindow.Interval,
-                Items = slidingWindow.Items
-            };
+
+                ISerializer<T> serializer = _components.SerializerFactory.Create<T>();
+                string content = serializer.Serialize(obj);
+
+                _components.FileManager.WriteAllText(jsonFile, content);
+
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullySaved(typeof(T)));
+
+            }
+            catch
+            {
+
+                _components.LoggingAction(Forecasts.MessageCollection.ObjectFailedToSave(typeof(T)));
+
+            }
 
         }
-        private List<SlidingWindowItem> CombineItems(
-            List<SlidingWindowItem> slidingWindowItems, IntervalUnits intervalUnits, uint steps, Observation observation)
+        private IFileInfoAdapter Create<T>(string folderPath, DateTime now)
         {
 
-            /*
-             
-                Items:
+            string filePath;
 
-                    [ Id: '1', Interval: '2019-01-31:2019-02-28:2019-03-31', X_Actual: '58,5', Y_Forecasted: '615,26' ]
-                    [ Id: '2', Interval: '2019-02-28:2019-03-31:2019-04-30', X_Actual: '615,26', Y_Forecasted: '659,84' ]
-                    ...                  
-                    [ Id: '6', Interval: '2019-06-30:2019-07-31:2019-08-31', X_Actual: '632,94', Y_Forecasted: '' ]
- 
-                Observation:
+            if (typeof(T) == typeof(ForecastingSession))
+                filePath = _components.FilenameFactory.CreateForSessionJson(folderPath: folderPath, now: now);
+            else
+                throw new Exception(Forecasts.MessageCollection.ThereIsNoStrategyOutOfType(typeof(T)));
 
-                    [ ..., Y_Forecasted: '519,23', ... ]
+            IFileInfoAdapter jsonFile = new FileInfoAdapter(fileName: filePath);
 
-                newItems:
-
-                    [ Id: '1', Interval: '2019-01-31:2019-02-28:2019-03-31', X_Actual: '58,5', Y_Forecasted: '615,26' ]
-                    [ Id: '2', Interval: '2019-02-28:2019-03-31:2019-04-30', X_Actual: '615,26', Y_Forecasted: '659,84' ]
-                    ...
-                    => [ Id: '6', Interval: '2019-06-30:2019-07-31:2019-08-31', X_Actual: '632,94', Y_Forecasted: '519,23' ]
-                    => [ Id: '7', Interval: '2019-07-31:2019-08-31:2019-09-30', X_Actual: '519,23', Y_Forecasted: '' ]
-
-             */
-
-            List<SlidingWindowItem> newItems = DeepCloneSlidingWindowItems(slidingWindowItems);
-
-            SlidingWindowItem oldLastItem = newItems.OrderBy(item => item.Id).Last();
-            newItems.Remove(oldLastItem);
-            oldLastItem.Y_Forecasted = observation.Y_Forecasted;
-            newItems.Add(oldLastItem);
-
-            SlidingWindowItem newLastItem =
-                _components.SlidingWindowItemManager.CreateItem(
-                                            oldLastItem.Id + 1,
-                                            _components.IntervalManager.CalculateNext(oldLastItem.Interval.StartDate, intervalUnits, steps),
-                                            intervalUnits,
-                                            observation.Y_Forecasted,
-                                            null);
-            newItems.Add(newLastItem);
-
-            return newItems;
+            return jsonFile;
 
         }
-        private void SaveAsJson(object obj, IFileInfoAdapter fileInfoAdapter)
+
+        private Observation CreateObservation(ForecastingInit init)
         {
 
-            string content = JsonConvert.SerializeObject(obj, GetJsonSerializerSettings());
-            _components.FileManager.WriteAllText(fileInfoAdapter, content);
+            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values, _settings.RoundingDigits);
+            Observation observation 
+                = _components.ObservationManager.Create(
+                        slidingWindow: slidingWindow,
+                        forecastingDenominator: _settings.ForecastingDenominator,
+                        roundingDigits: _settings.RoundingDigits,
+                        coefficient: init.Coefficient, 
+                        error: init.Error);
+
+            return observation;
 
         }
-        private T GetFromJson<T>(IFileInfoAdapter fileInfoAdapter)
+        private List<Observation> Convert(Observation observation)
+            => new List<Observation>() { observation };
+        private ForecastingInit DuplicateInit(ForecastingInit init)
         {
 
-            string content = _components.FileManager.ReadAllText(fileInfoAdapter);
+            ForecastingInit duplicated = new ForecastingInit(
+                observationName: init.ObservationName,
+                values: init.Values,
+                coefficient: init.Coefficient,
+                error: init.Error,
+                steps: init.Steps
+                );
 
-            return JsonConvert.DeserializeObject<T>(content, GetJsonSerializerSettings());
-
-        }
-        private JsonSerializerSettings GetJsonSerializerSettings()
-        {
-
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.DateFormatString = "yyyy-MM-dd";
-            settings.Converters.Add(new StringEnumConverter());
-
-            return settings;
+            return duplicated;
 
         }
 
@@ -385,5 +233,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */

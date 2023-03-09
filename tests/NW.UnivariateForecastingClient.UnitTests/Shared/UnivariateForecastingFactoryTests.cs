@@ -17,29 +17,32 @@ namespace NW.UnivariateForecastingClient.UnitTests
         #region Tests
 
         [Test]
-        public void UnivariateForecastingSettingsFactory_ShouldCreateAnObjectOfTypeUnivariateForecastingSettingsFactory_WhenInvoked()
+        public void UnivariateForecasterFactory_ShouldCreateAnObjectOfTypeUnivariateForecasterFactory_WhenInvoked()
         {
 
             // Arrange
             // Act
-            UnivariateForecastingSettingsFactory actual = new UnivariateForecastingSettingsFactory();
+            UnivariateForecasterFactory actual = new UnivariateForecasterFactory();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecastingSettingsFactory>(actual);
+            Assert.IsInstanceOf<UnivariateForecasterFactory>(actual);
 
         }
 
         [Test]
-        public void Create_ShouldCreateAnObjectOfTypeUnivariateForecastingSettings_WhenInvoked()
+        public void Create_ShouldCreateAnObjectOfTypeUnivariateForecaster_WhenInvoked()
         {
 
             // Arrange
             // Act
-            UnivariateForecastingSettings actual
-                = new UnivariateForecastingSettingsFactory().Create();
+            UnivariateForecaster actual
+                = new UnivariateForecasterFactory().Create(
+                        components: new UnivariateForecastingComponents(),
+                        settings: new UnivariateForecastingSettings()
+                        );
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
+            Assert.IsInstanceOf<UnivariateForecaster>(actual);
 
         }
 
@@ -56,5 +59,5 @@ namespace NW.UnivariateForecastingClient.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 08.03.2023
 */

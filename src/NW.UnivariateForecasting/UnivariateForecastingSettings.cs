@@ -1,5 +1,6 @@
 ﻿using System;
-using NW.UnivariateForecasting.Intervals;
+using System.IO;
+using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting
 {
@@ -12,53 +13,35 @@ namespace NW.UnivariateForecasting
 
         #region Properties
 
-        public const double DefaultForecastingDenominator = 0.001;
-        public const string DefaultDummyId = "Dummy Id";
-        public const string DefaultDummyObservationName = "Dummy Observation";
-        public static DateTime DefaultDummyStartDate = new DateTime(2020, 01, 01);
-        public const uint DefaultDummySteps = 1;
-        public const IntervalUnits DefaultDummyIntervalUnit = IntervalUnits.Months;
+        public const double DefaultForecastingDenominator = 0.00000000000001D;
+        public static string DefaultFolderPath { get; } = Directory.GetCurrentDirectory();
+        public static uint DefaultRoundingDigits { get; } = 15;
 
         public double ForecastingDenominator { get; private set; }
-        public string DummyId { get; private set; }
-        public string DummyObservationName { get; private set; }
-        public DateTime DummyStartDate { get; private set; }
-        public uint DummySteps { get; private set; }
-        public IntervalUnits DummyIntervalUnit { get; private set; }
+        public string FolderPath { get; }
+        public uint RoundingDigits { get; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecastingSettings"/>. Hover the mouse over the parameters for details.
+        /// Initializes an instance of <see cref="UnivariateForecastingSettings"/>.
         /// </summary>
-        /// <param name="forecastingDenominator">Y_Forecasted = 0 in a <see cref="SlidingWindowItem"/> is a totally legit value. To avoid "divide-by-zero" error, we replace it with a comparably small amount while forecasting. Default: 0.001.</param>
-        /// <param name="dummyId">For <see cref="SlidingWindow"/>. Default: "Dummy Id".</param>
-        /// <param name="dummyObservationName">For <see cref="SlidingWindow"/>. Default: "Default Observation".</param>
-        /// <param name="dummyStartDate">For <see cref="SlidingWindow"/>. Default: 2020-01-01.</param>
-        /// <param name="dummySteps">For <see cref="SlidingWindow"/>. Default: 1.</param>
-        /// <param name="dummyIntervalUnit">For <see cref="SlidingWindow"/>. Default: <see cref="IntervalUnits.Months"/>.</param>
+        /// <param name="forecastingDenominator">Y_Forecasted = 0 in a <see cref="SlidingWindowItem"/> is a totally legit value. To avoid "divide-by-zero" error, we replace it with a comparably small amount while forecasting. Default: 0.00000000000001.</param>
+        /// <param name="roundingDigits">When coefficient and error are not provided by the user, they are generated and rounded. The decimal digits can't be more than <see cref="DefaultRoundingDigits"/>.</param>        
         /// <exception cref="ArgumentException"/> 
-        public UnivariateForecastingSettings(
-                double forecastingDenominator,
-                string dummyId,
-                string dummyObservationName,
-                DateTime dummyStartDate,
-                uint dummySteps,
-                IntervalUnits dummyIntervalUnit
-            )
+        /// <exception cref="ArgumentNullException"/> 
+        public UnivariateForecastingSettings(double forecastingDenominator, string folderPath, uint roundingDigits)
         {
 
-            if (forecastingDenominator < DefaultForecastingDenominator)
-                throw new ArgumentException(Forecasts.MessageCollection.DenominatorCantBeLessThan(nameof(forecastingDenominator), DefaultForecastingDenominator));
+            Validator.ThrowIfLessThan(forecastingDenominator, DefaultForecastingDenominator, nameof(forecastingDenominator));
+            Validator.ValidateStringNullOrWhiteSpace(folderPath, nameof(folderPath));
+            Validator.ThrowIfFirstIsGreater((int)roundingDigits, nameof(roundingDigits), (int)DefaultRoundingDigits, nameof(DefaultRoundingDigits));
 
             ForecastingDenominator = forecastingDenominator;
-            DummyId = dummyId;
-            DummyObservationName = dummyObservationName;
-            DummyStartDate = dummyStartDate;
-            DummySteps = dummySteps;
-            DummyIntervalUnit = dummyIntervalUnit;
+            FolderPath = folderPath;
+            RoundingDigits = roundingDigits;
 
         }
 
@@ -67,13 +50,11 @@ namespace NW.UnivariateForecasting
         /// </summary>
         public UnivariateForecastingSettings()
             : this(
-                  DefaultForecastingDenominator,
-                  DefaultDummyId,
-                  DefaultDummyObservationName,
-                  DefaultDummyStartDate,
-                  DefaultDummySteps,
-                  DefaultDummyIntervalUnit) { }
-        
+                  forecastingDenominator: DefaultForecastingDenominator,
+                  folderPath: DefaultFolderPath,
+                  roundingDigits: DefaultRoundingDigits
+                  ) { }
+
         #endregion
 
         #region Methods_public
@@ -84,5 +65,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */

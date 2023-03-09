@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NW.UnivariateForecasting.Intervals;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
@@ -12,20 +11,19 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Fields
 
-        private UnivariateForecastingSettings _settings;
-        private IIntervalManager _intervalManager;
-        private ISlidingWindowItemManager _slidingWindowItemManager;
-        private Func<double, double> _roundingFunction;
+        private Func<double, uint, double> _roundingFunction;
         private Action<string> _loggingAction;
 
         #endregion
 
         #region Properties
 
-        public static Func<double, double> DefaultRoundingFunction { get; }
+        public static Func<double, uint, double> DefaultRoundingFunction { get; }
             = UnivariateForecastingComponents.DefaultRoundingFunction;
         public static Action<string> DefaultLoggingAction { get; }
             = UnivariateForecastingComponents.DefaultLoggingAction;
+        public static uint DefaultRoundingDigits { get; }
+            = UnivariateForecastingSettings.DefaultRoundingDigits;
 
         #endregion
 
@@ -33,23 +31,13 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/>.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public SlidingWindowManager(
-            UnivariateForecastingSettings settings,
-            IIntervalManager intervalManager,
-            ISlidingWindowItemManager slidingWindowItemManager,
-            Func<double, double> roundingFunction,
-            Action<string> loggingAction)
+        /// <exception cref="ArgumentException"/>
+        public SlidingWindowManager(Func<double, uint, double> roundingFunction, Action<string> loggingAction)
         {
 
-            Validator.ValidateObject(settings, nameof(settings));
-            Validator.ValidateObject(intervalManager, nameof(intervalManager));
-            Validator.ValidateObject(slidingWindowItemManager, nameof(slidingWindowItemManager));
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
 
-            _settings = settings;
-            _intervalManager = intervalManager;
-            _slidingWindowItemManager = slidingWindowItemManager;
             _roundingFunction = roundingFunction;
             _loggingAction = loggingAction;
 
@@ -58,9 +46,6 @@ namespace NW.UnivariateForecasting.SlidingWindows
         /// <summary>Initializes an instance of <see cref="SlidingWindowManager"/> using default values.</summary>
         public SlidingWindowManager()
             : this(
-                  new UnivariateForecastingSettings(),
-                  new IntervalManager(),
-                  new SlidingWindowItemManager(),
                   DefaultRoundingFunction,
                   DefaultLoggingAction
                   ) { }
@@ -69,87 +54,21 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Methods_public
 
-        public SlidingWindow Create(string id, string observationName, Interval interval, List<SlidingWindowItem> items)
+        public SlidingWindow Create(List<double> values, uint roundingDigits)
         {
 
-            Validator.ValidateStringNullOrWhiteSpace(id, nameof(id));
-            Validator.ValidateStringNullOrWhiteSpace(observationName, nameof(observationName));
-            if (!_intervalManager.IsValid(interval))
-                throw new ArgumentException(Intervals.MessageCollection.IntervalNullOrInvalid);
-            Validator.ValidateList(items, nameof(items));
-            if (items.Count != interval.SubIntervals)
-                throw new ArgumentException(Intervals.MessageCollection.ItemsDontMatchSubintervals(items.Count, interval));
+            Validator.ValidateList(values, nameof(values));
+            Validator.ThrowIfFirstIsGreater((int)roundingDigits, nameof(roundingDigits), (int)DefaultRoundingDigits, nameof(DefaultRoundingDigits));
 
             _loggingAction(MessageCollection.CreatingSlidingWindowOutOfFollowingArguments);
-            _loggingAction(MessageCollection.ProvidedIdIs(id));
-            _loggingAction(MessageCollection.ProvidedObservationNameIs(observationName));
-            _loggingAction(MessageCollection.ProvidedIntervalIs(interval));
-            _loggingAction(MessageCollection.ProvidedItemsCountIs(items));
+            _loggingAction(MessageCollection.ProvidedValuesAre(values));
 
-            SlidingWindow slidingWindow = new SlidingWindow()
-            {
-
-                Id = id,
-                ObservationName = observationName,
-                Interval = interval,
-                Items = items
-
-            };
+            List<SlidingWindowItem> items = CreateItems(Round(values, roundingDigits));
+            SlidingWindow slidingWindow = new SlidingWindow(items);
 
             _loggingAction(MessageCollection.FollowingSlidingWindowHasBeenCreated(slidingWindow));
 
             return slidingWindow;
-
-        }
-        public SlidingWindow Create(string id, string observationName, List<double> values, uint steps, IntervalUnits intervalUnit, DateTime startDate)
-        {
-
-            Validator.ValidateList(values, nameof(values));
-
-            _loggingAction(MessageCollection.CreatingIntervalOutOfFollowingArguments);
-            _loggingAction(MessageCollection.ProvidedValuesAre(values));
-            _loggingAction(MessageCollection.ProvidedStepsAre(steps));
-            _loggingAction(MessageCollection.ProvidedIntervalUnitsIs(intervalUnit));
-
-            Interval interval = _intervalManager.Create((uint)values.Count, intervalUnit, startDate, steps);
-            List<SlidingWindowItem> items = CreateItems(interval, Round(values));
-
-            return Create(id, observationName, interval, items);
-
-        }
-        public SlidingWindow Create(List<double> values)
-        {
-
-            return Create(
-                    _settings.DummyId,
-                    _settings.DummyObservationName,
-                    values,
-                    _settings.DummySteps,
-                    _settings.DummyIntervalUnit,
-                    _settings.DummyStartDate
-                );
-
-        }
-
-        public bool IsValid(SlidingWindow slidingWindow)
-        {
-
-            if (slidingWindow == null)
-                return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.Id))
-                return false;
-            if (string.IsNullOrWhiteSpace(slidingWindow.ObservationName))
-                return false;
-            if (_intervalManager.IsValid(slidingWindow.Interval) == false)
-                return false;
-            if (slidingWindow.Items == null)
-                return false;
-            if (slidingWindow.Items.Count < 1)
-                return false;
-            if (slidingWindow.Items.Count != slidingWindow.Interval.SubIntervals)
-                return false;
-
-            return true;
 
         }
 
@@ -157,7 +76,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Methods_private
 
-        private List<double> Round(List<double> values)
+        private List<double> Round(List<double> values, uint roundingDigits)
         {
 
             /*
@@ -166,34 +85,67 @@ namespace NW.UnivariateForecasting.SlidingWindows
                 ...
              */
 
-            return values.Select(item => _roundingFunction(item)).ToList();
+            return values.Select(item => _roundingFunction(item, roundingDigits)).ToList();
 
         }
-        private List<SlidingWindowItem> CreateItems(Interval interval, List<double> values)
+        private List<SlidingWindowItem> CreateItems(List<double> values)
         {
 
-            List<Interval> subIntervals = _intervalManager.CalculateSubIntervals(interval);
+            /*
 
-            List<SlidingWindowItem> slidingWindowItems = new List<SlidingWindowItem>();
-            for (int i = 0; i < subIntervals.Count; i++)
+                values = [58.50, 615.26, 659.84, 635.69, 612.27, 632.94]
+
+                List<SlidingWindowItem>
+
+                    - SlidingWindowItem
+                        - Id		    1
+                        - X_Actual	    58.50
+                        - Y_Forecasted	615.26
+
+                    - SlidingWindowItem
+                        - Id		    2
+                        - X_Actual	    615.26
+                        - Y_Forecasted	659.84
+
+                    - SlidingWindowItem
+                        - Id		    3
+                        - X_Actual	    659.84
+                        - Y_Forecasted	635.69
+
+                    - SlidingWindowItem
+                        - Id		    4
+                        - X_Actual	    635.69
+                        - Y_Forecasted	612.27
+
+                    - SlidingWindowItem
+                        - Id		    5
+                        - X_Actual	    612.27
+                        - Y_Forecasted	632.94
+
+                    - SlidingWindowItem
+                        - Id		    6
+                        - X_Actual	    632.94
+                        - Y_Forecasted	null
+
+                The item.Id should start from '1' and not from '0'.
+
+            */
+
+            List<SlidingWindowItem> items = new List<SlidingWindowItem>();
+            for (int i = 0; i < values.Count; i++)
             {
 
-                uint id = (uint)i + 1; // id starts from "1"
-                Interval subInterval = subIntervals[i];
-                double X_Actual = values[i];
+                SlidingWindowItem item = null;
+                if (i == (values.Count - 1))
+                    item = new SlidingWindowItem(id: (uint)(i + 1), X_Actual: values[i], Y_Forecasted: null);
+                else
+                    item = new SlidingWindowItem(id: (uint)(i + 1), X_Actual: values[i], Y_Forecasted: values[i + 1]);
 
-                double? Y_Forecasted = null;
-                if (i != subIntervals.Count - 1)
-                    Y_Forecasted = values[i + 1]; // only the "before last" is null
+                items.Add(item);
 
-                SlidingWindowItem slidingWindowItem
-                    = _slidingWindowItemManager.CreateItem(id, subInterval, X_Actual, Y_Forecasted);
+            }
 
-                slidingWindowItems.Add(slidingWindowItem);
-
-            };
-
-            return slidingWindowItems;
+            return items;
 
         }
 
@@ -204,5 +156,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */

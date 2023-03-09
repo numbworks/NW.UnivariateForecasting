@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Observations;
-using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.Forecasts;
 
 namespace NW.UnivariateForecasting
 {
@@ -12,97 +8,40 @@ namespace NW.UnivariateForecasting
     public interface IUnivariateForecaster
     {
 
-        /// <summary>Forecasts the next value for the provided <see cref="SlidingWindow"/>.</summary>
-        /// <exception cref="ArgumentException"/> 
-        Observation Forecast(SlidingWindow objSlidingWindow, double? C = null, double? E = null);
+        /// <summary>
+        /// Logs the library's ascii banner.
+        /// </summary>
+        void LogAsciiBanner();
 
         /// <summary>
-        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
-        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
+        /// Convert <paramref name="filePath"/> to <see cref="IFileInfoAdapter"/>
         /// </summary>
-        /// <exception cref="ArgumentException"/>         
-        SlidingWindow ForecastAndCombine
-            (SlidingWindow slidingWindow, uint steps, out List<Observation> observations, double? C = null, double? E = null);
+        /// <exception cref="ArgumentNullException"/>
+        IFileInfoAdapter Convert(string filePath);
+
+        /// <summary>Forecasts the next x values for the provided <paramref name="init"/>.</summary>
+        /// <exception cref="ArgumentNullException"/>        
+        ForecastingSession Forecast(ForecastingInit init);
 
         /// <summary>
-        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
-        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
+        /// Loads a <see cref="ForecastingInit"/> object from the provided <paramref name="jsonFile"/>. 
+        /// <para>If the content of the file is null/empty/invalid or an exception is thrown, <c>default(ForecastingInit)</c> will be returned.</para>
         /// </summary>
-        /// <exception cref="ArgumentException"/>         
-        SlidingWindow ForecastAndCombine
-            (SlidingWindow slidingWindow, uint steps, double? C = null, double? E = null);
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="ArgumentException"/>     
+        ForecastingInit LoadInitOrDefault(IFileInfoAdapter jsonFile);
 
         /// <summary>
-        /// Forecasts the next value, adds it back to <see cref="SlidingWindow"/> and forecasts the next value again.
-        /// <para>Emulates the Multivariate Forecasting technique by repeating the Univariate Forecasting technique for x steps.</para>
+        /// Saves the provided <see cref="ForecastingSession"/> object as JSON into <paramref name="folderPath"/>. 
         /// </summary>
-        /// <exception cref="ArgumentException"/>         
-        SlidingWindow ForecastAndCombine
-            (SlidingWindow slidingWindow, double? C = null, double? E = null);
-
-        /// <summary>Forecasts the next value for the provided list of values.</summary>
-        /// <exception cref="ArgumentNullException"/> 
-        /// <exception cref="ArgumentException"/>         
-        double ForecastNextValue(List<double> values, double? C = null, double? E = null);
-
-        /// <summary>Add the provided <see cref="Observation"/> to the provided <see cref="SlidingWindow"/> object.</summary>
-        /// <exception cref="ArgumentException"/>        
-        SlidingWindow Combine(SlidingWindow slidingWindow, Observation observation);
-
-        /// <summary>Extracts all the <see cref="SlidingWindowItem.X_Actual"/> values.</summary>
-        /// <exception cref="ArgumentException"/>   
-        List<double> ExtractXActualValues(SlidingWindow slidingWindow);
-
-        /// <summary>Extracts all the <see cref="Interval.StartDate"/> dates.</summary>
-        /// <exception cref="ArgumentException"/> 
-        List<DateTime> ExtractStartDates(SlidingWindow slidingWindow);
-
-        /// <summary>Convert <paramref name="slidingWindow"/> to JSON and save it on disk.</summary>
         /// <exception cref="ArgumentNullException"/>
-        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, IFileInfoAdapter fileInfoAdapter);
-
-        /// <inheritdoc cref="SaveSlidingWindowAsJson(SlidingWindow, IFileInfoAdapter)"/>
-        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, FileInfo fileInfo);
-
-        /// <inheritdoc cref="SaveSlidingWindowAsJson(SlidingWindow, IFileInfoAdapter)"/>
-        void SaveSlidingWindowAsJson(SlidingWindow slidingWindow, string filePath);
-
-        /// <summary>Convert <paramref name="observation"/> to JSON and save it on disk.</summary>
-        /// <exception cref="ArgumentNullException"/>
-        void SaveObservationAsJson(Observation observation, IFileInfoAdapter fileInfoAdapter);
-
-        /// <inheritdoc cref="SaveObservationAsJson(Observation, IFileInfoAdapter)"/>
-        void SaveObservationAsJson(Observation observation, FileInfo fileInfo);
-
-        /// <inheritdoc cref="SaveObservationAsJson(Observation, IFileInfoAdapter)"/>
-        void SaveObservationAsJson(Observation observation, string filePath);
-
-        /// <summary>Read the provided JSON file and deserialize it to a <see cref="SlidingWindow"/> object.</summary>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="ArgumentException"/>
-        SlidingWindow LoadSlidingWindowFromJson(IFileInfoAdapter fileInfoAdapter);
-
-        /// <inheritdoc cref="LoadSlidingWindowFromJson(IFileInfoAdapter)"/>
-        SlidingWindow LoadSlidingWindowFromJson(FileInfo fileInfo);
-
-        /// <inheritdoc cref="LoadSlidingWindowFromJson(IFileInfoAdapter)"/>
-        SlidingWindow LoadSlidingWindowFromJson(string filePath);
-
-        /// <summary>Read the provided JSON file and deserialize it to a <see cref="Observation"/> object.</summary>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="ArgumentException"/>
-        Observation LoadObservationFromJson(IFileInfoAdapter fileInfoAdapter);
-
-        /// <inheritdoc cref="LoadObservationFromJson(IFileInfoAdapter)"/>
-        Observation LoadObservationFromJson(FileInfo fileInfo);
-
-        /// <inheritdoc cref="LoadObservationFromJson(IFileInfoAdapter)"/>
-        Observation LoadObservationFromJson(string filePath);
+        /// <exception cref="Exception"/>
+        void SaveSession(ForecastingSession session, string folderPath);
 
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 01.03.2023
 */

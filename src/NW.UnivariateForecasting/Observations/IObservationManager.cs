@@ -8,11 +8,8 @@ namespace NW.UnivariateForecasting.Observations
     {
 
         /// <summary>Calculates the unknown values in Y=F(X)+E => Y=CX+E, and assigns them to a <seealso cref="Observation"/> object.</summary>
-        /// <exception cref="ArgumentException"/> 
-        Observation Create(SlidingWindow slidingWindow, double? C = null, double? E = null);
-
-        /// <summary>Checks the properties of the provided <seealso cref="Observation"/> object for validity.</summary>
-        bool IsValid(Observation observation);
+        /// <exception cref="ArgumentNullException"/> 
+        Observation Create(SlidingWindow slidingWindow, double forecastingDenominator, uint roundingDigits, double? coefficient = null, double? error = null);
 
     }
 }
@@ -20,6 +17,6 @@ namespace NW.UnivariateForecasting.Observations
 /*
 
     Author: numbworks@gmail.com
-    Last Update: 25.04.2021  
+    Last Update: 08.03.2023
 
 */

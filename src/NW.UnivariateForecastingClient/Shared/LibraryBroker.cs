@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecastingClient.Shared
@@ -73,8 +76,8 @@ namespace NW.UnivariateForecastingClient.Shared
         public int RunAboutMain()
         {
 
-            UnivariateForecastingSettings settings = _settingsFactory.Create();
             UnivariateForecastingComponents components = _componentsFactory.Create();
+            UnivariateForecastingSettings settings = _settingsFactory.Create();
             UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
 
             ShowHeader(components, univariateForecaster);
@@ -90,6 +93,47 @@ namespace NW.UnivariateForecastingClient.Shared
             ShowFooter(components);
 
             return Success;
+
+        }
+        public int RunSessionForecast(ForecastData forecastData)
+        {
+
+            try
+            {
+
+                Validator.ValidateObject(forecastData, nameof(forecastData));
+
+                forecastData = Defaultize(forecastData);
+
+                UnivariateForecastingComponents components = _componentsFactory.Create();
+                UnivariateForecastingSettings settings = _settingsFactory.Create(forecastData);
+                UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
+
+                ShowHeader(components, univariateForecaster);
+
+                string filePath = Path.Combine(forecastData.FolderPath, forecastData.Init);
+                IFileInfoAdapter initFile = univariateForecaster.Convert(filePath);
+
+                ForecastingInit init = univariateForecaster.LoadInitOrDefault(jsonFile: initFile);
+                if (init == default(ForecastingInit))
+                    throw new Exception(MessageCollection.LoadingFileNameReturnedDefault(initFile.Name));
+
+                ForecastingSession session = univariateForecaster.Forecast(init: init);
+
+                if (forecastData.SaveSession)
+                    univariateForecaster.SaveSession(session, forecastData.FolderPath);
+
+                ShowFooter(components);
+
+                return Success;
+
+            }
+            catch (Exception e)
+            {
+
+                return LogAndReturnFailure(e);
+
+            }
 
         }
 
@@ -126,6 +170,21 @@ namespace NW.UnivariateForecastingClient.Shared
 
         }
 
+        private ForecastData Defaultize(ForecastData forecastData)
+        {
+
+            ForecastData updated = new ForecastData(
+                    init: forecastData.Init,
+                    folderPath: forecastData.FolderPath ?? UnivariateForecastingSettings.DefaultFolderPath,
+                    saveSession: forecastData.SaveSession,
+                    roundingDigits: forecastData.RoundingDigits ?? UnivariateForecastingSettings.DefaultRoundingDigits,
+                    forecastingDenominator: forecastData.ForecastingDenominator ?? UnivariateForecastingSettings.DefaultForecastingDenominator
+                );
+
+            return updated;
+
+        }
+
         #endregion
 
     }
@@ -133,5 +192,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */

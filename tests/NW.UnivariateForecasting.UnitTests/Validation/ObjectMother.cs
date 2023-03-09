@@ -9,8 +9,8 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
 
         #region Properties
 
-        internal static string[] Array01 = new[] { "Dodge", "Datsun", "Jaguar", "DeLorean" };
-        internal static Car Object01 = new Car()
+        public static string[] Array01 = new[] { "Dodge", "Datsun", "Jaguar", "DeLorean" };
+        public static Car Object01 = new Car()
         {
             Brand = "Dodge",
             Model = "Charger",
@@ -18,15 +18,15 @@ namespace NW.UnivariateForecasting.UnitTests.Validation
             Price = 13500,
             Currency = "USD"
         };
-        internal static uint Length01 = 3;
-        internal static string VariableName_Variable = "variable";
-        internal static string VariableName_Length = "length";
-        internal static string VariableName_N1 = "n1";
-        internal static string VariableName_N2 = "n2";
-        internal static List<string> List01 = Array01.ToList();
-        internal static uint Value = Length01;
-        internal static string String01 = "Dodge";
-        internal static string StringOnlyWhiteSpaces = "   ";
+        public static uint Length01 = 3;
+        public static string VariableName_Variable = "variable";
+        public static string VariableName_Length = "length";
+        public static string VariableName_N1 = "n1";
+        public static string VariableName_N2 = "n2";
+        public static List<string> List01 = Array01.ToList();
+        public static uint Value = Length01;
+        public static string String01 = "Dodge";
+        public static string StringOnlyWhiteSpaces = "   ";
 
         #endregion
 

@@ -47,6 +47,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
             {
 
                 sessionCommand = AddMain(sessionCommand);
+                sessionCommand = AddForecast(sessionCommand);
 
             });
 
@@ -75,6 +76,101 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
             return command;
 
         }
+        private CommandLineApplication AddForecast(CommandLineApplication command)
+        {
+
+            command.Command(Shared.MessageCollection.Session_Forecast_Name, subCommand =>
+            {
+
+                subCommand.Description = Shared.MessageCollection.Session_Forecast_Description;
+
+                CommandOption initOption = CreateRequiredInitOption(subCommand);
+                CommandOption folderPathOption = CreateOptionalFolderPathOption(subCommand);
+                CommandOption saveSessionOption = CreateOptionalSaveSessionOption(subCommand);
+                CommandOption roundingDigitsOption = CreateOptionalRoundingDigitsOption(subCommand);
+                CommandOption forecastingDenominatorOption = CreateOptionalForecastingDenominatorOption(subCommand);
+
+                subCommand.OnExecute(() =>
+                {
+
+                    ForecastData classifyData
+                        = new ForecastData(
+                                init: initOption.Value(),
+                                folderPath: folderPathOption.Value(),
+                                saveSession: saveSessionOption.HasValue(),
+                                roundingDigits: _sessionManagerComponents.RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
+                                forecastingDenominator: _sessionManagerComponents.ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
+                        );
+
+                    return _libraryBroker.RunSessionForecast(classifyData);
+
+                });
+
+            });
+
+            return command;
+
+        }
+
+        private CommandOption CreateRequiredInitOption(CommandLineApplication subCommand)
+        {
+
+            CommandOption result
+                = subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_Init_Template,
+                        Shared.MessageCollection.Session_Option_Init_Description,
+                        CommandOptionType.SingleValue)
+                    .IsRequired(
+                        false,
+                        Shared.MessageCollection.Session_Option_Init_ErrorMessage);
+
+            return result;
+
+        }
+        private CommandOption CreateOptionalFolderPathOption(CommandLineApplication subCommand)
+        {
+
+            return subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_FolderPath_Template,
+                        Shared.MessageCollection.Session_Option_FolderPath_Description,
+                        CommandOptionType.SingleValue)
+                    .Accepts(validator => validator.ExistingDirectory());
+
+        }
+        private CommandOption CreateOptionalSaveSessionOption(CommandLineApplication subCommand)
+        {
+
+            return subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_SaveSession_Template,
+                        Shared.MessageCollection.Session_Option_SaveSession_Description,
+                        CommandOptionType.NoValue);
+
+        }
+        private CommandOption CreateOptionalRoundingDigitsOption(CommandLineApplication subCommand)
+        {
+
+            return subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_RoundingDigits_Template,
+                        Shared.MessageCollection.Session_Option_RoundingDigits_Description,
+                        CommandOptionType.SingleValue)
+                    .Accepts(validator => validator.Use(_sessionManagerComponents.RoundingDigitsValidator));
+
+        }
+        private CommandOption CreateOptionalForecastingDenominatorOption(CommandLineApplication subCommand)
+        {
+
+            return subCommand
+                    .Option(
+                        Shared.MessageCollection.Session_Option_ForecastingDenominator_Template,
+                        Shared.MessageCollection.Session_Option_ForecastingDenominator_Description,
+                        CommandOptionType.SingleValue)
+                    .Accepts(validator => validator.Use(_sessionManagerComponents.ForecastingDenominatorValidator));
+
+        }
 
         #endregion
 
@@ -83,5 +179,5 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.03.2023
 */

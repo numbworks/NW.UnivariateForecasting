@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -62,54 +62,186 @@ namespace NW.UnivariateForecasting.UnitTests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///    &quot;Name&quot;: &quot;Dummy Observation&quot;,
-        ///    &quot;Interval&quot;: {
-        ///        &quot;Size&quot;: 1,
-        ///        &quot;Unit&quot;: &quot;Months&quot;,
-        ///        &quot;StartDate&quot;: &quot;2020-07-01&quot;,
-        ///        &quot;EndDate&quot;: &quot;2020-08-01&quot;,
-        ///        &quot;TargetDate&quot;: &quot;2020-09-01&quot;,
-        ///        &quot;Steps&quot;: 1,
-        ///        &quot;SubIntervals&quot;: 1
-        ///    },
-        ///    &quot;X_Actual&quot;: 632.94,
-        ///    &quot;C&quot;: 0.82,
-        ///    &quot;E&quot;: 0.22,
-        ///    &quot;Y_Forecasted&quot;: 519.23,
-        ///    &quot;SlidingWindowId&quot;: &quot;Dummy Id&quot;
+        ///  &quot;ObservationName&quot;: null,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26
+        ///  ],
+        ///  &quot;Coefficient&quot;: null,
+        ///  &quot;Error&quot;: null,
+        ///  &quot;Steps&quot;: 1
         ///}.
         /// </summary>
-        internal static string ObservationWithDummyValues {
+        internal static string ForecastingInitBareMinimumAsJson {
             get {
-                return ResourceManager.GetString("ObservationWithDummyValues", resourceCulture);
+                return ResourceManager.GetString("ForecastingInitBareMinimumAsJson", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///    &quot;Id&quot;: &quot;Dummy Id&quot;,
-        ///    &quot;ObservationName&quot;: &quot;Dummy Observation&quot;,
-        ///    &quot;Interval&quot;: {
-        ///        &quot;Size&quot;: 6,
-        ///        &quot;Unit&quot;: &quot;Months&quot;,
-        ///        &quot;StartDate&quot;: &quot;2020-01-01&quot;,
-        ///        &quot;EndDate&quot;: &quot;2020-07-01&quot;,
-        ///        &quot;TargetDate&quot;: &quot;2020-08-01&quot;,
-        ///        &quot;Steps&quot;: 1,
-        ///        &quot;SubIntervals&quot;: 6
-        ///    },
-        ///    &quot;Items&quot;: [
-        ///        {
-        ///            &quot;Id&quot;: 1,
-        ///            &quot;Interval&quot;: {
-        ///                &quot;Size&quot;: 1,
-        ///                &quot;Unit&quot;: &quot;Months&quot;,
-        ///                &quot;StartDate&quot;: &quot;2020-01-01&quot;,
-        ///                &quot;EndDate&quot;: &quot;2 [rest of string was truncated]&quot;;.
+        ///  &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26,
+        ///    659.84,
+        ///    635.69,
+        ///    612.27,
+        ///    632.94
+        ///  ],
+        ///  &quot;Coefficient&quot;: 0.5,
+        ///  &quot;Error&quot;: 0.01,
+        ///  &quot;Steps&quot;: 2
+        ///}.
         /// </summary>
-        internal static string SlidingWindowWithDummyValues {
+        internal static string ForecastingInitDoubleWithCEAsJson {
             get {
-                return ResourceManager.GetString("SlidingWindowWithDummyValues", resourceCulture);
+                return ResourceManager.GetString("ForecastingInitDoubleWithCEAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26,
+        ///    659.84,
+        ///    635.69,
+        ///    612.27,
+        ///    632.94
+        ///  ],
+        ///  &quot;Coefficient&quot;: 0.5,
+        ///  &quot;Error&quot;: 0.01,
+        ///  &quot;Steps&quot;: 1
+        ///}.
+        /// </summary>
+        internal static string ForecastingInitSingleWithCEAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingInitSingleWithCEAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///  &quot;Values&quot;: [
+        ///    58.5,
+        ///    615.26,
+        ///    659.84,
+        ///    635.69,
+        ///    612.27,
+        ///    632.94
+        ///  ],
+        ///  &quot;Coefficient&quot;: null,
+        ///  &quot;Error&quot;: null,
+        ///  &quot;Steps&quot;: 1
+        ///}.
+        /// </summary>
+        internal static string ForecastingInitSingleWithoutCEAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingInitSingleWithoutCEAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Init&quot;: {
+        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///    &quot;Values&quot;: [
+        ///      58.5,
+        ///      615.26,
+        ///      659.84,
+        ///      635.69,
+        ///      612.27,
+        ///      632.94
+        ///    ],
+        ///    &quot;Coefficient&quot;: 0.5,
+        ///    &quot;Error&quot;: 0.01,
+        ///    &quot;Steps&quot;: 2
+        ///  },
+        ///  &quot;Observations&quot;: [
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 316.48
+        ///    },
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 613.11
+        ///    }
+        ///  ],
+        ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
+        ///}.
+        /// </summary>
+        internal static string ForecastingSessionDoubleWithCEAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingSessionDoubleWithCEAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Init&quot;: {
+        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///    &quot;Values&quot;: [
+        ///      58.5,
+        ///      615.26,
+        ///      659.84,
+        ///      635.69,
+        ///      612.27,
+        ///      632.94
+        ///    ],
+        ///    &quot;Coefficient&quot;: 0.5,
+        ///    &quot;Error&quot;: 0.01,
+        ///    &quot;Steps&quot;: 1
+        ///  },
+        ///  &quot;Observations&quot;: [
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.5,
+        ///      &quot;Error&quot;: 0.01,
+        ///      &quot;NextValue&quot;: 316.48
+        ///    }
+        ///  ],
+        ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
+        ///}.
+        /// </summary>
+        internal static string ForecastingSessionSingleWithCEAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingSessionSingleWithCEAsJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Init&quot;: {
+        ///    &quot;ObservationName&quot;: &quot;Sales USD&quot;,
+        ///    &quot;Values&quot;: [
+        ///      58.5,
+        ///      615.26,
+        ///      659.84,
+        ///      635.69,
+        ///      612.27,
+        ///      632.94
+        ///    ],
+        ///    &quot;Coefficient&quot;: null,
+        ///    &quot;Error&quot;: null,
+        ///    &quot;Steps&quot;: 1
+        ///  },
+        ///  &quot;Observations&quot;: [
+        ///    {
+        ///      &quot;Coefficient&quot;: 0.82,
+        ///      &quot;Error&quot;: 0.22,
+        ///      &quot;NextValue&quot;: 519.23
+        ///    }
+        ///  ],
+        ///  &quot;Version&quot;: &quot;3.0.0.0&quot;
+        ///}.
+        /// </summary>
+        internal static string ForecastingSessionSingleWithoutCEAsJson {
+            get {
+                return ResourceManager.GetString("ForecastingSessionSingleWithoutCEAsJson", resourceCulture);
             }
         }
     }

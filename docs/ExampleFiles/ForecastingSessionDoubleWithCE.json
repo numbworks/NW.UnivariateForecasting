@@ -1,0 +1,29 @@
+{
+  "Init": {
+    "ObservationName": "Sales USD",
+    "Values": [
+      58.5,
+      615.26,
+      659.84,
+      635.69,
+      612.27,
+      632.94
+    ],
+    "Coefficient": 0.5,
+    "Error": 0.01,
+    "Steps": 2
+  },
+  "Observations": [
+    {
+      "Coefficient": 0.5,
+      "Error": 0.01,
+      "NextValue": 316.48
+    },
+    {
+      "Coefficient": 0.5,
+      "Error": 0.01,
+      "NextValue": 158.25
+    }
+  ],
+  "Version": "3.0.0.0"
+}

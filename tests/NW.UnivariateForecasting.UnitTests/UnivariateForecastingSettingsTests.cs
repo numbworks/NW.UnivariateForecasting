@@ -1,5 +1,4 @@
 ﻿using System;
-using NW.UnivariateForecasting.Forecasts;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests
@@ -17,17 +16,37 @@ namespace NW.UnivariateForecasting.UnitTests
                 new TestDelegate(
                     () => new UnivariateForecastingSettings(
                                     forecastingDenominator: 0,
-                                    dummyId: UnivariateForecastingSettings.DefaultDummyId,
-                                    dummyObservationName: UnivariateForecastingSettings.DefaultDummyObservationName,
-                                    dummyStartDate: UnivariateForecastingSettings.DefaultDummyStartDate,
-                                    dummySteps: UnivariateForecastingSettings.DefaultDummySteps,
-                                    dummyIntervalUnit: UnivariateForecastingSettings.DefaultDummyIntervalUnit
+                                    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                                    roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                                    )
+                ),
+                typeof(ArgumentException),
+                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
+                        "forecastingDenominator", 
+                        UnivariateForecastingSettings.DefaultForecastingDenominator)
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecastingSettings(
+                                    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                    folderPath: null,
+                                    roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                                    )),
+                typeof(ArgumentNullException),
+                new ArgumentNullException("folderPath").Message
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_02"),
+
+            new TestCaseData(
+                new TestDelegate(
+                    () => new UnivariateForecastingSettings(
+                                    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+                                    roundingDigits: 16
                                     )),
                 typeof(ArgumentException),
-                MessageCollection.DenominatorCantBeLessThan(
-                                    "forecastingDenominator", 
-                                    UnivariateForecastingSettings.DefaultForecastingDenominator)
-                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01")
+                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_03")
 
         };
 
@@ -43,6 +62,26 @@ namespace NW.UnivariateForecasting.UnitTests
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
+        [Test]
+        public void UnivariateForecastingSettings_ShouldCreateAnInstanceOfThisType_WhenProperArgument()
+        {
+
+            // Arrange
+            // Act
+            UnivariateForecastingSettings actual = new UnivariateForecastingSettings();
+
+            // Assert
+            Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
+            Assert.IsInstanceOf<double>(actual.ForecastingDenominator);
+            Assert.IsInstanceOf<string>(actual.FolderPath);
+            Assert.IsInstanceOf<uint>(actual.RoundingDigits);
+
+            Assert.IsInstanceOf<double>(UnivariateForecastingSettings.DefaultForecastingDenominator);
+            Assert.IsInstanceOf<string>(UnivariateForecastingSettings.DefaultFolderPath);
+            Assert.IsInstanceOf<uint>(UnivariateForecastingSettings.DefaultRoundingDigits);
+
+        }
+
         #endregion
 
         #region TearDown
@@ -53,5 +92,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */

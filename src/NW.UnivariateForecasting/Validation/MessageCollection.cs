@@ -1,6 +1,5 @@
 ﻿using System;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.Validation
 {
@@ -15,18 +14,17 @@ namespace NW.UnivariateForecasting.Validation
         public static Func<string, string, string> FirstValueIsGreaterThanSecondValue
             = (variableName1, variableName2) => $"The '{variableName1}''s value is greater than '{variableName2}''s value.";
         public static Func<string, string> VariableContainsZeroItems
-            = (variableName) => $"'{variableName}' contains zero items.";
-        public static Func<string, string> VariableCantBeLessThanOne
-            = (variableName) => $"'{variableName}' can't be less than one.";
+            = (variableName) => $"'{variableName}' contains zero items.";      
+        
+        public static Func<string, int, string> VariableCantBeLessThan
+            = (variableName, threshold) => $"'{variableName}' can't be less than '{threshold}'.";
+        public static Func<string, double, string> VariableCantBeLessThanDouble
+            = (variableName, threshold) => $"'{variableName}' can't be less than '{threshold}'.";
+
         public static Func<string, string, string> DividingMustReturnWholeNumber { get; }
             = (variableName1, variableName2) => $"Dividing '{variableName1}' by '{variableName2}' must return a whole number.";
         public static Func<IFileInfoAdapter, string> ProvidedPathDoesntExist
             = (file) => $"The provided path doesn't exist: '{file.FullName}'.";
-
-        public static Func<string, string> ProvidedIntervalUnitNotSupported { get; }
-            = (unitName) => $"The provided '{typeof(IntervalUnits).Name}' is not supported: '{unitName}'.";
-        public static string SubIntervalsCantBeLessThanTwo { get; }
-            = "Subintervals can't be less than two";
 
         #endregion
 
@@ -35,5 +33,5 @@ namespace NW.UnivariateForecasting.Validation
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */

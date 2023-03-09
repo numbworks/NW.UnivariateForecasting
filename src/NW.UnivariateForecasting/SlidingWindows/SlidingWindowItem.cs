@@ -1,4 +1,4 @@
-﻿using NW.UnivariateForecasting.Intervals;
+﻿using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {
@@ -11,17 +11,25 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #region Properties
 
-        public uint Id { get; set; }
-        public Interval Interval { get; set; }
-        public double X_Actual { get; set; }
-        public double? Y_Forecasted { get; set; }
+        public uint Id { get; }
+        public double X_Actual { get; }
+        public double? Y_Forecasted { get; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes an <see cref="SlidingWindowItem"/> instance.</summary>
-        public SlidingWindowItem() { }
+        public SlidingWindowItem(uint id, double X_Actual, double? Y_Forecasted) 
+        {
+
+            Validator.ThrowIfLessThanOne(id, nameof(id));
+
+            Id = id;
+            this.X_Actual = X_Actual;
+            this.Y_Forecasted = Y_Forecasted;
+
+        }
 
         #endregion
 
@@ -30,14 +38,12 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public override string ToString()
         {
 
-            // [ Id: '0', Interval: 'null', X_Actual: '0', Y_Forecasted: 'null' ]
-            // [ Id: '1', Interval: '20190131:20190228:20190331', X_Actual: '58,5', Y_Forecasted: '615,26' ]
+            // [ Id: '1', X_Actual: '58,5', Y_Forecasted: '615,26' ]
 
             string content
                 = string.Join(
                     ", ",
                     $"{nameof(Id)}: '{Id}'",
-                    $"{nameof(Interval)}: '{Interval?.ToString(true) ?? "null"}'",
                     $"{nameof(X_Actual)}: '{X_Actual}'",
                     $"{nameof(Y_Forecasted)}: '{Y_Forecasted?.ToString() ?? "null"}'"
                     );
@@ -53,5 +59,5 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 11.10.2021
+    Last Update: 16.02.2023
 */

@@ -1,6 +1,6 @@
 ﻿namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
-    internal class Car
+    public class Car
     {
 
         #region Fields

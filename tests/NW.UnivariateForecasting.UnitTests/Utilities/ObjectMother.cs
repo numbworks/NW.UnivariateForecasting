@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Files;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
@@ -12,8 +12,26 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
         #endregion
 
         #region Methods
-        
-        internal static void Method_ShouldThrowACertainException_WhenUnproperArguments
+
+        public static TReturn CallPrivateMethod<TClass, TReturn>(TClass obj, string methodName, object[] args)
+        {
+
+            Type type = typeof(TClass);
+
+            return (TReturn)type.GetTypeInfo().GetDeclaredMethod(methodName).Invoke(obj, args);
+
+        }
+        public static TReturn CallPrivateGenericMethod<TClass, TReturn>(TClass obj, string methodName, object[] args, Type methodType)
+        {
+
+            MethodInfo methodInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            var genericMethod = methodInfo.MakeGenericMethod(methodType);
+
+            return (TReturn)genericMethod.Invoke(obj, args);
+
+        }
+
+        public static void Method_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
         {
 
@@ -24,7 +42,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             Assert.AreEqual(expectedMessage, actual.Message);
 
         }
-        internal static bool AreEqual<T>(List<T> list1, List<T> list2, Func<T, T, bool> comparer)
+        public static bool AreEqual<T>(List<T> list1, List<T> list2, Func<T, T, bool> comparer)
         {
 
             if (list1 == null && list2 == null)
@@ -44,6 +62,15 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         }
 
+        public static bool AreEqual(UnivariateForecastingSettings obj1, UnivariateForecastingSettings obj2)
+        {
+
+            return string.Equals(obj1.FolderPath, obj2.FolderPath, StringComparison.InvariantCulture)
+                        && Forecasts.ObjectMother.AreEqual(obj1.ForecastingDenominator, obj2.ForecastingDenominator)
+                        && uint.Equals(obj1.RoundingDigits, obj2.RoundingDigits);
+
+        }
+
         #endregion
 
     }
@@ -51,5 +78,5 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.11.2022
+    Last Update: 08.03.2023
 */

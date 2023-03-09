@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NW.UnivariateForecasting.Files;
-using NW.UnivariateForecasting.Intervals;
 
 namespace NW.UnivariateForecasting.Validation
 {
@@ -23,7 +22,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 >= value2)
-                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(variableName1, variableName2));
+                throw CreateException<TException>(MessageCollection.FirstValueIsGreaterOrEqualThanSecondValue(variableName1, variableName2));
 
         }
 
@@ -36,7 +35,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 > value2)
-                throw CreateException<TException>(Validation.MessageCollection.FirstValueIsGreaterThanSecondValue(variableName1, variableName2));
+                throw CreateException<TException>(MessageCollection.FirstValueIsGreaterThanSecondValue(variableName1, variableName2));
 
         }
 
@@ -52,14 +51,41 @@ namespace NW.UnivariateForecasting.Validation
         public static void ThrowIfLessThanOne<TException>(uint value, string variableName) where TException : Exception
         {
 
-            if (value < 1)
-                throw CreateException<TException>(Validation.MessageCollection.VariableCantBeLessThanOne(variableName));
+            int threshold = 1;
+            if (value < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThan(variableName, threshold));
 
         }
 
         /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name=" value"/> is less than one.</summary>
         public static void ThrowIfLessThanOne(uint value, string variableName)
             => ThrowIfLessThanOne<ArgumentException>(value, variableName);
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan<TException>(int value, int threshold, string variableName) where TException : Exception
+        {
+
+            if (value < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThan(variableName, threshold));
+
+        }
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan(int value, int threshold, string variableName)
+            => ThrowIfLessThan<ArgumentException>(value, threshold, variableName);
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan<TException>(double value, double threshold, string variableName) where TException : Exception
+        {
+
+            if (value < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanDouble(variableName, threshold));
+
+        }
+
+        /// <summary>Throws an exception of type TException when <paramref name="value"/> is less than <paramref name="threshold"/>.</summary>
+        public static void ThrowIfLessThan(double value, double threshold, string variableName)
+            => ThrowIfLessThan<ArgumentException>(value, threshold, variableName);
 
         #endregion
 
@@ -70,7 +96,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (value1 % value2 != 0)
-                throw CreateException<TException>(Validation.MessageCollection.DividingMustReturnWholeNumber(variableName1, variableName2));
+                throw CreateException<TException>(MessageCollection.DividingMustReturnWholeNumber(variableName1, variableName2));
 
         }
 
@@ -105,7 +131,7 @@ namespace NW.UnivariateForecasting.Validation
         {
 
             if (arr.Length == 0)
-                throw CreateException<TException>(Validation.MessageCollection.VariableContainsZeroItems(variableName));
+                throw CreateException<TException>(MessageCollection.VariableContainsZeroItems(variableName));
 
         }
 
@@ -134,8 +160,9 @@ namespace NW.UnivariateForecasting.Validation
         public static void ValidateLength<TException>(uint length) where TException : Exception
         {
 
-            if (length < 1)
-                throw CreateException<TException>(MessageCollection.VariableCantBeLessThanOne(nameof(length)));
+            int threshold = 1;
+            if (length < threshold)
+                throw CreateException<TException>(MessageCollection.VariableCantBeLessThan(nameof(length), threshold));
 
         }
 
@@ -223,40 +250,10 @@ namespace NW.UnivariateForecasting.Validation
 
         #endregion
 
-        #region ValidateInterval
-
-        /// <summary>Throws an exception of type TException when <paramref name="unit"/> is not valid.</summary>
-        public static void ValidateIntervalUnit<TException>(IntervalUnits unit) where TException : Exception
-        {
-
-            if (unit != IntervalUnits.Months)
-                throw CreateException<TException>(MessageCollection.ProvidedIntervalUnitNotSupported(unit.ToString()));
-
-        }
-
-        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <paramref name="unit"/> is not valid.</summary>
-        public static void ValidateIntervalUnit(IntervalUnits unit)
-            => ValidateIntervalUnit<ArgumentException>(unit);
-
-        /// <summary>Throws an exception of type TException when <see cref="Interval.SubIntervals"/> is not valid.</summary>
-        public static void ValidateSubIntervals<TException>(Interval interval) where TException : Exception
-        {
-
-            if (interval.SubIntervals < 2)
-                throw CreateException<TException>(MessageCollection.SubIntervalsCantBeLessThanTwo);
-
-        }
-
-        /// <summary>Throws an exception of type <see cref="ArgumentException"/> when <see cref="Interval.SubIntervals"/> is not valid.</summary>
-        public static void ValidateSubIntervals(Interval interval)
-            => ValidateSubIntervals<ArgumentException>(interval);
-
-        #endregion
-
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.11.2022
+    Last Update: 08.03.2023
 */
