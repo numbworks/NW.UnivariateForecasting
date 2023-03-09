@@ -21,8 +21,9 @@ namespace NW.UnivariateForecasting
 
         public static Func<double, uint, double> DefaultRoundingFunction { get; }
             = (x, digits) => Math.Round(x, (int)digits, MidpointRounding.AwayFromZero);
+        public static string DefaultLoggingActionDateFormat { get; } = "yyyy-MM-dd HH:mm:ss:fff";
         public static Action<string> DefaultLoggingAction { get; }
-            = (message) => Console.WriteLine(message);
+            = (message) => Console.WriteLine($"[{DateTime.UtcNow.ToString(DefaultLoggingActionDateFormat)}] {message}");
         public static Action<string> DefaultLoggingActionAsciiBanner { get; }
             = (message) => Console.WriteLine($"{message}");
         public static Func<DateTime> DefaultNowFunction { get; } = () => DateTime.Now;
@@ -123,5 +124,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.03.2023
 */

@@ -280,6 +280,7 @@ namespace NW.UnivariateForecasting.UnitTests
             Assert.IsInstanceOf<Action<string>>(UnivariateForecastingComponents.DefaultLoggingAction);
             Assert.IsInstanceOf<Action<string>>(UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner);
             Assert.IsInstanceOf<Func<DateTime>>(UnivariateForecastingComponents.DefaultNowFunction);
+            Assert.IsInstanceOf<string>(UnivariateForecastingComponents.DefaultLoggingActionDateFormat);
 
         }
 
@@ -321,5 +322,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.03.2023
 */
