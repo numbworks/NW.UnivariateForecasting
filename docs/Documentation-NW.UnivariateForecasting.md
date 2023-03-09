@@ -11,70 +11,160 @@ Contact: numbworks@gmail.com
 | 2020-12-06 | numbworks | Added "Saving and Loading" paragraph. |
 | 2020-12-22 | numbworks | Changed font size and date format in Revision History. |
 | 2021-10-11 | numbworks | Version numbers removed. |
-| 2023-02-14 | numbworks | Updated to v3.0.0. |
+| 2023-03-09 | numbworks | Updated to v3.0.0. |
 
 ## Introduction
 
 `NW.UnivariateForecasting` is a `.NET Standard` library to perform univariate forecasting tasks on the values you provide. 
+
+## What does "univariate forecasting" mean?
 
 *Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
 
 For example, given the last six months of "*Total Monthly Sales USD*" of your company, you would like the machine to predict the amounts for the next x months. 
 
 *Time Series Forecasting* is divided in *Univariate* and *Multivariate*. 
-The first one can predict only one step ahead, while the second one can predict multiple steps ahead. 
 
-As its name states, this library implements the univariate approach. 
-A good definition of "*univariate*" could be"*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
+The first one can predict only one step ahead, while the second one can predict multiple steps ahead. As its name states, this library implements the univariate approach.
 
-## Example 1: Main Scenario 
+A good definition of "*univariate*" could be: "*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
 
-In order to use the library, the first thing we need to do is to create a `SlidingWindow` object to host the time series, and the library provides a  `SlidingWindowManager` helper class that aids the process: 
+## Getting Started
+
+In order to use the library, the first thing we need to do is to create a `ForecastingInit` object containing the initialization data and then pass it to the `Forecast` method of the a `UnivariateForecaster` object, as shown in the following example:
 
 ```csharp
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NW.UnivariateForecasting;
-using NW.UnivariateForecasting.Intervals;
-using NW.UnivariateForecasting.Observations;
-using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.Forecasts;
 
 /* ... */
 
-string slidingWindowId = UnivariateForecastingComponents.DefaultIdCreationFunction.Invoke(); // SW{yyyyMMddhhmmsss}
-string observationName = "Total Monthly Sales USD";
-List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-uint steps = 1;
-IntervalUnits intervalUnit = IntervalUnits.Months;
-DateTime startDate = new DateTime(2019, 01, 31, 00, 00, 00);
-
-ISlidingWindowManager slidingWindowManager = new SlidingWindowManager();
-SlidingWindow slidingWindow
-    = slidingWindowManager.Create(slidingWindowId, observationName, values, steps, intervalUnit, startDate);
+ForecastingInit init
+    = new ForecastingInit(
+            values: new List<double>() { 58.5, 615.26 },
+            steps: 1
+            observationName: null,
+            coefficient: null,
+            error: null
+        );
 
 IUnivariateForecaster forecaster = new UnivariateForecaster();
-Observation observation = forecaster.Forecast(slidingWindow);
+ForecastingSession session = forecaster.Forecast(init);
 
 /* ... */
 ```
 
-The `SlidingWindow` object will look like this:
+Highlights:
 
-| <sub>Id</sub> | <sub>ObservationName</sub> | <sub>Interval</sub> | <sub>Items</sub> | 
-|---|---|---|---|
-| <sub>SW20200803063734</sub> | <sub>Total Monthly Sales USD</sub> | <sub>6:Months:20190131:20190731:20190831:1:6</sub> | <sub>6</sub> |
+- `values` must contains at least two items of a time serie of whatever kind;
+- `steps` refers to the number of `steps` (how many values you want to forecast) and it must be at least one (obviously);
+- if provided, `coefficient` and `error` will overwrite the ones calculated by the library;
+- `observationName` is a (optional) label about what `values` refer to 
 
-which contains the following '6' `SlidingWindowItems`:
+The output of the forecasting task will be a `ForecastingSession` object, which would look like the example below if instantiated manually:
 
-| <sub>Id</sub> | <sub>Interval</sub> | <sub>X_Actual</sub> | <sub>Y_Forecasted</sub> |
-|---|---|---|---|
-| <sub>1</sub> | <sub>20190131:20190228:20190331</sub> | <sub>58,5</sub> | <sub>615,26</sub> |
-| <sub>2</sub> | <sub>20190228:20190331:20190430</sub> | <sub>615,26</sub> | <sub>659,84</sub> |
-| <sub>3</sub> | <sub>20190331:20190430:20190531</sub> | <sub>659,84</sub> | <sub>635,69</sub> | 
-| <sub>4</sub> | <sub>20190430:20190531:20190630</sub> | <sub>635,69</sub> | <sub>612,27</sub> |
-| <sub>5</sub> | <sub>20190531:20190630:20190731</sub> | <sub>612,27</sub> | <sub>632,94</sub> |
-| <sub>6</sub> | <sub>20190630:20190731:20190831</sub> | <sub>632,94</sub> | <sub>`[NULL]`</sub> |
+```csharp
+ForecastingSession session 
+    = new ForecastingSession(
+        init: new ForecastingInit(
+                values: new List<double>() { 58.5, 615.26 },
+                steps: 1
+                observationName: null,
+                coefficient: null,
+                error: null
+            ),
+        observations: new List<Observation>() {
+                new Observation(
+                    coefficient: 0.095081754055196, 
+                    error: 0, 
+                    nextValue: 58.49999999999989
+            )};
+        version: "3.0.0.0"
+    );
+```
+
+By default, the amounts calculated by the library (`coefficient`, `error`, ...) are rounded to the 15th decimal digit (the maximum amount of digits for the `double` amounts), but you might want to customize this aspect to improve readibility. 
+
+If so, you can inject a custom `UnivariateForecastingSettings` object into the `UnivariateForecaster` object, as shown in the following example:
+
+```csharp
+using System;
+using System.Collections.Generic;
+using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Forecasts;
+
+/* ... */
+
+ForecastingInit init
+    = new ForecastingInit(
+            values: new List<double>() { 58.5, 615.26 },
+            steps: 1
+            observationName: null,
+            coefficient: null,
+            error: null
+        );
+
+UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
+    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+    roundingDigits: 2
+);
+
+IUnivariateForecaster forecaster = new UnivariateForecaster(
+    components: new UnivariateForecastingComponents(),
+    settings: settings
+);
+ForecastingSession session = forecaster.Forecast(init);
+
+/* ... */
+```
+
+This code will output the following `ForecastingSession` object:
+
+```csharp
+ForecastingSession session 
+    = new ForecastingSession(
+        init: new ForecastingInit(
+                values: new List<double>() { 58.5, 615.26 },
+                steps: 1
+                observationName: null,
+                coefficient: null,
+                error: null
+            ),
+        observations: new List<Observation>() {
+                new Observation(
+                    coefficient: 0.1, 
+                    error: 0, 
+                    nextValue: 61.53
+            )};
+        version: "3.0.0.0"
+    );
+```
+
+The user will only interact with `ForecastingInit` and `ForecastingSession` objects, but the library will use a data structure known as `SlidingWindow` to internally organize and transfer data:
+
+```csharp
+SlidingWindow slidingWindow = new SlidingWindow(
+
+    items: new List<SlidingWindowItem>() {
+            new SlidingWindowItem(id: 1, X_Actual: 58.5, Y_Forecasted: 615.26),
+            new SlidingWindowItem(id: 2, X_Actual: 615.26, Y_Forecasted: 659.84),
+            new SlidingWindowItem(id: 3, X_Actual: 659.84, Y_Forecasted: 635.69),
+            new SlidingWindowItem(id: 4, X_Actual: 635.69, Y_Forecasted: 612.27),
+            new SlidingWindowItem(id: 5, X_Actual: 612.27, Y_Forecasted: 632.94),
+            new SlidingWindowItem(id: 6, X_Actual: 632.94, Y_Forecasted: null)
+
+});
+```
+
+The `SlidingWindow` object above corresponds to the following list of values:
+
+```csharp
+List<double> values 
+    = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+```
 
 Each `SlidingWindowItem` object has the following properties:
 
@@ -84,309 +174,49 @@ Each `SlidingWindowItem` object has the following properties:
 
 The `Y_Forecasted` for the last `*Item` is `[NULL]` and it's the value we want to predict.
 
-Once the `SlidingWindow` object is set, we are ready to perform the prediction itself by using the `UnivariateForecaster` class:
+Once the `SlidingWindow` object is set, we are ready to perform the prediction itself, which will return an `Observation` object:
 
 ```csharp
-/* ... */
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-Observation observation = forecaster.Forecast(slidingWindow);
+Observation observation 
+    = new Observation(coefficient: 0.82, error: 0.22, nextValue: 519.23);
 ```
-
-This will return an `Observation` object, which will look like the following:
-
-| <sub>Name</sub> | <sub>Interval</sub> | <sub>X_Actual</sub> | <sub>C</sub> | <sub>E</sub> | <sub>Y_Forecasted</sub> | <sub>SlidingWindowId</sub> |
-|---|---|---|---|---|---|---|---|---|---|
-| <sub>Total Monthly Sales USD</sub> | <sub>1:Months:20190731:20190831:20190930:1:1</sub> | <sub>632,94</sub> | <sub>0,82</sub> | <sub>0,22</sub> | <sub>519,23</sub> | <sub>SW20200803063734</sub> |
-
 The original time series was: `{ 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }`.
-According to the univariate forecasting, the next value of the series will be: `519,23`.
+According to the univariate forecasting, the next value of the series will be: `519.23`.
 
-## Example 2: Less is More?
+## Load and save
 
-If we do have only a list of values without any specific time stamps, one of the `SlidingWindowManager.Create()` overloads can create a dummy `SlidingWindow` around them for us:
+The library is able to load and save different key-objects using JSON format. 
 
-```csharp
-/* ... */
-List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
+Here an example of each JSON file produced by the library:
 
-ISlidingWindowManager slidingWindowManager = new SlidingWindowManager();
-SlidingWindow slidingWindow = slidingWindowManager.Create(values);
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-Observation observation = forecaster.Forecast(slidingWindow);
-```
-The dummy `SlidingWindow` will look like this:
+1. [ForecastingInitBareMinimum.json](ExampleFiles/ForecastingInitBareMinimum.json)
+2. [ForecastingInitSingleWithCE.json](ExampleFiles/ForecastingInitSingleWithCE.json)
+3. [ForecastingInitSingleWithoutCE.json](ExampleFiles/ForecastingInitSingleWithoutCE.json)
+4. [ForecastingInitDoubleWithCE.json](ExampleFiles/ForecastingInitDoubleWithCE.json)
+5. [ForecastingSessionSingleWithCE.json](ExampleFiles/ForecastingSessionSingleWithCE.json)
+6. [ForecastingSessionSingleWithoutCE.json](ExampleFiles/ForecastingSessionSingleWithoutCE.json)
+7. [ForecastingSessionDoubleWithCE.json](ExampleFiles/ForecastingSessionDoubleWithCE.json)
 
-| <sub>Id</sub> | <sub>ObservationName</sub> | <sub>Interval</sub> | <sub>Items</sub> | 
-|---|---|---|---|
-| <sub>Dummy Id</sub> | <sub>Dummy Observation</sub> | <sub>6:Months:20200101:20200701:20200801:1:6</sub> | <sub>6</sub> |
+## Appendix - Steps > 1
 
-The dummy values can be customized in `UnivariateForecastingSettings`.
-
-## Example 3: One, Two, Three, ...
-
-If we can predict values for more than one step ahead, we can use `ForecastAndCombine` to recursively add each observation to the `SlidingWindow` and perform the forecasting on it:
-
-```csharp
-/* ... */
-List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-
-ISlidingWindowManager slidingWindowManager = new SlidingWindowManager();
-SlidingWindow slidingWindow = slidingWindowManager.Create(values);
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-Observation observation = forecaster.Forecast(slidingWindow);
-
-SlidingWindow newSlidingWindow = forecaster.ForecastAndCombine(slidingWindow, 3);
-List<double> results = forecaster.ExtractXActualValues(newSlidingWindow);
-```
-
-The resulting `SlidingWindow` will contain the following '9' `SlidingWindowItems`:
-
-| <sub>Id</sub> | <sub>Interval</sub> | <sub>X_Actual</sub> | <sub>Y_Forecasted</sub> |
-|---|---|---|---|
-| <sub>1</sub> | <sub>20200101:20200201:20200301</sub> | <sub>58,5</sub> | <sub>615,26</sub> |
-| <sub>2</sub> | <sub>20200201:20200301:20200401</sub> | <sub>615,26</sub> | <sub>659,84</sub> |
-| <sub>3</sub> | <sub>20200301:20200401:20200501</sub> | <sub>659,84</sub> | <sub>635,69</sub> | 
-| <sub>4</sub> | <sub>20200401:20200501:20200601</sub> | <sub>635,69</sub> | <sub>612,27</sub> |
-| <sub>5</sub> | <sub>20200501:20200601:20200701</sub> | <sub>612,27</sub> | <sub>632,94</sub> |
-| <sub>6</sub> | <sub>20200601:20200701:20200801</sub> | <sub>632,94</sub> | <sub>519,23</sub> |
-| <sub>7</sub> | <sub>20200701:20200801:20200901</sub> | <sub>519,23</sub> | <sub>457,08</sub> |
-| <sub>8</sub> | <sub>20200801:20200901:20201001</sub> | <sub>457,08</sub> | <sub>420,63</sub> |
-| <sub>9</sub> | <sub>20200901:20201001:20201101</sub> | <sub>420,63</sub> | <sub>`[NULL]`</sub> |
+We can use `Forecast` to recursively add each `Observation` to the `SlidingWindow` and perform the forecast more than one step ahead. 
 
 Obviously, the predictions will be quite on the pessimistic side.
 
-The `ExtractXActualValues` method helps extracting the provided and the forecasted values in the same list for convenience, which in this case will look like this: `[58,5, 615,26, 659,84, 635,69, 612,27, 632,94, 519,23, 457,08, 420,63]`.
-
-### Example 4: In a Hurry
-
-If you are really in a hurry, you can predict the next value in a time series with only four lines of code:
-
-```csharp
-/* ... */
-List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-double nextValue = forecaster.ForecastNextValue(values);
-```
-
-This scenario hasn't been shows as the first one, because it was important to explain the forecasting together with the concept of `SlidingWindow` first.
-
-## Example 5: Custom Coefficients?
-
-The library offers the possibility to skip all the calculations and provide the C and E coefficients yourself:
-
-```csharp
-/* ... */
-List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-double pessimisticNextValue = forecaster.ForecastNextValue(values, C: 0.82, E: 0.00); // 519.01
-double optimisticNextValue = forecaster.ForecastNextValue(values, C: 1.11, E: 0.22); // 702.78
-```
-
-If we take the last statement as reference, what the method does is: ```(632,94 * 1.11) + 0.22 = 702.78```.
-
-## The Settings 
-
-You can personalize the library settings by instantiating your own instance of the ```UnivariateForecastingSettings``` class:
-
-```csharp
-/* ... */
-public UnivariateForecastingSettings(
-            double forecastingDenominator,
-            string dummyId,
-            string dummyObservationName,
-            DateTime dummyStartDate,
-            uint dummySteps,
-            IntervalUnits dummyIntervalUnit
-        ) 
-        { /* ... */ }
-```
-
-and the library dependencies by instantiating your own instance of the```UnivariateForecastingComponents``` class:
-
-```csharp
-/* ... */
-public UnivariateForecastingComponents(
-        ISlidingWindowManager slidingWindowManager,
-        ISlidingWindowItemManager slidingWindowItemManager,
-        IObservationManager observationManager,
-        IIntervalManager intervalManager,
-        IFileManager fileManager,
-        Func<string> idCreationFunction,
-        Func<double, double> roundingFunction,
-        Action<string> loggingAction
-    )
-    { /* ... */ }
-```
-Both classes have a default constructor to improve usability ("Don't make me think!").
-
-
-## Saving and Loading
-
-The library allows you to save objects to files and load objects from them by using the JSON format for exchanging data. 
-
-Below an example of the code required to save:
-
-```csharp
-/* ... */
-List<double> values = new[] { 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }.ToList();
-
-ISlidingWindowManager slidingWindowManager = new SlidingWindowManager();
-SlidingWindow slidingWindow = slidingWindowManager.Create(values);
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-forecaster.SaveSlidingWindowAsJson(slidingWindow, @"C:\SlidingWindow.json");
-
-Observation observation = forecaster.Forecast(slidingWindow);
-forecaster.SaveObservationAsJson(observation, @"C:\Observation.json");
-```
-
-Below an example of the code required to load:
-
-```csharp
-IUnivariateForecaster forecaster = new UnivariateForecaster();
-SlidingWindow slidingWindow = forecaster.LoadSlidingWindowFromJson(@"C:\SlidingWindow.json");
-Observation observation = forecaster.LoadObservationFromJson(@"C:\Observation.json");
-```
-
-Below an example of how a ```SlidingWindow``` object looks like in JSON format:
-
-```json
-{
-    "Id": "Dummy Id",
-    "ObservationName": "Dummy Observation",
-    "Interval": {
-        "Size": 6,
-        "Unit": "Months",
-        "StartDate": "2020-01-01",
-        "EndDate": "2020-07-01",
-        "TargetDate": "2020-08-01",
-        "Steps": 1,
-        "SubIntervals": 6
-    },
-    "Items": [
-        {
-            "Id": 1,
-            "Interval": {
-                "Size": 1,
-                "Unit": "Months",
-                "StartDate": "2020-01-01",
-                "EndDate": "2020-02-01",
-                "TargetDate": "2020-03-01",
-                "Steps": 1,
-                "SubIntervals": 1
-            },
-            "X_Actual": 58.5,
-            "Y_Forecasted": 615.26
-        },
-        {
-            "Id": 2,
-            "Interval": {
-                "Size": 1,
-                "Unit": "Months",
-                "StartDate": "2020-02-01",
-                "EndDate": "2020-03-01",
-                "TargetDate": "2020-04-01",
-                "Steps": 1,
-                "SubIntervals": 1
-            },
-            "X_Actual": 615.26,
-            "Y_Forecasted": 659.84
-        },
-        {
-            "Id": 3,
-            "Interval": {
-                "Size": 1,
-                "Unit": "Months",
-                "StartDate": "2020-03-01",
-                "EndDate": "2020-04-01",
-                "TargetDate": "2020-05-01",
-                "Steps": 1,
-                "SubIntervals": 1
-            },
-            "X_Actual": 659.84,
-            "Y_Forecasted": 635.69
-        },
-        {
-            "Id": 4,
-            "Interval": {
-                "Size": 1,
-                "Unit": "Months",
-                "StartDate": "2020-04-01",
-                "EndDate": "2020-05-01",
-                "TargetDate": "2020-06-01",
-                "Steps": 1,
-                "SubIntervals": 1
-            },
-            "X_Actual": 635.69,
-            "Y_Forecasted": 612.27
-        },
-        {
-            "Id": 5,
-            "Interval": {
-                "Size": 1,
-                "Unit": "Months",
-                "StartDate": "2020-05-01",
-                "EndDate": "2020-06-01",
-                "TargetDate": "2020-07-01",
-                "Steps": 1,
-                "SubIntervals": 1
-            },
-            "X_Actual": 612.27,
-            "Y_Forecasted": 632.94
-        },
-        {
-            "Id": 6,
-            "Interval": {
-                "Size": 1,
-                "Unit": "Months",
-                "StartDate": "2020-06-01",
-                "EndDate": "2020-07-01",
-                "TargetDate": "2020-08-01",
-                "Steps": 1,
-                "SubIntervals": 1
-            },
-            "X_Actual": 632.94,
-            "Y_Forecasted": null
-        }
-    ]
-}
-```
-
-Below an example of how a ```Observation``` object looks like in JSON format:
-
-```json
-{
-    "Name": "Dummy Observation",
-    "Interval": {
-        "Size": 1,
-        "Unit": "Months",
-        "StartDate": "2020-07-01",
-        "EndDate": "2020-08-01",
-        "TargetDate": "2020-09-01",
-        "Steps": 1,
-        "SubIntervals": 1
-    },
-    "X_Actual": 632.94,
-    "C": 0.82,
-    "E": 0.22,
-    "Y_Forecasted": 519.23,
-    "SlidingWindowId": "Dummy Id"
-}
-```
-
-## The Algorithm
+## Appendix - The algorithm
 
 Let's explain the algorithm on which the library is based by using an example.
 
 This is our trusty `SlidingWindow`:
 
-| <sub>Id</sub> | <sub>Interval</sub> | <sub>X_Actual</sub> | <sub>Y_Forecasted</sub> |
-|---|---|---|---|
-| <sub>1</sub> | <sub>20190131:20190228:20190331</sub> | <sub>58,5</sub> | <sub>615,26</sub> |
-| <sub>2</sub> | <sub>20190228:20190331:20190430</sub> | <sub>615,26</sub> | <sub>659,84</sub> |
-| <sub>3</sub> | <sub>20190331:20190430:20190531</sub> | <sub>659,84</sub> | <sub>635,69</sub> | 
-| <sub>4</sub> | <sub>20190430:20190531:20190630</sub> | <sub>635,69</sub> | <sub>612,27</sub> |
-| <sub>5</sub> | <sub>20190531:20190630:20190731</sub> | <sub>612,27</sub> | <sub>632,94</sub> |
-| <sub>6</sub> | <sub>20190630:20190731:20190831</sub> | <sub>632,94</sub> | <sub>`[NULL]`</sub> |
+| <sub>Id</sub> | <sub>X_Actual</sub> | <sub>Y_Forecasted</sub> |
+|---|---|---|
+| <sub>1</sub> | <sub>58,5</sub> | <sub>615,26</sub> |
+| <sub>2</sub> | <sub>615,26</sub> | <sub>659,84</sub> |
+| <sub>3</sub> | <sub>659,84</sub> | <sub>635,69</sub> | 
+| <sub>4</sub> | <sub>635,69</sub> | <sub>612,27</sub> |
+| <sub>5</sub> | <sub>612,27</sub> | <sub>632,94</sub> |
+| <sub>6</sub> | <sub>632,94</sub> | <sub>`[NULL]`</sub> |
 
 The first thing we do is to divide each `X_Actual` for the corresponding `Y_Forecasted`:
 
@@ -426,19 +256,7 @@ The function to forecast the next value in the series is `Y=F(X)+E`, which can b
 |---|
 | <sub>519,23</sub> |
 
-## Load and save
-
-The library is able to load and save different key-objects using JSON format. 
-
-Here an example of each JSON file produced by the library:
-
-1. [ForecastingInitBareMinimum.json](ExampleFiles/ForecastingInitBareMinimum.json)
-2. [ForecastingInitSingleWithCE.json](ExampleFiles/ForecastingInitSingleWithCE.json)
-3. [ForecastingInitSingleWithoutCE.json](ExampleFiles/ForecastingInitSingleWithoutCE.json)
-4. [ForecastingInitDoubleWithCE.json](ExampleFiles/ForecastingInitDoubleWithCE.json)
-5. [ForecastingSessionSingleWithCE.json](ExampleFiles/ForecastingSessionSingleWithCE.json)
-6. [ForecastingSessionSingleWithoutCE.json](ExampleFiles/ForecastingSessionSingleWithoutCE.json)
-7. [ForecastingSessionDoubleWithCE.json](ExampleFiles/ForecastingSessionDoubleWithCE.json)
+The library offers the possibility to skip all the calculations above and provide the C and E coefficients by yourself.
 
 ## Markdown Toolset
 
