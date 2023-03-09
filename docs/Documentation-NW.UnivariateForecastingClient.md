@@ -7,6 +7,7 @@ Contact: numbworks@gmail.com
 |---|---|---|
 | 2021-10-13 | numbworks | Created. |
 | 2023-01-22 | numbworks | Updated to v2.5.0. |
+| 2023-03-09 | numbworks | Updated to v3.0.0. |
 
 ## Introduction
 
@@ -22,6 +23,7 @@ The command-line interface for `NW.UnivariateForecastingClient` is summarized by
 |---|---|---|---|
 |about|||Success|
 |session|||Success|
+|session|forecast|--init:{filename}<br />*--folderpath:{path}*<br />*--savesession*<br />*--roundingdigits:{number}*<br />*--forecastingdenominator:{number}*|Success<br />Failure|
 
 The regular font indicates the mandatory options, while the *italic*  font indicates an optional ones.
 
@@ -46,8 +48,31 @@ To get started:
 ```powershell
 PS C:\unifor>.\unifor.exe
 PS C:\unifor>.\unifor.exe session
+PS C:\unifor>.\unifor.exe session forecast --help
 PS C:\unifor>.\unifor.exe about
 ```
+
+## Commands: session forecast
+
+![Screenrec_SessionForecast](Screenrecs/Screenrec_SessionForecast.gif)
+
+The simplest command you can run is `session forecast`, which performs a forecasting task on the values you provide. At very least, the command will look like:
+
+```powershell
+PS C:\unifor>.\unifor.exe session forecast --init:Init.json
+```
+
+The command above requires that you have the required file (`Init.json`) located in the same folder as the application, which by default it's the working folder for all the application's activities. 
+
+The command above will log something like this to the console:
+
+```
+...
+
+...
+```
+
+If you wish to store the files elsewhere, you can specify a new working folder by using the `folderpath` option - i.e. `--folderpath:C:\Documents`
 
 ## Markdown Toolset
 
