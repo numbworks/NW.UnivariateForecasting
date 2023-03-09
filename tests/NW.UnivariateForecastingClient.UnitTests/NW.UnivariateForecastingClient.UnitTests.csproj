@@ -24,6 +24,8 @@
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
 
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
+
+    <Authors>numbworks</Authors>
   </PropertyGroup>
 
   <ItemGroup>
