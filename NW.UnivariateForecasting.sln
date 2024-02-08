@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33130.400
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting.Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecastingClient", "src\NW.UnivariateForecastingClient\NW.UnivariateForecastingClient.csproj", "{8A08834A-C974-4377-85F9-E007724464D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NW.UnivariateForecastingClient.UnitTests", "tests\NW.UnivariateForecastingClient.UnitTests\NW.UnivariateForecastingClient.UnitTests.csproj", "{2EAA0CED-0E17-4AF1-8E6F-BB4A3A20DD4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecastingClient.UnitTests", "tests\NW.UnivariateForecastingClient.UnitTests\NW.UnivariateForecastingClient.UnitTests.csproj", "{2EAA0CED-0E17-4AF1-8E6F-BB4A3A20DD4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

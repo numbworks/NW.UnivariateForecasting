@@ -1,39 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>numbworks</Authors>
     <Description>unifor is a command-line application to perform univariate forecasting tasks based on the NW.UnivariateForecasting library.</Description>
     <Copyright>numbworks 2023</Copyright>
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
-    <PackageIconUrl></PackageIconUrl>	
+    <PackageIconUrl>
+    </PackageIconUrl>
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
-	<IsPackable>false</IsPackable>	
-	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>3.0.0</Version>
-		<AssemblyName>unifor</AssemblyName>
-		<ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>
-		<PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
-		<AssemblyVersion>3.0.0.0</AssemblyVersion>
-		<FileVersion>3.0.0.0</FileVersion>	
+    <IsPackable>false</IsPackable>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>3.0.0</Version>
+    <AssemblyName>unifor</AssemblyName>
+    <ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>
+    <PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\..\numbworks_logo_128x128px.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.0.1" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
   </ItemGroup>
-
 </Project>
