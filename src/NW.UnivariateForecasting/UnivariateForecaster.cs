@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting
         #region Fields
 
         private UnivariateForecastingSettings _settings;
-        private UnivariateForecastingComponents _components;
+        private ComponentBag _componentBag;
 
         #endregion
 
@@ -36,17 +36,17 @@ namespace NW.UnivariateForecasting
         /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecaster(
             UnivariateForecastingSettings settings,
-            UnivariateForecastingComponents components)
+            ComponentBag componentBag)
         {
 
             Validator.ValidateObject(settings, nameof(settings));
-            Validator.ValidateObject(components, nameof(components));
+            Validator.ValidateObject(componentBag, nameof(componentBag));
 
             _settings = settings;
-            _components = components;
+            _componentBag = componentBag;
 
             Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            AsciiBanner = _components.AsciiBannerManager.Create(Version);
+            AsciiBanner = _componentBag.AsciiBannerManager.Create(Version);
 
         }
 
@@ -54,16 +54,16 @@ namespace NW.UnivariateForecasting
         public UnivariateForecaster()
             : this (
                   new UnivariateForecastingSettings(), 
-                  new UnivariateForecastingComponents()) { }
+                  new ComponentBag()) { }
 
         #endregion
 
         #region Methods_public
 
         public void LogAsciiBanner()
-            => _components.LoggingActionAsciiBanner(AsciiBanner);
+            => _componentBag.LoggingActionAsciiBanner(AsciiBanner);
         public IFileInfoAdapter Convert(string filePath)
-            => _components.FileManager.Create(filePath);
+            => _componentBag.FileManager.Create(filePath);
 
         public ForecastingSession Forecast(ForecastingInit init)
         {
@@ -71,24 +71,24 @@ namespace NW.UnivariateForecasting
             Validator.ValidateObject(init, nameof(init));
             Validator.ThrowIfLessThan(init.Values.Count, 2, nameof(init.Values));
 
-            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedFolderPathIs(_settings.FolderPath));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(_settings.ForecastingDenominator));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedRoundingDigitsAre(_settings.RoundingDigits));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedErrorIs(init.Error));
-            _components.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(init.Steps));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedFolderPathIs(_settings.FolderPath));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(_settings.ForecastingDenominator));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedRoundingDigitsAre(_settings.RoundingDigits));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedErrorIs(init.Error));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedStepsAre(init.Steps));
 
-            _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(1));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(1));
 
             Observation observation = CreateObservation(init);
             List<Observation> observations = Convert(observation);
 
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(observations.Last().Coefficient));
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(observations.Last().Error));
-            _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(observations.Last().NextValue));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ObservationCoefficientIs(observations.Last().Coefficient));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ObservationErrorIs(observations.Last().Error));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(observations.Last().NextValue));
 
             if (init.Steps > 1)
             {
@@ -99,13 +99,13 @@ namespace NW.UnivariateForecasting
                 for (uint step = 2; step <= init.Steps; step++)
                 {
 
-                    _components.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(step));
+                    _componentBag.LoggingAction(Forecasts.MessageCollection.ProcessingStepNr(step));
 
-                    nextInit = _components.ForecastingInitManager.ExpandValues(nextInit, nextValue);
+                    nextInit = _componentBag.ForecastingInitManager.ExpandValues(nextInit, nextValue);
                     Observation nextObservation = CreateObservation(nextInit);
                     nextValue = nextObservation.NextValue;
 
-                    _components.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(nextValue));
+                    _componentBag.LoggingAction(Forecasts.MessageCollection.ObservationNextValueIs(nextValue));
 
                     observations.Add(nextObservation);
 
@@ -113,7 +113,7 @@ namespace NW.UnivariateForecasting
 
             }
 
-            _components.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted);
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ForecastSuccessfullyCompleted);
 
             ForecastingSession session = new ForecastingSession(
                     init: init,
@@ -128,7 +128,7 @@ namespace NW.UnivariateForecasting
         public ForecastingInit LoadInitOrDefault(IFileInfoAdapter jsonFile)
             => LoadOrDefault<ForecastingInit>(jsonFile);
         public void SaveSession(ForecastingSession session, string folderPath)
-            => Save(obj: session, jsonFile: Create<ForecastingSession>(folderPath: folderPath, now: _components.NowFunction()));
+            => Save(obj: session, jsonFile: Create<ForecastingSession>(folderPath: folderPath, now: _componentBag.NowFunction()));
 
         #endregion
 
@@ -140,17 +140,17 @@ namespace NW.UnivariateForecasting
             Validator.ValidateObject(jsonFile, nameof(jsonFile));
             Validator.ValidateFileExistance(jsonFile);
 
-            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(T), jsonFile));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(T), jsonFile));
 
-            string content = _components.FileManager.ReadAllText(jsonFile);
+            string content = _componentBag.FileManager.ReadAllText(jsonFile);
 
-            ISerializer<T> serializer = _components.SerializerFactory.Create<T>();
+            ISerializer<T> serializer = _componentBag.SerializerFactory.Create<T>();
             T obj = serializer.DeserializeOrDefault(content);
 
             if (EqualityComparer<T>.Default.Equals(obj, default(T)))
-                _components.LoggingAction(Forecasts.MessageCollection.ObjectFailedToLoad(typeof(T)));
+                _componentBag.LoggingAction(Forecasts.MessageCollection.ObjectFailedToLoad(typeof(T)));
             else
-                _components.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullyLoaded(typeof(T)));
+                _componentBag.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullyLoaded(typeof(T)));
 
             return obj;
 
@@ -158,23 +158,23 @@ namespace NW.UnivariateForecasting
         private void Save<T>(T obj, IFileInfoAdapter jsonFile)
         {
 
-            _components.LoggingAction(Forecasts.MessageCollection.AttemptingToSaveObjectAs(typeof(T), jsonFile));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.AttemptingToSaveObjectAs(typeof(T), jsonFile));
 
             try
             {
 
-                ISerializer<T> serializer = _components.SerializerFactory.Create<T>();
+                ISerializer<T> serializer = _componentBag.SerializerFactory.Create<T>();
                 string content = serializer.Serialize(obj);
 
-                _components.FileManager.WriteAllText(jsonFile, content);
+                _componentBag.FileManager.WriteAllText(jsonFile, content);
 
-                _components.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullySaved(typeof(T)));
+                _componentBag.LoggingAction(Forecasts.MessageCollection.ObjectSuccessfullySaved(typeof(T)));
 
             }
             catch
             {
 
-                _components.LoggingAction(Forecasts.MessageCollection.ObjectFailedToSave(typeof(T)));
+                _componentBag.LoggingAction(Forecasts.MessageCollection.ObjectFailedToSave(typeof(T)));
 
             }
 
@@ -185,7 +185,7 @@ namespace NW.UnivariateForecasting
             string filePath;
 
             if (typeof(T) == typeof(ForecastingSession))
-                filePath = _components.FilenameFactory.CreateForSessionJson(folderPath: folderPath, now: now);
+                filePath = _componentBag.FilenameFactory.CreateForSessionJson(folderPath: folderPath, now: now);
             else
                 throw new Exception(Forecasts.MessageCollection.ThereIsNoStrategyOutOfType(typeof(T)));
 
@@ -198,9 +198,9 @@ namespace NW.UnivariateForecasting
         private Observation CreateObservation(ForecastingInit init)
         {
 
-            SlidingWindow slidingWindow = _components.SlidingWindowManager.Create(init.Values, _settings.RoundingDigits);
+            SlidingWindow slidingWindow = _componentBag.SlidingWindowManager.Create(init.Values, _settings.RoundingDigits);
             Observation observation 
-                = _components.ObservationManager.Create(
+                = _componentBag.ObservationManager.Create(
                         slidingWindow: slidingWindow,
                         forecastingDenominator: _settings.ForecastingDenominator,
                         roundingDigits: _settings.RoundingDigits,
@@ -234,5 +234,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

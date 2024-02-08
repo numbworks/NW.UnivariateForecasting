@@ -26,18 +26,18 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             new TestCaseData(
                 new TestDelegate(
                     () => new LibraryBroker(
-                                componentsFactory: null,
+                                componentBagFactory: null,
                                 settingsFactory: new UnivariateForecastingSettingsFactory(),
                                 univariateForecasterFactory: new UnivariateForecasterFactory())
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("componentsFactory").Message
+                new ArgumentNullException("componentBagFactory").Message
             ).SetArgDisplayNames($"{nameof(libraryBrokerExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new LibraryBroker(
-                                componentsFactory: new UnivariateForecastingComponentsFactory(),
+                                componentBagFactory: new ComponentBagFactory(),
                                 settingsFactory: null,
                                 univariateForecasterFactory: new UnivariateForecasterFactory())
                 ),
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             new TestCaseData(
                 new TestDelegate(
                     () => new LibraryBroker(
-                                componentsFactory: new UnivariateForecastingComponentsFactory(),
+                                componentBagFactory: new ComponentBagFactory(),
                                 settingsFactory: new UnivariateForecastingSettingsFactory(),
                                 univariateForecasterFactory: null)
                 ),
@@ -92,11 +92,11 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
         {
 
             // Arrange
-            (List<string> messages, List<string> messagesAsciiBanner, UnivariateForecastingComponents fakeComponents) = CreateTuple();
+            (List<string> messages, List<string> messagesAsciiBanner, ComponentBag fakeComponentBag) = CreateTuple();
 
             LibraryBroker libraryBroker
                 = new LibraryBroker(
-                        componentsFactory: new FakeUnivariateForecastingComponentsFactory(fakeComponents),
+                        componentBagFactory: new FakeComponentBagFactory(fakeComponentBag),
                         settingsFactory: new UnivariateForecastingSettingsFactory(),
                         univariateForecasterFactory: new UnivariateForecasterFactory()
                     );
@@ -129,11 +129,11 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
             };
 
-            (List<string> messages, List<string> messagesAsciiBanner, UnivariateForecastingComponents fakeComponents) = CreateTuple(readBehaviours);
+            (List<string> messages, List<string> messagesAsciiBanner, ComponentBag fakeComponentBag) = CreateTuple(readBehaviours);
 
             LibraryBroker libraryBroker
                 = new LibraryBroker(
-                        componentsFactory: new FakeUnivariateForecastingComponentsFactory(fakeComponents),
+                        componentBagFactory: new FakeComponentBagFactory(fakeComponentBag),
                         settingsFactory: new UnivariateForecastingSettingsFactory(),
                         univariateForecasterFactory: new UnivariateForecasterFactory()
                     );
@@ -185,11 +185,11 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
             };
 
-            (List<string> messages, List<string> messagesAsciiBanner, UnivariateForecastingComponents fakeComponents) = CreateTuple(readBehaviours);
+            (List<string> messages, List<string> messagesAsciiBanner, ComponentBag fakeComponentBag) = CreateTuple(readBehaviours);
 
             LibraryBroker libraryBroker
                 = new LibraryBroker(
-                        componentsFactory: new FakeUnivariateForecastingComponentsFactory(fakeComponents),
+                        componentBagFactory: new FakeComponentBagFactory(fakeComponentBag),
                         settingsFactory: new UnivariateForecastingSettingsFactory(),
                         univariateForecasterFactory: new UnivariateForecasterFactory()
                     );
@@ -228,7 +228,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
         #region Support_methods
 
-        private (List<string>, List<string>, UnivariateForecastingComponents) CreateTuple
+        private (List<string>, List<string>, ComponentBag) CreateTuple
             (List<(string fileName, string content)> readBehaviours = null)
         {
 
@@ -238,7 +238,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             List<string> messagesAsciiBanner = new List<string>();
             Action<string> fakeLoggingActionAsciiBanner = (message) => messagesAsciiBanner.Add(message);
 
-            UnivariateForecastingComponents components = new UnivariateForecastingComponents(
+            ComponentBag componentBag = new ComponentBag(
 
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: fakeLoggingActionAsciiBanner,
@@ -246,15 +246,15 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
-                        roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                        roundingFunction: ComponentBag.DefaultRoundingFunction,
                         asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
-                        nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                        nowFunction: ComponentBag.DefaultNowFunction,
                         forecastingInitManager: new ForecastingInitManager(),
                         serializerFactory: new SerializerFactory()
             );
 
-            return (messages, messagesAsciiBanner, components);
+            return (messages, messagesAsciiBanner, componentBag);
 
         }
 
@@ -265,5 +265,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

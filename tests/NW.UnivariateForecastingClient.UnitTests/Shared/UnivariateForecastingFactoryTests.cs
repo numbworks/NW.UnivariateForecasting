@@ -38,7 +38,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             // Act
             UnivariateForecaster actual
                 = new UnivariateForecasterFactory().Create(
-                        components: new UnivariateForecastingComponents(),
+                        componentBag: new ComponentBag(),
                         settings: new UnivariateForecastingSettings()
                         );
 

@@ -14,7 +14,7 @@ namespace NW.UnivariateForecastingClient.Shared
 
         #region Fields
 
-        private IUnivariateForecastingComponentsFactory _componentsFactory { get; }
+        private IComponentBagFactory _componentBagFactory { get; }
         private IUnivariateForecastingSettingsFactory _settingsFactory { get; }
         private IUnivariateForecasterFactory _univariateForecasterFactory { get; }
 
@@ -34,17 +34,17 @@ namespace NW.UnivariateForecastingClient.Shared
         /// <summary>Initializes a <see cref="LibraryBroker"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
         public LibraryBroker(
-                IUnivariateForecastingComponentsFactory componentsFactory, 
+                IComponentBagFactory componentBagFactory, 
                 IUnivariateForecastingSettingsFactory settingsFactory, 
                 IUnivariateForecasterFactory univariateForecasterFactory
             )
         {
 
-            Validator.ValidateObject(componentsFactory, nameof(componentsFactory));
+            Validator.ValidateObject(componentBagFactory, nameof(componentBagFactory));
             Validator.ValidateObject(settingsFactory, nameof(settingsFactory));
             Validator.ValidateObject(univariateForecasterFactory, nameof(univariateForecasterFactory));
 
-            _componentsFactory = componentsFactory;
+            _componentBagFactory = componentBagFactory;
             _settingsFactory = settingsFactory;
             _univariateForecasterFactory = univariateForecasterFactory;
 
@@ -53,7 +53,7 @@ namespace NW.UnivariateForecastingClient.Shared
         /// <summary>Initializes a <see cref="LibraryBroker"/> instance using default parameters.</summary>
         public LibraryBroker()
             : this(
-                  new UnivariateForecastingComponentsFactory(), 
+                  new ComponentBagFactory(), 
                   new UnivariateForecastingSettingsFactory(), 
                   new UnivariateForecasterFactory()
                   ) { }
@@ -66,10 +66,10 @@ namespace NW.UnivariateForecastingClient.Shared
         {
 
             UnivariateForecastingSettings settings = _settingsFactory.Create();
-            UnivariateForecastingComponents components = _componentsFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
+            ComponentBag componentBag = _componentBagFactory.Create();
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, componentBag);
 
-            ShowHeader(components, univariateForecaster);
+            ShowHeader(componentBag, univariateForecaster);
 
             return Success;
 
@@ -77,21 +77,21 @@ namespace NW.UnivariateForecastingClient.Shared
         public int RunAboutMain()
         {
 
-            UnivariateForecastingComponents components = _componentsFactory.Create();
+            ComponentBag componentBag = _componentBagFactory.Create();
             UnivariateForecastingSettings settings = _settingsFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, componentBag);
 
-            ShowHeader(components, univariateForecaster);
+            ShowHeader(componentBag, univariateForecaster);
 
-            components.LoggingActionAsciiBanner(Shared.MessageCollection.Application_Description);
-            components.LoggingActionAsciiBanner(SeparatorLine);
+            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.Application_Description);
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
 
-            components.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Author);
-            components.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Email);
-            components.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Url);
-            components.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_License);
+            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Author);
+            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Email);
+            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Url);
+            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_License);
 
-            ShowFooter(components);
+            ShowFooter(componentBag);
 
             return Success;
 
@@ -106,11 +106,11 @@ namespace NW.UnivariateForecastingClient.Shared
 
                 forecastData = Defaultize(forecastData);
 
-                UnivariateForecastingComponents components = _componentsFactory.Create();
+                ComponentBag componentBag = _componentBagFactory.Create();
                 UnivariateForecastingSettings settings = _settingsFactory.Create(forecastData);
-                UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, components);
+                UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, componentBag);
 
-                ShowHeader(components, univariateForecaster);
+                ShowHeader(componentBag, univariateForecaster);
 
                 string filePath = Path.Combine(forecastData.FolderPath, forecastData.Init);
                 IFileInfoAdapter initFile = univariateForecaster.Convert(filePath);
@@ -124,7 +124,7 @@ namespace NW.UnivariateForecastingClient.Shared
                 if (forecastData.SaveSession)
                     univariateForecaster.SaveSession(session, forecastData.FolderPath);
 
-                ShowFooter(components);
+                ShowFooter(componentBag);
 
                 return Success;
 
@@ -145,29 +145,29 @@ namespace NW.UnivariateForecastingClient.Shared
         private int LogAndReturnFailure(Exception e)
         {
 
-            UnivariateForecastingComponents components = _componentsFactory.Create();
+            ComponentBag componentBag = _componentBagFactory.Create();
 
-            components.LoggingAction(ErrorMessageFormatter(e.Message));
+            componentBag.LoggingAction(ErrorMessageFormatter(e.Message));
             if (e.InnerException != null)
-                components.LoggingAction(ErrorMessageFormatter(e.InnerException.Message));
+                componentBag.LoggingAction(ErrorMessageFormatter(e.InnerException.Message));
 
-            ShowFooter(components);
+            ShowFooter(componentBag);
 
             return Failure;
 
         }
-        private void ShowHeader(UnivariateForecastingComponents components, UnivariateForecaster univariateForecaster)
+        private void ShowHeader(ComponentBag componentBag, UnivariateForecaster univariateForecaster)
         {
 
-            components.LoggingActionAsciiBanner(SeparatorLine);
-            components.LoggingActionAsciiBanner(univariateForecaster.AsciiBanner);
-            components.LoggingActionAsciiBanner(SeparatorLine);
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
+            componentBag.LoggingActionAsciiBanner(univariateForecaster.AsciiBanner);
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
 
         }
-        private void ShowFooter(UnivariateForecastingComponents components)
+        private void ShowFooter(ComponentBag componentBag)
         {
 
-            components.LoggingActionAsciiBanner(SeparatorLine);
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
 
         }
 
@@ -193,5 +193,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

@@ -10,12 +10,12 @@ namespace NW.UnivariateForecastingClient.Shared
 
         /// <summary>Creates an instance of <see cref="TextClassifier"/>.</summary>
         /// <exception cref="ArgumentNullException"/>
-        UnivariateForecaster Create(UnivariateForecastingSettings settings, UnivariateForecastingComponents components);
+        UnivariateForecaster Create(UnivariateForecastingSettings settings, ComponentBag componentBag);
 
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

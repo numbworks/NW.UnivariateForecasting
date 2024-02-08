@@ -52,8 +52,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             );
 
         public static ObservationManager ObservationManager_WithTwoRoundingDigits = new ObservationManager(
-                roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                loggingAction: ComponentBag.DefaultLoggingAction
             );
 
         #endregion

@@ -26,9 +26,9 @@ namespace NW.UnivariateForecasting.Observations
             = UnivariateForecastingSettings.DefaultRoundingDigits;
 
         public static Func<double, uint, double> DefaultRoundingFunction { get; }
-            = UnivariateForecastingComponents.DefaultRoundingFunction;
+            = ComponentBag.DefaultRoundingFunction;
         public static Action<string> DefaultLoggingAction { get; }
-            = UnivariateForecastingComponents.DefaultLoggingAction;
+            = ComponentBag.DefaultLoggingAction;
 
         #endregion
 
