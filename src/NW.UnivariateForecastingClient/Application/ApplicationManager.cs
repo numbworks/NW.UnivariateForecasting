@@ -13,7 +13,7 @@ namespace NW.UnivariateForecastingClient.Application
         #region Fields
 
         private ILibraryBroker _libraryBroker;
-        private ApplicationSections _sections;
+        private ApplicationManagerBag _applicationManagerBag;
 
         #endregion
 
@@ -24,22 +24,24 @@ namespace NW.UnivariateForecastingClient.Application
 
         /// <summary>Initializes a <see cref="ApplicationManager"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public ApplicationManager
-            (ILibraryBroker libraryBroker, IApplicationSectionsFactory sectionsFactory, SessionManagerBag sessionManagerBag)
+        public ApplicationManager(
+            ILibraryBroker libraryBroker, 
+            IApplicationManagerBagFactory applicationManagerBagFactory, 
+            SessionManagerBag sessionManagerBag)
         {
 
             Validator.ValidateObject(libraryBroker, nameof(libraryBroker));
-            Validator.ValidateObject(sectionsFactory, nameof(sectionsFactory));
+            Validator.ValidateObject(applicationManagerBagFactory, nameof(applicationManagerBagFactory));
             Validator.ValidateObject(sessionManagerBag, nameof(sessionManagerBag));
 
             _libraryBroker = libraryBroker;
-            _sections = sectionsFactory.Create(libraryBroker, sessionManagerBag);
+            _applicationManagerBag = applicationManagerBagFactory.Create(libraryBroker, sessionManagerBag);
 
         }
 
         /// <summary>Initializes a <see cref="ApplicationManager"/> instance using default parameters.</summary>
         public ApplicationManager()
-            : this(new LibraryBroker(), new ApplicationSectionsFactory(), new SessionManagerBag()) { }
+            : this(new LibraryBroker(), new ApplicationManagerBagFactory(), new SessionManagerBag()) { }
 
         #endregion
 
@@ -70,8 +72,8 @@ namespace NW.UnivariateForecastingClient.Application
             };
 
             app = AddRoot(app);
-            app = _sections.AboutManager.Add(app);
-            app = _sections.SessionManager.Add(app);
+            app = _applicationManagerBag.AboutManager.Add(app);
+            app = _applicationManagerBag.SessionManager.Add(app);
 
             app.HelpOption(inherited: true);
 

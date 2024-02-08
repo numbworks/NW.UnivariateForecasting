@@ -20,7 +20,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                 new TestDelegate(
                     () => new ApplicationManager(
                                 libraryBroker: null,
-                                sectionsFactory: new ApplicationSectionsFactory(),
+                                applicationManagerBagFactory: new ApplicationManagerBagFactory(),
                                 sessionManagerBag: new SessionManagerBag())
                 ),
                 typeof(ArgumentNullException),
@@ -31,18 +31,18 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                 new TestDelegate(
                     () => new ApplicationManager(
                                 libraryBroker: new LibraryBroker(),
-                                sectionsFactory: null,
+                                applicationManagerBagFactory: null,
                                 sessionManagerBag: new SessionManagerBag())
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("sectionsFactory").Message
+                new ArgumentNullException("applicationManagerBagFactory").Message
             ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ApplicationManager(
                                 libraryBroker: new LibraryBroker(),
-                                sectionsFactory: new ApplicationSectionsFactory(),
+                                applicationManagerBagFactory: new ApplicationManagerBagFactory(),
                                 sessionManagerBag: null)
                 ),
                 typeof(ArgumentNullException),
@@ -116,5 +116,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 08.02.2024
 */
