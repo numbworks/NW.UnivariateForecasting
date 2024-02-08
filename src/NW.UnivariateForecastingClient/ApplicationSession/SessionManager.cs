@@ -12,7 +12,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
         #region Fields
 
         private ILibraryBroker _libraryBroker;
-        private DependencyBag _dependencyBag;
+        private SessionManagerBag _sessionManagerBag;
 
         #endregion
 
@@ -23,14 +23,14 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         /// <summary>Initializes a <see cref="SessionManager"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public SessionManager(ILibraryBroker libraryBroker, DependencyBag dependencyBag)
+        public SessionManager(ILibraryBroker libraryBroker, SessionManagerBag sessionManagerBag)
         {
 
             Validator.ValidateObject(libraryBroker, nameof(libraryBroker));
-            Validator.ValidateObject(dependencyBag, nameof(dependencyBag));
+            Validator.ValidateObject(sessionManagerBag, nameof(sessionManagerBag));
 
             _libraryBroker = libraryBroker;
-            _dependencyBag = dependencyBag;
+            _sessionManagerBag = sessionManagerBag;
 
         }
 
@@ -98,8 +98,8 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                                 init: initOption.Value(),
                                 folderPath: folderPathOption.Value(),
                                 saveSession: saveSessionOption.HasValue(),
-                                roundingDigits: _dependencyBag.RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
-                                forecastingDenominator: _dependencyBag.ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
+                                roundingDigits: _sessionManagerBag.RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
+                                forecastingDenominator: _sessionManagerBag.ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
                         );
 
                     return _libraryBroker.RunSessionForecast(classifyData);
@@ -157,7 +157,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                         Shared.MessageCollection.Session_Option_RoundingDigits_Template,
                         Shared.MessageCollection.Session_Option_RoundingDigits_Description,
                         CommandOptionType.SingleValue)
-                    .Accepts(validator => validator.Use(_dependencyBag.RoundingDigitsValidator));
+                    .Accepts(validator => validator.Use(_sessionManagerBag.RoundingDigitsValidator));
 
         }
         private CommandOption CreateOptionalForecastingDenominatorOption(CommandLineApplication subCommand)
@@ -168,7 +168,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                         Shared.MessageCollection.Session_Option_ForecastingDenominator_Template,
                         Shared.MessageCollection.Session_Option_ForecastingDenominator_Description,
                         CommandOptionType.SingleValue)
-                    .Accepts(validator => validator.Use(_dependencyBag.ForecastingDenominatorValidator));
+                    .Accepts(validator => validator.Use(_sessionManagerBag.ForecastingDenominatorValidator));
 
         }
 

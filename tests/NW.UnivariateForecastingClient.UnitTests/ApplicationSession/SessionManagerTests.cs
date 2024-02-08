@@ -17,7 +17,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new SessionManager(null, new DependencyBag())
+                    () => new SessionManager(null, new SessionManagerBag())
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("libraryBroker").Message
@@ -28,7 +28,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                     () => new SessionManager(new LibraryBroker(), null)
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("dependencyBag").Message
+                new ArgumentNullException("sessionManagerBag").Message
             ).SetArgDisplayNames($"{nameof(sessionManagerExceptionTestCases)}_02")
 
         };
@@ -39,7 +39,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                 new TestDelegate(
                     () => new SessionManager(
                                 libraryBroker: new LibraryBroker(),
-                                dependencyBag: new DependencyBag()
+                                sessionManagerBag: new SessionManagerBag()
                             ).Add(null)
                 ),
                 typeof(ArgumentNullException),
@@ -74,7 +74,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             SessionManager actual
                 = new SessionManager(
                         libraryBroker: new LibraryBroker(),
-                        dependencyBag: new DependencyBag());
+                        sessionManagerBag: new SessionManagerBag());
 
             // Assert
             Assert.IsInstanceOf<SessionManager>(actual);

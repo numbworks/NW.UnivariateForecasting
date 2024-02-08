@@ -25,21 +25,21 @@ namespace NW.UnivariateForecastingClient.Application
         /// <summary>Initializes a <see cref="ApplicationManager"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
         public ApplicationManager
-            (ILibraryBroker libraryBroker, IApplicationSectionsFactory sectionsFactory, DependencyBag dependencyBag)
+            (ILibraryBroker libraryBroker, IApplicationSectionsFactory sectionsFactory, SessionManagerBag sessionManagerBag)
         {
 
             Validator.ValidateObject(libraryBroker, nameof(libraryBroker));
             Validator.ValidateObject(sectionsFactory, nameof(sectionsFactory));
-            Validator.ValidateObject(dependencyBag, nameof(dependencyBag));
+            Validator.ValidateObject(sessionManagerBag, nameof(sessionManagerBag));
 
             _libraryBroker = libraryBroker;
-            _sections = sectionsFactory.Create(libraryBroker, dependencyBag);
+            _sections = sectionsFactory.Create(libraryBroker, sessionManagerBag);
 
         }
 
         /// <summary>Initializes a <see cref="ApplicationManager"/> instance using default parameters.</summary>
         public ApplicationManager()
-            : this(new LibraryBroker(), new ApplicationSectionsFactory(), new DependencyBag()) { }
+            : this(new LibraryBroker(), new ApplicationSectionsFactory(), new SessionManagerBag()) { }
 
         #endregion
 
@@ -102,5 +102,5 @@ namespace NW.UnivariateForecastingClient.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

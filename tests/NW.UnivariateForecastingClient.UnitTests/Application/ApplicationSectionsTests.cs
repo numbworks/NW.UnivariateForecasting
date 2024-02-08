@@ -21,7 +21,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                 new TestDelegate(
                     () => new ApplicationSections(
                                 aboutManager: null,
-                                sessionManager: new SessionManager(new LibraryBroker(), new DependencyBag()))
+                                sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerBag()))
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("aboutManager").Message
@@ -60,7 +60,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
             ApplicationSections actual
                 = new ApplicationSections(
                         aboutManager: new AboutManager(new LibraryBroker()),
-                        sessionManager: new SessionManager(new LibraryBroker(), new DependencyBag()));
+                        sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerBag()));
 
             // Assert
             Assert.IsInstanceOf<ApplicationSections>(actual);

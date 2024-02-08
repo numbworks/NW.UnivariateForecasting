@@ -1,7 +1,7 @@
 ﻿namespace NW.UnivariateForecastingClient.ApplicationSession
 {
     /// <summary>Collects all the dependencies required by <see cref="SessionManager"/>.</summary>
-    public class DependencyBag
+    public class SessionManagerBag
     {
 
         #region Fields
@@ -16,8 +16,8 @@
 
         #region Constructors
 
-        /// <summary>Initializes a <see cref="DependencyBag"/> instance.</summary>
-        public DependencyBag() 
+        /// <summary>Initializes a <see cref="SessionManagerBag"/> instance.</summary>
+        public SessionManagerBag() 
         {
 
             ForecastingDenominatorValidator = new ForecastingDenominatorValidator();
