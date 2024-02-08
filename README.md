@@ -16,12 +16,13 @@ Contact: numbworks@gmail.com
 | 2020-12-27 | numbworks | Added code coverage badge. |
 | 2021-10-11 | numbworks | Version numbers removed. |
 | 2023-01-22 | numbworks | Updated to v2.5.0. |
+| 2024-02-08 | numbworks | Updated to v4.0.0. |
 
 ## In short
 
 From the documentation:
 
->`NW.UnivariateForecasting` is a `.NET Standard` library to perform univariate forecasting tasks on the values you provide. 
+>`NW.UnivariateForecasting` is a library to perform univariate forecasting tasks on the values you provide. 
 
 >`NW.UnivariateForecastingClient` (`unifor.exe`) is the command-line client for the `NW.UnivariateForecasting` library.
 
