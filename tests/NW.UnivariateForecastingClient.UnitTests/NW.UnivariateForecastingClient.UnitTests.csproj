@@ -5,8 +5,8 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <Copyright>numbworks 2023</Copyright>
-    <Version>3.0.0</Version>
+    <Copyright>numbworks 2024</Copyright>
+    <Version>4.0.0</Version>
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
     <PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
     <PackageIconUrl />

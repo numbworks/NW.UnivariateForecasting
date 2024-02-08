@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Authors>numbworks</Authors>
     <Description>unifor is a command-line application to perform univariate forecasting tasks based on the NW.UnivariateForecasting library.</Description>
-    <Copyright>numbworks 2023</Copyright>
+    <Copyright>numbworks 2024</Copyright>
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
     <PackageIconUrl>
@@ -13,12 +13,12 @@
     <IsPackable>false</IsPackable>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <AssemblyName>unifor</AssemblyName>
     <ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>
     <PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <FileVersion>4.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
