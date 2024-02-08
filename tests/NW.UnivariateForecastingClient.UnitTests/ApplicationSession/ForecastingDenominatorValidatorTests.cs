@@ -22,7 +22,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             new TestCaseData("1", true)
                 .SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
-            new TestCaseData(UnivariateForecastingSettings.DefaultForecastingDenominator.ToString(), true)
+            new TestCaseData(SettingBag.DefaultForecastingDenominator.ToString(), true)
                 .SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(null, false)
@@ -45,8 +45,8 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                 .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_02"),
 
             new TestCaseData(
-                    UnivariateForecastingSettings.DefaultForecastingDenominator.ToString(), 
-                    (double?)UnivariateForecastingSettings.DefaultForecastingDenominator)
+                    SettingBag.DefaultForecastingDenominator.ToString(), 
+                    (double?)SettingBag.DefaultForecastingDenominator)
                 .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_03"),
 
             new TestCaseData(null, ForecastingDenominatorValidator.DefaultValue)

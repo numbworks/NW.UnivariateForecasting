@@ -21,9 +21,9 @@ namespace NW.UnivariateForecasting.Observations
         #region Properties
 
         public static double DefaultForecastingDenominator 
-            = UnivariateForecastingSettings.DefaultForecastingDenominator;
+            = SettingBag.DefaultForecastingDenominator;
         public static uint DefaultRoundingDigits { get; } 
-            = UnivariateForecastingSettings.DefaultRoundingDigits;
+            = SettingBag.DefaultRoundingDigits;
 
         public static Func<double, uint, double> DefaultRoundingFunction { get; }
             = ComponentBag.DefaultRoundingFunction;

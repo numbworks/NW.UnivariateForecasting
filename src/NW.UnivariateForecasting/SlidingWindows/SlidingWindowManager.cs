@@ -24,7 +24,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
         public static Action<string> DefaultLoggingAction { get; }
             = ComponentBag.DefaultLoggingAction;
         public static uint DefaultRoundingDigits { get; }
-            = UnivariateForecastingSettings.DefaultRoundingDigits;
+            = SettingBag.DefaultRoundingDigits;
 
         #endregion
 

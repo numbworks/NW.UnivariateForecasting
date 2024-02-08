@@ -45,9 +45,9 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
         };
 
-        public static UnivariateForecastingSettings UnivariateForecastingSettings_WithTwoRoundingDigits = new UnivariateForecastingSettings(
-                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
-                folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+        public static SettingBag SettingBag_WithTwoRoundingDigits = new SettingBag(
+                forecastingDenominator: SettingBag.DefaultForecastingDenominator,
+                folderPath: SettingBag.DefaultFolderPath,
                 roundingDigits: 2
             );
 
@@ -78,5 +78,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

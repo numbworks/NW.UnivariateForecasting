@@ -6,7 +6,7 @@ using NW.UnivariateForecasting.Bags;
 namespace NW.UnivariateForecastingClient.UnitTests
 {
     [TestFixture]
-    public class UnivariateForecastingSettingsFactoryTests
+    public class SettingBagFactoryTests
     {
 
         #region Fields
@@ -18,34 +18,34 @@ namespace NW.UnivariateForecastingClient.UnitTests
         #region Tests
 
         [Test]
-        public void UnivariateForecastingSettingsFactory_ShouldCreateAnObjectOfThisType_WhenInvoked()
+        public void SettingBagFactory_ShouldCreateAnObjectOfThisType_WhenInvoked()
         {
 
             // Arrange
             // Act
-            UnivariateForecastingSettingsFactory actual = new UnivariateForecastingSettingsFactory();
+            SettingBagFactory actual = new SettingBagFactory();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecastingSettingsFactory>(actual);
+            Assert.IsInstanceOf<SettingBagFactory>(actual);
 
         }
 
         [Test]
-        public void Create_ShouldCreateAnObjectOfTypeUnivariateForecastingSettings_WhenDefault()
+        public void Create_ShouldCreateAnObjectOfTypeSettingBag_WhenDefault()
         {
 
             // Arrange
             // Act
-            UnivariateForecastingSettings actual
-                = new UnivariateForecastingSettingsFactory().Create();
+            SettingBag actual
+                = new SettingBagFactory().Create();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecastingSettings>(actual);
+            Assert.IsInstanceOf<SettingBag>(actual);
 
         }
 
         [Test]
-        public void Create_ShouldCreateExpectedUnivariateForecastingSettings_WhenForecastDataWithNullValues()
+        public void Create_ShouldCreateExpectedSettingBag_WhenForecastDataWithNullValues()
         {
 
             // Arrange
@@ -57,15 +57,15 @@ namespace NW.UnivariateForecastingClient.UnitTests
                         roundingDigits: null,
                         forecastingDenominator: null
                     );
-            UnivariateForecastingSettings expected = new UnivariateForecastingSettings(
-                    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
-                    roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits,
-                    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator
+            SettingBag expected = new SettingBag(
+                    folderPath: SettingBag.DefaultFolderPath,
+                    roundingDigits: SettingBag.DefaultRoundingDigits,
+                    forecastingDenominator: SettingBag.DefaultForecastingDenominator
                 );
 
             // Act
-            UnivariateForecastingSettings actual
-                = new UnivariateForecastingSettingsFactory().Create(forecastData: forecastData);
+            SettingBag actual
+                = new SettingBagFactory().Create(forecastData: forecastData);
 
             // Assert
             Assert.True(
@@ -74,7 +74,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
         }
 
         [Test]
-        public void Create_ShouldCreateExpectedUnivariateForecastingSettings_WhenForecastDataWithNotNullValues()
+        public void Create_ShouldCreateExpectedSettingBag_WhenForecastDataWithNotNullValues()
         {
 
             // Arrange
@@ -86,15 +86,15 @@ namespace NW.UnivariateForecastingClient.UnitTests
                         roundingDigits: 2,
                         forecastingDenominator: 0.001
                     );
-            UnivariateForecastingSettings expected = new UnivariateForecastingSettings(
+            SettingBag expected = new SettingBag(
                     folderPath: @"C:\unifor\",
                     roundingDigits: 2,
                     forecastingDenominator: 0.001
                 );
 
             // Act
-            UnivariateForecastingSettings actual
-                = new UnivariateForecastingSettingsFactory().Create(forecastData: forecastData);
+            SettingBag actual
+                = new SettingBagFactory().Create(forecastData: forecastData);
 
             // Assert
             Assert.True(
@@ -115,5 +115,5 @@ namespace NW.UnivariateForecastingClient.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

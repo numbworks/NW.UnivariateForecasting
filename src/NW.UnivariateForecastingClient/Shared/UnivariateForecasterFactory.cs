@@ -22,8 +22,8 @@ namespace NW.UnivariateForecastingClient.Shared
 
         #region Methods_public
 
-        public UnivariateForecaster Create(UnivariateForecastingSettings settings, ComponentBag componentBag)
-            => new UnivariateForecaster(settings, componentBag);
+        public UnivariateForecaster Create(SettingBag settingBag, ComponentBag componentBag)
+            => new UnivariateForecaster(settingBag, componentBag);
 
         #endregion
 

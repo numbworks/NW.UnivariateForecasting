@@ -15,7 +15,7 @@ namespace NW.UnivariateForecastingClient.Shared
         #region Fields
 
         private IComponentBagFactory _componentBagFactory { get; }
-        private IUnivariateForecastingSettingsFactory _settingsFactory { get; }
+        private ISettingBagFactory _settingBagFactory { get; }
         private IUnivariateForecasterFactory _univariateForecasterFactory { get; }
 
         #endregion
@@ -35,17 +35,17 @@ namespace NW.UnivariateForecastingClient.Shared
         /// <exception cref="ArgumentNullException"/>
         public LibraryBroker(
                 IComponentBagFactory componentBagFactory, 
-                IUnivariateForecastingSettingsFactory settingsFactory, 
+                ISettingBagFactory settingBagFactory, 
                 IUnivariateForecasterFactory univariateForecasterFactory
             )
         {
 
             Validator.ValidateObject(componentBagFactory, nameof(componentBagFactory));
-            Validator.ValidateObject(settingsFactory, nameof(settingsFactory));
+            Validator.ValidateObject(settingBagFactory, nameof(settingBagFactory));
             Validator.ValidateObject(univariateForecasterFactory, nameof(univariateForecasterFactory));
 
             _componentBagFactory = componentBagFactory;
-            _settingsFactory = settingsFactory;
+            _settingBagFactory = settingBagFactory;
             _univariateForecasterFactory = univariateForecasterFactory;
 
         }
@@ -54,7 +54,7 @@ namespace NW.UnivariateForecastingClient.Shared
         public LibraryBroker()
             : this(
                   new ComponentBagFactory(), 
-                  new UnivariateForecastingSettingsFactory(), 
+                  new SettingBagFactory(), 
                   new UnivariateForecasterFactory()
                   ) { }
 
@@ -65,9 +65,9 @@ namespace NW.UnivariateForecastingClient.Shared
         public int ShowHeader()
         {
 
-            UnivariateForecastingSettings settings = _settingsFactory.Create();
+            SettingBag settingBag = _settingBagFactory.Create();
             ComponentBag componentBag = _componentBagFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, componentBag);
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settingBag, componentBag);
 
             ShowHeader(componentBag, univariateForecaster);
 
@@ -78,8 +78,8 @@ namespace NW.UnivariateForecastingClient.Shared
         {
 
             ComponentBag componentBag = _componentBagFactory.Create();
-            UnivariateForecastingSettings settings = _settingsFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, componentBag);
+            SettingBag settingBag = _settingBagFactory.Create();
+            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settingBag, componentBag);
 
             ShowHeader(componentBag, univariateForecaster);
 
@@ -107,8 +107,8 @@ namespace NW.UnivariateForecastingClient.Shared
                 forecastData = Defaultize(forecastData);
 
                 ComponentBag componentBag = _componentBagFactory.Create();
-                UnivariateForecastingSettings settings = _settingsFactory.Create(forecastData);
-                UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settings, componentBag);
+                SettingBag settingBag = _settingBagFactory.Create(forecastData);
+                UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settingBag, componentBag);
 
                 ShowHeader(componentBag, univariateForecaster);
 
@@ -176,10 +176,10 @@ namespace NW.UnivariateForecastingClient.Shared
 
             ForecastData updated = new ForecastData(
                     init: forecastData.Init,
-                    folderPath: forecastData.FolderPath ?? UnivariateForecastingSettings.DefaultFolderPath,
+                    folderPath: forecastData.FolderPath ?? SettingBag.DefaultFolderPath,
                     saveSession: forecastData.SaveSession,
-                    roundingDigits: forecastData.RoundingDigits ?? UnivariateForecastingSettings.DefaultRoundingDigits,
-                    forecastingDenominator: forecastData.ForecastingDenominator ?? UnivariateForecastingSettings.DefaultForecastingDenominator
+                    roundingDigits: forecastData.RoundingDigits ?? SettingBag.DefaultRoundingDigits,
+                    forecastingDenominator: forecastData.ForecastingDenominator ?? SettingBag.DefaultForecastingDenominator
                 );
 
             return updated;

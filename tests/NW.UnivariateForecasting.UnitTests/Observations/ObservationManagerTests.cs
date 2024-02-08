@@ -45,8 +45,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager().Create(
                                 slidingWindow: null,
-                                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
-                                roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                                forecastingDenominator: SettingBag.DefaultForecastingDenominator,
+                                roundingDigits: SettingBag.DefaultRoundingDigits
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindow").Message
@@ -57,19 +57,19 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                     () => new ObservationManager().Create(
                                 slidingWindow: SlidingWindows.ObjectMother.SlidingWindow01,
                                 forecastingDenominator: 0,
-                                roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                                roundingDigits: SettingBag.DefaultRoundingDigits
                         )),
                 typeof(ArgumentException),
                 UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
                         "forecastingDenominator",
-                        UnivariateForecastingSettings.DefaultForecastingDenominator)
+                        SettingBag.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager().Create(
                                 slidingWindow: SlidingWindows.ObjectMother.SlidingWindow01,
-                                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                forecastingDenominator: SettingBag.DefaultForecastingDenominator,
                                 roundingDigits: 16
                         )),
                 typeof(ArgumentException),
@@ -82,7 +82,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                UnivariateForecastingSettings.DefaultForecastingDenominator,
+                SettingBag.DefaultForecastingDenominator,
                 (uint)2,
                 null,
                 null,
@@ -95,7 +95,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                UnivariateForecastingSettings.DefaultForecastingDenominator,
+                SettingBag.DefaultForecastingDenominator,
                 (uint)2,
                 ObjectMother.Observation01_WithInitCE.Coefficient,
                 ObjectMother.Observation01_WithInitCE.Error,
@@ -186,7 +186,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             // Arrange
             SlidingWindowItem slidingWindowItem = new SlidingWindowItem(id: 1, X_Actual: 583.23, Y_Forecasted: 0);
-            double denominator = UnivariateForecastingSettings.DefaultForecastingDenominator;
+            double denominator = SettingBag.DefaultForecastingDenominator;
             double expected = 583.23 / denominator;
             uint roundingDigits = 2;
 

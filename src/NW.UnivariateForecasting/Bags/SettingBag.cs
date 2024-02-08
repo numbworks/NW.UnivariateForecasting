@@ -5,7 +5,7 @@ using NW.UnivariateForecasting.Validation;
 namespace NW.UnivariateForecasting.Bags
 {
     /// <summary>Collects all the global settings required by the library.</summary>
-    public class UnivariateForecastingSettings
+    public class SettingBag
     {
 
         #region Fields
@@ -26,13 +26,13 @@ namespace NW.UnivariateForecasting.Bags
         #region Constructors
 
         /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecastingSettings"/>.
+        /// Initializes an instance of <see cref="SettingBag"/>.
         /// </summary>
         /// <param name="forecastingDenominator">Y_Forecasted = 0 in a <see cref="SlidingWindowItem"/> is a totally legit value. To avoid "divide-by-zero" error, we replace it with a comparably small amount while forecasting. Default: 0.00000000000001.</param>
         /// <param name="roundingDigits">When coefficient and error are not provided by the user, they are generated and rounded. The decimal digits can't be more than <see cref="DefaultRoundingDigits"/>.</param>        
         /// <exception cref="ArgumentException"/> 
         /// <exception cref="ArgumentNullException"/> 
-        public UnivariateForecastingSettings(double forecastingDenominator, string folderPath, uint roundingDigits)
+        public SettingBag(double forecastingDenominator, string folderPath, uint roundingDigits)
         {
 
             Validator.ThrowIfLessThan(forecastingDenominator, DefaultForecastingDenominator, nameof(forecastingDenominator));
@@ -46,9 +46,9 @@ namespace NW.UnivariateForecasting.Bags
         }
 
         /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecastingSettings"/> using default values.
+        /// Initializes an instance of <see cref="SettingBag"/> using default values.
         /// </summary>
-        public UnivariateForecastingSettings()
+        public SettingBag()
             : this(
                   forecastingDenominator: DefaultForecastingDenominator,
                   folderPath: DefaultFolderPath,
@@ -66,5 +66,5 @@ namespace NW.UnivariateForecasting.Bags
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

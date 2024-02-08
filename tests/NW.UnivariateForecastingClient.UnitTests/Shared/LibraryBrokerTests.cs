@@ -27,7 +27,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
                 new TestDelegate(
                     () => new LibraryBroker(
                                 componentBagFactory: null,
-                                settingsFactory: new UnivariateForecastingSettingsFactory(),
+                                settingBagFactory: new SettingBagFactory(),
                                 univariateForecasterFactory: new UnivariateForecasterFactory())
                 ),
                 typeof(ArgumentNullException),
@@ -38,18 +38,18 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
                 new TestDelegate(
                     () => new LibraryBroker(
                                 componentBagFactory: new ComponentBagFactory(),
-                                settingsFactory: null,
+                                settingBagFactory: null,
                                 univariateForecasterFactory: new UnivariateForecasterFactory())
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("settingsFactory").Message
+                new ArgumentNullException("settingBagFactory").Message
             ).SetArgDisplayNames($"{nameof(libraryBrokerExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new LibraryBroker(
                                 componentBagFactory: new ComponentBagFactory(),
-                                settingsFactory: new UnivariateForecastingSettingsFactory(),
+                                settingBagFactory: new SettingBagFactory(),
                                 univariateForecasterFactory: null)
                 ),
                 typeof(ArgumentNullException),
@@ -97,7 +97,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             LibraryBroker libraryBroker
                 = new LibraryBroker(
                         componentBagFactory: new FakeComponentBagFactory(fakeComponentBag),
-                        settingsFactory: new UnivariateForecastingSettingsFactory(),
+                        settingBagFactory: new SettingBagFactory(),
                         univariateForecasterFactory: new UnivariateForecasterFactory()
                     );
 
@@ -134,7 +134,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             LibraryBroker libraryBroker
                 = new LibraryBroker(
                         componentBagFactory: new FakeComponentBagFactory(fakeComponentBag),
-                        settingsFactory: new UnivariateForecastingSettingsFactory(),
+                        settingBagFactory: new SettingBagFactory(),
                         univariateForecasterFactory: new UnivariateForecasterFactory()
                     );
 
@@ -190,7 +190,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             LibraryBroker libraryBroker
                 = new LibraryBroker(
                         componentBagFactory: new FakeComponentBagFactory(fakeComponentBag),
-                        settingsFactory: new UnivariateForecastingSettingsFactory(),
+                        settingBagFactory: new SettingBagFactory(),
                         univariateForecasterFactory: new UnivariateForecasterFactory()
                     );
 

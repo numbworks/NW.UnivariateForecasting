@@ -63,7 +63,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         }
 
-        public static bool AreEqual(UnivariateForecastingSettings obj1, UnivariateForecastingSettings obj2)
+        public static bool AreEqual(SettingBag obj1, SettingBag obj2)
         {
 
             return string.Equals(obj1.FolderPath, obj2.FolderPath, StringComparison.InvariantCulture)

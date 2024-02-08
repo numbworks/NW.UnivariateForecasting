@@ -18,7 +18,7 @@ namespace NW.UnivariateForecasting
 
         #region Fields
 
-        private UnivariateForecastingSettings _settings;
+        private SettingBag _settingBag;
         private ComponentBag _componentBag;
 
         #endregion
@@ -34,15 +34,13 @@ namespace NW.UnivariateForecasting
 
         /// <summary>Initializes an instance of <see cref="UnivariateForecaster"/>.</summary>
         /// <exception cref="ArgumentNullException"/> 
-        public UnivariateForecaster(
-            UnivariateForecastingSettings settings,
-            ComponentBag componentBag)
+        public UnivariateForecaster(SettingBag settingBag, ComponentBag componentBag)
         {
 
-            Validator.ValidateObject(settings, nameof(settings));
+            Validator.ValidateObject(settingBag, nameof(settingBag));
             Validator.ValidateObject(componentBag, nameof(componentBag));
 
-            _settings = settings;
+            _settingBag = settingBag;
             _componentBag = componentBag;
 
             Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -53,7 +51,7 @@ namespace NW.UnivariateForecasting
         /// <summary>Initializes an instance of <see cref="UnivariateForecaster"/> using default values.</summary>
         public UnivariateForecaster()
             : this (
-                  new UnivariateForecastingSettings(), 
+                  new SettingBag(), 
                   new ComponentBag()) { }
 
         #endregion
@@ -72,9 +70,9 @@ namespace NW.UnivariateForecasting
             Validator.ThrowIfLessThan(init.Values.Count, 2, nameof(init.Values));
 
             _componentBag.LoggingAction(Forecasts.MessageCollection.AttemptingToForecast);
-            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedFolderPathIs(_settings.FolderPath));
-            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(_settings.ForecastingDenominator));
-            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedRoundingDigitsAre(_settings.RoundingDigits));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedFolderPathIs(_settingBag.FolderPath));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedForecastingDenominatorIs(_settingBag.ForecastingDenominator));
+            _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedRoundingDigitsAre(_settingBag.RoundingDigits));
             _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedObservationNameIs(init.ObservationName));
             _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedValuesAre(init.Values.Count));
             _componentBag.LoggingAction(Forecasts.MessageCollection.ProvidedCoefficientIs(init.Coefficient));
@@ -198,12 +196,12 @@ namespace NW.UnivariateForecasting
         private Observation CreateObservation(ForecastingInit init)
         {
 
-            SlidingWindow slidingWindow = _componentBag.SlidingWindowManager.Create(init.Values, _settings.RoundingDigits);
+            SlidingWindow slidingWindow = _componentBag.SlidingWindowManager.Create(init.Values, _settingBag.RoundingDigits);
             Observation observation 
                 = _componentBag.ObservationManager.Create(
                         slidingWindow: slidingWindow,
-                        forecastingDenominator: _settings.ForecastingDenominator,
-                        roundingDigits: _settings.RoundingDigits,
+                        forecastingDenominator: _settingBag.ForecastingDenominator,
+                        roundingDigits: _settingBag.RoundingDigits,
                         coefficient: init.Coefficient, 
                         error: init.Error);
 
