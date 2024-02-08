@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Validation;

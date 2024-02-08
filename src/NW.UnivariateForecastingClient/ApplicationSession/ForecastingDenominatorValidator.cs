@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NW.UnivariateForecasting;
 using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.Validation;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.ApplicationSession
 {

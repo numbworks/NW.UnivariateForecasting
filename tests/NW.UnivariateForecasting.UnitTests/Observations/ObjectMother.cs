@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Observations;
 
 namespace NW.UnivariateForecasting.UnitTests.Observations

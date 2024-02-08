@@ -2,7 +2,7 @@
 using System.IO;
 using NW.UnivariateForecasting.Validation;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Bags
 {
     /// <summary>Collects all the global settings required by the library.</summary>
     public class UnivariateForecastingSettings
@@ -53,7 +53,8 @@ namespace NW.UnivariateForecasting
                   forecastingDenominator: DefaultForecastingDenominator,
                   folderPath: DefaultFolderPath,
                   roundingDigits: DefaultRoundingDigits
-                  ) { }
+                  )
+        { }
 
         #endregion
 

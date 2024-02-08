@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;

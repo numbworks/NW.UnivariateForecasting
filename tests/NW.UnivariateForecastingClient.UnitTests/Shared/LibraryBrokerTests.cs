@@ -10,6 +10,7 @@ using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecastingClient.Shared;
 using NW.UnivariateForecastingClient.UnitTests.Utilities;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.UnitTests.Shared
 {

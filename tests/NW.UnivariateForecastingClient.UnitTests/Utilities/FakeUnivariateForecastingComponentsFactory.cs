@@ -1,4 +1,4 @@
-﻿using NW.UnivariateForecasting;
+﻿using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecastingClient.Shared;
 
 namespace NW.UnivariateForecastingClient.UnitTests.Utilities

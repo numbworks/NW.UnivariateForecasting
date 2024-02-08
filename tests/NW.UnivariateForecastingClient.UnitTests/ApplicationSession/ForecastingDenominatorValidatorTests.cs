@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NW.UnivariateForecasting;
 using NW.UnivariateForecastingClient.Shared;
 using NW.UnivariateForecastingClient.ApplicationSession;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {

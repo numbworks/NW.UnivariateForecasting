@@ -1,7 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Bags
 {
     [TestFixture]
     public class UnivariateForecastingSettingsTests
@@ -22,7 +23,7 @@ namespace NW.UnivariateForecasting.UnitTests
                 ),
                 typeof(ArgumentException),
                 UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
-                        "forecastingDenominator", 
+                        "forecastingDenominator",
                         UnivariateForecastingSettings.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(univariateForecastingSettingsExceptionTestCases)}_01"),
 

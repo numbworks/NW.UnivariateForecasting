@@ -8,7 +8,7 @@ using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Bags
 {
     /// <summary>Collects all the dependencies required by the library.</summary>
     public class UnivariateForecastingComponents
@@ -51,7 +51,7 @@ namespace NW.UnivariateForecasting
         /// <param name="slidingWindowItemManager"></param>
         /// <param name="observationManager"></param>
         /// <param name="fileManager"></param>
-        /// <param name="roundingFunction">All the values processed by <see cref="NW.UnivariateForecasting"/> will be rounded according to this function. Default: two double digits.</param>
+        /// <param name="roundingFunction">All the values processed by <see cref="UnivariateForecasting"/> will be rounded according to this function. Default: two double digits.</param>
         /// <param name="loggingAction">Default: Console.WriteLine(message).</param>
         /// <exception cref="ArgumentNullException"/> 
         public UnivariateForecastingComponents(
@@ -112,7 +112,8 @@ namespace NW.UnivariateForecasting
                   DefaultNowFunction,
                   new ForecastingInitManager(),
                   new SerializerFactory()
-                ) { }
+                )
+        { }
 
         #endregion
 

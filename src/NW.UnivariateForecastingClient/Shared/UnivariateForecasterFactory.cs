@@ -1,4 +1,5 @@
 ﻿using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.Shared
 {

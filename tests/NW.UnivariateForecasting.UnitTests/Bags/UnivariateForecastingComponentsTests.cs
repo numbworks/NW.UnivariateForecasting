@@ -7,8 +7,9 @@ using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Bags
 {
     [TestFixture]
     public class UnivariateForecastingComponentsTests
@@ -20,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests
         {
 
             new TestCaseData(
-                new TestDelegate( 
+                new TestDelegate(
                         () => new UnivariateForecastingComponents(
                                     slidingWindowManager: null,
                                     observationManager: new ObservationManager(),
