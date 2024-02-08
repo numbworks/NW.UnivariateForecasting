@@ -39,7 +39,7 @@ namespace NW.UnivariateForecasting.UnitTests
                             settings: new UnivariateForecastingSettings(),
                             componentBag: null)),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("components").Message
+                new ArgumentNullException("componentBag").Message
                 ).SetArgDisplayNames($"{nameof(univariateForecasterExceptionTestCases)}_02")
 
         };

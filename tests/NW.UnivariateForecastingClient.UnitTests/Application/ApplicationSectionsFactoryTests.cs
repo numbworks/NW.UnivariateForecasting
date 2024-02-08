@@ -21,7 +21,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                     () => new ApplicationSectionsFactory()
                                 .Create(
                                     libraryBroker: null,
-                                    sessionManagerComponents: new SessionManagerComponents())
+                                    dependencyBag: new DependencyBag())
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("libraryBroker").Message
@@ -32,10 +32,10 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                     () => new ApplicationSectionsFactory()
                                 .Create(
                                     libraryBroker: new LibraryBroker(),
-                                    sessionManagerComponents: null)
+                                    dependencyBag: null)
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("sessionManagerComponents").Message
+                new ArgumentNullException("dependencyBag").Message
             ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02")
 
         };
@@ -75,7 +75,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                 = new ApplicationSectionsFactory()
                                 .Create(
                                     libraryBroker: new LibraryBroker(),
-                                    sessionManagerComponents: new SessionManagerComponents());
+                                    dependencyBag: new DependencyBag());
 
             // Assert
             Assert.IsInstanceOf<ApplicationSections>(actual);

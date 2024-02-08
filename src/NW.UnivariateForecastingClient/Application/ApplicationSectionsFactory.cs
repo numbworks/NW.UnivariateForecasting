@@ -25,14 +25,14 @@ namespace NW.UnivariateForecastingClient.Application
 
         #region Methods_public
 
-        public ApplicationSections Create(ILibraryBroker libraryBroker, SessionManagerComponents sessionManagerComponents)
+        public ApplicationSections Create(ILibraryBroker libraryBroker, DependencyBag dependencyBag)
         {
 
             Validator.ValidateObject(libraryBroker, nameof(libraryBroker));
-            Validator.ValidateObject(sessionManagerComponents, nameof(sessionManagerComponents));
+            Validator.ValidateObject(dependencyBag, nameof(dependencyBag));
 
             IAboutManager aboutManager = new AboutManager(libraryBroker);
-            ISessionManager sessionManager = new SessionManager(libraryBroker, sessionManagerComponents);
+            ISessionManager sessionManager = new SessionManager(libraryBroker, dependencyBag);
 
             ApplicationSections sections
                 = new ApplicationSections(
@@ -54,5 +54,5 @@ namespace NW.UnivariateForecastingClient.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

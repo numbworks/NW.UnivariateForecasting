@@ -17,7 +17,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new SessionManager(null, new SessionManagerComponents())
+                    () => new SessionManager(null, new DependencyBag())
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("libraryBroker").Message
@@ -28,7 +28,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                     () => new SessionManager(new LibraryBroker(), null)
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("sessionManagerComponents").Message
+                new ArgumentNullException("dependencyBag").Message
             ).SetArgDisplayNames($"{nameof(sessionManagerExceptionTestCases)}_02")
 
         };
@@ -39,7 +39,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                 new TestDelegate(
                     () => new SessionManager(
                                 libraryBroker: new LibraryBroker(),
-                                sessionManagerComponents: new SessionManagerComponents()
+                                dependencyBag: new DependencyBag()
                             ).Add(null)
                 ),
                 typeof(ArgumentNullException),
@@ -74,7 +74,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             SessionManager actual
                 = new SessionManager(
                         libraryBroker: new LibraryBroker(),
-                        sessionManagerComponents: new SessionManagerComponents());
+                        dependencyBag: new DependencyBag());
 
             // Assert
             Assert.IsInstanceOf<SessionManager>(actual);
@@ -94,5 +94,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 08.02.2024
 */

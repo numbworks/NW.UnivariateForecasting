@@ -1,9 +1,7 @@
-﻿using McMaster.Extensions.CommandLineUtils.Validation;
-
-namespace NW.UnivariateForecastingClient.ApplicationSession
+﻿namespace NW.UnivariateForecastingClient.ApplicationSession
 {
     /// <summary>Collects all the dependencies required by <see cref="SessionManager"/>.</summary>
-    public class SessionManagerComponents
+    public class DependencyBag
     {
 
         #region Fields
@@ -18,8 +16,8 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         #region Constructors
 
-        /// <summary>Initializes a <see cref="SessionManagerComponents"/> instance.</summary>
-        public SessionManagerComponents() 
+        /// <summary>Initializes a <see cref="DependencyBag"/> instance.</summary>
+        public DependencyBag() 
         {
 
             ForecastingDenominatorValidator = new ForecastingDenominatorValidator();
@@ -40,5 +38,5 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */

@@ -21,7 +21,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                     () => new ApplicationManager(
                                 libraryBroker: null,
                                 sectionsFactory: new ApplicationSectionsFactory(),
-                                sessionManagerComponents: new SessionManagerComponents())
+                                dependencyBag: new DependencyBag())
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("libraryBroker").Message
@@ -32,7 +32,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                     () => new ApplicationManager(
                                 libraryBroker: new LibraryBroker(),
                                 sectionsFactory: null,
-                                sessionManagerComponents: new SessionManagerComponents())
+                                dependencyBag: new DependencyBag())
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("sectionsFactory").Message
@@ -43,10 +43,10 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                     () => new ApplicationManager(
                                 libraryBroker: new LibraryBroker(),
                                 sectionsFactory: new ApplicationSectionsFactory(),
-                                sessionManagerComponents: null)
+                                dependencyBag: null)
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("sessionManagerComponents").Message
+                new ArgumentNullException("dependencyBag").Message
             ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_03")
 
         };

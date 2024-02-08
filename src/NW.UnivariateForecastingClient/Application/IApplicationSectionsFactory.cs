@@ -10,12 +10,12 @@ namespace NW.UnivariateForecastingClient.Application
 
         /// <summary>Creates a <see cref="ApplicationSections"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
-        ApplicationSections Create(ILibraryBroker libraryBroker, SessionManagerComponents sessionComponents);
+        ApplicationSections Create(ILibraryBroker libraryBroker, DependencyBag dependencyBag);
 
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

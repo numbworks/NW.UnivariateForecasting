@@ -12,7 +12,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
         #region Fields
 
         private ILibraryBroker _libraryBroker;
-        private SessionManagerComponents _sessionManagerComponents;
+        private DependencyBag _dependencyBag;
 
         #endregion
 
@@ -23,14 +23,14 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         /// <summary>Initializes a <see cref="SessionManager"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public SessionManager(ILibraryBroker libraryBroker, SessionManagerComponents sessionManagerComponents)
+        public SessionManager(ILibraryBroker libraryBroker, DependencyBag dependencyBag)
         {
 
             Validator.ValidateObject(libraryBroker, nameof(libraryBroker));
-            Validator.ValidateObject(sessionManagerComponents, nameof(sessionManagerComponents));
+            Validator.ValidateObject(dependencyBag, nameof(dependencyBag));
 
             _libraryBroker = libraryBroker;
-            _sessionManagerComponents = sessionManagerComponents;
+            _dependencyBag = dependencyBag;
 
         }
 
@@ -98,8 +98,8 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                                 init: initOption.Value(),
                                 folderPath: folderPathOption.Value(),
                                 saveSession: saveSessionOption.HasValue(),
-                                roundingDigits: _sessionManagerComponents.RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
-                                forecastingDenominator: _sessionManagerComponents.ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
+                                roundingDigits: _dependencyBag.RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
+                                forecastingDenominator: _dependencyBag.ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
                         );
 
                     return _libraryBroker.RunSessionForecast(classifyData);
@@ -157,7 +157,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                         Shared.MessageCollection.Session_Option_RoundingDigits_Template,
                         Shared.MessageCollection.Session_Option_RoundingDigits_Description,
                         CommandOptionType.SingleValue)
-                    .Accepts(validator => validator.Use(_sessionManagerComponents.RoundingDigitsValidator));
+                    .Accepts(validator => validator.Use(_dependencyBag.RoundingDigitsValidator));
 
         }
         private CommandOption CreateOptionalForecastingDenominatorOption(CommandLineApplication subCommand)
@@ -168,7 +168,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
                         Shared.MessageCollection.Session_Option_ForecastingDenominator_Template,
                         Shared.MessageCollection.Session_Option_ForecastingDenominator_Description,
                         CommandOptionType.SingleValue)
-                    .Accepts(validator => validator.Use(_sessionManagerComponents.ForecastingDenominatorValidator));
+                    .Accepts(validator => validator.Use(_dependencyBag.ForecastingDenominatorValidator));
 
         }
 
@@ -179,5 +179,5 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 08.02.2024
 */
