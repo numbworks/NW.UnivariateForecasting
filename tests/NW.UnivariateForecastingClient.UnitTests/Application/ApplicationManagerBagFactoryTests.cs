@@ -61,7 +61,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
             ApplicationManagerBagFactory actual = new ApplicationManagerBagFactory();
 
             // Assert
-            Assert.IsInstanceOf<ApplicationManagerBagFactory>(actual);
+            Assert.That(actual, Is.InstanceOf<ApplicationManagerBagFactory>());
 
         }
 
@@ -78,7 +78,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                                     sessionManagerBag: new SessionManagerBag());
 
             // Assert
-            Assert.IsInstanceOf<ApplicationManagerBag>(actual);
+            Assert.That(actual, Is.InstanceOf<ApplicationManagerBag>());
 
         }
 
@@ -95,5 +95,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2023
+    Last Update: 09.02.2023
 */

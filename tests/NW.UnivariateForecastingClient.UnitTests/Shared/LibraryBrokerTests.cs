@@ -79,11 +79,11 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             LibraryBroker actual = new LibraryBroker();
 
             // Assert
-            Assert.IsInstanceOf<LibraryBroker>(actual);
-            Assert.IsInstanceOf<int>(LibraryBroker.Success);
-            Assert.IsInstanceOf<int>(LibraryBroker.Failure);
-            Assert.IsInstanceOf<string>(LibraryBroker.SeparatorLine);
-            Assert.IsInstanceOf<Func<string, string>>(LibraryBroker.ErrorMessageFormatter);
+            Assert.That(actual, Is.InstanceOf<LibraryBroker>());
+            Assert.That(LibraryBroker.Success, Is.InstanceOf<int>());
+            Assert.That(LibraryBroker.Failure, Is.InstanceOf<int>());
+            Assert.That(LibraryBroker.SeparatorLine, Is.InstanceOf<string>());
+            Assert.That(LibraryBroker.ErrorMessageFormatter, Is.InstanceOf<Func<string, string>>());
 
         }
 
@@ -105,14 +105,14 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             int actual = libraryBroker.RunSessionForecast(null);
 
             // Assert
-            Assert.AreEqual(LibraryBroker.Failure, actual);
-            Assert.AreEqual(
-                    expected: LibraryBroker.ErrorMessageFormatter(new ArgumentNullException("forecastData").Message),
-                    actual: messages[0]
+            Assert.That(actual, Is.EqualTo(LibraryBroker.Failure));
+            Assert.That(
+                    messages[0],
+                    Is.EqualTo(LibraryBroker.ErrorMessageFormatter(new ArgumentNullException("forecastData").Message))
                     );
-            Assert.AreEqual(
-                    expected: LibraryBroker.SeparatorLine,
-                    actual: messagesAsciiBanner[0]
+            Assert.That(
+                    messagesAsciiBanner[0],
+                    Is.EqualTo(LibraryBroker.SeparatorLine)
                     );
 
         }
@@ -152,23 +152,23 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             int actual = libraryBroker.RunSessionForecast(forecastData);
 
             // Assert
-            Assert.AreEqual(LibraryBroker.Success, actual);
+            Assert.That(actual, Is.EqualTo(LibraryBroker.Success));
 
-            Assert.AreEqual(
-                    expected: "Attempting to load a 'ForecastingInit' object from: C:\\unifor\\Init.json.",
-                    actual: messages[0]
+            Assert.That(
+                    messages[0],
+                    Is.EqualTo("Attempting to load a 'ForecastingInit' object from: C:\\unifor\\Init.json.")
                     );
-            Assert.AreEqual(
-                    expected: LibraryBroker.SeparatorLine,
-                    actual: messagesAsciiBanner[0]
+            Assert.That(
+                    messagesAsciiBanner[0],
+                    Is.EqualTo(LibraryBroker.SeparatorLine)
                     );
-            Assert.AreEqual(
-                    expected: new UnivariateForecaster().AsciiBanner,
-                    actual: messagesAsciiBanner[1]
+            Assert.That(
+                    messagesAsciiBanner[1],
+                    Is.EqualTo(new UnivariateForecaster().AsciiBanner)
                     );
-            Assert.AreEqual(
-                    expected: LibraryBroker.SeparatorLine,
-                    actual: messagesAsciiBanner[2]
+            Assert.That(
+                    messagesAsciiBanner[2],
+                    Is.EqualTo(LibraryBroker.SeparatorLine)
                     );
 
         }
@@ -212,12 +212,8 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
             int actual = libraryBroker.RunSessionForecast(forecastData);
 
             // Assert
-            Assert.AreEqual(LibraryBroker.Failure, actual);
-
-            Assert.AreEqual(
-                    expected: expected,
-                    actual: messages[2]
-                    );
+            Assert.That(actual, Is.EqualTo(LibraryBroker.Failure));
+            Assert.That(messages[2], Is.EqualTo(expected));
 
         }
 
@@ -265,5 +261,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

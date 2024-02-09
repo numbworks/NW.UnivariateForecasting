@@ -26,7 +26,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             SettingBagFactory actual = new SettingBagFactory();
 
             // Assert
-            Assert.IsInstanceOf<SettingBagFactory>(actual);
+            Assert.That(actual, Is.InstanceOf<SettingBagFactory>());
 
         }
 
@@ -40,7 +40,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
                 = new SettingBagFactory().Create();
 
             // Assert
-            Assert.IsInstanceOf<SettingBag>(actual);
+            Assert.That(actual, Is.InstanceOf<SettingBag>());
 
         }
 
@@ -68,8 +68,9 @@ namespace NW.UnivariateForecastingClient.UnitTests
                 = new SettingBagFactory().Create(forecastData: forecastData);
 
             // Assert
-            Assert.True(
-                ObjectMother.AreEqual(expected, actual));
+            Assert.That(
+                ObjectMother.AreEqual(expected, actual),
+                Is.True);
 
         }
 
@@ -97,8 +98,9 @@ namespace NW.UnivariateForecastingClient.UnitTests
                 = new SettingBagFactory().Create(forecastData: forecastData);
 
             // Assert
-            Assert.True(
-                ObjectMother.AreEqual(expected, actual));
+            Assert.That(
+                ObjectMother.AreEqual(expected, actual),
+                Is.True);
 
         }
 
@@ -115,5 +117,5 @@ namespace NW.UnivariateForecastingClient.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

@@ -25,7 +25,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             ComponentBagFactory actual = new ComponentBagFactory();
 
             // Assert
-            Assert.IsInstanceOf<ComponentBagFactory>(actual);
+            Assert.That(actual, Is.InstanceOf<ComponentBagFactory>());
 
         }
 
@@ -38,7 +38,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             ComponentBag actual = new ComponentBagFactory().Create();
 
             // Assert
-            Assert.IsInstanceOf<ComponentBag>(actual);
+            Assert.That(actual, Is.InstanceOf<ComponentBag>());
 
         }
 
@@ -55,5 +55,5 @@ namespace NW.UnivariateForecastingClient.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

@@ -3,6 +3,7 @@ using NW.UnivariateForecastingClient.ApplicationSession;
 using NW.UnivariateForecastingClient.Shared;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
+using System;
 
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {
@@ -86,11 +87,11 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             RoundingDigitsValidator actual = new RoundingDigitsValidator();
 
             // Assert
-            Assert.IsInstanceOf<RoundingDigitsValidator>(actual);
+            Assert.That(actual, Is.InstanceOf<RoundingDigitsValidator>());
 
-            Assert.IsNull(ForecastingDenominatorValidator.DefaultValue);
-            Assert.IsInstanceOf<uint>(RoundingDigitsValidator.MininumValue);
-            Assert.IsInstanceOf<uint>(RoundingDigitsValidator.MaximumValue);
+            Assert.That(ForecastingDenominatorValidator.DefaultValue, Is.Null);
+            Assert.That(RoundingDigitsValidator.MininumValue, Is.InstanceOf<uint>());
+            Assert.That(RoundingDigitsValidator.MaximumValue, Is.InstanceOf<uint>());
 
         }
 
@@ -103,7 +104,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             bool actual = new RoundingDigitsValidator().IsValid(value);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -116,7 +117,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             uint? actual = new RoundingDigitsValidator().ParseOrDefault(value);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -135,7 +136,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             ValidationResult actual = new RoundingDigitsValidator().GetValidationResult(option, context);
 
             // Assert
-            Assert.AreEqual(expected, actual.ErrorMessage);
+            Assert.That(actual.ErrorMessage, Is.EqualTo(expected));
 
         }
 
@@ -155,7 +156,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             ValidationResult actual = new RoundingDigitsValidator().GetValidationResult(option, context);
 
             // Assert
-            Assert.AreEqual(ValidationResult.Success, actual);
+            Assert.That(actual, Is.EqualTo(ValidationResult.Success));
 
         }
 
@@ -170,5 +171,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

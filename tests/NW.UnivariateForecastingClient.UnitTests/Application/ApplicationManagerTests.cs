@@ -86,7 +86,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
             ApplicationManager actual = new ApplicationManager();
 
             // Assert
-            Assert.IsInstanceOf<ApplicationManager>(actual);
+            Assert.That(actual, Is.InstanceOf<ApplicationManager>());
 
         }
 
@@ -99,7 +99,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
             int actual = new ApplicationManager().Execute(args);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -116,5 +116,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

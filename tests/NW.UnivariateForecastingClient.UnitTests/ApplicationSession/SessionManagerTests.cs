@@ -77,7 +77,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                         sessionManagerBag: new SessionManagerBag());
 
             // Assert
-            Assert.IsInstanceOf<SessionManager>(actual);
+            Assert.That(actual, Is.InstanceOf<SessionManager>());
 
         }
 
@@ -94,5 +94,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

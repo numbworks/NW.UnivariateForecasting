@@ -33,13 +33,13 @@ namespace NW.NGramTextClassificationClient.UnitTests.Shared
                     );
 
             // Assert
-            Assert.IsInstanceOf<ForecastData>(actual);
+            Assert.That(actual, Is.InstanceOf<ForecastData>());
 
-            Assert.IsInstanceOf<string>(actual.Init);
-            Assert.IsInstanceOf<string>(actual.FolderPath);
-            Assert.IsInstanceOf<bool>(actual.SaveSession);
-            Assert.IsInstanceOf<uint?>(actual.RoundingDigits);
-            Assert.IsInstanceOf<double?>(actual.ForecastingDenominator);
+            Assert.That(actual.Init, Is.InstanceOf<string>());
+            Assert.That(actual.FolderPath, Is.InstanceOf<string>());
+            Assert.That(actual.SaveSession, Is.InstanceOf<bool>());
+            Assert.That(actual.RoundingDigits, Is.InstanceOf<uint?>());
+            Assert.That(actual.ForecastingDenominator, Is.InstanceOf<double?>());
 
         }
 
@@ -54,5 +54,5 @@ namespace NW.NGramTextClassificationClient.UnitTests.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

@@ -24,9 +24,9 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             SessionManagerBag actual = new SessionManagerBag();
 
             // Assert
-            Assert.IsInstanceOf<SessionManagerBag>(actual);
-            Assert.IsInstanceOf<RoundingDigitsValidator>(actual.RoundingDigitsValidator);
-            Assert.IsInstanceOf<ForecastingDenominatorValidator>(actual.ForecastingDenominatorValidator);
+            Assert.That(actual, Is.InstanceOf<SessionManagerBag>());
+            Assert.That(actual.RoundingDigitsValidator, Is.InstanceOf<RoundingDigitsValidator>());
+            Assert.That(actual.ForecastingDenominatorValidator, Is.InstanceOf<ForecastingDenominatorValidator>());
 
         }
 
@@ -43,5 +43,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

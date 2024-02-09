@@ -63,9 +63,9 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                         sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerBag()));
 
             // Assert
-            Assert.IsInstanceOf<ApplicationManagerBag>(actual);
-            Assert.IsInstanceOf<IAboutManager>(actual.AboutManager);
-            Assert.IsInstanceOf<ISessionManager>(actual.SessionManager);
+            Assert.That(actual, Is.InstanceOf<ApplicationManagerBag>());
+            Assert.That(actual.AboutManager, Is.InstanceOf<IAboutManager>());
+            Assert.That(actual.SessionManager, Is.InstanceOf<ISessionManager>());
 
         }
 
@@ -82,5 +82,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

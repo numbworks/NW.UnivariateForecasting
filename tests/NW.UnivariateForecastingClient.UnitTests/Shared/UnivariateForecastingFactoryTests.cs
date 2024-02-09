@@ -26,7 +26,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
             UnivariateForecasterFactory actual = new UnivariateForecasterFactory();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecasterFactory>(actual);
+            Assert.That(actual, Is.InstanceOf<UnivariateForecasterFactory>());
 
         }
 
@@ -43,7 +43,7 @@ namespace NW.UnivariateForecastingClient.UnitTests
                         );
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecaster>(actual);
+            Assert.That(actual, Is.InstanceOf<UnivariateForecaster>());
 
         }
 
@@ -60,5 +60,5 @@ namespace NW.UnivariateForecastingClient.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

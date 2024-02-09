@@ -40,7 +40,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             // Act
             // Assert
             Exception actual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, actual.Message);
+            Assert.That(actual.Message, Is.EqualTo(expectedMessage));
 
         }
         public static bool AreEqual<T>(List<T> list1, List<T> list2, Func<T, T, bool> comparer)
@@ -79,5 +79,5 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */
