@@ -118,20 +118,20 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                         );
 
             // Assert
-            Assert.IsInstanceOf<ForecastingInit>(actual);
+            Assert.That(actual, Is.InstanceOf<ForecastingInit>());
 
             if(actual.ObservationName != null) 
-                Assert.IsInstanceOf<string>(actual.ObservationName);
+                Assert.That(actual.ObservationName, Is.InstanceOf<string>());
 
-            Assert.IsInstanceOf<List<double>>(actual.Values);
+            Assert.That(actual.Values, Is.InstanceOf<List<double>>());
 
             if (actual.Coefficient != null)
-                Assert.IsInstanceOf<double?>(actual.Coefficient);
+                Assert.That(actual.Coefficient, Is.InstanceOf<double?>());
 
             if (actual.Error != null)
-                Assert.IsInstanceOf<double?>(actual.Error);
+                Assert.That(actual.Error, Is.InstanceOf<double?>());
 
-            Assert.IsInstanceOf<uint>(actual.Steps);
+            Assert.That(actual.Steps, Is.InstanceOf<uint>());
 
         }
 
@@ -146,5 +146,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 09.02.2024
 */

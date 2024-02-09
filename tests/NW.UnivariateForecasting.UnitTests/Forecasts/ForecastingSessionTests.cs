@@ -80,11 +80,11 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     );
 
             // Assert
-            Assert.IsInstanceOf<ForecastingSession>(actual);
+            Assert.That(actual, Is.InstanceOf<ForecastingSession>());
 
-            Assert.IsInstanceOf<ForecastingInit>(actual.Init);
-            Assert.IsInstanceOf<List<Observation>>(actual.Observations);
-            Assert.IsInstanceOf<string>(actual.Version);
+            Assert.That(actual.Init, Is.InstanceOf<ForecastingInit>());
+            Assert.That(actual.Observations, Is.InstanceOf<List<Observation>>());
+            Assert.That(actual.Version, Is.InstanceOf<string>());
 
         }
 
@@ -99,5 +99,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 01.03.2023
+    Last Update: 09.02.2024
 */
