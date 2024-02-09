@@ -110,9 +110,10 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             SlidingWindow actual = slidingWindowManager.Create(values, roundingDigits);
 
             // Assert
-            Assert.True(
-                    ObjectMother.AreEqual(expected, actual));
-            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+            Assert.That(
+                    ObjectMother.AreEqual(expected, actual),
+                    Is.True);
+            Assert.That(fakeLogger.Messages, Is.EqualTo(expectedMessages));
 
         }
 
@@ -125,11 +126,11 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             SlidingWindowManager actual = new SlidingWindowManager();
 
             // Assert
-            Assert.IsInstanceOf<SlidingWindowManager>(actual);
+            Assert.That(actual, Is.InstanceOf<SlidingWindowManager>());
 
-            Assert.IsInstanceOf<Func<double, uint, double>>(SlidingWindowManager.DefaultRoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(SlidingWindowManager.DefaultLoggingAction);
-            Assert.IsInstanceOf<uint>(SlidingWindowManager.DefaultRoundingDigits);
+            Assert.That(SlidingWindowManager.DefaultRoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(SlidingWindowManager.DefaultLoggingAction, Is.InstanceOf<Action<string>>());
+            Assert.That(SlidingWindowManager.DefaultRoundingDigits, Is.InstanceOf<uint>());
 
         }
 
@@ -143,5 +144,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

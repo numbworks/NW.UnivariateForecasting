@@ -156,9 +156,10 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                     );
 
             // Assert
-            Assert.True(
-                ObjectMother.AreEqual(expected, actual));
-            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+            Assert.That(
+                ObjectMother.AreEqual(expected, actual),
+                Is.True);
+            Assert.That(fakeLogger.Messages, Is.EqualTo(expectedMessages));
 
         }
 
@@ -171,12 +172,12 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             ObservationManager actual = new ObservationManager();
 
             // Assert
-            Assert.IsInstanceOf<ObservationManager>(actual);
+            Assert.That(actual, Is.InstanceOf<ObservationManager>());
 
-            Assert.IsInstanceOf<double>(ObservationManager.DefaultForecastingDenominator);
-            Assert.IsInstanceOf<uint>(ObservationManager.DefaultRoundingDigits);
-            Assert.IsInstanceOf<Func<double, uint, double>>(ObservationManager.DefaultRoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(ObservationManager.DefaultLoggingAction);
+            Assert.That(ObservationManager.DefaultForecastingDenominator, Is.InstanceOf<double>());
+            Assert.That(ObservationManager.DefaultRoundingDigits, Is.InstanceOf<uint>());
+            Assert.That(ObservationManager.DefaultRoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(ObservationManager.DefaultLoggingAction, Is.InstanceOf<Action<string>>());
 
         }
 
@@ -198,7 +199,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 );
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -212,5 +213,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

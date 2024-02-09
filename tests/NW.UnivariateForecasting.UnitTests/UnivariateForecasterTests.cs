@@ -117,10 +117,10 @@ namespace NW.UnivariateForecasting.UnitTests
             UnivariateForecaster actual = new UnivariateForecaster();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecaster>(actual);
+            Assert.That(actual, Is.InstanceOf<UnivariateForecaster>());
 
-            Assert.IsInstanceOf<string>(actual.AsciiBanner);
-            Assert.IsInstanceOf<string>(actual.Version);
+            Assert.That(actual.AsciiBanner, Is.InstanceOf<string>());
+            Assert.That(actual.Version, Is.InstanceOf<string>());
 
         }
 
@@ -176,7 +176,7 @@ namespace NW.UnivariateForecasting.UnitTests
             univariateForecaster.LogAsciiBanner();
 
             // Assert
-            Assert.AreEqual(expectedMessages, actualLogMessages);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedMessages));
 
         }
 
@@ -230,12 +230,13 @@ namespace NW.UnivariateForecasting.UnitTests
             ForecastingInit actual = univariateForecaster.LoadInitOrDefault(fakeJsonFile);
 
             // Assert
-            Assert.IsTrue(
+            Assert.That(
                     Forecasts.ObjectMother.AreEqual(
                         obj1: Forecasts.ObjectMother.ForecastingInit_BareMinimum, 
-                        obj2: actual)
+                        obj2: actual),
+                    Is.True
                 );
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -283,8 +284,8 @@ namespace NW.UnivariateForecasting.UnitTests
             ForecastingInit actual = univariateForecaster.LoadInitOrDefault(fakeJsonFile);
 
             // Assert
-            Assert.AreEqual(default(ForecastingInit), actual);
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(actual, Is.EqualTo(default(ForecastingInit)));
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -342,7 +343,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     folderPath: folderPath);
 
             // Assert
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -399,7 +400,7 @@ namespace NW.UnivariateForecasting.UnitTests
                                     folderPath: folderPath);
 
             // Assert
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -428,10 +429,10 @@ namespace NW.UnivariateForecasting.UnitTests
             {
 
                 // Assert
-                Assert.IsInstanceOf<Exception>(e.InnerException);
-                Assert.AreEqual(
+                Assert.That(e.InnerException, Is.InstanceOf<Exception>());
+                Assert.That(
                     UnivariateForecasting.Forecasts.MessageCollection.ThereIsNoStrategyOutOfType(typeof(Observation)),
-                    e.InnerException.Message);
+                    Is.EqualTo(e.InnerException.Message));
 
             }
 
@@ -530,9 +531,10 @@ namespace NW.UnivariateForecasting.UnitTests
             ForecastingSession actual = univariateForecaster.Forecast(init: init);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual));
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual),
+                    Is.True);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -606,9 +608,10 @@ namespace NW.UnivariateForecasting.UnitTests
             ForecastingSession actual = univariateForecaster.Forecast(init: init);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual));
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual),
+                    Is.True);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -682,9 +685,10 @@ namespace NW.UnivariateForecasting.UnitTests
             ForecastingSession actual = univariateForecaster.Forecast(init: init);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual));
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual),
+                    Is.True);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -761,9 +765,10 @@ namespace NW.UnivariateForecasting.UnitTests
             ForecastingSession actual = univariateForecaster.Forecast(init : init);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual));
-            Assert.AreEqual(expectedLogMessages, actualLogMessages);
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(obj1: expected, obj2: actual),
+                    Is.True);
+            Assert.That(actualLogMessages, Is.EqualTo(expectedLogMessages));
 
         }
 
@@ -777,5 +782,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */
