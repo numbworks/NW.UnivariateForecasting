@@ -59,7 +59,7 @@ namespace NW.UnivariateForecasting.UnitTests.Filenames
             string actual = func();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(expected, Is.EqualTo(actual));
 
         }
 
@@ -72,13 +72,13 @@ namespace NW.UnivariateForecasting.UnitTests.Filenames
             FilenameFactory actual = new FilenameFactory();
 
             // Assert
-            Assert.IsInstanceOf<FilenameFactory>(actual);
+            Assert.That(actual, Is.InstanceOf<FilenameFactory>());
 
-            Assert.IsInstanceOf<string>(FilenameFactory.DefaultFileNameTemplate);
-            Assert.IsInstanceOf<string>(FilenameFactory.DefaultFormatNow);
-            Assert.IsInstanceOf<string>(FilenameFactory.DefaultJsonExtension);
-            Assert.IsInstanceOf<string>(FilenameFactory.DefaultMainToken);
-            Assert.IsInstanceOf<string>(FilenameFactory.DefaultSessionToken);
+            Assert.That(FilenameFactory.DefaultFileNameTemplate, Is.InstanceOf<string>());
+            Assert.That(FilenameFactory.DefaultFormatNow, Is.InstanceOf<string>());
+            Assert.That(FilenameFactory.DefaultJsonExtension, Is.InstanceOf<string>());
+            Assert.That(FilenameFactory.DefaultMainToken, Is.InstanceOf<string>());
+            Assert.That(FilenameFactory.DefaultSessionToken, Is.InstanceOf<string>());
 
         }
 
@@ -93,5 +93,5 @@ namespace NW.UnivariateForecasting.UnitTests.Filenames
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 09.02.2024
 */

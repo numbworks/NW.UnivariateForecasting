@@ -72,14 +72,14 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
             SettingBag actual = new SettingBag();
 
             // Assert
-            Assert.IsInstanceOf<SettingBag>(actual);
-            Assert.IsInstanceOf<double>(actual.ForecastingDenominator);
-            Assert.IsInstanceOf<string>(actual.FolderPath);
-            Assert.IsInstanceOf<uint>(actual.RoundingDigits);
+            Assert.That(actual, Is.InstanceOf<SettingBag>());
+            Assert.That(actual.ForecastingDenominator, Is.InstanceOf<double>());
+            Assert.That(actual.FolderPath, Is.InstanceOf<string>());
+            Assert.That(actual.RoundingDigits, Is.InstanceOf<uint>());
 
-            Assert.IsInstanceOf<double>(SettingBag.DefaultForecastingDenominator);
-            Assert.IsInstanceOf<string>(SettingBag.DefaultFolderPath);
-            Assert.IsInstanceOf<uint>(SettingBag.DefaultRoundingDigits);
+            Assert.That(SettingBag.DefaultForecastingDenominator, Is.InstanceOf<double>());
+            Assert.That(SettingBag.DefaultFolderPath, Is.InstanceOf<string>());
+            Assert.That(SettingBag.DefaultRoundingDigits, Is.InstanceOf<uint>());
 
         }
 
@@ -93,5 +93,5 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */

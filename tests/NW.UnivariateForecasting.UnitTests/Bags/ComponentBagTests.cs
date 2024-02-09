@@ -263,25 +263,25 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
             ComponentBag actual = new ComponentBag();
 
             // Assert
-            Assert.IsInstanceOf<ComponentBag>(actual);
+            Assert.That(actual, Is.InstanceOf<ComponentBag>());
 
-            Assert.IsInstanceOf<IObservationManager>(actual.ObservationManager);
-            Assert.IsInstanceOf<ISlidingWindowManager>(actual.SlidingWindowManager);
-            Assert.IsInstanceOf<IFileManager>(actual.FileManager);
-            Assert.IsInstanceOf<Func<double, uint, double>>(actual.RoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(actual.LoggingAction);
-            Assert.IsInstanceOf<Action<string>>(actual.LoggingActionAsciiBanner);
-            Assert.IsInstanceOf<IAsciiBannerManager>(actual.AsciiBannerManager);
-            Assert.IsInstanceOf<IFilenameFactory>(actual.FilenameFactory);
-            Assert.IsInstanceOf<Func<DateTime>>(actual.NowFunction);
-            Assert.IsInstanceOf<IForecastingInitManager>(actual.ForecastingInitManager);
-            Assert.IsInstanceOf<ISerializerFactory>(actual.SerializerFactory);
+            Assert.That(actual.ObservationManager, Is.InstanceOf<IObservationManager>());
+            Assert.That(actual.SlidingWindowManager, Is.InstanceOf<ISlidingWindowManager>());
+            Assert.That(actual.FileManager, Is.InstanceOf<IFileManager>());
+            Assert.That(actual.RoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(actual.LoggingAction, Is.InstanceOf<Action<string>>());
+            Assert.That(actual.LoggingActionAsciiBanner, Is.InstanceOf<Action<string>>());
+            Assert.That(actual.AsciiBannerManager, Is.InstanceOf<IAsciiBannerManager>());
+            Assert.That(actual.FilenameFactory, Is.InstanceOf<IFilenameFactory>());
+            Assert.That(actual.NowFunction, Is.InstanceOf<Func<DateTime>>());
+            Assert.That(actual.ForecastingInitManager, Is.InstanceOf<IForecastingInitManager>());
+            Assert.That(actual.SerializerFactory, Is.InstanceOf<ISerializerFactory>());
 
-            Assert.IsInstanceOf<Func<double, uint, double>>(ComponentBag.DefaultRoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(ComponentBag.DefaultLoggingAction);
-            Assert.IsInstanceOf<Action<string>>(ComponentBag.DefaultLoggingActionAsciiBanner);
-            Assert.IsInstanceOf<Func<DateTime>>(ComponentBag.DefaultNowFunction);
-            Assert.IsInstanceOf<string>(ComponentBag.DefaultLoggingActionDateFormat);
+            Assert.That(ComponentBag.DefaultRoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(ComponentBag.DefaultLoggingAction, Is.InstanceOf<Action<string>>());
+            Assert.That(ComponentBag.DefaultLoggingActionAsciiBanner, Is.InstanceOf<Action<string>>());
+            Assert.That(ComponentBag.DefaultNowFunction, Is.InstanceOf<Func<DateTime>>());
+            Assert.That(ComponentBag.DefaultLoggingActionDateFormat, Is.InstanceOf<string>());
 
         }
 
@@ -309,7 +309,7 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
             double actual = ComponentBag.DefaultRoundingFunction(x, digits);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(expected, Is.EqualTo(actual));
 
         }
 
@@ -323,5 +323,5 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.02.2024
+    Last Update: 09.02.2024
 */
