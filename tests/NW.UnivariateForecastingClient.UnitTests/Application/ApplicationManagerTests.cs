@@ -20,8 +20,8 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                 new TestDelegate(
                     () => new ApplicationManager(
                                 libraryBroker: null,
-                                sectionsFactory: new ApplicationSectionsFactory(),
-                                sessionManagerComponents: new SessionManagerComponents())
+                                applicationManagerBagFactory: new ApplicationManagerBagFactory(),
+                                sessionManagerBag: new SessionManagerBag())
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("libraryBroker").Message
@@ -31,22 +31,22 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
                 new TestDelegate(
                     () => new ApplicationManager(
                                 libraryBroker: new LibraryBroker(),
-                                sectionsFactory: null,
-                                sessionManagerComponents: new SessionManagerComponents())
+                                applicationManagerBagFactory: null,
+                                sessionManagerBag: new SessionManagerBag())
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("sectionsFactory").Message
+                new ArgumentNullException("applicationManagerBagFactory").Message
             ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ApplicationManager(
                                 libraryBroker: new LibraryBroker(),
-                                sectionsFactory: new ApplicationSectionsFactory(),
-                                sessionManagerComponents: null)
+                                applicationManagerBagFactory: new ApplicationManagerBagFactory(),
+                                sessionManagerBag: null)
                 ),
                 typeof(ArgumentNullException),
-                new ArgumentNullException("sessionManagerComponents").Message
+                new ArgumentNullException("sessionManagerBag").Message
             ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_03")
 
         };
@@ -86,7 +86,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
             ApplicationManager actual = new ApplicationManager();
 
             // Assert
-            Assert.IsInstanceOf<ApplicationManager>(actual);
+            Assert.That(actual, Is.InstanceOf<ApplicationManager>());
 
         }
 
@@ -99,7 +99,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
             int actual = new ApplicationManager().Execute(args);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -116,5 +116,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 09.02.2024
 */

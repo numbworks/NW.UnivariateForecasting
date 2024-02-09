@@ -12,10 +12,11 @@ Contact: numbworks@gmail.com
 | 2020-12-22 | numbworks | Changed font size and date format in Revision History. |
 | 2021-10-11 | numbworks | Version numbers removed. |
 | 2023-03-09 | numbworks | Updated to v3.0.0. |
+| 2024-02-08 | numbworks | Updated to v4.0.0. |
 
 ## Introduction
 
-`NW.UnivariateForecasting` is a `.NET Standard` library to perform univariate forecasting tasks on the values you provide. 
+`NW.UnivariateForecasting` is a library to perform univariate forecasting tasks on the values you provide. 
 
 ## What does "univariate forecasting" mean?
 
@@ -81,18 +82,19 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 58.49999999999989
             )};
-        version: "3.0.0.0"
+        version: "4.0.0.0"
     );
 ```
 
 By default, the amounts calculated by the library (`coefficient`, `error`, ...) are rounded to the 15th decimal digit (the maximum amount of digits for the `double` amounts), but you might want to customize this aspect to improve readibility. 
 
-If so, you can inject a custom `UnivariateForecastingSettings` object into the `UnivariateForecaster` object, as shown in the following example:
+If so, you can inject a custom `SettingBag` object into the `UnivariateForecaster` object, as shown in the following example:
 
 ```csharp
 using System;
 using System.Collections.Generic;
 using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Forecasts;
 
 /* ... */
@@ -106,15 +108,15 @@ ForecastingInit init
             error: null
         );
 
-UnivariateForecastingSettings settings = new UnivariateForecastingSettings(
-    forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
-    folderPath: UnivariateForecastingSettings.DefaultFolderPath,
+SettingBag settingBag = new SettingBag(
+    forecastingDenominator: SettingBag.DefaultForecastingDenominator,
+    folderPath: SettingBag.DefaultFolderPath,
     roundingDigits: 2
 );
 
 IUnivariateForecaster forecaster = new UnivariateForecaster(
-    components: new UnivariateForecastingComponents(),
-    settings: settings
+    componentBag: new ComponentBag(),
+    settingBag: settingBag
 );
 ForecastingSession session = forecaster.Forecast(init);
 
@@ -139,7 +141,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 61.53
             )};
-        version: "3.0.0.0"
+        version: "4.0.0.0"
     );
 ```
 

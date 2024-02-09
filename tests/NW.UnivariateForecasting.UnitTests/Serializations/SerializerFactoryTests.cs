@@ -27,7 +27,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ISerializer<ForecastingInit> serializer = new SerializerFactory().Create<ForecastingInit>();
 
             // Assert
-            Assert.IsInstanceOf<ISerializer<ForecastingInit>>(serializer);
+            Assert.That(serializer, Is.InstanceOf<ISerializer<ForecastingInit>>());
 
         }
 
@@ -40,7 +40,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             SerializerFactory serializerFactory = new SerializerFactory();
 
             // Assert
-            Assert.IsInstanceOf<SerializerFactory>(serializerFactory);
+            Assert.That(serializerFactory, Is.InstanceOf<SerializerFactory>());
 
         }
 
@@ -55,5 +55,5 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 13.02.2023
+    Last Update: 09.02.2024
 */

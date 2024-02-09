@@ -41,7 +41,7 @@ namespace NW.UnivariateForecasting.UnitTests.AsciiBanner
             string actual = new AsciiBannerManager().Create(version);
 
             // Assert
-            StringAssert.Contains(version, actual);
+            Assert.That(actual.Contains(version), Is.True);
 
         }
 
@@ -60,5 +60,5 @@ namespace NW.UnivariateForecasting.UnitTests.AsciiBanner
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 14.01.2023
+    Last Update: 09.02.2024
 */

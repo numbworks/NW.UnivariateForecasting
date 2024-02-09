@@ -18,7 +18,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.Utilities
             // Act
             // Assert
             Exception objActual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, objActual.Message);
+            Assert.That(objActual.Message, Is.EqualTo(expectedMessage));
 
         }
         public static void Method_ShouldThrowACertainInnnerException_WhenCallPrivateMethodAndUnproperArguments
@@ -31,8 +31,8 @@ namespace NW.UnivariateForecastingClient.UnitTests.Utilities
             Exception actual = outerException.InnerException;
 
             // Assert
-            Assert.AreEqual(expectedInnerType, actual.GetType());
-            Assert.AreEqual(expectedInnerMessage, actual.Message);
+            Assert.That(actual.GetType(), Is.EqualTo(expectedInnerType));
+            Assert.That(actual.Message, Is.EqualTo(expectedInnerMessage));
 
         }
         public static TReturn CallPrivateMethod<TClass, TReturn>
@@ -52,5 +52,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 09.02.2024
 */

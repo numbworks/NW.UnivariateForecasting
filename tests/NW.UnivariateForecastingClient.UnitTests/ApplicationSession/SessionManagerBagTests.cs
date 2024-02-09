@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {
     [TestFixture]
-    public class SessionManagerComponentsTests
+    public class SessionManagerBagTests
     {
 
         #region Fields
@@ -16,17 +16,17 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
         #region Tests
 
         [Test]
-        public void SessionManagerComponents_ShouldCreateAnObjectOfThisType_WhenInvoked()
+        public void SessionManagerBag_ShouldCreateAnObjectOfThisType_WhenInvoked()
         {
 
             // Arrange
             // Act
-            SessionManagerComponents actual = new SessionManagerComponents();
+            SessionManagerBag actual = new SessionManagerBag();
 
             // Assert
-            Assert.IsInstanceOf<SessionManagerComponents>(actual);
-            Assert.IsInstanceOf<RoundingDigitsValidator>(actual.RoundingDigitsValidator);
-            Assert.IsInstanceOf<ForecastingDenominatorValidator>(actual.ForecastingDenominatorValidator);
+            Assert.That(actual, Is.InstanceOf<SessionManagerBag>());
+            Assert.That(actual.RoundingDigitsValidator, Is.InstanceOf<RoundingDigitsValidator>());
+            Assert.That(actual.ForecastingDenominatorValidator, Is.InstanceOf<ForecastingDenominatorValidator>());
 
         }
 
@@ -43,5 +43,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

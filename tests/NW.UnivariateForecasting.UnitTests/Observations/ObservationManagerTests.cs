@@ -4,6 +4,7 @@ using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.UnitTests.Observations
 {
@@ -20,7 +21,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager(
                             roundingFunction: null,
-                            loggingAction: UnivariateForecastingComponents.DefaultLoggingAction
+                            loggingAction: ComponentBag.DefaultLoggingAction
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
@@ -29,7 +30,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager(
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: ComponentBag.DefaultRoundingFunction,
                             loggingAction: null
                         )),
                 typeof(ArgumentNullException),
@@ -44,8 +45,8 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 new TestDelegate(
                     () => new ObservationManager().Create(
                                 slidingWindow: null,
-                                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
-                                roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                                forecastingDenominator: SettingBag.DefaultForecastingDenominator,
+                                roundingDigits: SettingBag.DefaultRoundingDigits
                         )),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindow").Message
@@ -56,19 +57,19 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                     () => new ObservationManager().Create(
                                 slidingWindow: SlidingWindows.ObjectMother.SlidingWindow01,
                                 forecastingDenominator: 0,
-                                roundingDigits: UnivariateForecastingSettings.DefaultRoundingDigits
+                                roundingDigits: SettingBag.DefaultRoundingDigits
                         )),
                 typeof(ArgumentException),
                 UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
                         "forecastingDenominator",
-                        UnivariateForecastingSettings.DefaultForecastingDenominator)
+                        SettingBag.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
                     () => new ObservationManager().Create(
                                 slidingWindow: SlidingWindows.ObjectMother.SlidingWindow01,
-                                forecastingDenominator: UnivariateForecastingSettings.DefaultForecastingDenominator,
+                                forecastingDenominator: SettingBag.DefaultForecastingDenominator,
                                 roundingDigits: 16
                         )),
                 typeof(ArgumentException),
@@ -81,7 +82,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                UnivariateForecastingSettings.DefaultForecastingDenominator,
+                SettingBag.DefaultForecastingDenominator,
                 (uint)2,
                 null,
                 null,
@@ -94,7 +95,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             new TestCaseData(
                 SlidingWindows.ObjectMother.SlidingWindow01,
-                UnivariateForecastingSettings.DefaultForecastingDenominator,
+                SettingBag.DefaultForecastingDenominator,
                 (uint)2,
                 ObjectMother.Observation01_WithInitCE.Coefficient,
                 ObjectMother.Observation01_WithInitCE.Error,
@@ -140,7 +141,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             FakeLogger fakeLogger = new FakeLogger();
             ObservationManager observationManager 
                 = new ObservationManager(
-                            roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                            roundingFunction: ComponentBag.DefaultRoundingFunction,
                             loggingAction: (message) => fakeLogger.Log(message)
                         );
 
@@ -155,9 +156,10 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                     );
 
             // Assert
-            Assert.True(
-                ObjectMother.AreEqual(expected, actual));
-            Assert.AreEqual(expectedMessages, fakeLogger.Messages);
+            Assert.That(
+                ObjectMother.AreEqual(expected, actual),
+                Is.True);
+            Assert.That(fakeLogger.Messages, Is.EqualTo(expectedMessages));
 
         }
 
@@ -170,12 +172,12 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             ObservationManager actual = new ObservationManager();
 
             // Assert
-            Assert.IsInstanceOf<ObservationManager>(actual);
+            Assert.That(actual, Is.InstanceOf<ObservationManager>());
 
-            Assert.IsInstanceOf<double>(ObservationManager.DefaultForecastingDenominator);
-            Assert.IsInstanceOf<uint>(ObservationManager.DefaultRoundingDigits);
-            Assert.IsInstanceOf<Func<double, uint, double>>(ObservationManager.DefaultRoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(ObservationManager.DefaultLoggingAction);
+            Assert.That(ObservationManager.DefaultForecastingDenominator, Is.InstanceOf<double>());
+            Assert.That(ObservationManager.DefaultRoundingDigits, Is.InstanceOf<uint>());
+            Assert.That(ObservationManager.DefaultRoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(ObservationManager.DefaultLoggingAction, Is.InstanceOf<Action<string>>());
 
         }
 
@@ -185,7 +187,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
             // Arrange
             SlidingWindowItem slidingWindowItem = new SlidingWindowItem(id: 1, X_Actual: 583.23, Y_Forecasted: 0);
-            double denominator = UnivariateForecastingSettings.DefaultForecastingDenominator;
+            double denominator = SettingBag.DefaultForecastingDenominator;
             double expected = 583.23 / denominator;
             uint roundingDigits = 2;
 
@@ -197,7 +199,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                 );
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -211,5 +213,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

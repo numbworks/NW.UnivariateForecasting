@@ -68,7 +68,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -84,7 +84,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -100,7 +100,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -116,7 +116,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -137,7 +137,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -158,7 +158,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -172,7 +172,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json); // The type doesn't matter.
 
             // Assert
-            Assert.AreEqual(default(ForecastingInit), actual);
+            Assert.That(actual, Is.EqualTo(default(ForecastingInit)));
 
         }
 
@@ -188,8 +188,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(expected, actual)
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(expected, actual),
+                    Is.True
                 );
 
         }
@@ -206,8 +207,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(expected, actual)
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(expected, actual),
+                    Is.True
                 );
 
         }
@@ -224,8 +226,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingInit actual = new Serializer<ForecastingInit>().DeserializeOrDefault(json: json);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(expected, actual)
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(expected, actual),
+                    Is.True
                 );
 
         }
@@ -247,8 +250,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(expected, actual)
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(expected, actual),
+                    Is.True
                 );
 
         }
@@ -270,8 +274,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(expected, actual)
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(expected, actual),
+                    Is.True
                 );
 
         }
@@ -293,8 +298,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession actual = new Serializer<ForecastingSession>().DeserializeOrDefault(json: json);
 
             // Assert
-            Assert.IsTrue(
-                    Forecasts.ObjectMother.AreEqual(expected, actual)
+            Assert.That(
+                    Forecasts.ObjectMother.AreEqual(expected, actual),
+                    Is.True
                 );
 
         }
@@ -309,7 +315,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             Serializer<ForecastingInit> actual = new Serializer<ForecastingInit>();
 
             // Assert
-            Assert.IsInstanceOf<Serializer<ForecastingInit>>(actual);
+            Assert.That(actual, Is.InstanceOf<Serializer<ForecastingInit>>());
 
         }
 
@@ -324,5 +330,5 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 09.02.2024
 */

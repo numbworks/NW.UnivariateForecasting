@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
@@ -19,11 +20,11 @@ namespace NW.UnivariateForecasting.SlidingWindows
         #region Properties
 
         public static Func<double, uint, double> DefaultRoundingFunction { get; }
-            = UnivariateForecastingComponents.DefaultRoundingFunction;
+            = ComponentBag.DefaultRoundingFunction;
         public static Action<string> DefaultLoggingAction { get; }
-            = UnivariateForecastingComponents.DefaultLoggingAction;
+            = ComponentBag.DefaultLoggingAction;
         public static uint DefaultRoundingDigits { get; }
-            = UnivariateForecastingSettings.DefaultRoundingDigits;
+            = SettingBag.DefaultRoundingDigits;
 
         #endregion
 

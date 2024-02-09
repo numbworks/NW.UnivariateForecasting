@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
@@ -20,14 +21,14 @@ namespace NW.UnivariateForecasting.Observations
         #region Properties
 
         public static double DefaultForecastingDenominator 
-            = UnivariateForecastingSettings.DefaultForecastingDenominator;
+            = SettingBag.DefaultForecastingDenominator;
         public static uint DefaultRoundingDigits { get; } 
-            = UnivariateForecastingSettings.DefaultRoundingDigits;
+            = SettingBag.DefaultRoundingDigits;
 
         public static Func<double, uint, double> DefaultRoundingFunction { get; }
-            = UnivariateForecastingComponents.DefaultRoundingFunction;
+            = ComponentBag.DefaultRoundingFunction;
         public static Action<string> DefaultLoggingAction { get; }
-            = UnivariateForecastingComponents.DefaultLoggingAction;
+            = ComponentBag.DefaultLoggingAction;
 
         #endregion
 

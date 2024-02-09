@@ -6,7 +6,7 @@ using NW.UnivariateForecasting.Validation;
 namespace NW.UnivariateForecastingClient.Application
 {
     /// <summary>Collects all the dependencies required by <see cref="ApplicationManager"/>.</summary>
-    public class ApplicationSections
+    public class ApplicationManagerBag
     {
 
         #region Fields
@@ -21,9 +21,9 @@ namespace NW.UnivariateForecastingClient.Application
 
         #region Constructors
 
-        /// <summary>Initializes a <see cref="ApplicationSections"/> instance.</summary>
+        /// <summary>Initializes a <see cref="ApplicationManagerBag"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public ApplicationSections(IAboutManager aboutManager, ISessionManager sessionManager)
+        public ApplicationManagerBag(IAboutManager aboutManager, ISessionManager sessionManager)
         {
 
             Validator.ValidateObject(aboutManager, nameof(aboutManager));
@@ -47,5 +47,5 @@ namespace NW.UnivariateForecastingClient.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

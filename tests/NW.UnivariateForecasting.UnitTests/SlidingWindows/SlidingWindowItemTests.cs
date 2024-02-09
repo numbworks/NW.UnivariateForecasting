@@ -53,7 +53,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             string actual = slidingWindowItem.ToString();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -66,10 +66,10 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
             SlidingWindowItem actual = new SlidingWindowItem(id: 1, X_Actual: 58.50, Y_Forecasted: 615.26);
 
             // Assert
-            Assert.IsInstanceOf<SlidingWindowItem>(actual);
-            Assert.IsInstanceOf<uint>(actual.Id);
-            Assert.IsInstanceOf<double>(actual.X_Actual);
-            Assert.IsInstanceOf<double?>(actual.Y_Forecasted);
+            Assert.That(actual, Is.InstanceOf<SlidingWindowItem>());
+            Assert.That(actual.Id, Is.InstanceOf<uint>());
+            Assert.That(actual.X_Actual, Is.InstanceOf<double>());
+            Assert.That(actual.Y_Forecasted, Is.InstanceOf<double?>());
 
         }
 
@@ -83,5 +83,5 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 06.03.2023
+    Last Update: 09.02.2024
 */

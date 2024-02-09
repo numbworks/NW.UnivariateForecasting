@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NW.UnivariateForecasting;
 using NW.UnivariateForecastingClient.Shared;
 using NW.UnivariateForecastingClient.ApplicationSession;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 {
@@ -22,7 +22,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             new TestCaseData("1", true)
                 .SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
 
-            new TestCaseData(UnivariateForecastingSettings.DefaultForecastingDenominator.ToString(), true)
+            new TestCaseData(SettingBag.DefaultForecastingDenominator.ToString(), true)
                 .SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
 
             new TestCaseData(null, false)
@@ -45,8 +45,8 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
                 .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_02"),
 
             new TestCaseData(
-                    UnivariateForecastingSettings.DefaultForecastingDenominator.ToString(), 
-                    (double?)UnivariateForecastingSettings.DefaultForecastingDenominator)
+                    SettingBag.DefaultForecastingDenominator.ToString(), 
+                    (double?)SettingBag.DefaultForecastingDenominator)
                 .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_03"),
 
             new TestCaseData(null, ForecastingDenominatorValidator.DefaultValue)
@@ -71,10 +71,10 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             ForecastingDenominatorValidator actual = new ForecastingDenominatorValidator();
 
             // Assert
-            Assert.IsInstanceOf<ForecastingDenominatorValidator>(actual);
+            Assert.That(actual, Is.InstanceOf<ForecastingDenominatorValidator>());
 
-            Assert.IsNull(ForecastingDenominatorValidator.DefaultValue);
-            Assert.IsInstanceOf<double>(ForecastingDenominatorValidator.MininumValue);
+            Assert.That(ForecastingDenominatorValidator.DefaultValue, Is.Null);
+            Assert.That(ForecastingDenominatorValidator.MininumValue, Is.InstanceOf<double>());
 
         }
 
@@ -87,7 +87,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             bool actual = new ForecastingDenominatorValidator().IsValid(value);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -100,7 +100,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             double? actual = new ForecastingDenominatorValidator().ParseOrDefault(value);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -119,7 +119,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             ValidationResult actual = new ForecastingDenominatorValidator().GetValidationResult(option, context);
 
             // Assert
-            Assert.AreEqual(expected, actual.ErrorMessage);
+            Assert.That(actual.ErrorMessage, Is.EqualTo(expected));
 
         }
 
@@ -138,7 +138,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
             ValidationResult actual = new ForecastingDenominatorValidator().GetValidationResult(option, context);
 
             // Assert
-            Assert.AreEqual(ValidationResult.Success, actual);
+            Assert.That(actual, Is.EqualTo(ValidationResult.Success));
 
         }
 
@@ -153,5 +153,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationSession
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

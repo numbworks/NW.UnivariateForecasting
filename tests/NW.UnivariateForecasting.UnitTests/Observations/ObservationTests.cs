@@ -27,7 +27,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
         #region Tests
 
         [TestCaseSource(nameof(toStringTestCases))]
-        public void ToString_ShouldReturnExpectedString_WhenInvoked(Observation observation, string expected1)
+        public void ToString_ShouldReturnExpectedString_WhenInvoked(Observation observation, string expected)
         {
 
             // Arrange
@@ -35,7 +35,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             string actual = observation.ToString();
 
             // Assert
-            Assert.AreEqual(expected1, actual);
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -48,10 +48,10 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
             Observation actual = new Observation(coefficient: 0.82, error: 0.22, nextValue: 519.23);
 
             // Assert
-            Assert.IsInstanceOf<Observation>(actual);
-            Assert.IsInstanceOf<double>(actual.Coefficient);
-            Assert.IsInstanceOf<double>(actual.Error);
-            Assert.IsInstanceOf<double>(actual.NextValue);
+            Assert.That(actual, Is.InstanceOf<Observation>());
+            Assert.That(actual.Coefficient, Is.InstanceOf<double>());
+            Assert.That(actual.Error, Is.InstanceOf<double>());
+            Assert.That(actual.NextValue, Is.InstanceOf<double>());
 
         }
 
@@ -65,5 +65,5 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 16.02.2023
+    Last Update: 09.02.2024
 */

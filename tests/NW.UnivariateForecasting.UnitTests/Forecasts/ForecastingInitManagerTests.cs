@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
             ForecastingInitManager actual = new ForecastingInitManager();
 
             // Assert
-            Assert.IsInstanceOf<ForecastingInitManager>(actual);
+            Assert.That(actual, Is.InstanceOf<ForecastingInitManager>());
 
         }
 
@@ -64,8 +64,9 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                             );
 
             // Assert
-            Assert.True(
-                    ObjectMother.AreEqual(ObjectMother.ForecastingInit_SingleWithCEAndExpandedValues, actual)
+            Assert.That(
+                    ObjectMother.AreEqual(ObjectMother.ForecastingInit_SingleWithCEAndExpandedValues, actual),
+                    Is.True
                 );
 
         }
@@ -81,5 +82,5 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 12.02.2023
+    Last Update: 09.02.2024
 */

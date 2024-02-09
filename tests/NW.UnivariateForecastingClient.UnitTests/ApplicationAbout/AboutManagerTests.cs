@@ -63,7 +63,7 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationAbout
             AboutManager actual = new AboutManager(libraryBroker: new LibraryBroker());
 
             // Assert
-            Assert.IsInstanceOf<AboutManager>(actual);
+            Assert.That(actual, Is.InstanceOf<AboutManager>());
 
         }
 
@@ -80,5 +80,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.ApplicationAbout
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 09.02.2024
 */

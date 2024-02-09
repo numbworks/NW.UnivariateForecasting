@@ -8,10 +8,10 @@ using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.Validation;
 
-namespace NW.UnivariateForecasting
+namespace NW.UnivariateForecasting.Bags
 {
     /// <summary>Collects all the dependencies required by the library.</summary>
-    public class UnivariateForecastingComponents
+    public class ComponentBag
     {
 
         #region Fields
@@ -45,16 +45,16 @@ namespace NW.UnivariateForecasting
         #region Constructors
 
         /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecastingComponents"/>. Hover the mouse over the parameters for details.
+        /// Initializes an instance of <see cref="ComponentBag"/>. Hover the mouse over the parameters for details.
         /// </summary>
         /// <param name="slidingWindowManager"></param>
         /// <param name="slidingWindowItemManager"></param>
         /// <param name="observationManager"></param>
         /// <param name="fileManager"></param>
-        /// <param name="roundingFunction">All the values processed by <see cref="NW.UnivariateForecasting"/> will be rounded according to this function. Default: two double digits.</param>
+        /// <param name="roundingFunction">All the values processed by <see cref="UnivariateForecasting"/> will be rounded according to this function. Default: two double digits.</param>
         /// <param name="loggingAction">Default: Console.WriteLine(message).</param>
         /// <exception cref="ArgumentNullException"/> 
-        public UnivariateForecastingComponents(
+        public ComponentBag(
                 ISlidingWindowManager slidingWindowManager,
                 IObservationManager observationManager,
                 IFileManager fileManager,
@@ -96,10 +96,10 @@ namespace NW.UnivariateForecasting
         }
 
         /// <summary>
-        /// Initializes an instance of <see cref="UnivariateForecastingComponents"/> using default values.
+        /// Initializes an instance of <see cref="ComponentBag"/> using default values.
         /// <para>The default rounding function is: <see cref="DefaultRoundingFunctionTwoDigits"/>.</para>
         /// </summary>
-        public UnivariateForecastingComponents()
+        public ComponentBag()
             : this(
                   new SlidingWindowManager(),
                   new ObservationManager(),
@@ -112,7 +112,8 @@ namespace NW.UnivariateForecasting
                   DefaultNowFunction,
                   new ForecastingInitManager(),
                   new SerializerFactory()
-                ) { }
+                )
+        { }
 
         #endregion
 
@@ -124,5 +125,5 @@ namespace NW.UnivariateForecasting
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 09.03.2023
+    Last Update: 08.02.2024
 */

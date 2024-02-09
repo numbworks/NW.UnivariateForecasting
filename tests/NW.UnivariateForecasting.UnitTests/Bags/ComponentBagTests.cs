@@ -1,5 +1,6 @@
 ﻿using System;
 using NW.UnivariateForecasting.AsciiBanner;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.Forecasts;
@@ -8,186 +9,186 @@ using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.UnitTests
+namespace NW.UnivariateForecasting.UnitTests.Bags
 {
     [TestFixture]
-    public class UnivariateForecastingComponentsTests
+    public class ComponentBagTests
     {
 
         #region Fields
 
-        private static TestCaseData[] univariateForecastingComponentsExceptionsTestCases =
+        private static TestCaseData[] componentBagExceptionsTestCases =
         {
 
             new TestCaseData(
-                new TestDelegate( 
-                        () => new UnivariateForecastingComponents(
+                new TestDelegate(
+                        () => new ComponentBag(
                                     slidingWindowManager: null,
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("slidingWindowManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_01"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: null,
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("observationManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_02"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_02"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: null,
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("fileManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_03"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_03"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
                                     roundingFunction: null,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("roundingFunction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_04"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_04"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
                                     loggingAction: null,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_05"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_05"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
                                     loggingActionAsciiBanner: null,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("loggingActionAsciiBanner").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_06"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_06"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: null,
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("asciiBannerManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_07"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_07"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: null,
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("filenameFactory").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_08"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_08"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
                                     nowFunction: null,
@@ -197,47 +198,47 @@ namespace NW.UnivariateForecasting.UnitTests
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("nowFunction").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_09"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_09"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: null,
                                     serializerFactory: new SerializerFactory()
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("forecastingInitManager").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_10"),
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_10"),
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecastingComponents(
+                        () => new ComponentBag(
                                     slidingWindowManager: new SlidingWindowManager(),
                                     observationManager: new ObservationManager(),
                                     fileManager: new FileManager(),
-                                    roundingFunction: UnivariateForecastingComponents.DefaultRoundingFunction,
-                                    loggingAction: UnivariateForecastingComponents.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner,
+                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                    loggingAction: ComponentBag.DefaultLoggingAction,
+                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
                                     asciiBannerManager: new AsciiBannerManager(),
                                     filenameFactory: new FilenameFactory(),
-                                    nowFunction: UnivariateForecastingComponents.DefaultNowFunction,
+                                    nowFunction: ComponentBag.DefaultNowFunction,
                                     forecastingInitManager: new ForecastingInitManager(),
                                     serializerFactory: null
                             )
                         ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("serializerFactory").Message
-                ).SetArgDisplayNames($"{nameof(univariateForecastingComponentsExceptionsTestCases)}_11")
+                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_11")
 
         };
 
@@ -248,39 +249,39 @@ namespace NW.UnivariateForecasting.UnitTests
 
         #region Tests
 
-        [TestCaseSource(nameof(univariateForecastingComponentsExceptionsTestCases))]
-        public void UnivariateForecastingComponents_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(componentBagExceptionsTestCases))]
+        public void ComponentBag_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
-        public void UnivariateForecastingComponents_ShouldCreateAnObjectOfThisType_WhenInvoked()
+        public void ComponentBag_ShouldCreateAnObjectOfThisType_WhenInvoked()
         {
 
             // Arrange
             // Act
-            UnivariateForecastingComponents actual = new UnivariateForecastingComponents();
+            ComponentBag actual = new ComponentBag();
 
             // Assert
-            Assert.IsInstanceOf<UnivariateForecastingComponents>(actual);
+            Assert.That(actual, Is.InstanceOf<ComponentBag>());
 
-            Assert.IsInstanceOf<IObservationManager>(actual.ObservationManager);
-            Assert.IsInstanceOf<ISlidingWindowManager>(actual.SlidingWindowManager);
-            Assert.IsInstanceOf<IFileManager>(actual.FileManager);
-            Assert.IsInstanceOf<Func<double, uint, double>>(actual.RoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(actual.LoggingAction);
-            Assert.IsInstanceOf<Action<string>>(actual.LoggingActionAsciiBanner);
-            Assert.IsInstanceOf<IAsciiBannerManager>(actual.AsciiBannerManager);
-            Assert.IsInstanceOf<IFilenameFactory>(actual.FilenameFactory);
-            Assert.IsInstanceOf<Func<DateTime>>(actual.NowFunction);
-            Assert.IsInstanceOf<IForecastingInitManager>(actual.ForecastingInitManager);
-            Assert.IsInstanceOf<ISerializerFactory>(actual.SerializerFactory);
+            Assert.That(actual.ObservationManager, Is.InstanceOf<IObservationManager>());
+            Assert.That(actual.SlidingWindowManager, Is.InstanceOf<ISlidingWindowManager>());
+            Assert.That(actual.FileManager, Is.InstanceOf<IFileManager>());
+            Assert.That(actual.RoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(actual.LoggingAction, Is.InstanceOf<Action<string>>());
+            Assert.That(actual.LoggingActionAsciiBanner, Is.InstanceOf<Action<string>>());
+            Assert.That(actual.AsciiBannerManager, Is.InstanceOf<IAsciiBannerManager>());
+            Assert.That(actual.FilenameFactory, Is.InstanceOf<IFilenameFactory>());
+            Assert.That(actual.NowFunction, Is.InstanceOf<Func<DateTime>>());
+            Assert.That(actual.ForecastingInitManager, Is.InstanceOf<IForecastingInitManager>());
+            Assert.That(actual.SerializerFactory, Is.InstanceOf<ISerializerFactory>());
 
-            Assert.IsInstanceOf<Func<double, uint, double>>(UnivariateForecastingComponents.DefaultRoundingFunction);
-            Assert.IsInstanceOf<Action<string>>(UnivariateForecastingComponents.DefaultLoggingAction);
-            Assert.IsInstanceOf<Action<string>>(UnivariateForecastingComponents.DefaultLoggingActionAsciiBanner);
-            Assert.IsInstanceOf<Func<DateTime>>(UnivariateForecastingComponents.DefaultNowFunction);
-            Assert.IsInstanceOf<string>(UnivariateForecastingComponents.DefaultLoggingActionDateFormat);
+            Assert.That(ComponentBag.DefaultRoundingFunction, Is.InstanceOf<Func<double, uint, double>>());
+            Assert.That(ComponentBag.DefaultLoggingAction, Is.InstanceOf<Action<string>>());
+            Assert.That(ComponentBag.DefaultLoggingActionAsciiBanner, Is.InstanceOf<Action<string>>());
+            Assert.That(ComponentBag.DefaultNowFunction, Is.InstanceOf<Func<DateTime>>());
+            Assert.That(ComponentBag.DefaultLoggingActionDateFormat, Is.InstanceOf<string>());
 
         }
 
@@ -305,10 +306,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
             // Arrange
             // Act
-            double actual = UnivariateForecastingComponents.DefaultRoundingFunction(x, digits);
+            double actual = ComponentBag.DefaultRoundingFunction(x, digits);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(expected, Is.EqualTo(actual));
 
         }
 
@@ -322,5 +323,5 @@ namespace NW.UnivariateForecasting.UnitTests
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 09.03.2023
+    Last Update: 09.02.2024
 */

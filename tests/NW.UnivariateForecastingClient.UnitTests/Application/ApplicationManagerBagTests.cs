@@ -9,33 +9,33 @@ using NUnit.Framework;
 namespace NW.UnivariateForecastingClient.UnitTests.Application
 {
     [TestFixture]
-    public class ApplicationSectionsTests
+    public class ApplicationManagerBagTests
     {
 
         #region Fields
 
-        private static TestCaseData[] applicationSectionsExceptionTestCases =
+        private static TestCaseData[] applicationManagerBagExceptionTestCases =
         {
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new ApplicationSections(
+                    () => new ApplicationManagerBag(
                                 aboutManager: null,
-                                sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerComponents()))
+                                sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerBag()))
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("aboutManager").Message
-            ).SetArgDisplayNames($"{nameof(applicationSectionsExceptionTestCases)}_01"),
+            ).SetArgDisplayNames($"{nameof(applicationManagerBagExceptionTestCases)}_01"),
 
             new TestCaseData(
                 new TestDelegate(
-                    () => new ApplicationSections(
+                    () => new ApplicationManagerBag(
                                 aboutManager: new AboutManager(new LibraryBroker()),
                                 sessionManager: null)
                 ),
                 typeof(ArgumentNullException),
                 new ArgumentNullException("sessionManager").Message
-            ).SetArgDisplayNames($"{nameof(applicationSectionsExceptionTestCases)}_02")
+            ).SetArgDisplayNames($"{nameof(applicationManagerBagExceptionTestCases)}_02")
 
         };
 
@@ -46,26 +46,26 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
         #region Tests
 
-        [TestCaseSource(nameof(applicationSectionsExceptionTestCases))]
-        public void ApplicationSections_ShouldThrowACertainException_WhenUnproperArguments
+        [TestCaseSource(nameof(applicationManagerBagExceptionTestCases))]
+        public void ApplicationManagerBag_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
 
         [Test]
-        public void ApplicationSections_ShouldCreateAnObjectOfTypeApplicationSections_WhenInvoked()
+        public void ApplicationManagerBag_ShouldCreateAnObjectOfTypeApplicationSections_WhenInvoked()
         {
 
             // Arrange
             // Act
-            ApplicationSections actual
-                = new ApplicationSections(
+            ApplicationManagerBag actual
+                = new ApplicationManagerBag(
                         aboutManager: new AboutManager(new LibraryBroker()),
-                        sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerComponents()));
+                        sessionManager: new SessionManager(new LibraryBroker(), new SessionManagerBag()));
 
             // Assert
-            Assert.IsInstanceOf<ApplicationSections>(actual);
-            Assert.IsInstanceOf<IAboutManager>(actual.AboutManager);
-            Assert.IsInstanceOf<ISessionManager>(actual.SessionManager);
+            Assert.That(actual, Is.InstanceOf<ApplicationManagerBag>());
+            Assert.That(actual.AboutManager, Is.InstanceOf<IAboutManager>());
+            Assert.That(actual.SessionManager, Is.InstanceOf<ISessionManager>());
 
         }
 
@@ -82,5 +82,5 @@ namespace NW.UnivariateForecastingClient.UnitTests.Application
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 22.01.2023
+    Last Update: 09.02.2024
 */

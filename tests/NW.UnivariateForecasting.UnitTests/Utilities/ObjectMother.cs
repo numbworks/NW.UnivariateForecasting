@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
@@ -39,7 +40,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
             // Act
             // Assert
             Exception actual = Assert.Throws(expectedType, del);
-            Assert.AreEqual(expectedMessage, actual.Message);
+            Assert.That(actual.Message, Is.EqualTo(expectedMessage));
 
         }
         public static bool AreEqual<T>(List<T> list1, List<T> list2, Func<T, T, bool> comparer)
@@ -62,7 +63,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         }
 
-        public static bool AreEqual(UnivariateForecastingSettings obj1, UnivariateForecastingSettings obj2)
+        public static bool AreEqual(SettingBag obj1, SettingBag obj2)
         {
 
             return string.Equals(obj1.FolderPath, obj2.FolderPath, StringComparison.InvariantCulture)
@@ -78,5 +79,5 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 08.03.2023
+    Last Update: 09.02.2024
 */

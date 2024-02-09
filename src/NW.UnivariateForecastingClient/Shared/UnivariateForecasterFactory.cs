@@ -1,4 +1,5 @@
 ﻿using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.Shared
 {
@@ -21,8 +22,8 @@ namespace NW.UnivariateForecastingClient.Shared
 
         #region Methods_public
 
-        public UnivariateForecaster Create(UnivariateForecastingSettings settings, UnivariateForecastingComponents components)
-            => new UnivariateForecaster(settings, components);
+        public UnivariateForecaster Create(SettingBag settingBag, ComponentBag componentBag)
+            => new UnivariateForecaster(settingBag, componentBag);
 
         #endregion
 
@@ -34,5 +35,5 @@ namespace NW.UnivariateForecastingClient.Shared
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

@@ -1,5 +1,6 @@
 ﻿using System;
 using NW.UnivariateForecasting;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.Shared
 {
@@ -9,12 +10,12 @@ namespace NW.UnivariateForecastingClient.Shared
 
         /// <summary>Creates an instance of <see cref="TextClassifier"/>.</summary>
         /// <exception cref="ArgumentNullException"/>
-        UnivariateForecaster Create(UnivariateForecastingSettings settings, UnivariateForecastingComponents components);
+        UnivariateForecaster Create(SettingBag settingBag, ComponentBag componentBag);
 
     }
 }
 
 /*
     Author: numbworks@gmail.com
-    Last Update: 18.01.2023
+    Last Update: 08.02.2024
 */

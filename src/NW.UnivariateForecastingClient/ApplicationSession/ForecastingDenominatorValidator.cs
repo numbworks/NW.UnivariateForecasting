@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NW.UnivariateForecasting;
 using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.Validation;
+using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecastingClient.ApplicationSession
 {
@@ -19,7 +19,7 @@ namespace NW.UnivariateForecastingClient.ApplicationSession
 
         public static double? DefaultValue { get; } = null;
         public static double MininumValue { get; } 
-            = UnivariateForecastingSettings.DefaultForecastingDenominator;
+            = SettingBag.DefaultForecastingDenominator;
 
         #endregion
 
