@@ -57,7 +57,7 @@ namespace NW.UnivariateForecasting.UnitTests.Forecasts
                     steps: ForecastingInit_Steps_MultipleDouble
                     );
 
-        public static string ForecastingSession_Version = "3.0.0.0";
+        public static string ForecastingSession_Version = "4.0.0.0";
 
         public static double NextValue = 519.23;
         public static List<double> ExpandedValues = new List<double>() { 58.5, 615.26, 659.84, 635.69, 612.27, 632.94, NextValue };
