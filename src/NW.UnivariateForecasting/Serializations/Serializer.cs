@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using NW.Shared.Validation;
 
 namespace NW.UnivariateForecasting.Serializations
 {
@@ -28,7 +29,7 @@ namespace NW.UnivariateForecasting.Serializations
         public string Serialize(T obj)
         {
 
-            Validation.Validator.ValidateObject(obj, nameof(obj));
+            Validator.ValidateObject(obj, nameof(obj));
 
             string json = JsonSerializer.Serialize(obj, CreateJsonSerializerOptions());
 

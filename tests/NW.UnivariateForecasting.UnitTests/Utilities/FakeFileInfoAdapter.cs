@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
 {

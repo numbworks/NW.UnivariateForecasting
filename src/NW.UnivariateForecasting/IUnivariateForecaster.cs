@@ -1,5 +1,5 @@
 ﻿using System;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
 
 namespace NW.UnivariateForecasting

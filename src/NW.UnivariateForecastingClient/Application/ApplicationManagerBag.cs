@@ -1,7 +1,7 @@
 ﻿using System;
 using NW.UnivariateForecastingClient.ApplicationAbout;
 using NW.UnivariateForecastingClient.ApplicationSession;
-using NW.UnivariateForecasting.Validation;
+using NW.Shared.Validation;
 
 namespace NW.UnivariateForecastingClient.Application
 {

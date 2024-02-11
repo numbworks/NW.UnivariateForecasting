@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using NW.UnivariateForecasting.AsciiBanner;
-using NW.UnivariateForecasting.Files;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
+using NW.Shared.Files;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.UnitTests
 {
@@ -81,10 +81,10 @@ namespace NW.UnivariateForecasting.UnitTests
 
             new TestCaseData(
                 new TestDelegate(
-                        () => new UnivariateForecaster().LoadInitOrDefault(jsonFile: Files.ObjectMother.FileInfoAdapterDoesntExist)
+                        () => new UnivariateForecaster().LoadInitOrDefault(jsonFile: ObjectMother.FileInfoAdapterDoesntExist)
                     ),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.ProvidedPathDoesntExist(Files.ObjectMother.FileInfoAdapterDoesntExist)
+                Shared.Files.Validation.MessageCollection.ProvidedPathDoesntExist(ObjectMother.FileInfoAdapterDoesntExist)
             ).SetArgDisplayNames($"{nameof(loadInitOrDefaultExceptionTestCases)}_02")
 
         };

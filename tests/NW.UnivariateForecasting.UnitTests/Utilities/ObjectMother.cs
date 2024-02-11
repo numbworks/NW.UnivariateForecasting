@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
+using NW.Shared.Files;
 using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
@@ -10,6 +11,11 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
     {
 
         #region Properties
+
+        public static string FileInfoAdapterFullName = @"C:\somefile.txt";
+        public static IFileInfoAdapter FileInfoAdapterDoesntExist
+            => new FakeFileInfoAdapter(false, FileInfoAdapterFullName);
+
         #endregion
 
         #region Methods

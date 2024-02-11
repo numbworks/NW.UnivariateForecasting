@@ -1,5 +1,6 @@
 ﻿using System;
 using NW.UnivariateForecasting.SlidingWindows;
+using NW.Shared.Validation;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
@@ -17,7 +18,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 new TestDelegate(
                     () => new SlidingWindowItem(id: 0, X_Actual: 58.50, Y_Forecasted: 615.26)),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThan("id", 1)
+                Shared.Validation.MessageCollection.VariableCantBeLessThan("id", 1)
                 ).SetArgDisplayNames($"{nameof(slidingWindowItemExceptionTestCases)}_01")
 
         };

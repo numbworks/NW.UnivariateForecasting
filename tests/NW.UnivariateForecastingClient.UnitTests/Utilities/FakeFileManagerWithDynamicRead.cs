@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NW.UnivariateForecasting.Files;
 using NW.UnivariateForecasting.UnitTests.Utilities;
+using NW.Shared.Files;
 
 namespace NW.UnivariateForecastingClient.UnitTests.Utilities
 {

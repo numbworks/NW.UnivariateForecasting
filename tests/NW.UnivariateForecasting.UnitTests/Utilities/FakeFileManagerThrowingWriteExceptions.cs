@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
 {
