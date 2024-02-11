@@ -2,9 +2,9 @@
 using System.IO;
 using NW.UnivariateForecasting;
 using NW.UnivariateForecasting.Bags;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
-using NW.UnivariateForecasting.Validation;
+using NW.Shared.Validation;
 
 namespace NW.UnivariateForecastingClient.Shared
 {

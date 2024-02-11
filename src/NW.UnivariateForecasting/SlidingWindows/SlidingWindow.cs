@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting.Validation;
+using NW.Shared.Validation;
 
 namespace NW.UnivariateForecasting.SlidingWindows
 {

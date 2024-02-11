@@ -1,12 +1,12 @@
 ﻿using System;
 using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Filenames;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
-using NW.UnivariateForecasting.Validation;
+using NW.Shared.Validation;
 
 namespace NW.UnivariateForecasting.Bags
 {

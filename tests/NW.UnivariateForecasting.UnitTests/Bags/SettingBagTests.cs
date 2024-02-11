@@ -1,6 +1,7 @@
 ﻿using System;
-using NUnit.Framework;
 using NW.UnivariateForecasting.Bags;
+using NW.Shared.Validation;
+using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.Bags
 {
@@ -22,7 +23,7 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
                                     )
                 ),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
+                Shared.Validation.MessageCollection.VariableCantBeLessThanDouble(
                         "forecastingDenominator",
                         SettingBag.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(settingBagExceptionTestCases)}_01"),
@@ -46,7 +47,7 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
                                     roundingDigits: 16
                                     )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                Shared.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
                 ).SetArgDisplayNames($"{nameof(settingBagExceptionTestCases)}_03")
 
         };

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
+using NW.Shared.Validation;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.UnitTests.Observations
 {
@@ -60,7 +61,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                                 roundingDigits: SettingBag.DefaultRoundingDigits
                         )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.VariableCantBeLessThanDouble(
+                Shared.Validation.MessageCollection.VariableCantBeLessThanDouble(
                         "forecastingDenominator",
                         SettingBag.DefaultForecastingDenominator)
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02"),
@@ -73,7 +74,7 @@ namespace NW.UnivariateForecasting.UnitTests.Observations
                                 roundingDigits: 16
                         )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                Shared.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_03")
 
         };

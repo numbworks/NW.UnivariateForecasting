@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.UnitTests.Utilities;
+using NW.Shared.Validation;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
@@ -56,7 +57,7 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                                 roundingDigits: 16
                         )),
                 typeof(ArgumentException),
-                UnivariateForecasting.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
+                Shared.Validation.MessageCollection.FirstValueIsGreaterThanSecondValue("roundingDigits", "DefaultRoundingDigits")
                 ).SetArgDisplayNames($"{nameof(createExceptionTestCases)}_02")
 
         };
@@ -68,9 +69,9 @@ namespace NW.UnivariateForecasting.UnitTests.SlidingWindows
                 ObjectMother.SlidingWindow01_RoundingDigits,
                 ObjectMother.SlidingWindow01,
                 new List<string>() {
-                    MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
-                    MessageCollection.ProvidedValuesAre(ObjectMother.SlidingWindow01_Values),
-                    MessageCollection.FollowingSlidingWindowHasBeenCreated(ObjectMother.SlidingWindow01)
+                    UnivariateForecasting.SlidingWindows.MessageCollection.CreatingSlidingWindowOutOfFollowingArguments,
+                    UnivariateForecasting.SlidingWindows.MessageCollection.ProvidedValuesAre(ObjectMother.SlidingWindow01_Values),
+                    UnivariateForecasting.SlidingWindows.MessageCollection.FollowingSlidingWindowHasBeenCreated(ObjectMother.SlidingWindow01)
                     }
                 ).SetArgDisplayNames($"{nameof(createTestCases)}_01")
 

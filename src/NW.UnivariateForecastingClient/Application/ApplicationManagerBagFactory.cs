@@ -1,5 +1,5 @@
 ﻿using System;
-using NW.UnivariateForecasting.Validation;
+using NW.Shared.Validation;
 using NW.UnivariateForecastingClient.ApplicationAbout;
 using NW.UnivariateForecastingClient.ApplicationSession;
 using NW.UnivariateForecastingClient.Shared;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 
 namespace NW.UnivariateForecasting.UnitTests.Utilities
 {

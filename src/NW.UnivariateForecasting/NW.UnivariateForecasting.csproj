@@ -21,6 +21,8 @@
     <Folder Include="AsciiBanner\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="NW.Shared.Files" Version="1.0.0" />
+    <PackageReference Include="NW.Shared.Validation" Version="1.0.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.1" />
   </ItemGroup>
 </Project>

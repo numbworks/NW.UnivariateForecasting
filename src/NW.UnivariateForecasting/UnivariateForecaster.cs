@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NW.UnivariateForecasting.Bags;
-using NW.UnivariateForecasting.Files;
+using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.Serializations;
 using NW.UnivariateForecasting.SlidingWindows;
-using NW.UnivariateForecasting.Validation;
+using NW.Shared.Validation;
+using NW.Shared.Files.Validation;
 
 namespace NW.UnivariateForecasting
 {
@@ -136,7 +137,7 @@ namespace NW.UnivariateForecasting
         {
 
             Validator.ValidateObject(jsonFile, nameof(jsonFile));
-            Validator.ValidateFileExistance(jsonFile);
+            FilesValidator.ValidateFileExistance(jsonFile);
 
             _componentBag.LoggingAction(Forecasts.MessageCollection.AttemptingToLoadObjectFrom(typeof(T), jsonFile));
 
