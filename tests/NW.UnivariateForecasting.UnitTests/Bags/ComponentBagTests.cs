@@ -5,7 +5,7 @@ using NW.UnivariateForecasting.Filenames;
 using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
-using NW.UnivariateForecasting.Serializations;
+using NW.Shared.Serialization;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
