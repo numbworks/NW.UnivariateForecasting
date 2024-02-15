@@ -16,9 +16,9 @@
     <AssemblyName>unifor</AssemblyName>
     <ApplicationIcon>numbworks_logo_128x128px.ico</ApplicationIcon>
     <PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
-    <Version>4.1.0</Version>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
-    <FileVersion>4.1.0.0</FileVersion>
+    <Version>4.2.0</Version>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <FileVersion>4.2.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
@@ -32,5 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
+    <PackageReference Include="NW.Shared.Serialization" Version="1.0.0" />
   </ItemGroup>
 </Project>

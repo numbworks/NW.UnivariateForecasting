@@ -1,6 +1,6 @@
 ﻿using System;
 using NW.UnivariateForecasting.Forecasts;
-using NW.UnivariateForecasting.Serializations;
+using NW.Shared.Serialization;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.UnitTests.Serializations

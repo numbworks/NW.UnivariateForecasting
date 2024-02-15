@@ -6,7 +6,7 @@ using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
-using NW.UnivariateForecasting.Serializations;
+using NW.Shared.Serialization;
 using NW.UnivariateForecastingClient.Shared;
 using NW.UnivariateForecastingClient.UnitTests.Utilities;
 using NUnit.Framework;

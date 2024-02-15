@@ -8,13 +8,14 @@
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/numbworks/numbworks/master/numbworks_logo_128x128px.png</PackageIconUrl>
     <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
-    <Version>4.1.0</Version>
+    <Version>4.2.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="nunit" Version="4.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="NW.Shared.Files" Version="1.0.0" />
+    <PackageReference Include="NW.Shared.Serialization" Version="1.0.0" />
     <PackageReference Include="NW.Shared.Validation" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
