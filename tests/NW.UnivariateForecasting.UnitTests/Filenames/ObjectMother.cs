@@ -14,16 +14,18 @@ namespace NW.UnivariateForecasting.UnitTests.Filenames
         public static string FakeNowString = FakeNow.ToString(FilenameFactory.DefaultFormatNow);
 
         public static string Filename_SessionJson
-            = string.Concat(
-                        FakeFilePath,
-                        FilenameFactory.DefaultMainToken,
-                        "_",
-                        FilenameFactory.DefaultSessionToken,
-                        "_",
-                        FakeNowString,
-                        ".",
-                        FilenameFactory.DefaultJsonExtension
-                        );
+            = System.IO.Path.Combine(
+                FakeFilePath,
+                string.Concat(
+                    FilenameFactory.DefaultMainToken,
+                    "_",
+                    FilenameFactory.DefaultSessionToken,
+                    "_",
+                    FakeNowString,
+                    ".",
+                    FilenameFactory.DefaultJsonExtension
+                )
+            );
 
         #endregion
 
