@@ -204,7 +204,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
                     );
 
             Exception e
-                = new Exception(UnivariateForecastingClient.Shared.MessageCollection.LoadingFileNameReturnedDefault("Init.json"));
+                = new Exception(CLI.Shared.MessageCollection.LoadingFileNameReturnedDefault("Init.json"));
             string expected = LibraryBroker.ErrorMessageFormatter(e.Message);
 
             // Act
