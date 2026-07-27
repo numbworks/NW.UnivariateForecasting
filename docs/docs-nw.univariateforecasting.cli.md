@@ -61,6 +61,47 @@ The command above will log something like this to the console:
 [2023-03-09 10:31:21:156] The provided 'ForecastingSession' object has been successfully saved.
 ```
 
+If you wish to store the outcome to a handy JSON file, you can use the `--savesession` option:
+
+```
+.\nwunif.exe session forecast --init:Init.json --savesession
+```
+
+The produced JSON will look like:
+
+```json
+{
+  "Init": {
+    "ObservationName": "Sales USD",
+    "Values": [
+      58.5,
+      615.26,
+      659.84,
+      635.69,
+      612.27,
+      632.94
+    ],
+    "Coefficient": 0.5,
+    "Error": 0.01,
+    "Steps": 2
+  },
+  "Observations": [
+    {
+      "Coefficient": 0.5,
+      "Error": 0.01,
+      "NextValue": 316.48
+    },
+    {
+      "Coefficient": 0.5,
+      "Error": 0.01,
+      "NextValue": 158.25
+    }
+  ],
+  "Version": "4.2.1"
+}
+```
+
+If you wish to store the files elsewhere, you can specify a new working folder by using the `--folderpath` option - i.e. `--folderpath:C:\Documents`.
 
 ## Markdown Toolset
 
