@@ -1,0 +1,26 @@
+{
+    "name": "nw.univariateforecasting",
+    "image": "nw.univariateforecasting:main",
+    "initializeCommand": "cd .devcontainer/main && docker build -f Dockerfile -t nw.univariateforecasting:main ../..",
+    "runArgs": ["--name", "nw.univariateforecasting-main"],
+    "containerEnv": {
+        "DEVCONTAINER_NAME": "nw.univariateforecasting",
+        "DOTNET_BIN_PATH": "/workspaces/.dotnet-bin"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "ms-dotnettools.csdevkit",
+                "ms-dotnettools.csharp",
+                "ms-vscode.PowerShell",
+                "shd101wyy.markdown-preview-enhanced"
+            ]
+        }
+    },
+    "mounts": [
+        "source=nw.univariateforecasting-cache,target=/cache,type=volume",
+        "source=${localEnv:USERPROFILE}/Desktop/nw.univariateforecasting/,target=/home/nw.univariateforecasting/,type=bind,consistency=cached"
+    ],
+    "postStartCommand": "bash .devcontainer/main/devcontainer.sh"
+}
