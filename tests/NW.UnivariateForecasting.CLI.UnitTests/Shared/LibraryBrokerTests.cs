@@ -258,8 +258,3 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 09.02.2024
-*/

@@ -176,8 +176,3 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 08.02.2024
-*/

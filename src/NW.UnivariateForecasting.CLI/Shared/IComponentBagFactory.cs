@@ -11,8 +11,3 @@ namespace NW.UnivariateForecasting.CLI.Shared
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 08.02.2024
-*/

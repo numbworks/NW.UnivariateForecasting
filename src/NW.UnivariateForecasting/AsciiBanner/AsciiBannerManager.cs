@@ -75,8 +75,3 @@ namespace NW.UnivariateForecasting.AsciiBanner
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 14.01.2023
-*/

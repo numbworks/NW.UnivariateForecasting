@@ -34,8 +34,3 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 14.11.2022
-*/

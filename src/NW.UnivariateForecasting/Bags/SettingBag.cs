@@ -63,8 +63,3 @@ namespace NW.UnivariateForecasting.Bags
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 08.02.2024
-*/

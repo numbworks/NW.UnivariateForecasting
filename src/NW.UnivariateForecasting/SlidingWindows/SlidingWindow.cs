@@ -65,8 +65,3 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 16.02.2023
-*/
