@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <Copyright>numbworks 2024</Copyright>
+    <Version>4.2.0</Version>
+    <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
+    <PackageIcon>numbworks_logo_128x128px.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
+    <PackageTags>machinelearning csharp library univariate timeseriesanalysis netstandard forecasting</PackageTags>
+    <Authors>numbworks</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="4.0.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="NW.Shared.Files" Version="1.0.0" />
+    <PackageReference Include="NW.Shared.Serialization" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\numbworks_logo_128x128px.png">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NW.UnivariateForecasting.CLI\NW.UnivariateForecasting.CLI.csproj" />
+    <ProjectReference Include="..\..\src\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
+    <ProjectReference Include="..\NW.UnivariateForecasting.UnitTests\NW.UnivariateForecasting.UnitTests.csproj" />
+  </ItemGroup>
+</Project>
