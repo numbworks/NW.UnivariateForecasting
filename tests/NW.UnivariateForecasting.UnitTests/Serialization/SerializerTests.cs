@@ -68,7 +68,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -84,7 +86,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -100,7 +104,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -116,7 +122,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -137,7 +145,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -158,7 +168,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
