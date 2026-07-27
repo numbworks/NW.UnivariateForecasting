@@ -326,7 +326,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             string folderPath = Filenames.ObjectMother.FakeFilePath;
             string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
-            string filePath = Path.Combine(folderPath, fileName);
+            string filePath = Path.GetFullPath(Path.Combine(folderPath, fileName));
             IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, filePath);
 
             List<string> expectedLogMessages = new List<string>()
@@ -383,7 +383,7 @@ namespace NW.UnivariateForecasting.UnitTests
 
             string folderPath = Filenames.ObjectMother.FakeFilePath;
             string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
-            string filePath = Path.Combine(folderPath, fileName);
+            string filePath = Path.GetFullPath(Path.Combine(folderPath, fileName));
             IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, filePath);
 
             List<string> expectedLogMessages = new List<string>()
