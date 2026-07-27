@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using NW.UnivariateForecasting;
-using NW.UnivariateForecasting.SlidingWindows;
-using NW.UnivariateForecasting.Observations;
+using System.IO;
 using NW.UnivariateForecasting.AsciiBanner;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
-using NW.Shared.Serialization;
+using NW.UnivariateForecasting.Observations;
+using NW.UnivariateForecasting.SlidingWindows;
 using NW.UnivariateForecasting.CLI.Shared;
 using NW.UnivariateForecasting.CLI.UnitTests.Utilities;
+using NW.Shared.Serialization;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
 {
@@ -142,7 +142,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
                 = new ForecastData(
                         init: "Init.json",
                         saveSession: true,
-                        folderPath: @"C:\unifor\",
+                        folderPath: @"C:\nwunif\",
                         roundingDigits: 2,
                         forecastingDenominator: 0.001
                     );
@@ -156,7 +156,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
 
             Assert.That(
                     messages[0],
-                    Is.EqualTo("Attempting to load a 'ForecastingInit' object from: C:\\unifor\\Init.json.")
+                    Is.EqualTo($"Attempting to load a 'ForecastingInit' object from: {Path.Combine(@"C:\nwunif\", "Init.json")}.")
                     );
             Assert.That(
                     messagesAsciiBanner[0],
