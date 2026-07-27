@@ -38,7 +38,7 @@
     <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>library csharp machine learning univariate forecasting</PackageTags>
+    <PackageTags>library csharp machine learning univariate forecasting timeseriesanalysis</PackageTags>
   </PropertyGroup>
 
 </Project>
