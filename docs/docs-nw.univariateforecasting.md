@@ -6,31 +6,25 @@ Contact: numbworks@gmail.com
 | Date | Author | Description |
 |---|---|---|
 | 2020-04-27 | numbworks | Created. |
-| 2020-11-28 | numbworks | Added new examples, re-organized the document. |
-| 2020-12-04 | numbworks | Added examples of user-provided C and E. |
-| 2020-12-06 | numbworks | Added "Saving and Loading" paragraph. |
-| 2020-12-22 | numbworks | Changed font size and date format in Revision History. |
-| 2021-10-11 | numbworks | Version numbers removed. |
-| 2023-03-09 | numbworks | Updated to v3.0.0. |
-| 2024-02-08 | numbworks | Updated to v4.0.0. |
+| 2026-07-27 | numbworks | Last update (v4.2.1). |
 
 ## Introduction
 
 `NW.UnivariateForecasting` is a library to perform univariate forecasting tasks on the values you provide. 
 
-## What does "univariate forecasting" mean?
+## How Time Series Forecasting Works
 
-*Time Series Forecasting* is a *machine learning* technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
+`Time Series Forecasting` is a `machine learning` technique that aims to predict the next values in a time series when a subset of subsequent timestamped values is provided ("*sliding window*"). There is no other information available than the timestamp and the value itself.
 
 For example, given the last six months of "*Total Monthly Sales USD*" of your company, you would like the machine to predict the amounts for the next x months. 
 
-*Time Series Forecasting* is divided in *Univariate* and *Multivariate*. 
+`Time Series Forecasting` is divided in `univariate` and `multivariate`. 
 
 The first one can predict only one step ahead, while the second one can predict multiple steps ahead. As its name states, this library implements the univariate approach.
 
-A good definition of "*univariate*" could be: "*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
+A good definition of `univariate` could be: "*[...] univariate refers to an expression, equation, function or polynomial of only one variable [...] which consists of observations on only a single characteristic or attribute.*"
 
-## Getting Started
+## Univariate Forecasting In Action
 
 In order to use the library, the first thing we need to do is to create a `ForecastingInit` object containing the initialization data and then pass it to the `Forecast` method of the a `UnivariateForecaster` object, as shown in the following example:
 
@@ -40,7 +34,7 @@ using System.Collections.Generic;
 using NW.UnivariateForecasting;
 using NW.UnivariateForecasting.Forecasts;
 
-/* ... */
+...
 
 ForecastingInit init
     = new ForecastingInit(
@@ -54,7 +48,7 @@ ForecastingInit init
 IUnivariateForecaster forecaster = new UnivariateForecaster();
 ForecastingSession session = forecaster.Forecast(init);
 
-/* ... */
+...
 ```
 
 Highlights:
@@ -97,7 +91,7 @@ using NW.UnivariateForecasting;
 using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Forecasts;
 
-/* ... */
+...
 
 ForecastingInit init
     = new ForecastingInit(
@@ -120,7 +114,7 @@ IUnivariateForecaster forecaster = new UnivariateForecaster(
 );
 ForecastingSession session = forecaster.Forecast(init);
 
-/* ... */
+...
 ```
 
 This code will output the following `ForecastingSession` object:
@@ -185,27 +179,9 @@ Observation observation
 The original time series was: `{ 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }`.
 According to the univariate forecasting, the next value of the series will be: `519.23`.
 
-## Load and save
+<u>Side note</u>: we could use `Forecast` to recursively add each `Observation` to the `SlidingWindow` and perform the forecast more than one step ahead, but obviously the predictions will be quite on the pessimistic side.
 
-The library is able to load and save different key-objects using JSON format. 
-
-Here an example of each JSON file produced by the library:
-
-1. [ForecastingInitBareMinimum.json](ExampleFiles/ForecastingInitBareMinimum.json)
-2. [ForecastingInitSingleWithCE.json](ExampleFiles/ForecastingInitSingleWithCE.json)
-3. [ForecastingInitSingleWithoutCE.json](ExampleFiles/ForecastingInitSingleWithoutCE.json)
-4. [ForecastingInitDoubleWithCE.json](ExampleFiles/ForecastingInitDoubleWithCE.json)
-5. [ForecastingSessionSingleWithCE.json](ExampleFiles/ForecastingSessionSingleWithCE.json)
-6. [ForecastingSessionSingleWithoutCE.json](ExampleFiles/ForecastingSessionSingleWithoutCE.json)
-7. [ForecastingSessionDoubleWithCE.json](ExampleFiles/ForecastingSessionDoubleWithCE.json)
-
-## Appendix - Steps > 1
-
-We can use `Forecast` to recursively add each `Observation` to the `SlidingWindow` and perform the forecast more than one step ahead. 
-
-Obviously, the predictions will be quite on the pessimistic side.
-
-## Appendix - The algorithm
+## The Algorithm
 
 Let's explain the algorithm on which the library is based by using an example.
 
@@ -259,6 +235,66 @@ The function to forecast the next value in the series is `Y=F(X)+E`, which can b
 | <sub>519,23</sub> |
 
 The library offers the possibility to skip all the calculations above and provide the C and E coefficients by yourself.
+
+## Example Files
+
+Here an example of each JSON file supported by the library (load and save):
+
+1. [ForecastingInitBareMinimum.json](ExampleFiles/ForecastingInitBareMinimum.json)
+2. [ForecastingInitSingleWithCE.json](ExampleFiles/ForecastingInitSingleWithCE.json)
+3. [ForecastingInitSingleWithoutCE.json](ExampleFiles/ForecastingInitSingleWithoutCE.json)
+4. [ForecastingInitDoubleWithCE.json](ExampleFiles/ForecastingInitDoubleWithCE.json)
+5. [ForecastingSessionSingleWithCE.json](ExampleFiles/ForecastingSessionSingleWithCE.json)
+6. [ForecastingSessionSingleWithoutCE.json](ExampleFiles/ForecastingSessionSingleWithoutCE.json)
+7. [ForecastingSessionDoubleWithCE.json](ExampleFiles/ForecastingSessionDoubleWithCE.json)
+
+## See Also: `asciibannermanager`
+
+This project includes portions of the `asciibannermanager` project, which is documented here:
+
+- [docs-asciibannermanager.md](SeeAlso-asciibannermanager/docs-asciibannermanager.md)
+
+## See Also: `contributionguide`
+
+If you would like to contribute to this project, please take a look at the following document first:
+
+- [docs-contributionguide-csharp.md](SeeAlso-contributionguide/docs-contributionguide-csharp.md)
+
+## See Also: `developerguide`
+
+To get started with this project as a developer, please give a look to the following document:
+
+- [docs-developerguide-csharp.md](SeeAlso-developerguide/docs-developerguide-csharp.md)
+
+## See Also: `frameworkfreeze`
+
+To learn more about the "framework freeze" strategy adopted by this project, please have a look at the following document:
+
+- [docs-frameworkfreeze-csharp.md](SeeAlso-frameworkfreeze/docs-frameworkfreeze-csharp.md)
+
+## See Also: `knownissues`
+
+To learn more about some known issues that might have required a workaround to make this project work, please have a look at the following document:
+
+- [docs-knownissues-csharp.md](SeeAlso-knownissues/docs-knownissues-csharp.md)
+
+## See Also: `nwbuilders`
+
+This project includes portions of the `nwbuilders` project, which is documented here:
+
+- [docs-nwbuilders-csharp.md](SeeAlso-nwbuilders/docs-nwbuilders-csharp.md)
+
+## See Also: `nwmakefiles`
+
+This project includes portions of the `nwmakefiles` project, which is documented here:
+
+- [docs-nwmakefiles-csharp.md](SeeAlso-nwmakefiles/docs-nwmakefiles-csharp.md)
+
+## See Also: `userguide`
+
+To get started with this project as a user, please give a look to the following document:
+
+- [docs-userguide-csharp.md](SeeAlso-userguide/docs-userguide-csharp.md)
 
 ## Markdown Toolset
 
