@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NW.UnivariateForecasting.Bags;
-using NW.UnivariateForecasting.CLI.ApplicationSession;
 using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;

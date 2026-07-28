@@ -1,8 +1,6 @@
-﻿using NW.UnivariateForecasting.CLI.Application;
-
-namespace NW.UnivariateForecasting.CLI.ArgumentParsing
+﻿namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
-    /// <summary>Collects all the exit codes for <see cref="ApplicationManager"/>.</summary>	
+    /// <summary>Collects all the exit codes for <see cref="ArgumentManager"/>.</summary>	
     public enum ExitCodes
     {
 

@@ -1,4 +1,4 @@
-﻿using NW.UnivariateForecasting.CLI.Application;
+﻿using NW.UnivariateForecasting.CLI.Shared;
 
-ApplicationManager applicationManager = new ApplicationManager();
-return applicationManager.Execute(args);
+ICLIManager cliManager = new CLIManager();
+return cliManager.TryRun(args);

@@ -1,11 +1,11 @@
-﻿namespace NW.UnivariateForecasting.CLI.Application
+namespace NW.UnivariateForecasting.CLI.Shared
 {
     /// <summary>Represents the CLI application.</summary>
-    public interface IApplicationManager
+    public interface ICLIManager
     {
 
         /// <summary>Executes the CLI application according to the given arguments.</summary>
-        int Execute(params string[] args);
-
+        public int TryRun(string[] args);
+        
     }
 }
