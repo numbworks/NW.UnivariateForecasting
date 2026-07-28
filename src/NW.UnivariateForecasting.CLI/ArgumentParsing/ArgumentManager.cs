@@ -4,9 +4,9 @@ using NW.Shared.Files;
 using NW.Shared.Validation;
 using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Forecasts;
-using McMaster.Extensions.CommandLineUtils;
 using NW.UnivariateForecasting.CLI.AsciiBanners;
 using NW.UnivariateForecasting.CLI.TerminalWindows;
+using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.Validation;
 using McMaster.Extensions.CommandLineUtils.HelpText;
 
