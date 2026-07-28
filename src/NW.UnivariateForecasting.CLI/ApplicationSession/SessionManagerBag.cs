@@ -1,4 +1,6 @@
-﻿namespace NW.UnivariateForecasting.CLI.ApplicationSession
+﻿using NW.UnivariateForecasting.CLI.ArgumentParsing;
+
+namespace NW.UnivariateForecasting.CLI.ApplicationSession
 {
     /// <summary>Collects all the dependencies required by <see cref="SessionManager"/>.</summary>
     public class SessionManagerBag

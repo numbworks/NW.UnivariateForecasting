@@ -2,7 +2,7 @@
 using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.Validation;
 
-namespace NW.UnivariateForecasting.CLI.ApplicationSession
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <inheritdoc cref="IOptionValidator"/>
     public class RoundingDigitsValidator : IOptionValidator

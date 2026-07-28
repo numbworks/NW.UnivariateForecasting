@@ -1,4 +1,5 @@
 ﻿using NW.UnivariateForecasting.CLI.ApplicationSession;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using NUnit.Framework;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
