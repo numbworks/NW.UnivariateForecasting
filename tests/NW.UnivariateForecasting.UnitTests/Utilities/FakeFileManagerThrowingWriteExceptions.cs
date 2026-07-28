@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public IEnumerable<string> ReadAllLines(IFileInfoAdapter file)
             => Content.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
@@ -50,7 +50,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         #endregion
 

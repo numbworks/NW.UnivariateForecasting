@@ -19,14 +19,14 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public UnivariateForecaster Create(SettingBag settingBag, ComponentBag componentBag)
             => new UnivariateForecaster(settingBag, componentBag);
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
         #endregion
 
     }

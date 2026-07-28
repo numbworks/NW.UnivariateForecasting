@@ -56,7 +56,7 @@ namespace NW.UnivariateForecasting.Observations
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public Observation Create
             (SlidingWindow slidingWindow, double forecastingDenominator, uint roundingDigits, double? coefficient = null, double? error = null)
@@ -91,7 +91,7 @@ namespace NW.UnivariateForecasting.Observations
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private double GetTargetXActual(List<SlidingWindowItem> items)
         {

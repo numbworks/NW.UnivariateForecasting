@@ -47,7 +47,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
         #region TearDown
         #endregion
 
-        #region Support_methods
+        #region Support Methods
         #endregion
 
     }

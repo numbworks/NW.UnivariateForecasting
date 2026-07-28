@@ -52,7 +52,7 @@ namespace NW.UnivariateForecasting
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public IFileInfoAdapter Convert(string filePath)
             => _componentBag.FileManager.Create(filePath);
@@ -124,7 +124,7 @@ namespace NW.UnivariateForecasting
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private T LoadOrDefault<T>(IFileInfoAdapter jsonFile)
         {

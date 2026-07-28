@@ -29,7 +29,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public ValidationResult GetValidationResult(CommandOption option, ValidationContext context)
         {
@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private bool IsValid(string value)
         {

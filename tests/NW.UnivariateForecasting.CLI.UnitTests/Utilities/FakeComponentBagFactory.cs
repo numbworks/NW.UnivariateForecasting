@@ -28,7 +28,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Utilities
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public ComponentBag Create()
                 => _fakeComponentBag;

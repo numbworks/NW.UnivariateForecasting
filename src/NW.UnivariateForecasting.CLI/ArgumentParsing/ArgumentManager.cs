@@ -66,7 +66,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public CommandLineApplication Create()
         {
@@ -93,7 +93,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private uint? ParseRoundingDigitsOrDefault(string value)
         {

@@ -53,7 +53,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public SlidingWindow Create(List<double> values, uint roundingDigits)
         {
@@ -75,7 +75,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private List<double> Round(List<double> values, uint roundingDigits)
         {

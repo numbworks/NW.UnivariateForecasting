@@ -40,11 +40,11 @@
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         #endregion
 

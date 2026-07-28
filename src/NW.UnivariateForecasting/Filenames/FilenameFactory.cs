@@ -28,14 +28,14 @@ namespace NW.UnivariateForecasting.Filenames
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public string CreateForSessionJson(string folderPath, DateTime now)
             => ValidateAndCreate(folderPath, DefaultMainToken, DefaultSessionToken, now, DefaultJsonExtension);
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private string ValidateAndCreate(string folderPath, string mainToken, string secondaryToken, DateTime now, string extension)
         {

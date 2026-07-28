@@ -19,7 +19,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public SettingBag Create()
             => new SettingBag();

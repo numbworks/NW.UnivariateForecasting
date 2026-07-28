@@ -30,7 +30,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Utilities
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public IEnumerable<string> ReadAllLines(IFileInfoAdapter file)
             => throw new NotImplementedException();
@@ -61,7 +61,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Utilities
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         #endregion
 
