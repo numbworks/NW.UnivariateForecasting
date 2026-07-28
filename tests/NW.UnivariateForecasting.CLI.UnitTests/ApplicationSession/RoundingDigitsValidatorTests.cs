@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NW.UnivariateForecasting.CLI.ApplicationSession;
-using NW.UnivariateForecasting.CLI.Shared;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
-using System;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
 {
@@ -126,7 +125,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
         {
 
             // Arrange
-            CommandOption option = new CommandOption(Messages.MessageCollection.OPTION_ROUNDINGDIGITS_TEMPL, CommandOptionType.SingleValue);
+            CommandOption option = new CommandOption(CommandLineString.OPTION_ROUNDINGDIGITS_TEMPL, CommandOptionType.SingleValue);
             option.DefaultValue = value;
             ValidationContext context = new ValidationContext(option);
             string valueName = nameof(RoundingDigitsValidator).Replace("Validator", string.Empty);
@@ -148,7 +147,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
         {
 
             // Arrange
-            CommandOption option = new CommandOption(Messages.MessageCollection.OPTION_ROUNDINGDIGITS_TEMPL, CommandOptionType.SingleValue);
+            CommandOption option = new CommandOption(CommandLineString.OPTION_ROUNDINGDIGITS_TEMPL, CommandOptionType.SingleValue);
             option.DefaultValue = value;
             ValidationContext context = new ValidationContext(option);
 

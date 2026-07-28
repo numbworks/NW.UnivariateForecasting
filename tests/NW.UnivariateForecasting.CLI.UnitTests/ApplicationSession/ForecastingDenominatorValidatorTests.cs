@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NW.UnivariateForecasting.CLI.Shared;
+using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.CLI.ApplicationSession;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
 {
@@ -109,7 +109,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
         {
 
             // Arrange
-            CommandOption option = new CommandOption(Messages.MessageCollection.OPTION_FORECASTINGDENOMINATOR_TEMPL, CommandOptionType.SingleValue);
+            CommandOption option = new CommandOption(CommandLineString.OPTION_FORECASTINGDENOMINATOR_TEMPL, CommandOptionType.SingleValue);
             option.DefaultValue = value;
             ValidationContext context = new ValidationContext(option);
             string valueName = nameof(ForecastingDenominatorValidator).Replace("Validator", string.Empty);
@@ -130,7 +130,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
         {
 
             // Arrange
-            CommandOption option = new CommandOption(Messages.MessageCollection.OPTION_FORECASTINGDENOMINATOR_TEMPL, CommandOptionType.SingleValue);
+            CommandOption option = new CommandOption(CommandLineString.OPTION_FORECASTINGDENOMINATOR_TEMPL, CommandOptionType.SingleValue);
             option.DefaultValue = value;
             ValidationContext context = new ValidationContext(option);
 

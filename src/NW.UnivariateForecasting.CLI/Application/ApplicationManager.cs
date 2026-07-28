@@ -1,7 +1,8 @@
 ﻿using System;
-using NW.Shared.Validation;
 using NW.UnivariateForecasting.CLI.Shared;
 using NW.UnivariateForecasting.CLI.ApplicationSession;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
+using NW.Shared.Validation;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace NW.UnivariateForecasting.CLI.Application
@@ -66,8 +67,8 @@ namespace NW.UnivariateForecasting.CLI.Application
             CommandLineApplication app = new CommandLineApplication
             {
 
-                Name = Messages.MessageCollection.APPLICATION_NAME,
-                Description = Messages.MessageCollection.APPLICATION_DESCRIPTION
+                Name = CommandLineString.APPLICATION_NAME,
+                Description = CommandLineString.APPLICATION_DESCRIPTION
 
             };
 
