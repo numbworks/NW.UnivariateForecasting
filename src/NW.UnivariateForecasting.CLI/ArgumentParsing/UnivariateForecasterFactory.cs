@@ -1,7 +1,6 @@
-﻿using NW.UnivariateForecasting;
-using NW.UnivariateForecasting.Bags;
+﻿using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.CLI.Shared
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <inheritdoc cref="IUnivariateForecasterFactory"/>
     public class UnivariateForecasterFactory : IUnivariateForecasterFactory

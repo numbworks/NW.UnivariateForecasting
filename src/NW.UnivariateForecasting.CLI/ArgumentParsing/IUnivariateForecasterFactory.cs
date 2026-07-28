@@ -1,8 +1,7 @@
 ﻿using System;
-using NW.UnivariateForecasting;
 using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.CLI.Shared
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <summary>A factory for <see cref="TextClassifier"/>.</summary>
     public interface IUnivariateForecasterFactory
