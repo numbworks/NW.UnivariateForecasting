@@ -126,11 +126,11 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
         {
 
             // Arrange
-            CommandOption option = new CommandOption(MessageCollection.Session_Option_RoundingDigits_Template, CommandOptionType.SingleValue);
+            CommandOption option = new CommandOption(Messages.MessageCollection.OPTION_ROUNDINGDIGITS_TEMPL, CommandOptionType.SingleValue);
             option.DefaultValue = value;
             ValidationContext context = new ValidationContext(option);
             string valueName = nameof(RoundingDigitsValidator).Replace("Validator", string.Empty);
-            string expected = MessageCollection.ValueIsInvalidOrNotWithinRange(valueName, option.Value());
+            string expected = Messages.MessageCollection.ValueIsInvalidOrNotWithinRange(valueName, option.Value());
 
             // Act
             ValidationResult actual = new RoundingDigitsValidator().GetValidationResult(option, context);
@@ -148,7 +148,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
         {
 
             // Arrange
-            CommandOption option = new CommandOption(MessageCollection.Session_Option_RoundingDigits_Template, CommandOptionType.SingleValue);
+            CommandOption option = new CommandOption(Messages.MessageCollection.OPTION_ROUNDINGDIGITS_TEMPL, CommandOptionType.SingleValue);
             option.DefaultValue = value;
             ValidationContext context = new ValidationContext(option);
 

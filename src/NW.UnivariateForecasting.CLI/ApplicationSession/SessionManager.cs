@@ -43,7 +43,7 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
 
             Validator.ValidateObject(app, nameof(app));
 
-            app.Command(Messages.MessageCollection.Session_Name, sessionCommand =>
+            app.Command(Messages.MessageCollection.COMMAND_SESSION_NAME, sessionCommand =>
             {
 
                 sessionCommand = AddMain(sessionCommand);
@@ -62,7 +62,7 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
         private CommandLineApplication AddMain(CommandLineApplication command)
         {
 
-            command.Description = Messages.MessageCollection.Session_Description;
+            command.Description = Messages.MessageCollection.COMMAND_SESSION_DESCR;
             command.OnExecute(() =>
             {
 
@@ -79,10 +79,10 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
         private CommandLineApplication AddForecast(CommandLineApplication command)
         {
 
-            command.Command(Messages.MessageCollection.Session_Forecast_Name, subCommand =>
+            command.Command(Messages.MessageCollection.SUBCOMMAND_FORECAST_NAME, subCommand =>
             {
 
-                subCommand.Description = Messages.MessageCollection.Session_Forecast_Description;
+                subCommand.Description = Messages.MessageCollection.SUBCOMMAND_FORECAST_DESCR;
 
                 CommandOption initOption = CreateRequiredInitOption(subCommand);
                 CommandOption folderPathOption = CreateOptionalFolderPathOption(subCommand);
@@ -118,12 +118,12 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
             CommandOption result
                 = subCommand
                     .Option(
-                        Messages.MessageCollection.Session_Option_Init_Template,
-                        Messages.MessageCollection.Session_Option_Init_Description,
+                        Messages.MessageCollection.OPTION_INIT_TEMPL,
+                        Messages.MessageCollection.OPTION_INIT_DESCR,
                         CommandOptionType.SingleValue)
                     .IsRequired(
                         false,
-                        Messages.MessageCollection.Session_Option_Init_ErrorMessage);
+                        Messages.MessageCollection.OPTION_INIT_ERRORMESSAGE);
 
             return result;
 
@@ -133,8 +133,8 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
 
             return subCommand
                     .Option(
-                        Messages.MessageCollection.Session_Option_FolderPath_Template,
-                        Messages.MessageCollection.Session_Option_FolderPath_Description,
+                        Messages.MessageCollection.OPTION_FOLDERPATH_TEMPL,
+                        Messages.MessageCollection.OPTION_FOLDERPATH_DESCR,
                         CommandOptionType.SingleValue)
                     .Accepts(validator => validator.ExistingDirectory());
 
@@ -144,8 +144,8 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
 
             return subCommand
                     .Option(
-                        Messages.MessageCollection.Session_Option_SaveSession_Template,
-                        Messages.MessageCollection.Session_Option_SaveSession_Description,
+                        Messages.MessageCollection.OPTION_SAVESESSION_TEMPL,
+                        Messages.MessageCollection.OPTION_SAVESESSION_DESCR,
                         CommandOptionType.NoValue);
 
         }
@@ -154,8 +154,8 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
 
             return subCommand
                     .Option(
-                        Messages.MessageCollection.Session_Option_RoundingDigits_Template,
-                        Messages.MessageCollection.Session_Option_RoundingDigits_Description,
+                        Messages.MessageCollection.OPTION_ROUNDINGDIGITS_TEMPL,
+                        Messages.MessageCollection.OPTION_ROUNDINGDIGITS_DESCR,
                         CommandOptionType.SingleValue)
                     .Accepts(validator => validator.Use(_sessionManagerBag.RoundingDigitsValidator));
 
@@ -165,8 +165,8 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
 
             return subCommand
                     .Option(
-                        Messages.MessageCollection.Session_Option_ForecastingDenominator_Template,
-                        Messages.MessageCollection.Session_Option_ForecastingDenominator_Description,
+                        Messages.MessageCollection.OPTION_FORECASTINGDENOMINATOR_TEMPL,
+                        Messages.MessageCollection.OPTION_FORECASTINGDENOMINATOR_DESCR,
                         CommandOptionType.SingleValue)
                     .Accepts(validator => validator.Use(_sessionManagerBag.ForecastingDenominatorValidator));
 
