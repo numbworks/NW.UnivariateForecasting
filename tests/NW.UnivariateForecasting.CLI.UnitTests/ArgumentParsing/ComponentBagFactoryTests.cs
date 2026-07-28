@@ -1,8 +1,8 @@
-﻿using NW.UnivariateForecasting.CLI.Shared;
+﻿using NW.UnivariateForecasting.Bags;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.CLI.UnitTests
+namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
 {
     [TestFixture]
     public class ComponentBagFactoryTests

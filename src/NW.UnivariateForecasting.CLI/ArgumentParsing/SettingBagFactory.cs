@@ -1,7 +1,6 @@
 ﻿using NW.UnivariateForecasting.Bags;
-using NW.UnivariateForecasting.CLI.ArgumentParsing;
 
-namespace NW.UnivariateForecasting.CLI.Shared
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <inheritdoc cref="ISettingBagFactory"/>
     public class SettingBagFactory : ISettingBagFactory

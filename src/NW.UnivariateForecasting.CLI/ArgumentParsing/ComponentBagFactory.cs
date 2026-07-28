@@ -1,6 +1,6 @@
 ﻿using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.CLI.Shared
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <inheritdoc cref="IComponentBagFactory"/>
     public class ComponentBagFactory : IComponentBagFactory

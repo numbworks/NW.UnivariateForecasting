@@ -1,5 +1,5 @@
 ﻿using NW.UnivariateForecasting.Bags;
-using NW.UnivariateForecasting.CLI.Shared;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests.Utilities
 {
