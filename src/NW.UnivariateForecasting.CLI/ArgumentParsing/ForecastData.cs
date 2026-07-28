@@ -1,4 +1,4 @@
-﻿namespace NW.UnivariateForecasting.CLI.Shared
+﻿namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <summary>Collects all the data required by the <c>forecast</c> sub-command.</summary>
     public class ForecastData

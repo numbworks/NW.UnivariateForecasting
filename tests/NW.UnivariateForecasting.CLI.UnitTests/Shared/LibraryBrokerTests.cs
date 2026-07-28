@@ -6,6 +6,7 @@ using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
 using NW.UnivariateForecasting.SlidingWindows;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using NW.UnivariateForecasting.CLI.Shared;
 using NW.UnivariateForecasting.CLI.UnitTests.Utilities;
 using NW.Shared.Serialization;

@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using NW.UnivariateForecasting.CLI.Shared;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 
-namespace NW.NGramTextClassificationClient.UnitTests.Shared
+namespace NW.NGramTextClassificationClient.UnitTests.ArgumentParsing
 {
     [TestFixture]
     public class ForecastDataTests

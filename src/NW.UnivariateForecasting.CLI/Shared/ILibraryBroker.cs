@@ -1,5 +1,5 @@
-﻿using NW.UnivariateForecasting;
-using NW.UnivariateForecasting.CLI.Application;
+﻿using NW.UnivariateForecasting.CLI.Application;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 
 namespace NW.UnivariateForecasting.CLI.Shared
 {

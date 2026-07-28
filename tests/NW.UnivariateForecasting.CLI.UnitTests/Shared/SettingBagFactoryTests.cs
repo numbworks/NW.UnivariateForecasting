@@ -1,7 +1,8 @@
-﻿using NW.UnivariateForecasting.UnitTests.Utilities;
+﻿using NW.UnivariateForecasting.Bags;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using NW.UnivariateForecasting.CLI.Shared;
+using NW.UnivariateForecasting.UnitTests.Utilities;
 using NUnit.Framework;
-using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests
 {
