@@ -1,10 +1,9 @@
 ﻿using System;
 using NW.UnivariateForecasting.Bags;
-using NW.UnivariateForecasting.CLI.ApplicationSession;
 
-namespace NW.UnivariateForecasting.CLI.Shared
+namespace NW.UnivariateForecasting.CLI.Messages
 {
-    ///<summary>Collects all the messages used for logging and exceptions for <see cref="UnivariateForecastingClient"/>.</summary>
+    ///<summary>Collects all the messages used for logging and exceptions for <see cref="UnivariateForecasting.CLI"/>.</summary>
     public static class MessageCollection
     {
 

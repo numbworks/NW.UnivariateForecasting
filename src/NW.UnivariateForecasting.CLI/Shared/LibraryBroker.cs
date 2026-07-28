@@ -95,7 +95,7 @@ namespace NW.UnivariateForecasting.CLI.Shared
 
                 ForecastingInit init = univariateForecaster.LoadInitOrDefault(jsonFile: initFile);
                 if (init == default(ForecastingInit))
-                    throw new Exception(MessageCollection.LoadingFileNameReturnedDefault(initFile.Name));
+                    throw new Exception(Messages.MessageCollection.LoadingFileNameReturnedDefault(initFile.Name));
 
                 ForecastingSession session = univariateForecaster.Forecast(init: init);
 

@@ -48,7 +48,7 @@ namespace NW.UnivariateForecasting.CLI.ApplicationSession
             if (IsValid(option.Value()))
                 return ValidationResult.Success;
 
-            return new ValidationResult(Shared.MessageCollection.ValueIsInvalidOrNotWithinRange(_valueName, option.Value()));
+            return new ValidationResult(Messages.MessageCollection.ValueIsInvalidOrNotWithinRange(_valueName, option.Value()));
 
         }
 

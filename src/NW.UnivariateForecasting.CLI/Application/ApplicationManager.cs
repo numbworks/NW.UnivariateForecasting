@@ -66,8 +66,8 @@ namespace NW.UnivariateForecasting.CLI.Application
             CommandLineApplication app = new CommandLineApplication
             {
 
-                Name = Shared.MessageCollection.Application_Name,
-                Description = Shared.MessageCollection.Application_Description
+                Name = Messages.MessageCollection.Application_Name,
+                Description = Messages.MessageCollection.Application_Description
 
             };
 
