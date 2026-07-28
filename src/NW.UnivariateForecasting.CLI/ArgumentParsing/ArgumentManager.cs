@@ -29,9 +29,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         public static string SeparatorLine { get; } = string.Empty;
         public static Func<string, string> ErrorMessageFormatter = (message) => $"ERROR: {message}";
 
-        public IDoubleManager DoubleManager { get; }
-        public IOptionValidator ForecastingDenominatorValidator { get; }
-        public IOptionValidator RoundingDigitsValidator { get; }
+        public ForecastingDenominatorValidator ForecastingDenominatorValidator { get; }
+        public RoundingDigitsValidator RoundingDigitsValidator { get; }
         public IAsciiBannerManager AsciiBannerManager { get; }
         public ITerminalWindowManager TerminalWindowManager { get; }
         public IUnivariateForecasterFactory UnivariateForecasterFactory { get; }
@@ -44,7 +43,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         /// <summary>Initializes a <see cref="ArgumentManager"/> instance.</summary>
         public ArgumentManager(
-            IDoubleManager doubleManager = null,
+            ForecastingDenominatorValidator forecastingDenominatorValidator = null,
+            RoundingDigitsValidator roundingDigitsValidator = null,
             IAsciiBannerManager asciiBannerManager = null,
             ITerminalWindowManager terminalWindowManager = null,
             IUnivariateForecasterFactory univariateForecasterFactory = null,
@@ -52,10 +52,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             ISettingBagFactory settingBagFactory = null)
         {
 
-            ForecastingDenominatorValidator = new ForecastingDenominatorValidator();
-            RoundingDigitsValidator = new RoundingDigitsValidator();
-
-            DoubleManager = doubleManager ?? new DoubleManager();
+            ForecastingDenominatorValidator = forecastingDenominatorValidator ?? new ForecastingDenominatorValidator();
+            RoundingDigitsValidator = roundingDigitsValidator ?? new RoundingDigitsValidator();
             AsciiBannerManager = asciiBannerManager ?? new AsciiBannerManager();
             TerminalWindowManager = terminalWindowManager ?? new TerminalWindowManager();
             UnivariateForecasterFactory = univariateForecasterFactory ?? new UnivariateForecasterFactory();
@@ -150,11 +148,11 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
                 subCommand.Description = CommandLineString.SUBCOMMAND_FORECAST_DESCR;
 
-                CommandOption initOption = CreateRequiredInitOption(subCommand);
-                CommandOption folderPathOption = CreateOptionalFolderPathOption(subCommand);
-                CommandOption saveSessionOption = CreateOptionalSaveSessionOption(subCommand);
-                CommandOption roundingDigitsOption = CreateOptionalRoundingDigitsOption(subCommand);
-                CommandOption forecastingDenominatorOption = CreateOptionalForecastingDenominatorOption(subCommand);
+                CommandOption initOption = CreateInitOption(subCommand);
+                CommandOption folderPathOption = CreateFolderPathOption(subCommand);
+                CommandOption saveSessionOption = CreateSaveSessionOption(subCommand);
+                CommandOption roundingDigitsOption = CreateRoundingDigitsOption(subCommand);
+                CommandOption forecastingDenominatorOption = CreateForecastingDenominatorOption(subCommand);
 
                 subCommand.OnExecute(() =>
                 {
@@ -164,8 +162,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                                 init: initOption.Value(),
                                 folderPath: folderPathOption.Value(),
                                 saveSession: saveSessionOption.HasValue(),
-                                roundingDigits: uint.Parse(roundingDigitsOption.Value()),
-                                forecastingDenominator: DoubleManager.ParseOrDefault(forecastingDenominatorOption.Value())
+                                roundingDigits: RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
+                                forecastingDenominator: ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
                         );
 
                     return RunSessionForecast(forecastData);
@@ -178,7 +176,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        private CommandOption CreateRequiredInitOption(CommandLineApplication subCommand)
+        private CommandOption CreateInitOption(CommandLineApplication subCommand)
         {
 
             CommandOption result
@@ -194,7 +192,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             return result;
 
         }
-        private CommandOption CreateOptionalFolderPathOption(CommandLineApplication subCommand)
+        private CommandOption CreateFolderPathOption(CommandLineApplication subCommand)
         {
 
             return subCommand
@@ -205,7 +203,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                     .Accepts(validator => validator.ExistingDirectory());
 
         }
-        private CommandOption CreateOptionalSaveSessionOption(CommandLineApplication subCommand)
+        private CommandOption CreateSaveSessionOption(CommandLineApplication subCommand)
         {
 
             return subCommand
@@ -215,7 +213,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                         CommandOptionType.NoValue);
 
         }
-        private CommandOption CreateOptionalRoundingDigitsOption(CommandLineApplication subCommand)
+        private CommandOption CreateRoundingDigitsOption(CommandLineApplication subCommand)
         {
 
             return subCommand
@@ -226,7 +224,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                     .Accepts(validator => validator.Use(RoundingDigitsValidator));
 
         }
-        private CommandOption CreateOptionalForecastingDenominatorOption(CommandLineApplication subCommand)
+        private CommandOption CreateForecastingDenominatorOption(CommandLineApplication subCommand)
         {
 
             return subCommand
@@ -301,7 +299,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
                 ShowHeader();
                 _componentBag.LoggingAction(ErrorMessageFormatter(validationResult.ErrorMessage));
-                ShowFooter();
+                LogFooter();
 
                 return Failure;
 
@@ -335,12 +333,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             return Success;
 
         }
-        private void ShowFooter()
-        {
-
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
-
-        }
         private int RunSessionForecast(ForecastData forecastData)
         {
 
@@ -368,7 +360,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                 if (forecastData.SaveSession)
                     univariateForecaster.SaveSession(session, forecastData.FolderPath);
 
-                ShowFooter();
+                LogFooter();
 
                 return Success;
 

@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace NW.UnivariateForecasting.CLI.ArgumentParsing
+﻿namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
-    /// <summary>Collects all the utility methods related to <see cref="double"/> option values.</summary>
-    public interface IDoubleManager
+    /// <summary>Collects the additional utility methods related to <see cref="ForecastingDenominatorValidator"/>.</summary>
+    public interface IForecastingDenominatorValidator
     {
 
         /// <summary>
@@ -12,7 +10,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         bool IsValid(string value);
 
         /// <summary>Parses <paramref name="value"/> or returns null if <paramref name="value"/> is null.</summary>
-        /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="FormatException"></exception>
         /// <exception cref="OverflowException"></exception>
         double? ParseOrDefault(string value);
