@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
@@ -11,52 +10,9 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
     {
 
         #region Fields
-
-        private static TestCaseData[] isValidTestCases =
-        {
-
-            new TestCaseData("0.0001", true)
-                .SetArgDisplayNames($"{nameof(isValidTestCases)}_01"),
-
-            new TestCaseData("1", true)
-                .SetArgDisplayNames($"{nameof(isValidTestCases)}_02"),
-
-            new TestCaseData(SettingBag.DefaultForecastingDenominator.ToString(), true)
-                .SetArgDisplayNames($"{nameof(isValidTestCases)}_03"),
-
-            new TestCaseData(null, false)
-                .SetArgDisplayNames($"{nameof(isValidTestCases)}_04"),
-
-            new TestCaseData(string.Empty, false)
-                .SetArgDisplayNames($"{nameof(isValidTestCases)}_05"),
-
-            new TestCaseData("Some message", false)
-                .SetArgDisplayNames($"{nameof(isValidTestCases)}_06")
-
-        };
-        private static TestCaseData[] parseOrDefaultTestCases =
-        {
-
-            new TestCaseData("0.0001", (double?)0.0001)
-                .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_01"),
-
-            new TestCaseData("1", (double?)1)
-                .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_02"),
-
-            new TestCaseData(
-                    SettingBag.DefaultForecastingDenominator.ToString(), 
-                    (double?)SettingBag.DefaultForecastingDenominator)
-                .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_03"),
-
-            new TestCaseData(null, ForecastingDenominatorValidator.DefaultValue)
-                .SetArgDisplayNames($"{nameof(parseOrDefaultTestCases)}_04")
-
-        };
-
         #endregion
 
         #region SetUp
-
         #endregion
 
         #region Tests
@@ -71,35 +27,6 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
 
             // Assert
             Assert.That(actual, Is.InstanceOf<ForecastingDenominatorValidator>());
-
-            Assert.That(ForecastingDenominatorValidator.DefaultValue, Is.Null);
-            Assert.That(ForecastingDenominatorValidator.MininumValue, Is.InstanceOf<double>());
-
-        }
-
-        [TestCaseSource(nameof(isValidTestCases))]
-        public void IsValid_ShouldReturnExpectedBoolean_WhenProperArgument(string value, bool expected)
-        {
-
-            // Arrange
-            // Act
-            bool actual = new ForecastingDenominatorValidator().IsValid(value);
-
-            // Assert
-            Assert.That(actual, Is.EqualTo(expected));
-
-        }
-
-        [TestCaseSource(nameof(parseOrDefaultTestCases))]
-        public void ParseOrDefault_ShouldReturnExpectedUint_WhenProperArgument(string value, double? expected)
-        {
-
-            // Arrange
-            // Act
-            double? actual = new ForecastingDenominatorValidator().ParseOrDefault(value);
-
-            // Assert
-            Assert.That(actual, Is.EqualTo(expected));
 
         }
 
@@ -144,7 +71,6 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
         #endregion
 
         #region TearDown
-
         #endregion
 
     }

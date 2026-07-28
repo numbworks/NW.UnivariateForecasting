@@ -15,11 +15,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         #endregion
 
         #region Properties
-
-        public static uint? DefaultValue { get; } = null;
-        public static uint MininumValue { get; } = 0;
-        public static uint MaximumValue { get; } = 15;
-
         #endregion
 
         #region Constructors
@@ -51,15 +46,19 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <summary>Checks if <paramref name="value"/> is valid or not.</summary>
-        public bool IsValid(string value)
+        #endregion
+
+        #region Methods_private
+
+        private bool IsValid(string value)
         {
 
             try
             {
                 uint parsed = uint.Parse(value);
 
-                return parsed >= MininumValue && parsed <= MaximumValue;
+                return parsed >= OptionValidatorValue.RoundingDigitsMininumValue 
+                        && parsed <= OptionValidatorValue.RoundingDigitsMaximumValue;
 
             }
             catch
@@ -71,31 +70,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <summary>Parses <paramref name="value"/> or returns <see cref="DefaultValue"/> if <paramref name="value"/> is not valid.</summary>
-        public uint? ParseOrDefault(string value)
-        {
-
-            try
-            {
-
-                if (value == null)
-                    return DefaultValue;
-
-                return uint.Parse(value);
-
-            }
-            catch
-            {
-
-                return DefaultValue;
-
-            }
-
-        }
-
-        #endregion
-
-        #region Methods_private
         #endregion
 
     }

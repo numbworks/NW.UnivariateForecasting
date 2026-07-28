@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.Validation;
-using NW.UnivariateForecasting.Bags;
 
 namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
@@ -16,10 +15,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         #endregion
 
         #region Properties
-
-        public static double? DefaultValue { get; } = null;
-        public static double MininumValue { get; } = SettingBag.DefaultForecastingDenominator;
-
         #endregion
 
         #region Constructors
@@ -51,15 +46,18 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <summary>Checks if <paramref name="value"/> is valid or not.</summary>
-        public bool IsValid(string value)
+        #endregion
+
+        #region Methods_private
+
+        private bool IsValid(string value)
         {
 
             try
             {
                 double parsed = double.Parse(value);
 
-                return parsed >= MininumValue;
+                return parsed >= OptionValidatorValue.ForecastingDenominatorMininumValue;
 
             }
             catch
@@ -71,20 +69,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <summary>Parses <paramref name="value"/> or returns <see cref="DefaultValue"/> if <paramref name="value"/> is not valid.</summary>
-        public double? ParseOrDefault(string value)
-        {
-
-            if (value == null)
-                return DefaultValue;
-
-            return double.Parse(value);
-
-        }
-
-        #endregion
-
-        #region Methods_private
         #endregion
 
     }

@@ -29,8 +29,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         public static string SeparatorLine { get; } = string.Empty;
         public static Func<string, string> ErrorMessageFormatter = (message) => $"ERROR: {message}";
 
-        public ForecastingDenominatorValidator ForecastingDenominatorValidator { get; }
-        public RoundingDigitsValidator RoundingDigitsValidator { get; }
+        public IOptionValidator ForecastingDenominatorValidator { get; }
+        public IOptionValidator RoundingDigitsValidator { get; }
         public IAsciiBannerManager AsciiBannerManager { get; }
         public ITerminalWindowManager TerminalWindowManager { get; }
         public IUnivariateForecasterFactory UnivariateForecasterFactory { get; }
@@ -43,8 +43,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         /// <summary>Initializes a <see cref="ArgumentManager"/> instance.</summary>
         public ArgumentManager(
-            ForecastingDenominatorValidator forecastingDenominatorValidator = null,
-            RoundingDigitsValidator roundingDigitsValidator = null,
+            IOptionValidator forecastingDenominatorValidator = null,
+            IOptionValidator roundingDigitsValidator = null,
             IAsciiBannerManager asciiBannerManager = null,
             ITerminalWindowManager terminalWindowManager = null,
             IUnivariateForecasterFactory univariateForecasterFactory = null,
@@ -94,6 +94,36 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         #endregion
 
         #region Methods_private
+
+        private uint? ParseRoundingDigitsOrDefault(string value)
+        {
+
+            try
+            {
+
+                if (value == null)
+                    return OptionValidatorValue.RoundingDigitsDefaultValue;
+
+                return uint.Parse(value);
+
+            }
+            catch
+            {
+
+                return OptionValidatorValue.RoundingDigitsDefaultValue;
+
+            }
+
+        }
+        private double? ParseForecastingDenominatorOrDefault(string value)
+        {
+
+            if (value == null)
+                return OptionValidatorValue.ForecastingDenominatorDefaultValue;
+
+            return double.Parse(value);
+
+        }
 
         private CommandLineApplication AddRoot(CommandLineApplication app)
         {
@@ -162,8 +192,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                                 init: initOption.Value(),
                                 folderPath: folderPathOption.Value(),
                                 saveSession: saveSessionOption.HasValue(),
-                                roundingDigits: RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
-                                forecastingDenominator: ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
+                                roundingDigits: ParseRoundingDigitsOrDefault(roundingDigitsOption.Value()),
+                                forecastingDenominator: ParseForecastingDenominatorOrDefault(forecastingDenominatorOption.Value())
                         );
 
                     return RunSessionForecast(forecastData);
