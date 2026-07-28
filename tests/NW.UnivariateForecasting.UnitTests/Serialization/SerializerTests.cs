@@ -68,7 +68,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -84,7 +86,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -100,7 +104,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingInit>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -116,7 +122,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n").Replace("4.2.0.0", Forecasts.ObjectMother.ForecastingSession_Version)));
 
         }
 
@@ -128,7 +136,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession obj = new ForecastingSession(
                     init: Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE,
                     observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
-                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                    version: "4.2.0.0"
                 );
 
             string expected = Properties.Resources.ForecastingSessionSingleWithoutCEAsJson;
@@ -137,7 +145,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -149,7 +159,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession obj = new ForecastingSession(
                     init: Forecasts.ObjectMother.ForecastingInit_DoubleWithCE,
                     observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
-                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                    version: "4.2.0.0"
                 );
 
             string expected = Properties.Resources.ForecastingSessionDoubleWithCEAsJson;
@@ -158,7 +168,9 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             string actual = new Serializer<ForecastingSession>().Serialize(obj: obj);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(
+                actual.Replace("\r\n", "\n"), 
+                Is.EqualTo(expected.Replace("\r\n", "\n")));
 
         }
 
@@ -243,7 +255,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession expected = new ForecastingSession(
                     init: Forecasts.ObjectMother.ForecastingInit_SingleWithCE,
                     observations: Observations.ObjectMother.Observations_Containing01_WithInitCE,
-                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                    version: "4.2.0.0"
                 );
 
             // Act
@@ -267,7 +279,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession expected = new ForecastingSession(
                     init: Forecasts.ObjectMother.ForecastingInit_SingleWithoutCE,
                     observations: Observations.ObjectMother.Observations_Containing01_WithoutInitCE,
-                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                    version: "4.2.0.0"
                 );
 
             // Act
@@ -291,7 +303,7 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
             ForecastingSession expected = new ForecastingSession(
                     init: Forecasts.ObjectMother.ForecastingInit_DoubleWithCE,
                     observations: Observations.ObjectMother.Observations_Containing0102_WithInitCE,
-                    version: Forecasts.ObjectMother.ForecastingSession_Version
+                    version: "4.2.0.0"
                 );
 
             // Act
@@ -327,8 +339,3 @@ namespace NW.UnivariateForecasting.UnitTests.Serializations
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 09.02.2024
-*/

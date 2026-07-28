@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting.UnitTests", "tests\NW.UnivariateForecasting.UnitTests\NW.UnivariateForecasting.UnitTests.csproj", "{0413A358-91AE-4351-A792-96B7B2353075}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecastingClient", "src\NW.UnivariateForecastingClient\NW.UnivariateForecastingClient.csproj", "{8A08834A-C974-4377-85F9-E007724464D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting.CLI", "src\NW.UnivariateForecasting.CLI\NW.UnivariateForecasting.CLI.csproj", "{8A08834A-C974-4377-85F9-E007724464D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecastingClient.UnitTests", "tests\NW.UnivariateForecastingClient.UnitTests\NW.UnivariateForecastingClient.UnitTests.csproj", "{2EAA0CED-0E17-4AF1-8E6F-BB4A3A20DD4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NW.UnivariateForecasting.CLI.UnitTests", "tests\NW.UnivariateForecasting.CLI.UnitTests\NW.UnivariateForecasting.CLI.UnitTests.csproj", "{2EAA0CED-0E17-4AF1-8E6F-BB4A3A20DD4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

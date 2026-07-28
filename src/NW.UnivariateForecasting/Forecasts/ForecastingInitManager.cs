@@ -22,7 +22,7 @@ namespace NW.UnivariateForecasting.Forecasts
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public ForecastingInit ExpandValues(ForecastingInit forecastingInit, double nextValue)
         {
@@ -47,14 +47,9 @@ namespace NW.UnivariateForecasting.Forecasts
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         #endregion
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 01.03.2023
-*/

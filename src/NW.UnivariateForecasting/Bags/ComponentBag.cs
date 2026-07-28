@@ -1,5 +1,4 @@
 ﻿using System;
-using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Filenames;
 using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
@@ -7,6 +6,7 @@ using NW.UnivariateForecasting.Observations;
 using NW.Shared.Serialization;
 using NW.UnivariateForecasting.SlidingWindows;
 using NW.Shared.Validation;
+using System.Reflection;
 
 namespace NW.UnivariateForecasting.Bags
 {
@@ -27,6 +27,18 @@ namespace NW.UnivariateForecasting.Bags
         public static Action<string> DefaultLoggingActionAsciiBanner { get; }
             = (message) => Console.WriteLine($"{message}");
         public static Func<DateTime> DefaultNowFunction { get; } = () => DateTime.Now;
+        public static Func<string> DefaultVersionFunction { get; }
+            = () =>
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                Version version = assembly.GetName().Version;
+               
+                if (version is not null)
+                    return $"{version.Major}.{version.Minor}.{version.Build}";
+
+                return "0.0.0";
+                
+            };
 
         public IObservationManager ObservationManager { get; private set; }
         public ISlidingWindowManager SlidingWindowManager { get; private set; }
@@ -34,11 +46,11 @@ namespace NW.UnivariateForecasting.Bags
         public Func<double, uint, double> RoundingFunction { get; private set; }
         public Action<string> LoggingAction { get; private set; }
         public Action<string> LoggingActionAsciiBanner { get; }
-        public IAsciiBannerManager AsciiBannerManager { get; }
         public IFilenameFactory FilenameFactory { get; }
         public Func<DateTime> NowFunction { get; }
         public IForecastingInitManager ForecastingInitManager { get; }
         public ISerializerFactory SerializerFactory { get; }
+        public Func<string> VersionFunction { get; }
 
         #endregion
 
@@ -61,11 +73,11 @@ namespace NW.UnivariateForecasting.Bags
                 Func<double, uint, double> roundingFunction,
                 Action<string> loggingAction,
                 Action<string> loggingActionAsciiBanner,
-                IAsciiBannerManager asciiBannerManager,
                 IFilenameFactory filenameFactory,
                 Func<DateTime> nowFunction,
                 IForecastingInitManager forecastingInitManager,
-                ISerializerFactory serializerFactory
+                ISerializerFactory serializerFactory,
+                Func<string> versionFunction
             )
         {
 
@@ -75,11 +87,11 @@ namespace NW.UnivariateForecasting.Bags
             Validator.ValidateObject(roundingFunction, nameof(roundingFunction));
             Validator.ValidateObject(loggingAction, nameof(loggingAction));
             Validator.ValidateObject(loggingActionAsciiBanner, nameof(loggingActionAsciiBanner));
-            Validator.ValidateObject(asciiBannerManager, nameof(asciiBannerManager));
             Validator.ValidateObject(filenameFactory, nameof(filenameFactory));
             Validator.ValidateObject(nowFunction, nameof(nowFunction));
             Validator.ValidateObject(forecastingInitManager, nameof(forecastingInitManager));
             Validator.ValidateObject(serializerFactory, nameof(serializerFactory));
+            Validator.ValidateObject(versionFunction, nameof(versionFunction));
 
             ObservationManager = observationManager;
             SlidingWindowManager = slidingWindowManager;
@@ -87,11 +99,11 @@ namespace NW.UnivariateForecasting.Bags
             RoundingFunction = roundingFunction;
             LoggingAction = loggingAction;
             LoggingActionAsciiBanner = loggingActionAsciiBanner;
-            AsciiBannerManager = asciiBannerManager;
             FilenameFactory = filenameFactory;
             NowFunction = nowFunction;
             ForecastingInitManager = forecastingInitManager;
             SerializerFactory = serializerFactory;
+            VersionFunction = versionFunction;
 
         }
 
@@ -107,23 +119,18 @@ namespace NW.UnivariateForecasting.Bags
                   DefaultRoundingFunction,
                   DefaultLoggingAction,
                   DefaultLoggingActionAsciiBanner,
-                  new AsciiBannerManager(),
                   new FilenameFactory(),
                   DefaultNowFunction,
                   new ForecastingInitManager(),
-                  new SerializerFactory()
+                  new SerializerFactory(),
+                  DefaultVersionFunction
                 )
         { }
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
         #endregion
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 08.02.2024
-*/

@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.Observations
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public override string ToString()
         {
@@ -54,8 +54,3 @@ namespace NW.UnivariateForecasting.Observations
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 16.02.2023
-*/

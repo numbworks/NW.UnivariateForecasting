@@ -1,0 +1,58 @@
+﻿using NW.UnivariateForecasting.Bags;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
+using NUnit.Framework;
+
+namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
+{
+    [TestFixture]
+    public class UnivariateForecastingFactoryTests
+    {
+
+        #region Fields
+        #endregion
+
+        #region SetUp
+        #endregion
+
+        #region Tests
+
+        [Test]
+        public void UnivariateForecasterFactory_ShouldCreateAnObjectOfTypeUnivariateForecasterFactory_WhenInvoked()
+        {
+
+            // Arrange
+            // Act
+            UnivariateForecasterFactory actual = new UnivariateForecasterFactory();
+
+            // Assert
+            Assert.That(actual, Is.InstanceOf<UnivariateForecasterFactory>());
+
+        }
+
+        [Test]
+        public void Create_ShouldCreateAnObjectOfTypeUnivariateForecaster_WhenInvoked()
+        {
+
+            // Arrange
+            // Act
+            UnivariateForecaster actual
+                = new UnivariateForecasterFactory().Create(
+                        componentBag: new ComponentBag(),
+                        settingBag: new SettingBag()
+                        );
+
+            // Assert
+            Assert.That(actual, Is.InstanceOf<UnivariateForecaster>());
+
+        }
+
+        #endregion
+
+        #region TearDown
+        #endregion
+
+        #region Support Methods
+        #endregion
+
+    }
+}
