@@ -15,6 +15,7 @@ using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.HelpText;
 using McMaster.Extensions.CommandLineUtils.Validation;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
 {
@@ -592,7 +593,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
             // Arrange
             List<string> messages = new List<string>();
             List<string> messagesAsciiBanner = new List<string>();
-            
+
             ArgumentManager argumentManager
                 = CreateFakeArgumentManager(
                     messages: messages,
@@ -626,10 +627,15 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
             IHelpTextGenerator expected = new DefaultHelpTextGenerator();
 
             // Act
-            ObjectMother.CallPrivateMethod<ArgumentManager, object>(
-                argumentManager,
-                "AddCustomHelpTextGenerator",
-                new object[] { app, expected });
+            MethodInfo methodInfo
+                = typeof(ArgumentManager)
+                    .GetMethod(
+                        "AddCustomHelpTextGenerator",
+                        BindingFlags.Instance | BindingFlags.NonPublic,
+                        null,
+                        new Type[] { typeof(CommandLineApplication), typeof(IHelpTextGenerator) },
+                        null);
+            methodInfo.Invoke(argumentManager, new object[] { app, expected });
 
             // Assert
             Assert.That(app.HelpTextGenerator, Is.SameAs(expected));
@@ -648,10 +654,15 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
             CommandLineApplication command = app.Command("command", subCommand => subCommand.Command("subcommand", child => { }));
 
             // Act
-            ObjectMother.CallPrivateMethod<ArgumentManager, object>(
-                argumentManager,
-                "AddCustomHelpTextGenerator",
-                new object[] { app });
+            MethodInfo methodInfo
+                = typeof(ArgumentManager)
+                    .GetMethod(
+                        "AddCustomHelpTextGenerator",
+                        BindingFlags.Instance | BindingFlags.NonPublic,
+                        null,
+                        new Type[] { typeof(CommandLineApplication) },
+                        null);
+            methodInfo.Invoke(argumentManager, new object[] { app });
 
             // Assert
             Assert.That(app.HelpTextGenerator, Is.InstanceOf<CustomHelpTextGenerator>());
