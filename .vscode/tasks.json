@@ -73,7 +73,7 @@
         {
             "label": "library: pack",
             "type": "shell",
-            "command": "dotnet pack -c Release --output /home/NW.UnivariateForecasting/",
+            "command": "dotnet pack -c Release --output /home/nw.univariateforecasting/",
             "options": {
                 "cwd": "${workspaceFolder}/src/NW.UnivariateForecasting"
             },
@@ -121,7 +121,7 @@
         {
             "label": "cli: pack",
             "type": "shell",
-            "command": "dotnet pack -c Release --output /home/NW.UnivariateForecasting/",
+            "command": "dotnet pack -c Release --output /home/nw.univariateforecasting/",
             "options": {
                 "cwd": "${workspaceFolder}/src/NW.UnivariateForecasting.CLI"
             },
@@ -130,7 +130,7 @@
         {
             "label": "cli: publish",
             "type": "shell",
-            "command": "for RID in linux-arm64 win-x64 linux-x64; do dotnet publish /p:PublishSingleFile=true /p:PublishTrimmed=false /p:DebugType=None --self-contained true -c Release -r $RID --output /home/NW.UnivariateForecasting/temp/; done",
+            "command": "for RID in linux-arm64 win-x64 linux-x64; do dotnet publish /p:PublishSingleFile=true /p:PublishTrimmed=false /p:DebugType=None --self-contained true -c Release -r $RID --output /home/nw.univariateforecasting/temp/; done",
             "options": {
                 "cwd": "${workspaceFolder}/src/NW.UnivariateForecasting.CLI"
             },
