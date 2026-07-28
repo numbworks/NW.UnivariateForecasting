@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
@@ -162,10 +161,12 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
                     messagesAsciiBanner[0],
                     Is.EqualTo(LibraryBroker.SeparatorLine)
                     );
+            /*
             Assert.That(
                     messagesAsciiBanner[1],
                     Is.EqualTo(new UnivariateForecaster().AsciiBanner)
                     );
+            */
             Assert.That(
                     messagesAsciiBanner[2],
                     Is.EqualTo(LibraryBroker.SeparatorLine)
@@ -243,11 +244,11 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Shared
                         slidingWindowManager: new SlidingWindowManager(),
                         observationManager: new ObservationManager(),
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         nowFunction: ComponentBag.DefaultNowFunction,
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+                        versionFunction: ComponentBag.DefaultVersionFunction
             );
 
             return (messages, messagesAsciiBanner, componentBag);

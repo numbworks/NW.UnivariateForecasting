@@ -160,7 +160,7 @@ namespace NW.UnivariateForecasting.CLI.Shared
         {
 
             componentBag.LoggingActionAsciiBanner(SeparatorLine);
-            componentBag.LoggingActionAsciiBanner(univariateForecaster.AsciiBanner);
+            // componentBag.LoggingActionAsciiBanner(univariateForecaster.AsciiBanner);
             componentBag.LoggingActionAsciiBanner(SeparatorLine);
 
         }

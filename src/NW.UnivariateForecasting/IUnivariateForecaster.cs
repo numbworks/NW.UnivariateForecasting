@@ -9,11 +9,6 @@ namespace NW.UnivariateForecasting
     {
 
         /// <summary>
-        /// Logs the library's ascii banner.
-        /// </summary>
-        void LogAsciiBanner();
-
-        /// <summary>
         /// Convert <paramref name="filePath"/> to <see cref="IFileInfoAdapter"/>
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
