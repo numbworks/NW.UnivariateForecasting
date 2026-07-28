@@ -1,6 +1,5 @@
 ﻿using System;
 using NW.Shared.Validation;
-using NW.UnivariateForecasting.CLI.ApplicationAbout;
 using NW.UnivariateForecasting.CLI.ApplicationSession;
 using NW.UnivariateForecasting.CLI.Shared;
 
@@ -31,12 +30,10 @@ namespace NW.UnivariateForecasting.CLI.Application
             Validator.ValidateObject(libraryBroker, nameof(libraryBroker));
             Validator.ValidateObject(sessionManagerBag, nameof(sessionManagerBag));
 
-            IAboutManager aboutManager = new AboutManager(libraryBroker);
             ISessionManager sessionManager = new SessionManager(libraryBroker, sessionManagerBag);
 
             ApplicationManagerBag applicationManagerBag
                 = new ApplicationManagerBag(
-                            aboutManager: aboutManager,
                             sessionManager: sessionManager
                         );
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using NW.UnivariateForecasting.CLI.ApplicationAbout;
 using NW.UnivariateForecasting.CLI.ApplicationSession;
 using NW.Shared.Validation;
 
@@ -14,7 +13,6 @@ namespace NW.UnivariateForecasting.CLI.Application
 
         #region Properties
 
-        public IAboutManager AboutManager { get; }
         public ISessionManager SessionManager { get; }
 
         #endregion
@@ -23,13 +21,11 @@ namespace NW.UnivariateForecasting.CLI.Application
 
         /// <summary>Initializes a <see cref="ApplicationManagerBag"/> instance.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public ApplicationManagerBag(IAboutManager aboutManager, ISessionManager sessionManager)
+        public ApplicationManagerBag(ISessionManager sessionManager)
         {
 
-            Validator.ValidateObject(aboutManager, nameof(aboutManager));
             Validator.ValidateObject(sessionManager, nameof(sessionManager));
 
-            AboutManager = aboutManager;
             SessionManager = sessionManager;
 
         }

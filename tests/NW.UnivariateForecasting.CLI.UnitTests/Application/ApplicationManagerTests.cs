@@ -54,14 +54,9 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Application
         {
 
             new TestCaseData(
-                new string[] { "about" },
-                (int)ExitCodes.Success
-            ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_01"),
-
-            new TestCaseData(
                 new string[] { "session" },
                 (int)ExitCodes.Success
-            ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_02")
+            ).SetArgDisplayNames($"{nameof(applicationManagerExceptionTestCases)}_01")
 
         };
 

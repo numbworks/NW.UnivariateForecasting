@@ -72,7 +72,6 @@ namespace NW.UnivariateForecasting.CLI.Application
             };
 
             app = AddRoot(app);
-            app = _applicationManagerBag.AboutManager.Add(app);
             app = _applicationManagerBag.SessionManager.Add(app);
 
             app.HelpOption(inherited: true);
