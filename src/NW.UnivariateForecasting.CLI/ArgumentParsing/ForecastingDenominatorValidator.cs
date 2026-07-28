@@ -6,7 +6,7 @@ using NW.UnivariateForecasting.Bags;
 namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <inheritdoc cref="IOptionValidator"/>
-    public class ForecastingDenominatorValidator : IOptionValidator, IForecastingDenominatorValidator
+    public class ForecastingDenominatorValidator : IOptionValidator
     {
 
         #region Fields
@@ -51,7 +51,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <inheritdoc cref="IForecastingDenominatorValidator.IsValid"/>
+        /// <summary>Checks if <paramref name="value"/> is valid or not.</summary>
         public bool IsValid(string value)
         {
 
@@ -71,7 +71,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <inheritdoc cref="IForecastingDenominatorValidator.ParseOrDefault"/>
+        /// <summary>Parses <paramref name="value"/> or returns <see cref="DefaultValue"/> if <paramref name="value"/> is not valid.</summary>
         public double? ParseOrDefault(string value)
         {
 

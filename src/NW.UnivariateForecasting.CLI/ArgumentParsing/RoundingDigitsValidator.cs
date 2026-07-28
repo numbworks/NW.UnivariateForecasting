@@ -51,7 +51,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <summary>Checks if <paramref name="value"/> is valid or not.</summary>        
+        /// <summary>Checks if <paramref name="value"/> is valid or not.</summary>
         public bool IsValid(string value)
         {
 
@@ -71,7 +71,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
-        /// <summary>Parses <paramref name="value"/> or returns <see cref="DefaultValue"/> if <paramref name="value"/> is not valid.</summary>        
+        /// <summary>Parses <paramref name="value"/> or returns <see cref="DefaultValue"/> if <paramref name="value"/> is not valid.</summary>
         public uint? ParseOrDefault(string value)
         {
 
