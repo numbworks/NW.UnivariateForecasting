@@ -1,0 +1,200 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\NW.UnivariateForecasting\NW.UnivariateForecasting.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);SYSLIB0014;1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
+    <PackageReference Include="nw.shared.serialization" Version="1.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <AssemblyName>NW.UnivariateForecasting.CLI</AssemblyName>
+    <ExecutableName>nwunif</ExecutableName>
+    <Version>4.2.1</Version>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <Authors>numbworks</Authors>
+    <Company>numbworks</Company>
+    <Product>NW.UnivariateForecasting</Product>
+    <Copyright>numbworks</Copyright>
+    <ApplicationIcon>$(MSBuildThisFileDirectory)../../scripts/nwbuilders/numbworks_logo_256x256px.ico</ApplicationIcon>
+    <Description>nwunif is a CLI application to perform Univariate Forecasting on your own values. Time Series Forecasting is a machine learning technique that aims to predict the next values in a time series when a subset of subsequent values is provided.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>  
+  </PropertyGroup>
+
+  <Target Name="RenamePublishedExecutable" AfterTargets="Publish">
+    <Exec Condition="Exists('$(PublishDir)NW.UnivariateForecasting.CLI')" 
+          Command="mv &quot;$(PublishDir)NW.UnivariateForecasting.CLI&quot; &quot;$(PublishDir)$(ExecutableName)&quot;" />
+
+    <Exec Condition="Exists('$(PublishDir)NW.UnivariateForecasting.CLI.exe')" 
+          Command="mv &quot;$(PublishDir)NW.UnivariateForecasting.CLI.exe&quot; &quot;$(PublishDir)$(ExecutableName).exe&quot;" />
+  </Target>
+
+  <Target Name="ZipCustomOutput" AfterTargets="Publish">
+    <PropertyGroup>
+      <ExecutableExtension Condition="$(RuntimeIdentifier.StartsWith('win'))">.exe</ExecutableExtension>
+      <ExecutableExtension Condition="!$(RuntimeIdentifier.StartsWith('win'))"></ExecutableExtension>
+
+      <BinaryName>$(ExecutableName)$(ExecutableExtension)</BinaryName>
+
+      <ZipFileName Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(ExecutableName)-v$(Version)-linux-amd64.zip</ZipFileName>
+      <ZipFileName Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">$(ExecutableName)-v$(Version)-linux-arm64.zip</ZipFileName>
+      <ZipFileName Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(ExecutableName)-v$(Version)-win64.zip</ZipFileName>
+      <ZipFileName Condition="'$(ZipFileName)' == ''">$(ExecutableName)-v$(Version)-$(RuntimeIdentifier).zip</ZipFileName>
+      
+      <SourceFilePath>$(PublishDir)$(BinaryName)</SourceFilePath>
+      <FinalZipPath>$(PublishDir)..\$(ZipFileName)</FinalZipPath>
+    </PropertyGroup>
+
+    <Error Condition="!Exists('$(SourceFilePath)')" Text="Executable not found at $(SourceFilePath)" />
+
+    <ZipDirectory 
+      SourceDirectory="$(PublishDir)" 
+      DestinationFile="$(FinalZipPath)" 
+      Overwrite="true" />
+
+    <RemoveDir Directories="$(PublishDir)" />
+    
+    <Message Importance="high" Text="Zipped package successfully created: $(FinalZipPath)" />
+  </Target>
+
+  <Target Name="CreateDebianPackage" AfterTargets="ZipCustomOutput" Condition="!$(RuntimeIdentifier.StartsWith('win'))">
+    
+    <PropertyGroup>
+      <ZipFileDir>/home/nw.univariateforecasting/</ZipFileDir>
+
+      <ZipFileRuntimeIdentifier>$(RuntimeIdentifier)</ZipFileRuntimeIdentifier>
+      <ZipFileRuntimeIdentifier Condition="'$(RuntimeIdentifier)' == 'linux-x64'">linux-amd64</ZipFileRuntimeIdentifier>
+      
+      <ZipFileName>$(ExecutableName)-v$(Version)-$(ZipFileRuntimeIdentifier).zip</ZipFileName>
+      <SourceZipPath>$(ZipFileDir)$(ZipFileName)</SourceZipPath>
+
+      <MdSourcePath>$(MSBuildProjectDirectory)/../../scripts/nwbuilders/$(ExecutableName).md</MdSourcePath>
+      <TempManPath>/tmp/$(ExecutableName).1</TempManPath>
+      
+      <DebArch Condition="'$(RuntimeIdentifier)' == 'linux-x64'">amd64</DebArch>
+      <DebArch Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">arm64</DebArch>
+      <DebArch Condition="'$(DebArch)' == ''">all</DebArch>
+
+      <DebLayoutDir>/tmp/$(ExecutableName)-$(DebArch)-layout</DebLayoutDir>
+      <PackageFileName>$(ExecutableName)-v$(Version)-linux-$(DebArch).deb</PackageFileName>
+    </PropertyGroup>
+
+    <Exec Command="go-md2man -in &quot;$(MdSourcePath)&quot; -out &quot;$(TempManPath)&quot;" />
+
+    <RemoveDir Directories="$(DebLayoutDir)" />
+    <MakeDir Directories="$(DebLayoutDir)/DEBIAN" />
+    <MakeDir Directories="$(DebLayoutDir)/usr/bin" />
+    <MakeDir Directories="$(DebLayoutDir)/usr/share/man/man1" />
+    
+    <PropertyGroup>
+      <UnzipTemp>/tmp/unzip-$(DebArch)</UnzipTemp>
+    </PropertyGroup>
+
+    <RemoveDir Directories="$(UnzipTemp)" />
+    <MakeDir Directories="$(UnzipTemp)" />
+    <Exec Command="unzip -q &quot;$(SourceZipPath)&quot; -d &quot;$(UnzipTemp)&quot;" />
+
+    <Exec Command="if [ -f &quot;$(UnzipTemp)/$(ExecutableName)&quot; ]; then cp &quot;$(UnzipTemp)/$(ExecutableName)&quot; &quot;$(DebLayoutDir)/usr/bin/&quot;; else cp &quot;$(UnzipTemp)/$(ExecutableName).dll&quot; &quot;$(DebLayoutDir)/usr/bin/$(ExecutableName)&quot;; fi" />
+    <Exec Command="chmod 755 &quot;$(DebLayoutDir)/usr/bin/$(ExecutableName)&quot;" />
+
+    <Exec Command="cp &quot;$(TempManPath)&quot; &quot;$(DebLayoutDir)/usr/share/man/man1/$(ExecutableName).1&quot;" />
+    <Exec Command="gzip -n9 &quot;$(DebLayoutDir)/usr/share/man/man1/$(ExecutableName).1&quot;" />
+
+    <MakeDir Directories="$(DebLayoutDir)/usr/share/applications" />
+    <MakeDir Directories="$(DebLayoutDir)/usr/share/pixmaps" />
+
+    <Exec Command="cp &quot;$(MSBuildProjectDirectory)/../../scripts/nwbuilders/numbworks_logo_256x256px.png&quot; &quot;$(DebLayoutDir)/usr/share/pixmaps/$(ExecutableName).png&quot;" />
+
+    <ItemGroup>
+      <DesktopLines Include="[Desktop Entry]" />
+      <DesktopLines Include="Name=$(ExecutableName)" />
+      <DesktopLines Include="Exec=/bin/bash -c &quot;/usr/bin/$(ExecutableName)%3B exec bash&quot;" />
+      <DesktopLines Include="Icon=$(ExecutableName)" />
+      <DesktopLines Include="Type=Application" />
+      <DesktopLines Include="Categories=Utility;" />
+      <DesktopLines Include="Terminal=true" />
+    </ItemGroup>
+
+    <WriteLinesToFile 
+        File="$(DebLayoutDir)/usr/share/applications/$(ExecutableName).desktop" 
+        Lines="@(DesktopLines)" 
+        Overwrite="true" />
+
+    <Exec Command="chmod 644 &quot;$(DebLayoutDir)/usr/share/applications/$(ExecutableName).desktop&quot;" />
+    <Exec Command="chmod 644 &quot;$(DebLayoutDir)/usr/share/pixmaps/$(ExecutableName).png&quot;" />
+
+    <ItemGroup>
+      <ControlLines Include="Package: $(ExecutableName)" />
+      <ControlLines Include="Version: $(Version)" />
+      <ControlLines Include="Section: utils" />
+      <ControlLines Include="Priority: optional" />
+      <ControlLines Include="Architecture: $(DebArch)" />
+      <ControlLines Include="Maintainer: $(Authors)" />
+      <ControlLines Include="Description: $(Description)" />
+    </ItemGroup>
+
+    <WriteLinesToFile File="$(DebLayoutDir)/DEBIAN/control" Lines="@(ControlLines)" Overwrite="true" />
+
+    <ItemGroup>
+      <PostLines Include="#!/bin/sh" />
+      <PostLines Include="set -e" />
+      <PostLines Include="if [ &quot;%241&quot; = &quot;configure&quot; ]; then" />
+      <PostLines Include="    mandb -q" />
+      <PostLines Include="    update-desktop-database /usr/share/applications || true" />
+      <PostLines Include="    update-icon-caches /usr/share/icons/hicolor || true" />
+      <PostLines Include="fi" />
+      <PostLines Include="exit 0" />
+    </ItemGroup>
+
+    <WriteLinesToFile File="$(DebLayoutDir)/DEBIAN/postinst" Lines="@(PostLines)" Overwrite="true" />
+    
+    <Exec Command="chmod 755 &quot;$(DebLayoutDir)/DEBIAN/postinst&quot;" />
+    <Exec Command="cd &quot;$(DebLayoutDir)&quot; &amp;&amp; dpkg-deb --build --root-owner-group . &quot;$(ZipFileDir)/$(PackageFileName)&quot;" />
+
+    <RemoveDir Directories="$(UnzipTemp)" />
+    <RemoveDir Directories="$(DebLayoutDir)" />
+    <Exec Command="rm -f &quot;$(TempManPath)&quot;" />
+
+    <Message Importance="high" Text="Debian package successfully created: $(ZipFileDir)/$(PackageFileName)" />
+  </Target>
+
+  <ItemGroup>
+    <None Include="../../scripts/nwbuilders/numbworks_logo_256x256px.png" Pack="true" PackagePath="\" />
+    <None Include="../../scripts/nwbuilders/NW.UnivariateForecasting.CLI.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>nwunif</ToolCommandName>
+    <PackageId>NW.UnivariateForecasting.CLI</PackageId>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <PackageReadmeFile>NW.UnivariateForecasting.CLI.md</PackageReadmeFile>
+    <PackageIcon>numbworks_logo_256x256px.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/numbworks/NW.UnivariateForecasting</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/numbworks/NW.UnivariateForecasting</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>library csharp machine learning univariate forecasting timeseriesanalysis</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsTestProject>false</IsTestProject>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
+    <GenerateTestingPlatformEntryPoint>false</GenerateTestingPlatformEntryPoint>
+  </PropertyGroup>
+
+</Project>

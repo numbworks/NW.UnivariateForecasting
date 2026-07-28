@@ -1,0 +1,43 @@
+﻿using NW.UnivariateForecasting.Bags;
+
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
+{
+    /// <inheritdoc cref="ISettingBagFactory"/>
+    public class SettingBagFactory : ISettingBagFactory
+    {
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Initializes a <see cref="SettingBagFactory"/> instance.</summary>
+        public SettingBagFactory() { }
+
+        #endregion
+
+        #region Methods (public)
+
+        public SettingBag Create()
+            => new SettingBag();
+
+        public SettingBag Create(ForecastData forecastData)
+        {
+
+            SettingBag settingBag = new SettingBag(
+                    forecastingDenominator: forecastData.ForecastingDenominator ?? SettingBag.DefaultForecastingDenominator,
+                    folderPath: forecastData.FolderPath ?? SettingBag.DefaultFolderPath,
+                    roundingDigits: forecastData.RoundingDigits ?? SettingBag.DefaultRoundingDigits
+                );
+
+            return settingBag;
+
+        }
+
+        #endregion
+
+    }
+}

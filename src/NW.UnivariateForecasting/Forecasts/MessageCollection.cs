@@ -108,8 +108,3 @@ namespace NW.UnivariateForecasting.Forecasts
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 08.03.2023
-*/

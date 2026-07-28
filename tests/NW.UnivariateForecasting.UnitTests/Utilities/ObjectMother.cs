@@ -82,8 +82,3 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 09.02.2024
-*/

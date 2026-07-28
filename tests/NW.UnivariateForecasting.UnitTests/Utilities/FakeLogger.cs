@@ -25,7 +25,7 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public void Log(string message)
             => Messages.Add(message);
@@ -34,8 +34,3 @@ namespace NW.UnivariateForecasting.UnitTests.Utilities
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 14.11.2022
-*/

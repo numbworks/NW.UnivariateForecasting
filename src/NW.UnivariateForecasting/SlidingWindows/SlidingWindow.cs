@@ -31,7 +31,7 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
         public override string ToString()
             => ToString(true);
@@ -65,8 +65,3 @@ namespace NW.UnivariateForecasting.SlidingWindows
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 16.02.2023
-*/

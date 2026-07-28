@@ -58,13 +58,8 @@ namespace NW.UnivariateForecasting.Bags
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
         #endregion
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 08.02.2024
-*/

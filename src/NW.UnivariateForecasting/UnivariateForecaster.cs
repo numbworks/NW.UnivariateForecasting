@@ -25,10 +25,6 @@ namespace NW.UnivariateForecasting
         #endregion
 
         #region Properties
-
-        public string Version { get; }
-        public string AsciiBanner { get; }
-
         #endregion
 
         #region Constructors
@@ -44,8 +40,7 @@ namespace NW.UnivariateForecasting
             _settingBag = settingBag;
             _componentBag = componentBag;
 
-            Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            AsciiBanner = _componentBag.AsciiBannerManager.Create(Version);
+
 
         }
 
@@ -57,10 +52,8 @@ namespace NW.UnivariateForecasting
 
         #endregion
 
-        #region Methods_public
+        #region Methods (public)
 
-        public void LogAsciiBanner()
-            => _componentBag.LoggingActionAsciiBanner(AsciiBanner);
         public IFileInfoAdapter Convert(string filePath)
             => _componentBag.FileManager.Create(filePath);
 
@@ -117,7 +110,7 @@ namespace NW.UnivariateForecasting
             ForecastingSession session = new ForecastingSession(
                     init: init,
                     observations: observations,
-                    version: Version
+                    version: _componentBag.VersionFunction()
                 );
 
             return session;
@@ -131,7 +124,7 @@ namespace NW.UnivariateForecasting
 
         #endregion
 
-        #region Methods_private
+        #region Methods (private)
 
         private T LoadOrDefault<T>(IFileInfoAdapter jsonFile)
         {
@@ -230,8 +223,3 @@ namespace NW.UnivariateForecasting
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 14.02.2024
-*/

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using NW.UnivariateForecasting.AsciiBanner;
 using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Filenames;
 using NW.UnivariateForecasting.Forecasts;
@@ -119,9 +118,6 @@ namespace NW.UnivariateForecasting.UnitTests
             // Assert
             Assert.That(actual, Is.InstanceOf<UnivariateForecaster>());
 
-            Assert.That(actual.AsciiBanner, Is.InstanceOf<string>());
-            Assert.That(actual.Version, Is.InstanceOf<string>());
-
         }
 
         [TestCaseSource(nameof(univariateForecasterExceptionTestCases))]
@@ -133,53 +129,6 @@ namespace NW.UnivariateForecasting.UnitTests
         public void Forecast_ShouldThrowACertainException_WhenUnproperArguments
             (TestDelegate del, Type expectedType, string expectedMessage)
                 => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
-
-        [Test]
-        public void LogAsciiBanner_ShouldLogAsExpected_WhenInvoked()
-        {
-
-            // Arrange
-            List<string> actualLogMessages = new List<string>();
-            Action<string> fakeLoggingActionAsciiBanner = (message) => actualLogMessages.Add(message);
-
-            SettingBag settingBag = new SettingBag(
-                            forecastingDenominator: SettingBag.DefaultForecastingDenominator,
-                            folderPath: SettingBag.DefaultFolderPath,
-                            roundingDigits: 2
-                        );
-
-            ComponentBag componentBag
-                = new ComponentBag(
-                        slidingWindowManager: new SlidingWindowManager(),
-                        observationManager: new ObservationManager(),
-                        fileManager: new FileManager(),
-                        roundingFunction: ComponentBag.DefaultRoundingFunction,
-                        loggingAction: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        loggingActionAsciiBanner: fakeLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
-                        filenameFactory: new FilenameFactory(),
-                        nowFunction: ComponentBag.DefaultNowFunction,
-                        forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
-                    );
-
-            UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
-
-            List<string> expectedMessages = new List<string>()
-            {
-
-                new AsciiBannerManager().Create(univariateForecaster.Version)
-
-            };
-
-            // Act            
-            univariateForecaster.LogAsciiBanner();
-
-            // Assert
-            Assert.That(actualLogMessages, Is.EqualTo(expectedMessages));
-
-        }
-
 
         [TestCaseSource(nameof(loadInitOrDefaultExceptionTestCases))]
         public void LoadInitOrDefault_ShouldThrowACertainException_WhenUnproperArguments
@@ -208,11 +157,11 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         nowFunction: ComponentBag.DefaultNowFunction,
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+                        versionFunction: ComponentBag.DefaultVersionFunction
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
@@ -262,11 +211,11 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         nowFunction: ComponentBag.DefaultNowFunction,
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+                        versionFunction: ComponentBag.DefaultVersionFunction
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
@@ -297,7 +246,7 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
-            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<DateTime> fakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
             SettingBag settingBag = new SettingBag(
                             forecastingDenominator: SettingBag.DefaultForecastingDenominator,
@@ -315,18 +264,18 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
-                        nowFunction: FakeNowFunction,
+                        nowFunction: fakeNowFunction,
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+                        versionFunction: ComponentBag.DefaultVersionFunction
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
 
             string folderPath = Filenames.ObjectMother.FakeFilePath;
             string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
-            string filePath = Path.Combine(folderPath, fileName);
+            string filePath = Path.GetFullPath(Path.Combine(folderPath, fileName));
             IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, filePath);
 
             List<string> expectedLogMessages = new List<string>()
@@ -355,7 +304,7 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
-            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<DateTime> fakeNowFunction = () => Filenames.ObjectMother.FakeNow;
 
             SettingBag settingBag = new SettingBag(
                             forecastingDenominator: SettingBag.DefaultForecastingDenominator,
@@ -372,18 +321,18 @@ namespace NW.UnivariateForecasting.UnitTests
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingAction: fakeLoggingAction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
-                        nowFunction: FakeNowFunction,
+                        nowFunction: fakeNowFunction,
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+                        versionFunction: ComponentBag.DefaultVersionFunction
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
 
             string folderPath = Filenames.ObjectMother.FakeFilePath;
             string fileName = $"unifor_session_{Filenames.ObjectMother.FakeNowString}.json";
-            string filePath = Path.Combine(folderPath, fileName);
+            string filePath = Path.GetFullPath(Path.Combine(folderPath, fileName));
             IFileInfoAdapter fakeJsonFile = new FakeFileInfoAdapter(true, filePath);
 
             List<string> expectedLogMessages = new List<string>()
@@ -452,7 +401,8 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
-            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<DateTime> fakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<string> fakeVersionFunction = () => "4.2.0.0";
 
             SettingBag settingBag = new SettingBag(
                             forecastingDenominator: SettingBag.DefaultForecastingDenominator,
@@ -472,15 +422,16 @@ namespace NW.UnivariateForecasting.UnitTests
                                 loggingAction: fakeLoggingAction
                             ),
                         loggingAction: fakeLoggingAction,
-                        nowFunction: FakeNowFunction,
+                        nowFunction: fakeNowFunction,
 
                         fileManager: new FileManager(),
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+
+                        versionFunction: fakeVersionFunction
 
                     );
 
@@ -546,7 +497,8 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
-            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<DateTime> fakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<string> fakeVersionFunction = () => "4.2.0.0";
 
             SettingBag settingBag = new SettingBag(
                             forecastingDenominator: SettingBag.DefaultForecastingDenominator,
@@ -566,15 +518,17 @@ namespace NW.UnivariateForecasting.UnitTests
                                 loggingAction: SlidingWindowManager.DefaultLoggingAction // We skip these messages.
                             ),
                         loggingAction: fakeLoggingAction,
-                        nowFunction: FakeNowFunction,
+                        nowFunction: fakeNowFunction,
 
                         fileManager: new FileManager(),
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+
+                        versionFunction: fakeVersionFunction
+
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
@@ -623,7 +577,8 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
-            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<DateTime> fakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<string> fakeVersionFunction = () => "4.2.0.0";
 
             SettingBag settingBag = new SettingBag(
                             forecastingDenominator: SettingBag.DefaultForecastingDenominator,
@@ -643,15 +598,17 @@ namespace NW.UnivariateForecasting.UnitTests
                                 loggingAction: SlidingWindowManager.DefaultLoggingAction // We skip these messages.
                             ),
                         loggingAction: fakeLoggingAction,
-                        nowFunction: FakeNowFunction,
+                        nowFunction: fakeNowFunction,
 
                         fileManager: new FileManager(),
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+
+                        versionFunction: fakeVersionFunction
+
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
@@ -700,7 +657,8 @@ namespace NW.UnivariateForecasting.UnitTests
             List<string> actualLogMessages = new List<string>();
             Action<string> fakeLoggingAction = (message) => actualLogMessages.Add(message);
 
-            Func<DateTime> FakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<DateTime> fakeNowFunction = () => Filenames.ObjectMother.FakeNow;
+            Func<string> fakeVersionFunction = () => "4.2.0.0";
 
             SettingBag settingBag = new SettingBag(
                             forecastingDenominator: SettingBag.DefaultForecastingDenominator,
@@ -720,15 +678,17 @@ namespace NW.UnivariateForecasting.UnitTests
                                 loggingAction: SlidingWindowManager.DefaultLoggingAction // We skip these messages.
                             ),
                         loggingAction: fakeLoggingAction,
-                        nowFunction: FakeNowFunction,
+                        nowFunction: fakeNowFunction,
 
                         fileManager: new FileManager(),
                         roundingFunction: ComponentBag.DefaultRoundingFunction,
                         loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                        asciiBannerManager: new AsciiBannerManager(),
                         filenameFactory: new FilenameFactory(),
                         forecastingInitManager: new ForecastingInitManager(),
-                        serializerFactory: new SerializerFactory()
+                        serializerFactory: new SerializerFactory(),
+
+                        versionFunction: fakeVersionFunction
+                    
                     );
 
             UnivariateForecaster univariateForecaster = new UnivariateForecaster(settingBag, componentBag);
@@ -779,8 +739,3 @@ namespace NW.UnivariateForecasting.UnitTests
 
     }
 }
-
-/*
-    Author: numbworks@gmail.com
-    Last Update: 09.02.2024
-*/

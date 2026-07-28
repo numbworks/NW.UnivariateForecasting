@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -31,10 +31,19 @@ jobs:
       working-directory: ./
       run: dotnet test --no-build --verbosity normal
       
-    - name: Pack
-      working-directory: ./src/NW.UnivariateForecasting/
-      run: dotnet pack --configuration Release NW.UnivariateForecasting.csproj
+    - name: Find packages
+      run: Get-ChildItem -Recurse -Filter *.nupkg | Select-Object FullName
 
-    - name: Push to NuGet.org
-      working-directory: ./src/NW.UnivariateForecasting/bin/Release/
-      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate 
+    - name: Pack library
+      working-directory: ./src/NW.UnivariateForecasting
+      run: dotnet pack --configuration Release --no-build --output bin/Release
+
+    - name: Publish library to NuGet.org
+      run: Get-ChildItem ./src/NW.UnivariateForecasting/bin/Release/*.nupkg | ForEach-Object { dotnet nuget push $_.FullName --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate }
+
+    - name: Pack tool
+      working-directory: ./src/NW.UnivariateForecasting.CLI
+      run: dotnet pack --configuration Release --no-build
+
+    - name: Publish tool to NuGet.org
+      run: Get-ChildItem ./src/NW.UnivariateForecasting.CLI/nupkg/*.nupkg | ForEach-Object { dotnet nuget push $_.FullName --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate }
