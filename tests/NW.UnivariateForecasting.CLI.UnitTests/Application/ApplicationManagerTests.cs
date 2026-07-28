@@ -1,6 +1,7 @@
 ﻿using System;
 using NW.UnivariateForecasting.CLI.Application;
 using NW.UnivariateForecasting.CLI.ApplicationSession;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using NW.UnivariateForecasting.CLI.Shared;
 using NW.UnivariateForecasting.CLI.UnitTests.Utilities;
 using NUnit.Framework;

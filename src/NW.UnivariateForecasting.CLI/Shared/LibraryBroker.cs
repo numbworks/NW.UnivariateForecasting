@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using NW.UnivariateForecasting;
-using NW.UnivariateForecasting.Bags;
 using NW.Shared.Files;
-using NW.UnivariateForecasting.Forecasts;
 using NW.Shared.Validation;
+using NW.UnivariateForecasting.Bags;
+using NW.UnivariateForecasting.Forecasts;
+using NW.UnivariateForecasting.CLI.ArgumentParsing;
 
 namespace NW.UnivariateForecasting.CLI.Shared
 {
