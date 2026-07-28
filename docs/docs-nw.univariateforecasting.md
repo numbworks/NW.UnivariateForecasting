@@ -179,7 +179,7 @@ Observation observation
 The original time series was: `{ 58.50, 615.26, 659.84, 635.69, 612.27, 632.94 }`.
 According to the univariate forecasting, the next value of the series will be: `519.23`.
 
-<u>Side note</u>: we could use `Forecast` to recursively add each `Observation` to the `SlidingWindow` and perform the forecast more than one step ahead, but obviously the predictions will be quite on the pessimistic side.
+Side note: we could use `Forecast` to recursively add each `Observation` to the `SlidingWindow` and perform the forecast more than one step ahead, but obviously the predictions will be quite on the pessimistic side.
 
 ## The Algorithm
 
@@ -187,52 +187,52 @@ Let's explain the algorithm on which the library is based by using an example.
 
 This is our trusty `SlidingWindow`:
 
-| <sub>Id</sub> | <sub>X_Actual</sub> | <sub>Y_Forecasted</sub> |
+| Id | X_Actual | Y_Forecasted |
 |---|---|---|
-| <sub>1</sub> | <sub>58,5</sub> | <sub>615,26</sub> |
-| <sub>2</sub> | <sub>615,26</sub> | <sub>659,84</sub> |
-| <sub>3</sub> | <sub>659,84</sub> | <sub>635,69</sub> | 
-| <sub>4</sub> | <sub>635,69</sub> | <sub>612,27</sub> |
-| <sub>5</sub> | <sub>612,27</sub> | <sub>632,94</sub> |
-| <sub>6</sub> | <sub>632,94</sub> | <sub>`[NULL]`</sub> |
+| 1 | 58,5 | 615,26 |
+| 2 | 615,26 | 659,84 |
+| 3 | 659,84 | 635,69 | 
+| 4 | 635,69 | 612,27 |
+| 5 | 612,27 | 632,94 |
+| 6 | 632,94 | `[NULL]` |
 
 The first thing we do is to divide each `X_Actual` for the corresponding `Y_Forecasted`:
 
-| <sub>Id</sub> | <sub>XByY</sub>  |
+| Id | XByY  |
 |---|---|
-| <sub>1</sub> | <sub>0,1</sub> |
-| <sub>2</sub> | <sub>0,93</sub> |
-| <sub>3</sub> | <sub>1,04</sub> |
-| <sub>4</sub> | <sub>1,04</sub> |
-| <sub>5</sub> | <sub>0,97</sub> |
+| 1 | 0,1 |
+| 2 | 0,93 |
+| 3 | 1,04 |
+| 4 | 1,04 |
+| 5 | 0,97 |
 
 Then, we do calculate C by averaging all the values in the `XByY` column:
 
-| <sub>C</sub> |
+| C |
 |---|
-| <sub>0,82</sub> |
+| 0,82 |
 
 At this point, we do substract `C` from each values in `XByY`:
 
-| <sub>Id</sub> | <sub>(XByY)-C</sub>  |
+| Id | (XByY)-C  |
 |---|---|
-| <sub>1</sub> | <sub>-0,72</sub> |
-| <sub>2</sub> | <sub>0,11</sub> |
-| <sub>3</sub> | <sub>0,22</sub> |
-| <sub>4</sub> | <sub>0,22</sub> |
-| <sub>5</sub> | <sub>0,15</sub> |
+| 1 | -0,72 |
+| 2 | 0,11 |
+| 3 | 0,22 |
+| 4 | 0,22 |
+| 5 | 0,15 |
 
 Calculating the MODE of `(XByY)-C` will return the error `E`:
 
-| <sub>E</sub> |
+| E |
 |---|
-| <sub>0,22</sub> |
+| 0,22 |
 
 The function to forecast the next value in the series is `Y=F(X)+E`, which can be expressed as `Y=CX+E`, where X is the actual value. Now that we have both `C` and `E`, it's just a matter of replacing them in the equation to obtain the `Y_Forecasted` value we are looking for:
 
-| <sub>Y_Forecasted</sub> |
+| Y_Forecasted |
 |---|
-| <sub>519,23</sub> |
+| 519,23 |
 
 The library offers the possibility to skip all the calculations above and provide the C and E coefficients by yourself.
 
