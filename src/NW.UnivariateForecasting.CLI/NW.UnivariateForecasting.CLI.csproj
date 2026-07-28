@@ -72,7 +72,7 @@
   <Target Name="CreateDebianPackage" AfterTargets="ZipCustomOutput" Condition="!$(RuntimeIdentifier.StartsWith('win'))">
     
     <PropertyGroup>
-      <ZipFileDir>/home/NW.UnivariateForecasting/</ZipFileDir>
+      <ZipFileDir>/home/nw.univariateforecasting/</ZipFileDir>
 
       <ZipFileRuntimeIdentifier>$(RuntimeIdentifier)</ZipFileRuntimeIdentifier>
       <ZipFileRuntimeIdentifier Condition="'$(RuntimeIdentifier)' == 'linux-x64'">linux-amd64</ZipFileRuntimeIdentifier>
