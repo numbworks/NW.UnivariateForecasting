@@ -5,6 +5,10 @@ using NW.Shared.Validation;
 using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Forecasts;
 using McMaster.Extensions.CommandLineUtils;
+using NW.UnivariateForecasting.CLI.AsciiBanners;
+using NW.UnivariateForecasting.CLI.TerminalWindows;
+using McMaster.Extensions.CommandLineUtils.Validation;
+using McMaster.Extensions.CommandLineUtils.HelpText;
 
 namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
@@ -25,11 +29,14 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         public static string SeparatorLine { get; } = string.Empty;
         public static Func<string, string> ErrorMessageFormatter = (message) => $"ERROR: {message}";
 
-        public ForecastingDenominatorValidator ForecastingDenominatorValidator { get; }
-        public RoundingDigitsValidator RoundingDigitsValidator { get; }
+        public IDoubleManager DoubleManager { get; }
+        public IOptionValidator ForecastingDenominatorValidator { get; }
+        public IOptionValidator RoundingDigitsValidator { get; }
+        public IAsciiBannerManager AsciiBannerManager { get; }
+        public ITerminalWindowManager TerminalWindowManager { get; }
+        public IUnivariateForecasterFactory UnivariateForecasterFactory { get; }
         public IComponentBagFactory ComponentBagFactory { get; }
         public ISettingBagFactory SettingBagFactory { get; }
-        public IUnivariateForecasterFactory UnivariateForecasterFactory { get; }
 
         #endregion
 
@@ -37,16 +44,23 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         /// <summary>Initializes a <see cref="ArgumentManager"/> instance.</summary>
         public ArgumentManager(
+            IDoubleManager doubleManager = null,
+            IAsciiBannerManager asciiBannerManager = null,
+            ITerminalWindowManager terminalWindowManager = null,
+            IUnivariateForecasterFactory univariateForecasterFactory = null,
             IComponentBagFactory componentBagFactory = null,
-            ISettingBagFactory settingBagFactory = null,
-            IUnivariateForecasterFactory univariateForecasterFactory = null)
+            ISettingBagFactory settingBagFactory = null)
         {
 
             ForecastingDenominatorValidator = new ForecastingDenominatorValidator();
             RoundingDigitsValidator = new RoundingDigitsValidator();
+
+            DoubleManager = doubleManager ?? new DoubleManager();
+            AsciiBannerManager = asciiBannerManager ?? new AsciiBannerManager();
+            TerminalWindowManager = terminalWindowManager ?? new TerminalWindowManager();
+            UnivariateForecasterFactory = univariateForecasterFactory ?? new UnivariateForecasterFactory();
             ComponentBagFactory = componentBagFactory ?? new ComponentBagFactory();
             SettingBagFactory = settingBagFactory ?? new SettingBagFactory();
-            UnivariateForecasterFactory = univariateForecasterFactory ?? new UnivariateForecasterFactory();
 
             _componentBag = ComponentBagFactory.Create();
 
@@ -72,6 +86,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
             app.HelpOption(inherited: true);
 
+            AddCustomHelpTextGenerator(app);
             AddValidationErrorHandling(app);
 
             return app;
@@ -88,10 +103,9 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             app.OnExecute(() =>
             {
 
-                int exitCode = ShowHeader();
                 app.ShowHelp();
 
-                return exitCode;
+                return Success;
 
             });
 
@@ -119,10 +133,9 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             command.OnExecute(() =>
             {
 
-                int exitCode = ShowHeader();
                 command.ShowHelp();
 
-                return exitCode;
+                return Success;
 
             });
 
@@ -151,8 +164,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                                 init: initOption.Value(),
                                 folderPath: folderPathOption.Value(),
                                 saveSession: saveSessionOption.HasValue(),
-                                roundingDigits: RoundingDigitsValidator.ParseOrDefault(roundingDigitsOption.Value()),
-                                forecastingDenominator: ForecastingDenominatorValidator.ParseOrDefault(forecastingDenominatorOption.Value())
+                                roundingDigits: uint.Parse(roundingDigitsOption.Value()),
+                                forecastingDenominator: DoubleManager.ParseOrDefault(forecastingDenominatorOption.Value())
                         );
 
                     return RunSessionForecast(forecastData);
@@ -225,6 +238,61 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         }
 
+        private string CreateAsciiBanner()
+        {
+
+            string version = _componentBag.VersionFunction();
+            uint terminalWidth = TerminalWindowManager.GetOrCutoff();
+            string asciiBanner = AsciiBannerManager.Create(version, terminalWidth);
+
+            return asciiBanner;
+        
+        }
+        private void LogAsciiBanner()
+        {
+
+            string asciiBanner = CreateAsciiBanner();
+
+            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
+            _componentBag.LoggingActionAsciiBanner(asciiBanner);
+            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
+
+        }
+        private void LogFooter()
+            => _componentBag.LoggingActionAsciiBanner(SeparatorLine);
+        private int LogAndReturnFailure(Exception e)
+        {
+
+            _componentBag.LoggingAction(ErrorMessageFormatter(e.Message));
+
+            if (e.InnerException != null)
+                _componentBag.LoggingAction(ErrorMessageFormatter(e.InnerException.Message));
+
+            LogFooter();
+
+            return Failure;
+
+        }
+
+        private void AddCustomHelpTextGenerator(CommandLineApplication command, IHelpTextGenerator helpTextGenerator)
+        {
+
+            command.HelpTextGenerator = helpTextGenerator;
+            
+            foreach (CommandLineApplication subCommand in command.Commands)
+                AddCustomHelpTextGenerator(subCommand, helpTextGenerator);
+
+        }
+        private void AddCustomHelpTextGenerator(CommandLineApplication app)
+        {
+
+            CustomHelpTextGenerator customHelpTextGenerator = new CustomHelpTextGenerator(CreateAsciiBanner);
+            app.HelpTextGenerator = customHelpTextGenerator;
+
+            foreach (CommandLineApplication command in app.Commands)
+                AddCustomHelpTextGenerator(command, customHelpTextGenerator);
+        
+        }   
         private void AddValidationErrorHandling(CommandLineApplication app)
         {
 
@@ -243,6 +311,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                 AddValidationErrorHandling(command);
 
         }
+        
         private ForecastData Defaultize(ForecastData forecastData)
         {
 
@@ -257,33 +326,13 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             return updated;
 
         }
-        private int LogAndReturnFailure(Exception e)
-        {
-
-            _componentBag.LoggingAction(ErrorMessageFormatter(e.Message));
-
-            if (e.InnerException != null)
-                _componentBag.LoggingAction(ErrorMessageFormatter(e.InnerException.Message));
-
-            ShowFooter();
-
-            return Failure;
-
-        }
+        
         private int ShowHeader()
         {
-
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
+            
+            LogAsciiBanner();
 
             return Success;
-
-        }
-        private void ShowHeader(UnivariateForecaster univariateForecaster)
-        {
-
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
 
         }
         private void ShowFooter()
@@ -305,7 +354,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                 SettingBag settingBag = SettingBagFactory.Create(forecastData);
                 UnivariateForecaster univariateForecaster = UnivariateForecasterFactory.Create(settingBag, _componentBag);
 
-                ShowHeader(univariateForecaster);
+                ShowHeader();
 
                 string filePath = Path.Combine(forecastData.FolderPath, forecastData.Init);
                 IFileInfoAdapter initFile = univariateForecaster.Convert(filePath);
