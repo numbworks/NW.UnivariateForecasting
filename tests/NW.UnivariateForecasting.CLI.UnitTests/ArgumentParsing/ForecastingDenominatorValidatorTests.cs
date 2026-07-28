@@ -5,7 +5,7 @@ using NW.UnivariateForecasting.CLI.ArgumentParsing;
 using McMaster.Extensions.CommandLineUtils;
 using NUnit.Framework;
 
-namespace NW.UnivariateForecasting.CLI.UnitTests.ApplicationSession
+namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
 {
     [TestFixture]
     public class ForecastingDenominatorValidatorTests

@@ -3,7 +3,7 @@ using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.Validation;
 using NW.UnivariateForecasting.Bags;
 
-namespace NW.UnivariateForecasting.CLI.ApplicationSession
+namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 {
     /// <inheritdoc cref="IOptionValidator"/>
     public class ForecastingDenominatorValidator : IOptionValidator
