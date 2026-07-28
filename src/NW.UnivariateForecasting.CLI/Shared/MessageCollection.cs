@@ -13,13 +13,6 @@ namespace NW.UnivariateForecasting.CLI.Shared
         public static string Application_Name { get; } = "unifor";
         public static string Application_Description { get; } = "Command-line application to perform univariate forecasting tasks.";
 
-        public static string About_Name { get; } = "about";
-        public static string About_Description { get; } = "About this application.";
-        public static string About_Information_Author = "Author: numbworks";
-        public static string About_Information_Email = "Email: numbworks [AT] gmail [DOT] com";
-        public static string About_Information_Url = @"Github: http://www.github.com/numbworks";
-        public static string About_Information_License = "License: MIT License";
-
         public static string Session_Name { get; } = "session";
         public static string Session_Description { get; } 
             = "Groups all the features related to a single forecasting session.";

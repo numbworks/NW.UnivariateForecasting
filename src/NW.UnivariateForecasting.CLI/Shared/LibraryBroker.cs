@@ -74,28 +74,6 @@ namespace NW.UnivariateForecasting.CLI.Shared
             return Success;
 
         }
-        public int RunAboutMain()
-        {
-
-            ComponentBag componentBag = _componentBagFactory.Create();
-            SettingBag settingBag = _settingBagFactory.Create();
-            UnivariateForecaster univariateForecaster = _univariateForecasterFactory.Create(settingBag, componentBag);
-
-            ShowHeader(componentBag, univariateForecaster);
-
-            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.Application_Description);
-            componentBag.LoggingActionAsciiBanner(SeparatorLine);
-
-            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Author);
-            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Email);
-            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_Url);
-            componentBag.LoggingActionAsciiBanner(Shared.MessageCollection.About_Information_License);
-
-            ShowFooter(componentBag);
-
-            return Success;
-
-        }
         public int RunSessionForecast(ForecastData forecastData)
         {
 

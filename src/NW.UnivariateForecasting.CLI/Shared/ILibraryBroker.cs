@@ -11,10 +11,6 @@ namespace NW.UnivariateForecasting.CLI.Shared
         /// <returns>Always <see cref="ExitCodes.Success"/></returns>
         int ShowHeader();
 
-        /// <summary>Runs the <c>about</c> command of the CLI application.</summary>
-        /// <returns>Always <see cref="ExitCodes.Success"/></returns>
-        int RunAboutMain();
-
         /// <summary>Runs the <c>forecast</c> sub-command of the CLI application.</summary>
         /// <returns><see cref="ExitCodes"/></returns>
         int RunSessionForecast(ForecastData forecastData);
