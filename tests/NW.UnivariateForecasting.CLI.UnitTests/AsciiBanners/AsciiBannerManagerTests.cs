@@ -93,7 +93,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.AsciiBanners
 
             // Arrange
             string version = "1.0.0.0";
-            string expected = string.Join(Environment.NewLine, "********************", "* NWNGRAM v1.0.0.0 *", "********************", string.Empty);
+            string expected = string.Join(Environment.NewLine, "*******************", "* NWUNIF v1.0.0.0 *", "*******************", string.Empty);
 
             // Act
             string actual = new AsciiBannerManager().CreateMini(version);
