@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <Version>4.2.1</Version>
-    <AssemblyVersion>4.2.1.0</AssemblyVersion>
-    <FileVersion>4.2.1.0</FileVersion>
+    <Version>4.3.0</Version>
+    <AssemblyVersion>4.3.0.0</AssemblyVersion>
+    <FileVersion>4.3.0.0</FileVersion>
     <Authors>numbworks</Authors>
     <Copyright>numbworks 2026</Copyright>
     <Description>NW.UnivariateForecasting is a library to perform Univariate Forecasting on your own values. Time Series Forecasting is a machine learning technique that aims to predict the next values in a time series when a subset of subsequent values is provided.</Description>
