@@ -34,15 +34,21 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         public static string OPTION_FOLDERPATH_TEMPL { get; } = "--folderpath";
         public static string OPTION_FOLDERPATH_DESCR { get; }
-            = $"The path of the working folder. If not specified, '{SettingBag.DefaultFolderPath}' will be used.";
+            = string.Concat(
+                "(Optional) ",
+                "The path of the working folder. ",
+                $"If not specified, '{SettingBag.DefaultFolderPath}' will be used.");
 
         public static string OPTION_SAVESESSION_TEMPL { get; } = "--savesession";
         public static string OPTION_SAVESESSION_DESCR { get; }
-            = $"If provided, the forecasting session will be saved as JSON in the working folder.";
+            = string.Concat(
+                "(Optional) ",
+                "If provided, the forecasting session will be saved as JSON in the working folder.");
 
         public static string OPTION_ROUNDINGDIGITS_TEMPL { get; } = "--roundingdigits";
         public static string OPTION_ROUNDINGDIGITS_DESCR { get; }
             = string.Concat(
+                "(Optional) ",
                 "When coefficient and error are not provided by the user, they are generated and rounded. ",
                 $"If not specified, '{SettingBag.DefaultRoundingDigits}' will be used."
             );
@@ -50,6 +56,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         public static string OPTION_FORECASTINGDENOMINATOR_TEMPL { get; } = "--forecastingdenominator";
         public static string OPTION_FORECASTINGDENOMINATOR_DESCR { get; }
             = string.Concat(
+                "(Optional) ",
                 "'Y_Forecasted = 0' is a totally legit value. To avoid a 'divide-by-zero' error, we replace it with a comparably small amount while forecasting. ",
                 $"If not specified, '{SettingBag.DefaultForecastingDenominator.ToString("0.###############")}' will be used."
             );
