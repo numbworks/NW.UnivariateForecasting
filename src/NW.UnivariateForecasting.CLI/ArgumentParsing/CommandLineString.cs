@@ -54,6 +54,12 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                 $"If not specified, '{SettingBag.DefaultForecastingDenominator.ToString("0.###############")}' will be used."
             );
 
+        public static string OPTION_ENABLEUTC_TEMPL { get; } = "--enableutc";
+        public static string OPTION_ENABLEUTC_DESCR { get; }
+            = string.Concat(
+                "(Optional) ",
+                "Replaces local time with UTC time in timestamps.");
+
         #endregion
 
     }

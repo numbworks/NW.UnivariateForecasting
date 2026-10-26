@@ -55,7 +55,8 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
                         saveSession: true,
                         folderPath: null,
                         roundingDigits: null,
-                        forecastingDenominator: null
+                        forecastingDenominator: null,
+                        enableUTC: true
                     );
             SettingBag expected = new SettingBag(
                     folderPath: SettingBag.DefaultFolderPath,
@@ -85,7 +86,8 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
                         saveSession: true,
                         folderPath: @"C:\unifor\",
                         roundingDigits: 2,
-                        forecastingDenominator: 0.001
+                        forecastingDenominator: 0.001,
+                        enableUTC: true
                     );
             SettingBag expected = new SettingBag(
                     folderPath: @"C:\unifor\",

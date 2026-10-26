@@ -15,6 +15,7 @@
         public bool SaveSession { get; }
         public uint? RoundingDigits { get; }
         public double? ForecastingDenominator { get; }
+        public bool EnableUTC { get; }
 
         #endregion
 
@@ -26,7 +27,8 @@
                 string folderPath,
                 bool saveSession,
                 uint? roundingDigits,
-                double? forecastingDenominator
+                double? forecastingDenominator,
+                bool enableUTC
             ) 
         {
 
@@ -35,6 +37,7 @@
             SaveSession = saveSession;
             RoundingDigits = roundingDigits;
             ForecastingDenominator = forecastingDenominator;
+            EnableUTC = enableUTC;
 
         }
 
