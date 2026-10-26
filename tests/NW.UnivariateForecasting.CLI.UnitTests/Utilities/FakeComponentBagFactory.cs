@@ -30,7 +30,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.Utilities
 
         #region Methods (public)
 
-        public ComponentBag Create()
+        public ComponentBag Create(bool enableUTC = false)
                 => _fakeComponentBag;
 
         #endregion
