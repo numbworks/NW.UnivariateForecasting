@@ -21,8 +21,17 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
 
         #region Methods (public)
 
-        public ComponentBag Create()
-            => new ComponentBag();
+        public ComponentBag Create(bool enableUTC = false)
+        {
+
+            ComponentBag componentBag = new ComponentBag();
+
+            if (enableUTC)
+                componentBag = new ComponentBag(nowFunction : ComponentBag.DefaultUTCNowFunction);           
+            
+            return componentBag;
+
+        }
 
         #endregion
 

@@ -29,7 +29,8 @@ namespace NW.NGramTextClassificationClient.UnitTests.ArgumentParsing
                         folderPath: @"C:\unifor\",
                         saveSession: true,
                         roundingDigits: 2,
-                        forecastingDenominator: 0.001
+                        forecastingDenominator: 0.001,
+                        enableUTC: true
                     );
 
             // Assert
@@ -40,6 +41,7 @@ namespace NW.NGramTextClassificationClient.UnitTests.ArgumentParsing
             Assert.That(actual.SaveSession, Is.InstanceOf<bool>());
             Assert.That(actual.RoundingDigits, Is.InstanceOf<uint?>());
             Assert.That(actual.ForecastingDenominator, Is.InstanceOf<double?>());
+            Assert.That(actual.EnableUTC, Is.InstanceOf<bool>());
 
         }
 

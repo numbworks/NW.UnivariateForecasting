@@ -1,10 +1,10 @@
 ﻿using System;
+using NW.Shared.Files;
+using NW.Shared.Serialization;
 using NW.UnivariateForecasting.Bags;
 using NW.UnivariateForecasting.Filenames;
-using NW.Shared.Files;
 using NW.UnivariateForecasting.Forecasts;
 using NW.UnivariateForecasting.Observations;
-using NW.Shared.Serialization;
 using NW.UnivariateForecasting.SlidingWindows;
 using NUnit.Framework;
 
@@ -16,229 +16,205 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
 
         #region Fields
 
-        private static TestCaseData[] componentBagExceptionsTestCases =
+        private static TestCaseData[] componentBagDefaultValueTestCases =
         {
+            new TestCaseData(
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: null,
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.SlidingWindowManager, Is.InstanceOf<SlidingWindowManager>()))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_01"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: null,
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("slidingWindowManager").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_01"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: null,
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.ObservationManager, Is.InstanceOf<ObservationManager>()))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_02"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: null,
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("observationManager").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_02"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: null,
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.FileManager, Is.InstanceOf<FileManager>()))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_03"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: null,
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("fileManager").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_03"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: null,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.RoundingFunction, Is.EqualTo(ComponentBag.DefaultRoundingFunction)))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_04"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: null,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("roundingFunction").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_04"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: null,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.LoggingAction, Is.EqualTo(ComponentBag.DefaultLoggingAction)))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_05"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: null,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("loggingAction").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_05"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: null,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.LoggingActionAsciiBanner, Is.EqualTo(ComponentBag.DefaultLoggingActionAsciiBanner)))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_06"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: null,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("loggingActionAsciiBanner").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_06"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: null,
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.FilenameFactory, Is.InstanceOf<FilenameFactory>()))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_07"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: null,
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("filenameFactory").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_07"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: null,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.NowFunction, Is.EqualTo(ComponentBag.DefaultNowFunction)))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_08"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: null,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("nowFunction").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_08"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: null,
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.ForecastingInitManager, Is.InstanceOf<ForecastingInitManager>()))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_09"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: null,
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("forecastingInitManager").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_09"),
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: null,
+                                versionFunction: ComponentBag.DefaultVersionFunction
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.SerializerFactory, Is.InstanceOf<SerializerFactory>()))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_10"),
 
             new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: null,
-                                    versionFunction: ComponentBag.DefaultVersionFunction
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("serializerFactory").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_10"),
-
-            new TestCaseData(
-                new TestDelegate(
-                        () => new ComponentBag(
-                                    slidingWindowManager: new SlidingWindowManager(),
-                                    observationManager: new ObservationManager(),
-                                    fileManager: new FileManager(),
-                                    roundingFunction: ComponentBag.DefaultRoundingFunction,
-                                    loggingAction: ComponentBag.DefaultLoggingAction,
-                                    loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
-                                    filenameFactory: new FilenameFactory(),
-                                    nowFunction: ComponentBag.DefaultNowFunction,
-                                    forecastingInitManager: new ForecastingInitManager(),
-                                    serializerFactory: new SerializerFactory(),
-                                    versionFunction: null
-                            )
-                        ),
-                typeof(ArgumentNullException),
-                new ArgumentNullException("versionFunction").Message
-                ).SetArgDisplayNames($"{nameof(componentBagExceptionsTestCases)}_11")
-
+                new Func<ComponentBag>(
+                    () => new ComponentBag(
+                                slidingWindowManager: new SlidingWindowManager(),
+                                observationManager: new ObservationManager(),
+                                fileManager: new FileManager(),
+                                roundingFunction: ComponentBag.DefaultRoundingFunction,
+                                loggingAction: ComponentBag.DefaultLoggingAction,
+                                loggingActionAsciiBanner: ComponentBag.DefaultLoggingActionAsciiBanner,
+                                filenameFactory: new FilenameFactory(),
+                                nowFunction: ComponentBag.DefaultNowFunction,
+                                forecastingInitManager: new ForecastingInitManager(),
+                                serializerFactory: new SerializerFactory(),
+                                versionFunction: null
+                            )),
+                new Action<ComponentBag>(componentBag => Assert.That(componentBag.VersionFunction, Is.EqualTo(ComponentBag.DefaultVersionFunction)))
+            ).SetArgDisplayNames($"{nameof(componentBagDefaultValueTestCases)}_11")
         };
 
         #endregion
@@ -248,10 +224,18 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
 
         #region Tests
 
-        [TestCaseSource(nameof(componentBagExceptionsTestCases))]
-        public void ComponentBag_ShouldThrowACertainException_WhenUnproperArguments
-            (TestDelegate del, Type expectedType, string expectedMessage)
-                => Utilities.ObjectMother.Method_ShouldThrowACertainException_WhenUnproperArguments(del, expectedType, expectedMessage);
+        [TestCaseSource(nameof(componentBagDefaultValueTestCases))]
+        public void ComponentBag_ShouldUseDefaultValue_WhenParameterIsNull(Func<ComponentBag> initFunction, Action<ComponentBag> assertAction)
+        {
+
+            // Arrange
+            // Act
+            ComponentBag componentBag = initFunction();
+
+            // Assert
+            assertAction(componentBag);
+        
+        }
 
         [Test]
         public void ComponentBag_ShouldCreateAnObjectOfThisType_WhenInvoked()
@@ -280,6 +264,7 @@ namespace NW.UnivariateForecasting.UnitTests.Bags
             Assert.That(ComponentBag.DefaultLoggingAction, Is.InstanceOf<Action<string>>());
             Assert.That(ComponentBag.DefaultLoggingActionAsciiBanner, Is.InstanceOf<Action<string>>());
             Assert.That(ComponentBag.DefaultNowFunction, Is.InstanceOf<Func<DateTime>>());
+            Assert.That(ComponentBag.DefaultUTCNowFunction, Is.InstanceOf<Func<DateTime>>());
             Assert.That(ComponentBag.DefaultLoggingActionDateFormat, Is.InstanceOf<string>());
             Assert.That(ComponentBag.DefaultVersionFunction, Is.InstanceOf<Func<string>>());
 
