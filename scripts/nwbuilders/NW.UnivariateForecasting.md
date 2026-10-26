@@ -74,7 +74,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 58.49999999999989
             )};
-        version: "4.0.0.0"
+        version: "4.3.0"
     );
 ```
 
@@ -133,7 +133,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 61.53
             )};
-        version: "4.0.0.0"
+        version: "4.3.0"
     );
 ```
 

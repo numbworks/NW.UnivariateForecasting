@@ -6,7 +6,7 @@ Contact: numbworks@gmail.com
 | Date | Author | Description |
 |---|---|---|
 | 2020-04-27 | numbworks | Created. |
-| 2026-07-27 | numbworks | Last update (v4.2.1). |
+| 2026-10-26 | numbworks | Last update (v4.3.0). |
 
 ## Introduction
 
@@ -76,7 +76,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 58.49999999999989
             )};
-        version: "4.0.0.0"
+        version: "4.3.0"
     );
 ```
 
@@ -135,7 +135,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 61.53
             )};
-        version: "4.0.0.0"
+        version: "4.3.0"
     );
 ```
 
@@ -289,6 +289,12 @@ This project includes portions of the `nwbuilders` project, which is documented 
 This project includes portions of the `nwmakefiles` project, which is documented here:
 
 - [docs-nwmakefiles-csharp.md](SeeAlso-nwmakefiles/docs-nwmakefiles-csharp.md)
+
+## See Also: `nwpublishers`
+
+To know more about the package publishing logic, please give a look to the following document:
+
+- [docs-nwpublishers-csharp.md](SeeAlso-nwpublishers/docs-nwpublishers-csharp.md)
 
 ## See Also: `userguide`
 

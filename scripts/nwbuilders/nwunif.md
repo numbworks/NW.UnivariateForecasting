@@ -33,6 +33,9 @@ Performs a univariate forecasting task on the values you provide.
 **--savesession**
     Defines whether the application should automatically save the results, metrics, and logs of the current forecasting session to the working folder upon completion.
 
+**--enableutc**
+    Replaces local time with UTC time in timestamps.
+
 # EXAMPLES
 **Performs a univariate forecasting task on the values you provide:**
 

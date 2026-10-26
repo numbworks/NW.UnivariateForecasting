@@ -21,7 +21,7 @@
   <PropertyGroup>
     <AssemblyName>NW.UnivariateForecasting.CLI</AssemblyName>
     <ExecutableName>nwunif</ExecutableName>
-    <Version>4.2.1</Version>
+    <Version>4.3.0</Version>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Authors>numbworks</Authors>
     <Company>numbworks</Company>

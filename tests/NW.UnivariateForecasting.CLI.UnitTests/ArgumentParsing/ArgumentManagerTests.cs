@@ -721,7 +721,8 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
                         folderPath: @"C:\nwunif\",
                         saveSession: true,
                         roundingDigits: 2,
-                        forecastingDenominator: 0.001);
+                        forecastingDenominator: 0.001,
+                        enableUTC: true);
 
             // Act
             ForecastData actual
@@ -736,6 +737,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
             Assert.That(actual.SaveSession, Is.EqualTo(expected.SaveSession));
             Assert.That(actual.RoundingDigits, Is.EqualTo(expected.RoundingDigits));
             Assert.That(actual.ForecastingDenominator, Is.EqualTo(expected.ForecastingDenominator));
+            Assert.That(expected.EnableUTC, Is.EqualTo(actual.EnableUTC));
 
         }
 
@@ -751,7 +753,8 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
                         folderPath: null,
                         saveSession: false,
                         roundingDigits: null,
-                        forecastingDenominator: null);
+                        forecastingDenominator: null,
+                        enableUTC: true);
 
             // Act
             ForecastData actual
@@ -766,6 +769,7 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
             Assert.That(actual.SaveSession, Is.EqualTo(forecastData.SaveSession));
             Assert.That(actual.RoundingDigits, Is.EqualTo(SettingBag.DefaultRoundingDigits));
             Assert.That(actual.ForecastingDenominator, Is.EqualTo(SettingBag.DefaultForecastingDenominator));
+            Assert.That(actual.EnableUTC, Is.EqualTo(forecastData.EnableUTC));
 
         }
 
@@ -843,7 +847,8 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
                         saveSession: false,
                         folderPath: @"C:\nwunif\",
                         roundingDigits: 2,
-                        forecastingDenominator: 0.001);
+                        forecastingDenominator: 0.001,
+                        enableUTC: true);
 
             // Act
             int actual
@@ -882,7 +887,8 @@ namespace NW.UnivariateForecasting.CLI.UnitTests.ArgumentParsing
                         saveSession: false,
                         folderPath: @"C:\nwunif\",
                         roundingDigits: 2,
-                        forecastingDenominator: 0.001);
+                        forecastingDenominator: 0.001,
+                        enableUTC: true);
 
             // Act
             int actual

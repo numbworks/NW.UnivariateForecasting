@@ -17,9 +17,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
     {
 
         #region Fields
-
-        private ComponentBag _componentBag { get; }
-
         #endregion
 
         #region Properties
@@ -59,8 +56,6 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             UnivariateForecasterFactory = univariateForecasterFactory ?? new UnivariateForecasterFactory();
             ComponentBagFactory = componentBagFactory ?? new ComponentBagFactory();
             SettingBagFactory = settingBagFactory ?? new SettingBagFactory();
-
-            _componentBag = ComponentBagFactory.Create();
 
         }
 
@@ -183,6 +178,7 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                 CommandOption saveSessionOption = CreateSaveSessionOption(subCommand);
                 CommandOption roundingDigitsOption = CreateRoundingDigitsOption(subCommand);
                 CommandOption forecastingDenominatorOption = CreateForecastingDenominatorOption(subCommand);
+                CommandOption enableUTCOption = CreateEnableUTCOption(subCommand);
 
                 subCommand.OnExecute(() =>
                 {
@@ -193,7 +189,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                                 folderPath: folderPathOption.Value(),
                                 saveSession: saveSessionOption.HasValue(),
                                 roundingDigits: ParseRoundingDigitsOrDefault(roundingDigitsOption.Value()),
-                                forecastingDenominator: ParseForecastingDenominatorOrDefault(forecastingDenominatorOption.Value())
+                                forecastingDenominator: ParseForecastingDenominatorOrDefault(forecastingDenominatorOption.Value()),
+                                enableUTC: enableUTCOption.HasValue()
                         );
 
                     return RunSessionForecast(forecastData);
@@ -265,11 +262,23 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                     .Accepts(validator => validator.Use(ForecastingDenominatorValidator));
 
         }
+        private CommandOption CreateEnableUTCOption(CommandLineApplication subCommand)
+        {
+
+            return subCommand
+                    .Option(
+                        CommandLineString.OPTION_ENABLEUTC_TEMPL,
+                        CommandLineString.OPTION_ENABLEUTC_DESCR,
+                        CommandOptionType.NoValue);
+
+        }
 
         private string CreateAsciiBanner()
         {
 
-            string version = _componentBag.VersionFunction();
+            ComponentBag componentBag = ComponentBagFactory.Create();
+
+            string version = componentBag.VersionFunction();
             uint terminalWidth = TerminalWindowManager.GetOrCutoff();
             string asciiBanner = AsciiBannerManager.Create(version, terminalWidth);
 
@@ -279,22 +288,30 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
         private void LogAsciiBanner()
         {
 
+            ComponentBag componentBag = ComponentBagFactory.Create();
+
             string asciiBanner = CreateAsciiBanner();
 
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
-            _componentBag.LoggingActionAsciiBanner(asciiBanner);
-            _componentBag.LoggingActionAsciiBanner(SeparatorLine);
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
+            componentBag.LoggingActionAsciiBanner(asciiBanner);
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
 
         }
         private void LogFooter()
-            => _componentBag.LoggingActionAsciiBanner(SeparatorLine);
+        {
+            
+            ComponentBag componentBag = ComponentBagFactory.Create();
+            componentBag.LoggingActionAsciiBanner(SeparatorLine);
+
+        }
         private int LogAndReturnFailure(Exception e)
         {
 
-            _componentBag.LoggingAction(ErrorMessageFormatter(e.Message));
+            ComponentBag componentBag = ComponentBagFactory.Create();
+            componentBag.LoggingAction(ErrorMessageFormatter(e.Message));
 
             if (e.InnerException != null)
-                _componentBag.LoggingAction(ErrorMessageFormatter(e.InnerException.Message));
+                componentBag.LoggingAction(ErrorMessageFormatter(e.InnerException.Message));
 
             LogFooter();
 
@@ -328,7 +345,10 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
             {
 
                 ShowHeader();
-                _componentBag.LoggingAction(ErrorMessageFormatter(validationResult.ErrorMessage));
+
+                ComponentBag componentBag = ComponentBagFactory.Create();
+                componentBag.LoggingAction(ErrorMessageFormatter(validationResult.ErrorMessage));
+                
                 LogFooter();
 
                 return Failure;
@@ -348,7 +368,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                     folderPath: forecastData.FolderPath ?? SettingBag.DefaultFolderPath,
                     saveSession: forecastData.SaveSession,
                     roundingDigits: forecastData.RoundingDigits ?? SettingBag.DefaultRoundingDigits,
-                    forecastingDenominator: forecastData.ForecastingDenominator ?? SettingBag.DefaultForecastingDenominator
+                    forecastingDenominator: forecastData.ForecastingDenominator ?? SettingBag.DefaultForecastingDenominator,
+                    enableUTC: forecastData.EnableUTC
                 );
 
             return updated;
@@ -374,7 +395,8 @@ namespace NW.UnivariateForecasting.CLI.ArgumentParsing
                 forecastData = Defaultize(forecastData);
 
                 SettingBag settingBag = SettingBagFactory.Create(forecastData);
-                UnivariateForecaster univariateForecaster = UnivariateForecasterFactory.Create(settingBag, _componentBag);
+                ComponentBag componentBag = ComponentBagFactory.Create(forecastData.EnableUTC);
+                UnivariateForecaster univariateForecaster = UnivariateForecasterFactory.Create(settingBag, componentBag);
 
                 ShowHeader();
 
