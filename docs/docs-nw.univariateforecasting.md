@@ -6,7 +6,7 @@ Contact: numbworks@gmail.com
 | Date | Author | Description |
 |---|---|---|
 | 2020-04-27 | numbworks | Created. |
-| 2026-07-27 | numbworks | Last update (v4.2.1). |
+| 2026-10-26 | numbworks | Last update (v4.3.0). |
 
 ## Introduction
 
@@ -76,7 +76,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 58.49999999999989
             )};
-        version: "4.0.0.0"
+        version: "4.3.0"
     );
 ```
 
@@ -135,7 +135,7 @@ ForecastingSession session
                     error: 0, 
                     nextValue: 61.53
             )};
-        version: "4.0.0.0"
+        version: "4.3.0"
     );
 ```
 

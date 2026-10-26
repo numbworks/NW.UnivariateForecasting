@@ -16,7 +16,7 @@ nwunif
 |Command|Sub Command|Options|Exit Codes|
 |---|---|---|---|
 |session|||Success|
-|session|forecast|--init:{filename}<br />*--folderpath:{path}*<br />*--savesession*<br />*--roundingdigits:{number}*<br />*--forecastingdenominator:{number}*|Success<br />Failure|
+|session|forecast|--init:{filename}<br />*--folderpath:{path}*<br />*--savesession*<br />*--roundingdigits:{number}*<br />*--forecastingdenominator:{number}*<br />*--enableutc*|Success<br />Failure|
 
 ## Examples
 
@@ -42,7 +42,7 @@ The command above will log something like this to the console:
  ##:. ###: ##: ##: ##: ##:::: ##: ##:. ###:: ##:: ##:::::::
  ##::. ##:. ###. ###::. #######:: ##::. ##:'####: ##:::::::
 ..::::..:::...::...::::.......:::..::::..::....::..::::::::
-****************************************Version: 4.2.1*****
+****************************************Version: 4.3.0*****
 
 
 [2026-07-28 16:28:42:381] Attempting to load a 'ForecastingInit' object from: C:\Init.json.
@@ -106,7 +106,7 @@ The produced JSON will look like:
       "NextValue": 158.25
     }
   ],
-  "Version": "4.2.1"
+  "Version": "4.3.0"
 }
 ```
 
